@@ -6,6 +6,8 @@
 package twittools;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,7 +17,7 @@ public class MDIChild extends javax.swing.JInternalFrame
 {
     Quran m_quran;
     VerbalQuran m_speaker;
-    
+
     /**
      * Creates new form NewJInternalFrame
      */
@@ -24,27 +26,33 @@ public class MDIChild extends javax.swing.JInternalFrame
         //super();
         //setSize(100, 100);
         initComponents();
-        combobox.setModel(new javax.swing.DefaultComboBoxModel(Quran.getFileNames()));
         m_quran = new ZippedQuran(0);
-        m_speaker = new ZippedVerbalQuran ("c:\\quran\\000_versebyverse-1");
+        m_speaker = new ZippedVerbalQuran("c:\\quran\\000_versebyverse-1");
+        combobox.setModel(new javax.swing.DefaultComboBoxModel(m_quran.getFileNames()));
         showText();
+    }
+
+    private String loadText() throws Exception
+    {
+        int sura = Integer.parseInt(tf_sura.getText());
+        int aya = Integer.parseInt(tf_aya.getText());
+        return m_quran.getAya(sura, aya);
     }
 
     private void showText()
     {
         try
         {
-            int sura = Integer.parseInt(tf_sura.getText());
-            int aya = Integer.parseInt(tf_aya.getText());
-            String t = "<html>" + m_quran.getAya(sura, aya) + "</html>";
-            outText.setText (t);
+            String t = loadText();
+            t = "<html>" + t + "</html>";
+            outText.setText(t);
         }
         catch (Exception e)
         {
             outText.setText("Sura/Aya not found");
         }
     }
-    
+
     private void speakText()
     {
         try
@@ -57,7 +65,7 @@ public class MDIChild extends javax.swing.JInternalFrame
         {
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,6 +165,13 @@ public class MDIChild extends javax.swing.JInternalFrame
 
         jButton2.setText("Tweet");
         jButton2.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,14 +233,14 @@ public class MDIChild extends javax.swing.JInternalFrame
 
     private void comboboxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboboxActionPerformed
     {//GEN-HEADEREND:event_comboboxActionPerformed
-        String item = (String)combobox.getSelectedItem();
+        String item = (String) combobox.getSelectedItem();
         try
         {
-            m_quran = new Quran (item);
+            m_quran = new Quran(item);
         }
         catch (IOException ex)
         {
-           return;
+            return;
         }
         showText();
     }//GEN-LAST:event_comboboxActionPerformed
@@ -248,7 +263,7 @@ public class MDIChild extends javax.swing.JInternalFrame
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_upButtonActionPerformed
     {//GEN-HEADEREND:event_upButtonActionPerformed
         int aya = 1 + Integer.parseInt(tf_aya.getText());
-        tf_aya.setText(""+aya);
+        tf_aya.setText("" + aya);
         showText();
     }//GEN-LAST:event_upButtonActionPerformed
 
@@ -256,10 +271,30 @@ public class MDIChild extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_downButtonActionPerformed
         int aya = Integer.parseInt(tf_aya.getText());
         if (aya != 1)
+        {
             aya--;
-        tf_aya.setText(""+aya);
+        }
+        tf_aya.setText("" + aya);
         showText();
     }//GEN-LAST:event_downButtonActionPerformed
+
+    // Twitter button
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        try
+        {
+            String t = loadText();
+            TwitTools tw = TwitTools.get();
+            StringDivider sd = new StringDivider (t, 120);
+            String[] div = sd.divideWords();
+            //DebugTools.printStringArray (div);
+            tw.sendStringArray(div);
+        }
+        catch (Exception ex)
+        {
+            
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

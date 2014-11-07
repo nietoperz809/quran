@@ -38,6 +38,10 @@ public class StringDivider
         int elem = list.size();
         int cnt = 0;
         String[] arr = new String[elem];
+        if (elem == 1)
+        {
+            return new String[]{list.get(0)};
+        }
         for (String s : list)
         {
             arr[cnt] = (cnt+1) + "/" + elem + " " + s;

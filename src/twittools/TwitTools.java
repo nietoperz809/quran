@@ -27,6 +27,28 @@ public class TwitTools
     static final String accessKey = "726420120-fexM4zPAJETnVNiJnr8goS5zMCua59iCGAQYQkGx";
     static final String accessSecret = "Z7tbJ2vPndjxNu3QJlGJlOkhpnUKhLxFbwsTVxI014MU8";
 
+    static private TwitTools m_instance = null;
+    static private Twitter m_twit = null;
+    
+    private TwitTools()
+    {
+        try
+        {
+            m_twit = connect();
+        }
+        catch (Exception ex)
+        {
+            m_twit = null;
+        }
+    }
+    
+    public static TwitTools get()
+    {
+        if (m_instance == null)
+            m_instance = new TwitTools();
+        return m_instance;
+    }
+    
     public static Twitter connect() throws TwitterException, IOException
     {
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -38,17 +60,19 @@ public class TwitTools
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
 
-        //twitter.updateStatus("Test");
         return twitter;
     }
 
-    static void sendStringArray(String[] sa, Twitter tw) throws Exception
+    public void sendStringArray(String[] sa) throws Exception
     {
+        if (m_twit == null)
+            return;
+        
         for (String s : sa)
         {
-            Status st = tw.updateStatus(s);
+            Status st = m_twit.updateStatus(s);
             System.out.println(st.getText());
-            Thread.sleep (36000);
+            //Thread.sleep (36000);
         }
     }
 

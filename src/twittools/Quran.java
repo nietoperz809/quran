@@ -59,7 +59,7 @@ public class Quran
         this (m_files[idx]);
     }
 
-    public static String[] getFileNames()
+    protected String[] getFileNames()
     {
         return m_files;
     }
