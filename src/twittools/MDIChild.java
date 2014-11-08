@@ -5,6 +5,9 @@
  */
 package twittools;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +20,20 @@ public class MDIChild extends javax.swing.JInternalFrame
 {
     Quran m_quran;
     VerbalQuran m_speaker;
+
+    class Verse
+    {
+        public int sura;
+        public int aya;
+    }
+
+    private Verse getSelectedVerse() throws Exception
+    {
+        Verse v = new Verse();
+        v.sura = Integer.parseInt(tf_sura.getText());
+        v.aya = Integer.parseInt(tf_aya.getText());
+        return v;
+    }
 
     /**
      * Creates new form NewJInternalFrame
@@ -34,9 +51,8 @@ public class MDIChild extends javax.swing.JInternalFrame
 
     private String loadText() throws Exception
     {
-        int sura = Integer.parseInt(tf_sura.getText());
-        int aya = Integer.parseInt(tf_aya.getText());
-        return m_quran.getAya(sura, aya);
+        Verse v = getSelectedVerse();
+        return m_quran.getAya(v.sura, v.aya);
     }
 
     private void showText()
@@ -57,9 +73,8 @@ public class MDIChild extends javax.swing.JInternalFrame
     {
         try
         {
-            int sura = Integer.parseInt(tf_sura.getText());
-            int aya = Integer.parseInt(tf_aya.getText());
-            m_speaker.playAsync(sura, aya);
+            Verse v = getSelectedVerse();
+            m_speaker.playAsync(v.sura, v.aya);
         }
         catch (Exception e)
         {
@@ -87,6 +102,9 @@ public class MDIChild extends javax.swing.JInternalFrame
         upButton = new javax.swing.JButton();
         downButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        upButton1 = new javax.swing.JButton();
+        downButton1 = new javax.swing.JButton();
         outText = new javax.swing.JLabel();
 
         setClosable(true);
@@ -97,7 +115,8 @@ public class MDIChild extends javax.swing.JInternalFrame
         setVisible(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(394, 30));
+        jPanel1.setPreferredSize(new java.awt.Dimension(394, 60));
+        jPanel1.setRequestFocusEnabled(false);
 
         jLabel1.setText("Sura");
 
@@ -173,31 +192,73 @@ public class MDIChild extends javax.swing.JInternalFrame
             }
         });
 
+        jButton3.setText("Copy");
+        jButton3.setToolTipText("");
+        jButton3.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        upButton1.setText("+");
+        upButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        upButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                upButton1ActionPerformed(evt);
+            }
+        });
+
+        downButton1.setText("-");
+        downButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        downButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                downButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(2, 2, 2)
-                .addComponent(tf_sura, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jLabel2)
-                .addGap(2, 2, 2)
-                .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(2, 2, 2)
+                        .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(2, 2, 2)
+                        .addComponent(tf_sura, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(upButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(upButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(upButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(downButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 73, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,15 +266,20 @@ public class MDIChild extends javax.swing.JInternalFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tf_sura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(upButton)
+                    .addComponent(jButton2)
+                    .addComponent(downButton1)
+                    .addComponent(upButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(downButton)
-                    .addComponent(jButton2))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton3)
+                    .addComponent(upButton))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -262,19 +328,35 @@ public class MDIChild extends javax.swing.JInternalFrame
 
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_upButtonActionPerformed
     {//GEN-HEADEREND:event_upButtonActionPerformed
-        int aya = 1 + Integer.parseInt(tf_aya.getText());
-        tf_aya.setText("" + aya);
+        Verse v;
+        try
+        {
+            v = getSelectedVerse();
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        tf_aya.setText("" + (v.aya + 1));
         showText();
     }//GEN-LAST:event_upButtonActionPerformed
 
     private void downButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_downButtonActionPerformed
     {//GEN-HEADEREND:event_downButtonActionPerformed
-        int aya = Integer.parseInt(tf_aya.getText());
-        if (aya != 1)
+        Verse v;
+        try
         {
-            aya--;
+            v = getSelectedVerse();
         }
-        tf_aya.setText("" + aya);
+        catch (Exception ex)
+        {
+            return;
+        }
+        if (v.aya != 1)
+        {
+            v.aya--;
+        }
+        tf_aya.setText("" + v.aya);
         showText();
     }//GEN-LAST:event_downButtonActionPerformed
 
@@ -283,25 +365,78 @@ public class MDIChild extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         try
         {
-            String t = loadText();
+            Verse v = getSelectedVerse();
+            String t = loadText() + " #Quran " + v.sura + ":" + v.aya;
             TwitTools tw = TwitTools.get();
-            StringDivider sd = new StringDivider (t, 120);
+            StringDivider sd = new StringDivider(t, 120);
             String[] div = sd.divideWords();
             //DebugTools.printStringArray (div);
             tw.sendStringArray(div);
         }
         catch (Exception ex)
         {
-            
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
+    {//GEN-HEADEREND:event_jButton3ActionPerformed
+        try
+        {
+            Verse v = getSelectedVerse();
+            String t = loadText() + " #Quran " + v.sura + ":" + v.aya;
+            StringSelection selection = new StringSelection(t);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(selection, selection);
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void upButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_upButton1ActionPerformed
+    {//GEN-HEADEREND:event_upButton1ActionPerformed
+        Verse v;
+        try
+        {
+            v = getSelectedVerse();
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        tf_sura.setText("" + (v.sura + 1));
+        showText();
+    }//GEN-LAST:event_upButton1ActionPerformed
+
+    private void downButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_downButton1ActionPerformed
+    {//GEN-HEADEREND:event_downButton1ActionPerformed
+        Verse v;
+        try
+        {
+            v = getSelectedVerse();
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+        if (v.sura != 1)
+        {
+            v.sura--;
+        }
+        tf_sura.setText("" + v.sura);
+        showText();
+    }//GEN-LAST:event_downButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox combobox;
     private javax.swing.JButton downButton;
+    private javax.swing.JButton downButton1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -310,5 +445,6 @@ public class MDIChild extends javax.swing.JInternalFrame
     private javax.swing.JTextField tf_aya;
     private javax.swing.JTextField tf_sura;
     private javax.swing.JButton upButton;
+    private javax.swing.JButton upButton1;
     // End of variables declaration//GEN-END:variables
 }
