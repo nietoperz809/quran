@@ -6,8 +6,6 @@
 package twittools;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -111,19 +109,19 @@ public class MDIApplication extends javax.swing.JFrame
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     public static void main(String args[]) throws Exception
     {
+        Metadata.get();
+        
         /* Set the Nimbus look and feel */
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");      
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
+        java.awt.EventQueue.invokeLater(() ->
         {
-            public void run()
-            {
-                new MDIApplication().setVisible(true);
-            }
+            new MDIApplication().setVisible(true);
         });
     }
 
