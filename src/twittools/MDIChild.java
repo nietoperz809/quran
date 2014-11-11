@@ -16,8 +16,8 @@ import java.io.IOException;
  */
 public class MDIChild extends javax.swing.JInternalFrame
 {
-    Quran m_quran;
-    VerbalQuran m_speaker;
+    private Quran m_quran;
+    private final VerbalQuran m_speaker;
 
     class Verse
     {
@@ -47,9 +47,27 @@ public class MDIChild extends javax.swing.JInternalFrame
         showText();
     }
 
+    private String getSuraHeader (int sura)
+    {
+        try
+        {
+            Metadata dat = Metadata.get();
+            if (sura == - 1)
+                sura = getSelectedVerse().sura;
+            Metadata.SuraInfo info = dat.getSuraInfo(sura);
+            return "I:"+info.index + "|O:" + info.order + "|" + "S:" + info.ayas + "|" + 
+                    info.ename + "|" + info.name + "|" + info.tname + "|" + info.type;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+    
     private String loadText() throws Exception
     {
         Verse v = getSelectedVerse();
+        infoText.setText (getSuraHeader(v.sura));
         return m_quran.getAya(v.sura, v.aya);
     }
 
@@ -103,6 +121,7 @@ public class MDIChild extends javax.swing.JInternalFrame
         jButton3 = new javax.swing.JButton();
         upButton1 = new javax.swing.JButton();
         downButton1 = new javax.swing.JButton();
+        infoText = new javax.swing.JTextField();
         outText = new javax.swing.JLabel();
 
         setClosable(true);
@@ -113,8 +132,7 @@ public class MDIChild extends javax.swing.JInternalFrame
         setVisible(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(394, 60));
-        jPanel1.setRequestFocusEnabled(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(394, 100));
 
         jLabel1.setText("Sura");
 
@@ -221,6 +239,12 @@ public class MDIChild extends javax.swing.JInternalFrame
             }
         });
 
+        infoText.setEditable(false);
+        infoText.setBackground(new java.awt.Color(102, 255, 204));
+        infoText.setFont(new java.awt.Font("Arabic Typesetting", 1, 24)); // NOI18N
+        infoText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        infoText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -249,7 +273,7 @@ public class MDIChild extends javax.swing.JInternalFrame
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 73, Short.MAX_VALUE)
+                .addGap(12, 86, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,6 +281,7 @@ public class MDIChild extends javax.swing.JInternalFrame
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55))
+            .addComponent(infoText)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,14 +295,18 @@ public class MDIChild extends javax.swing.JInternalFrame
                     .addComponent(jButton2)
                     .addComponent(downButton1)
                     .addComponent(upButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(downButton)
-                    .addComponent(jButton3)
-                    .addComponent(upButton))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(downButton)
+                        .addComponent(jButton3)
+                        .addComponent(upButton))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(infoText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -432,6 +461,7 @@ public class MDIChild extends javax.swing.JInternalFrame
     private javax.swing.JComboBox combobox;
     private javax.swing.JButton downButton;
     private javax.swing.JButton downButton1;
+    private javax.swing.JTextField infoText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
