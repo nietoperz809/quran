@@ -332,7 +332,7 @@ public class QuranGUI extends javax.swing.JInternalFrame
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 86, Short.MAX_VALUE)
+                .addGap(12, 107, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,12 +373,13 @@ public class QuranGUI extends javax.swing.JInternalFrame
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         outText.setBackground(new java.awt.Color(0, 0, 0));
-        outText.setFont(new java.awt.Font("Arabic Typesetting", 1, 36)); // NOI18N
+        outText.setFont(new java.awt.Font("Arabic Typesetting", 1, 24)); // NOI18N
         outText.setForeground(new java.awt.Color(255, 255, 255));
         outText.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         outText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         outText.setAutoscrolls(true);
         outText.setDoubleBuffered(true);
+        outText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         outText.setOpaque(true);
         getContentPane().add(outText, java.awt.BorderLayout.CENTER);
 

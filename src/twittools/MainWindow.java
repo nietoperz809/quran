@@ -6,7 +6,6 @@
 package twittools;
 
 import java.io.IOException;
-import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
 
 /**
@@ -35,6 +34,7 @@ public class MainWindow extends javax.swing.JFrame
     {
 
         desktopPane = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -46,6 +46,10 @@ public class MainWindow extends javax.swing.JFrame
         setTitle("The Holy Qur'an");
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\tank.jpg")); // NOI18N
+        desktopPane.add(jLabel1);
+        jLabel1.setBounds(0, 0, 400, 280);
 
         menuBar.setPreferredSize(new java.awt.Dimension(100, 21));
 
@@ -98,7 +102,10 @@ public class MainWindow extends javax.swing.JFrame
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
         try
         {
-            desktopPane.add (new QuranGUI());
+            QuranGUI q = new QuranGUI();
+            desktopPane.add (q);
+            q.moveToFront();
+        
         }
         catch (IOException ex)
         {
@@ -130,6 +137,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables
