@@ -21,7 +21,7 @@ public class QuranGUI extends javax.swing.JInternalFrame
 {
     private Quran m_quran;
     private final VerbalQuran m_speaker;
-    private ArrayList<SeekResultGui> seekResults = new ArrayList<>();
+    private final ArrayList<SeekResultGui> seekResults = new ArrayList<>();
     
     class Verse
     {

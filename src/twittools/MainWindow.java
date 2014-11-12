@@ -43,6 +43,7 @@ public class MainWindow extends javax.swing.JFrame
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("The Holy Qur'an");
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
 
