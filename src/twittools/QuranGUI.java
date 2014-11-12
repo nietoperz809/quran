@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author Administrator
  */
-public class MDIChild extends javax.swing.JInternalFrame
+public class QuranGUI extends javax.swing.JInternalFrame
 {
     private Quran m_quran;
     private final VerbalQuran m_speaker;
@@ -36,7 +36,7 @@ public class MDIChild extends javax.swing.JInternalFrame
     /**
      * Creates new form NewJInternalFrame
      */
-    public MDIChild() throws IOException
+    public QuranGUI() throws IOException
     {
         //super();
         //setSize(100, 100);
@@ -51,10 +51,10 @@ public class MDIChild extends javax.swing.JInternalFrame
     {
         try
         {
-            Metadata dat = Metadata.get();
+            QuranMetadata dat = QuranMetadata.get();
             if (sura == - 1)
                 sura = getSelectedVerse().sura;
-            Metadata.SuraInfo info = dat.getSuraInfo(sura);
+            QuranMetadata.SuraInfo info = dat.getSuraInfo(sura);
             return "I:"+info.index + "|O:" + info.order + "|" + "S:" + info.ayas + "|" + 
                     info.ename + "|" + info.name + "|" + info.tname + "|" + info.type;
         }

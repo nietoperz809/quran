@@ -12,13 +12,13 @@ import javax.swing.UIManager;
  *
  * @author Administrator
  */
-public class MDIApplication extends javax.swing.JFrame
+public class MainWindow extends javax.swing.JFrame
 {
 
     /**
      * Creates new form MDIApplication
      */
-    public MDIApplication()
+    public MainWindow()
     {
         initComponents();
     }
@@ -42,7 +42,6 @@ public class MDIApplication extends javax.swing.JFrame
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 400));
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
 
@@ -95,10 +94,10 @@ public class MDIApplication extends javax.swing.JFrame
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
-        MDIChild jf;
+        QuranGUI jf;
         try
         {
-            jf = new MDIChild();
+            jf = new QuranGUI();
             desktopPane.add(jf);
         }
         catch (IOException ex)
@@ -113,7 +112,7 @@ public class MDIApplication extends javax.swing.JFrame
      */
     public static void main(String args[]) throws Exception
     {
-        Metadata.get();
+        QuranMetadata.get();
         
         /* Set the Nimbus look and feel */
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");      
@@ -121,7 +120,7 @@ public class MDIApplication extends javax.swing.JFrame
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() ->
         {
-            new MDIApplication().setVisible(true);
+            new MainWindow().setVisible(true);
         });
     }
 

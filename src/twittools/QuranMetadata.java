@@ -21,9 +21,9 @@ import org.xml.sax.SAXException;
  *
  * @author Administrator
  */
-public class Metadata
+public class QuranMetadata
 {
-    private static Metadata m_this;
+    private static QuranMetadata m_this;
     private final String m_path = "c:\\quran\\quran-data.xml";
     private final Document m_document;
     private final ArrayList<SuraInfo> m_suras = new ArrayList<>();
@@ -109,7 +109,7 @@ public class Metadata
         }
     }
 
-    private Metadata() throws ParserConfigurationException, SAXException, IOException
+    private QuranMetadata() throws ParserConfigurationException, SAXException, IOException
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -118,13 +118,13 @@ public class Metadata
         traverseXML (n);
     }
 
-    public static Metadata get()
+    public static QuranMetadata get()
     {
         if (m_this == null)
         {
             try
             {
-                m_this = new Metadata();
+                m_this = new QuranMetadata();
             }
             catch (ParserConfigurationException | SAXException | IOException ex)
             {
