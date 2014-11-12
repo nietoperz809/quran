@@ -5,8 +5,10 @@
  */
 package twittools;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Vector;
 
 /**
  *
@@ -19,12 +21,22 @@ public class HashmapSeeker
     public HashmapSeeker (HashMap<String, String> m)
     {
         m_map = m;
+    }
+    
+    String[] seek (String what)
+    {
+        Vector<String> result = new Vector<>();
 
         m_map.entrySet().stream().forEach((entry) -> 
         {
             String key = entry.getKey();
             String value = entry.getValue();
-            System.out.println (key + "|" + value);
+            if (value.contains(what))
+                result.add(key);
         });
+        
+        Collections.sort(result, (String s1, String s2) -> s1.compareTo(s2));        
+    
+        return result.toArray(new String[result.size()]);
     }
 }

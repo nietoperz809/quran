@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -18,7 +21,8 @@ public class QuranGUI extends javax.swing.JInternalFrame
 {
     private Quran m_quran;
     private final VerbalQuran m_speaker;
-
+    private ArrayList<SeekResultGui> seekResults = new ArrayList<>();
+    
     class Verse
     {
         public int sura;
@@ -33,6 +37,12 @@ public class QuranGUI extends javax.swing.JInternalFrame
         return v;
     }
 
+    private void setSelectedVerse(int sura, int aya)
+    {
+        tf_sura.setText(""+sura);
+        tf_aya.setText(""+aya);
+    }
+    
     /**
      * Creates new form NewJInternalFrame
      */
@@ -71,6 +81,15 @@ public class QuranGUI extends javax.swing.JInternalFrame
         return m_quran.getAya(v.sura, v.aya);
     }
 
+    public void display (String sa)
+    {
+        String[] sp = sa.split(Pattern.quote("|"));
+        int s = Integer.parseInt(sp[0]);
+        int a = Integer.parseInt(sp[1]);
+        setSelectedVerse (s,a);
+        showText();
+    }
+    
     private void showText()
     {
         try
@@ -122,6 +141,8 @@ public class QuranGUI extends javax.swing.JInternalFrame
         upButton1 = new javax.swing.JButton();
         downButton1 = new javax.swing.JButton();
         infoText = new javax.swing.JTextField();
+        seekText = new javax.swing.JTextField();
+        seekButton = new javax.swing.JButton();
         outText = new javax.swing.JLabel();
 
         setClosable(true);
@@ -130,6 +151,31 @@ public class QuranGUI extends javax.swing.JInternalFrame
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(600, 400));
         setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
+        {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+            {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(394, 100));
@@ -245,6 +291,15 @@ public class QuranGUI extends javax.swing.JInternalFrame
         infoText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         infoText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        seekButton.setText("Seek");
+        seekButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                seekButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -260,11 +315,15 @@ public class QuranGUI extends javax.swing.JInternalFrame
                         .addGap(2, 2, 2)
                         .addComponent(tf_sura, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(upButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seekText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seekButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(upButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -300,7 +359,9 @@ public class QuranGUI extends javax.swing.JInternalFrame
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(downButton)
                         .addComponent(jButton3)
-                        .addComponent(upButton))
+                        .addComponent(upButton)
+                        .addComponent(seekText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seekButton))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -456,6 +517,30 @@ public class QuranGUI extends javax.swing.JInternalFrame
         showText();
     }//GEN-LAST:event_downButton1ActionPerformed
 
+    private void seekButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_seekButtonActionPerformed
+    {//GEN-HEADEREND:event_seekButtonActionPerformed
+        String text = seekText.getText();
+        if (text.length() < 3)
+            return;
+        HashMap<String, String> map = this.m_quran.getMap();
+        HashmapSeeker seeker = new HashmapSeeker (map);
+        
+        String[] res = seeker.seek (text);
+
+        SeekResultGui sr = new SeekResultGui (this, text, res);
+        seekResults.add(sr);
+        this.getDesktopPane().add (sr);
+        sr.moveToFront();
+    }//GEN-LAST:event_seekButtonActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
+    {//GEN-HEADEREND:event_formInternalFrameClosed
+        seekResults.stream().forEach((g) ->
+        {
+            g.dispose();
+        });
+    }//GEN-LAST:event_formInternalFrameClosed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox combobox;
@@ -470,6 +555,8 @@ public class QuranGUI extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel outText;
+    private javax.swing.JButton seekButton;
+    private javax.swing.JTextField seekText;
     private javax.swing.JTextField tf_aya;
     private javax.swing.JTextField tf_sura;
     private javax.swing.JButton upButton;

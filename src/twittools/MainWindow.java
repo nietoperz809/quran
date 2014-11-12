@@ -6,6 +6,7 @@
 package twittools;
 
 import java.io.IOException;
+import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
 
 /**
@@ -94,11 +95,9 @@ public class MainWindow extends javax.swing.JFrame
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
-        QuranGUI jf;
         try
         {
-            jf = new QuranGUI();
-            desktopPane.add(jf);
+            desktopPane.add (new QuranGUI());
         }
         catch (IOException ex)
         {

@@ -18,9 +18,9 @@ import java.util.Scanner;
  */
 public class Quran
 {
-    HashMap<String, String> m_map = new HashMap<>();
-    final String m_path = "c:\\quran\\";
-    final Charset ENCODING = StandardCharsets.UTF_8;
+    protected final HashMap<String, String> m_map = new HashMap<>();
+    protected final String m_path = "c:\\quran\\";
+    protected final Charset ENCODING = StandardCharsets.UTF_8;
     
     static final String[] m_files =
     {
@@ -88,13 +88,17 @@ public class Quran
         scan (scanner);
     }
 
-    public String getAya(int sura, int ayat) throws Exception
+    public String getAya(String key) throws Exception
     {
-        String key = "" + sura + "|" + ayat;
         String v = m_map.get(key); 
         if (v == null)
             throw new Exception("not found");
         return v;
+    }
+    
+    public String getAya(int sura, int ayat) throws Exception
+    {
+        return getAya ("" + sura + "|" + ayat);
     }
 
     public String getSura(int num)
@@ -123,5 +127,10 @@ public class Quran
             return null;
         }
         return r;
+    }
+    
+    public HashMap<String, String> getMap()
+    {
+        return m_map;
     }
 }
