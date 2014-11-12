@@ -3,13 +3,10 @@ package twittools;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 /**
- *
+ * Class to split string into array of strings 
+ * which elements do not exceed a specified length
  * @author Administrator
  */
 public class StringDivider
@@ -17,7 +14,11 @@ public class StringDivider
     private final String source;
     private int maxlen;
     
-    public String[] divideWords()
+    /**
+     * Splits string by Words
+     * @return Generated string array
+     */
+    public String[] splitByWords()
     {
         List<String> list = new ArrayList<>();
         String[] ss = source.split(" ");
@@ -50,7 +51,11 @@ public class StringDivider
         return arr;
     }
     
-    String[] divideChars()
+    /**
+     * Splits by Characters
+     * @return Generated string array
+     */
+    String[] splitByChars()
     {
         int len = source.length();
         int minlen = maxlen / 2;
@@ -69,7 +74,12 @@ public class StringDivider
         return split (source, maxlen);
     }
     
-    StringDivider (String s, int l)
+    /**
+     *  Constructor
+     * @param s Source string
+     * @param l Max length of one output string
+     */
+    public StringDivider (String s, int l)
     {
         maxlen = l;
         source = s;
@@ -88,7 +98,12 @@ public class StringDivider
         return result;
     }
 
-    public static final String islamText
+    /**
+     * Test function
+     */
+    static void test()
+    {
+        final String islamText
                 = "Oh mankind! Listen well to what I say. I do not know whether I will ever meet you again at "
                 + "this place after this year. Behold! all practices of paganism and ignorance are now under my "
                 + "feet. The blood-revenge of the Days of Ignorance are remitted. Usury is forbidden."
@@ -110,15 +125,12 @@ public class StringDivider
                 + "This day, I have perfected your religion to you and completed my favor to you. And have "
                 + "chosen for you Islam as your religion.";
 
-    
-    static void test()
-    {
 
         StringDivider sd = new StringDivider (islamText, 120);
-        //String[] r = sd.divideChars();
+        //String[] r = sd.splitByChars();
         //DebugTools.printStringArray(r);
         
-        String[] ls = sd.divideWords();
+        String[] ls = sd.splitByWords();
         DebugTools.printStringArray(ls);
     }
 }

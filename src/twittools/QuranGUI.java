@@ -396,7 +396,7 @@ public class QuranGUI extends javax.swing.JInternalFrame
             String t = loadText() + " #Quran " + v.sura + ":" + v.aya;
             TwitTools tw = TwitTools.get();
             StringDivider sd = new StringDivider(t, 120);
-            String[] div = sd.divideWords();
+            String[] div = sd.splitByWords();
             //DebugTools.printStringArray (div);
             tw.sendStringArray(div);
         }
