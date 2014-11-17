@@ -48,11 +48,9 @@ public class QuranGUI extends javax.swing.JInternalFrame
      */
     public QuranGUI() throws IOException
     {
-        //super();
-        //setSize(100, 100);
         initComponents();
         m_quran = new ZippedQuran(0);
-        m_speaker = new ZippedVerbalQuran("c:\\quran\\000_versebyverse-1");
+        m_speaker = new ZippedVerbalQuran();
         combobox.setModel(new javax.swing.DefaultComboBoxModel(m_quran.getFileNames()));
         showText();
     }

@@ -21,10 +21,9 @@ public class ZippedVerbalQuran extends VerbalQuran
 {
     private final ZipFile m_zip;
     
-    public ZippedVerbalQuran(String path) throws IOException
+    public ZippedVerbalQuran() throws IOException
     {
-        super(path);
-        m_zip = new ZipFile(path+".zip");
+        m_zip = new ZipFile(QuranSpeakerZipFile);
     }
 
     @Override

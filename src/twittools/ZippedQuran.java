@@ -24,7 +24,7 @@ public class ZippedQuran extends Quran
     public ZippedQuran(int idx) throws IOException
     {
         super(idx);
-        m_zip = new ZipFile(m_path + "quran.zip");
+        m_zip = new ZipFile(QuranZipFile);
     }
 
     private String[] getZipEntries()
@@ -50,7 +50,7 @@ public class ZippedQuran extends Quran
     protected void readFile(String entryname) throws IOException
     {
         if (m_zip == null)
-            m_zip = new ZipFile(m_path + "quran.zip");
+            m_zip = new ZipFile(QuranZipFile);
         InputStream inputstream = m_zip.getInputStream(new ZipEntry(entryname));
         Scanner scanner = new Scanner(inputstream, ENCODING.name());
         scan(scanner);

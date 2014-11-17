@@ -16,10 +16,10 @@ import java.util.Scanner;
  *
  * @author Administrator
  */
-public class Quran
+public class Quran implements Settings
 {
     protected final HashMap<String, String> m_map = new HashMap<>();
-    protected final String m_path = "c:\\quran\\";
+    //protected final String m_path = "c:\\quran\\";
     protected final Charset ENCODING = StandardCharsets.UTF_8;
     
     static final String[] m_files =
@@ -84,7 +84,7 @@ public class Quran
     
     protected void readFile (String filename) throws IOException
     {
-        Scanner scanner = new Scanner (new File(m_path + filename), ENCODING.name());
+        Scanner scanner = new Scanner (new File(QuranSinglePath + filename), ENCODING.name());
         scan (scanner);
     }
 

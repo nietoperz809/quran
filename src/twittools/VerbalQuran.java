@@ -16,9 +16,9 @@ import javazoom.jl.player.Player;
  *
  * @author Administrator
  */
-public class VerbalQuran implements Runnable
+public class VerbalQuran implements Runnable, Settings
 {
-    private final String m_path; // = "c:\\quran\\000_versebyverse-1\\";
+    //private final String m_path; // = "c:\\quran\\000_versebyverse-1\\";
 
     class ThreadParam
     {
@@ -33,11 +33,7 @@ public class VerbalQuran implements Runnable
     }
     ThreadParam param;
     
-    public VerbalQuran (String path)
-    {
-        m_path = path;
-    }
-    
+
     protected Player getPlayer (InputStream i) throws JavaLayerException
     {
         Player p = new Player(i);
@@ -49,7 +45,7 @@ public class VerbalQuran implements Runnable
     {
         try
         {
-            String pathToMp3 = String.format ("%s\\%03d%03d%s", m_path, sura, aya, ".mp3");
+            String pathToMp3 = String.format ("%s%03d%03d%s", QuranSpeakerPath, sura, aya, ".mp3");
             FileInputStream f = new FileInputStream(pathToMp3);
             return getPlayer (f);
         }
