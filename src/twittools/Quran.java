@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author Administrator
  */
-public class Quran implements Settings
+public class Quran implements PathNames
 {
     protected final HashMap<String, String> m_map = new HashMap<>();
     //protected final String m_path = "c:\\quran\\";

@@ -16,7 +16,7 @@ import javazoom.jl.player.Player;
  *
  * @author Administrator
  */
-public class VerbalQuran implements Runnable, Settings
+public class VerbalQuran implements Runnable, PathNames
 {
     //private final String m_path; // = "c:\\quran\\000_versebyverse-1\\";
 

@@ -21,10 +21,9 @@ import org.xml.sax.SAXException;
  *
  * @author Administrator
  */
-public class QuranMetadata
+public class QuranMetadata implements PathNames
 {
     private static QuranMetadata m_this;
-    private final String m_path = "c:\\quran\\quran-data.xml";
     private final Document m_document;
     private final ArrayList<SuraInfo> m_suras = new ArrayList<>();
 
@@ -113,7 +112,7 @@ public class QuranMetadata
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        m_document = builder.parse(new File(m_path));
+        m_document = builder.parse(new File(MetaDataPath));
         Node n = m_document.getFirstChild();
         traverseXML (n);
     }

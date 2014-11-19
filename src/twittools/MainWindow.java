@@ -5,6 +5,8 @@
  */
 package twittools;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.io.IOException;
 import javax.swing.UIManager;
 
@@ -23,6 +25,18 @@ public class MainWindow extends javax.swing.JFrame
         initComponents();
     }
 
+    @Override
+    public void paint (Graphics g)
+    {
+        super.paint(g);   
+    }
+    
+    @Override
+    public void update (Graphics g)
+    {
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +48,7 @@ public class MainWindow extends javax.swing.JFrame
     {
 
         desktopPane = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
+        BkImage = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -47,9 +61,9 @@ public class MainWindow extends javax.swing.JFrame
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\tank.jpg")); // NOI18N
-        desktopPane.add(jLabel1);
-        jLabel1.setBounds(0, 0, 400, 280);
+        BkImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/twittools/allah.jpg"))); // NOI18N
+        desktopPane.add(BkImage);
+        BkImage.setBounds(0, 0, 640, 360);
 
         menuBar.setPreferredSize(new java.awt.Dimension(100, 21));
 
@@ -88,11 +102,11 @@ public class MainWindow extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
         );
 
         pack();
@@ -132,12 +146,12 @@ public class MainWindow extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BkImage;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables
