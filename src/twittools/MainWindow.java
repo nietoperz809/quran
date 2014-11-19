@@ -7,7 +7,11 @@ package twittools;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JDesktopPane;
 import javax.swing.UIManager;
 
 /**
@@ -25,18 +29,34 @@ public class MainWindow extends javax.swing.JFrame
         initComponents();
     }
 
-    @Override
-    public void paint (Graphics g)
+    static class BackWindow extends JDesktopPane implements PathNames
     {
-        super.paint(g);   
-    }
-    
-    @Override
-    public void update (Graphics g)
-    {
+        private Image image;
         
+        public BackWindow()
+        {
+            this.setOpaque(false);
+            try
+            {
+                image = ImageIO.read (new File(BackImagePath));
+
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void paint(Graphics g)
+        {
+            int x = this.getWidth();
+            int y = this.getHeight();
+            g.drawImage(image, 0, 0, x,y, this);
+            super.paint(g);
+        }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,8 +67,7 @@ public class MainWindow extends javax.swing.JFrame
     private void initComponents()
     {
 
-        desktopPane = new javax.swing.JDesktopPane();
-        BkImage = new javax.swing.JLabel();
+        desktopPane = new BackWindow();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -60,10 +79,6 @@ public class MainWindow extends javax.swing.JFrame
         setTitle("The Holy Qur'an");
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
-
-        BkImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/twittools/allah.jpg"))); // NOI18N
-        desktopPane.add(BkImage);
-        BkImage.setBounds(0, 0, 640, 360);
 
         menuBar.setPreferredSize(new java.awt.Dimension(100, 21));
 
@@ -117,13 +132,13 @@ public class MainWindow extends javax.swing.JFrame
         try
         {
             QuranGUI q = new QuranGUI();
-            desktopPane.add (q);
+            desktopPane.add(q);
             q.moveToFront();
-        
+
         }
         catch (IOException ex)
         {
-            System.out.println (ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
@@ -134,9 +149,9 @@ public class MainWindow extends javax.swing.JFrame
     public static void main(String args[]) throws Exception
     {
         QuranMetadata.get();
-        
+
         /* Set the Nimbus look and feel */
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");      
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() ->
@@ -146,7 +161,6 @@ public class MainWindow extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BkImage;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JDesktopPane desktopPane;

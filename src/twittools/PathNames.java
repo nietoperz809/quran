@@ -8,6 +8,11 @@ package twittools;
 public interface PathNames
 {
     /**
+     * Image shown in background of main window
+     */
+    public final String BackImagePath = "c:\\allah.jpg";
+    
+    /**
      * Path if qurans are accessed as single files
      */
     public final String QuranSinglePath = "c:\\quran\\";
