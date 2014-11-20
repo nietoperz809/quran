@@ -20,13 +20,8 @@ import twitter4j.conf.ConfigurationBuilder;
  *
  * @author Administrator
  */
-public class TwitTools
+public class TwitTools implements TwitterKeys
 {
-    static final String consumerKey = "ids0SNNX2nXzOkyalerKqjuYk";
-    static final String consuerSecret = "ejFqASN5ilEIleFzKHWm3asDMPZaOd0AOREoLxzZTocQFeGT2N";
-    static final String accessKey = "726420120-fexM4zPAJETnVNiJnr8goS5zMCua59iCGAQYQkGx";
-    static final String accessSecret = "Z7tbJ2vPndjxNu3QJlGJlOkhpnUKhLxFbwsTVxI014MU8";
-
     static private TwitTools m_instance = null;
     static private Twitter m_twit = null;
     
