@@ -5,13 +5,14 @@
  */
 package twittools;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
 
 /**
@@ -20,7 +21,6 @@ import javax.swing.UIManager;
  */
 public class MainWindow extends javax.swing.JFrame
 {
-
     /**
      * Creates new form MDIApplication
      */
@@ -32,13 +32,13 @@ public class MainWindow extends javax.swing.JFrame
     static class BackWindow extends JDesktopPane implements PathNames
     {
         private Image image;
-        
+
         public BackWindow()
         {
             this.setOpaque(false);
             try
             {
-                image = ImageIO.read (new File(BackImagePath));
+                image = ImageIO.read(new File(BackImagePath));
 
             }
             catch (IOException e)
@@ -52,7 +52,7 @@ public class MainWindow extends javax.swing.JFrame
         {
             int x = this.getWidth();
             int y = this.getHeight();
-            g.drawImage(image, 0, 0, x,y, this);
+            g.drawImage(image, 0, 0, x, y, this);
             super.paint(g);
         }
     }
@@ -71,6 +71,8 @@ public class MainWindow extends javax.swing.JFrame
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -95,6 +97,26 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
         fileMenu.add(openMenuItem);
+
+        jMenuItem1.setText("DirectTweet");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem1);
+
+        jMenuItem2.setText("LaTEX");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem2);
 
         menuBar.add(fileMenu);
 
@@ -127,20 +149,41 @@ public class MainWindow extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
-    {//GEN-HEADEREND:event_openMenuItemActionPerformed
+    /**
+     * Creates new MDI child from class name
+     * @param classname Name and package name
+     * Must be of type JInternalFrame
+     */
+    private void mdiChild (String classname)
+    {
         try
         {
-            QuranGUI q = new QuranGUI();
+            Class<?> c = Class.forName(classname);
+            Constructor<?> cons = c.getConstructor();
+            JInternalFrame q = (JInternalFrame)cons.newInstance();
             desktopPane.add(q);
             q.moveToFront();
-
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
             System.out.println(ex);
         }
+    }
+
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
+    {//GEN-HEADEREND:event_openMenuItemActionPerformed
+        mdiChild ("twittools.QuranGUI");
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
+        mdiChild ("twittools.DirectTweet");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
+        mdiChild ("twittools.LatexGUI");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,6 +209,8 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables

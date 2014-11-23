@@ -5,6 +5,8 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.BasicAuthorization;
+import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 /*
@@ -24,34 +26,49 @@ public class TwitTools implements TwitterKeys
 {
     static private TwitTools m_instance = null;
     static private Twitter m_twit = null;
-    
+
     private TwitTools()
     {
         try
         {
+            //m_twit = connect("diobmohr", "mxyzptlk");
             m_twit = connect();
         }
-        catch (Exception ex)
+        catch (TwitterException | IOException ex)
         {
             m_twit = null;
         }
     }
-    
+
     public static TwitTools get()
     {
         if (m_instance == null)
+        {
             m_instance = new TwitTools();
+        }
         return m_instance;
     }
-    
+
+    public static Twitter connect (String user, String pass) throws TwitterException, IOException
+    {
+        Configuration configuration = new ConfigurationBuilder()
+                .setOAuthConsumerKey(consumerKey)
+                .setOAuthConsumerSecret(consumerSecret)
+                .build();
+
+        Twitter twitter = new TwitterFactory(configuration).getInstance(new BasicAuthorization(user, pass)); // yes, use "BasicAuthorization" although that seems strange
+        return twitter;
+    }
+
     public static Twitter connect() throws TwitterException, IOException
     {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-                .setOAuthConsumerKey(consumerKey)
-                .setOAuthConsumerSecret(consuerSecret)
-                .setOAuthAccessToken(accessKey)
-                .setOAuthAccessTokenSecret(accessSecret);
+        cb.setDebugEnabled(true);
+        cb.setOAuthConsumerKey(consumerKey);
+        cb.setOAuthConsumerSecret(consumerSecret);
+        cb.setOAuthAccessToken(accessKey);
+        cb.setOAuthAccessTokenSecret(accessSecret);
+
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
 
@@ -61,12 +78,14 @@ public class TwitTools implements TwitterKeys
     public void sendStringArray(String[] sa) throws Exception
     {
         if (m_twit == null)
+        {
             return;
-        
+        }
+
         for (String s : sa)
         {
             Status st = m_twit.updateStatus(s);
-            System.out.println(st.getText());
+            //System.out.println(st.getText());
             //Thread.sleep (36000);
         }
     }
@@ -128,5 +147,4 @@ public class TwitTools implements TwitterKeys
 ////        String[] ls = sd.divideWords();
 ////        sendStringArray (ls, tw);
 //    }
-
 }

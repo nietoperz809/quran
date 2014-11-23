@@ -447,7 +447,10 @@ public class QuranGUI extends javax.swing.JInternalFrame
         showText();
     }//GEN-LAST:event_downButtonActionPerformed
 
-    // Twitter button
+    /**
+     * Tweet the current verse
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         try
@@ -465,7 +468,11 @@ public class QuranGUI extends javax.swing.JInternalFrame
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    /**
+     * Put verse into clipboard
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
         try
@@ -481,7 +488,11 @@ public class QuranGUI extends javax.swing.JInternalFrame
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
+    /**
+     * Next Sura
+     * @param evt 
+     */
     private void upButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_upButton1ActionPerformed
     {//GEN-HEADEREND:event_upButton1ActionPerformed
         Verse v;
@@ -496,7 +507,11 @@ public class QuranGUI extends javax.swing.JInternalFrame
         tf_sura.setText("" + (v.sura + 1));
         showText();
     }//GEN-LAST:event_upButton1ActionPerformed
-
+    
+    /**
+     * Previous Sura
+     * @param evt 
+     */
     private void downButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_downButton1ActionPerformed
     {//GEN-HEADEREND:event_downButton1ActionPerformed
         Verse v;

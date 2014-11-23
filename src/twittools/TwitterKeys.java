@@ -13,6 +13,6 @@ public interface TwitterKeys
 {
     String accessKey = "726420120-fexM4zPAJETnVNiJnr8goS5zMCua59iCGAQYQkGx";
     String accessSecret = "Z7tbJ2vPndjxNu3QJlGJlOkhpnUKhLxFbwsTVxI014MU8";
-    String consuerSecret = "ejFqASN5ilEIleFzKHWm3asDMPZaOd0AOREoLxzZTocQFeGT2N";
+    String consumerSecret = "ejFqASN5ilEIleFzKHWm3asDMPZaOd0AOREoLxzZTocQFeGT2N";
     String consumerKey = "ids0SNNX2nXzOkyalerKqjuYk";
 }
