@@ -34,6 +34,7 @@ public class Sliders extends JInternalFrame implements ActionListener
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setOpaque(true);
     }
     
     private Sliders(int x, int y)
