@@ -8,6 +8,7 @@ package latex;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 import twittools.ClipboardImage;
+import twittools.PixelCanvas;
 
 /**
  *
@@ -47,7 +49,7 @@ public class LatexGUI extends javax.swing.JInternalFrame
         textArea = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        canvas = new Canvas();
+        canvas = new PixelCanvas();
 
         setClosable(true);
         setIconifiable(true);
@@ -125,21 +127,6 @@ public class LatexGUI extends javax.swing.JInternalFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
-    private BufferedImage image;
-    
-    private class Canvas extends JPanel
-    {
-        @Override
-        public void paint (Graphics g)
-        {
-            super.paint(g);
-            if (image == null)
-                return;
-            g.drawImage(image, 0, 0, null);
-        }
-    }
     
     private void render()
     {
@@ -159,9 +146,10 @@ public class LatexGUI extends javax.swing.JInternalFrame
             icon.setInsets(new Insets(5, 5, 5, 5));
 
             // now create an actual image of the rendered equation
-            image = new BufferedImage(icon.getIconWidth(),
+            BufferedImage img = new BufferedImage(icon.getIconWidth(),
                     icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = image.createGraphics();
+            ((PixelCanvas)canvas).setImage (img);
+            Graphics2D g2 = img.createGraphics();
             g2.setColor(Color.WHITE);
             g2.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
             
@@ -185,6 +173,7 @@ public class LatexGUI extends javax.swing.JInternalFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
+        BufferedImage image = ((PixelCanvas)canvas).getImage();
         if (image == null)
             return; 
         new ClipboardImage (image);
