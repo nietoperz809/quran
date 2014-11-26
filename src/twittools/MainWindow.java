@@ -246,7 +246,7 @@ public class MainWindow extends javax.swing.JFrame
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
-        mdiChild ("twittools.QRGeneratorGUI");
+        mdiChild ("qrcode.QRGeneratorGUI");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**

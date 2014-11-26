@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package twittools;
+package qrcode;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -12,6 +12,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import twittools.PixelCanvas;
 
 /**
  *
@@ -19,8 +20,6 @@ import java.awt.image.BufferedImage;
  */
 public class QRGeneratorGUI extends javax.swing.JInternalFrame
 {
-    private BufferedImage img;
-
     /**
      * Creates new form QRGeneratorGUI
      */
@@ -40,15 +39,11 @@ public class QRGeneratorGUI extends javax.swing.JInternalFrame
     {
 
         jPanel1 = new javax.swing.JPanel();
-        sizeX = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        sizeY = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         makeButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         inputField = new javax.swing.JTextArea();
-        jPanel2 = new javax.swing.JPanel();
-        canvas = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        canvas = new twittools.QuadraticPixelCanvas();
 
         setClosable(true);
         setIconifiable(true);
@@ -59,14 +54,6 @@ public class QRGeneratorGUI extends javax.swing.JInternalFrame
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 100));
-
-        sizeX.setText("500");
-
-        jLabel1.setText("X");
-
-        sizeY.setText("500");
-
-        jLabel2.setText("Y");
 
         makeButton.setText("Make!");
         makeButton.addActionListener(new java.awt.event.ActionListener()
@@ -81,83 +68,72 @@ public class QRGeneratorGUI extends javax.swing.JInternalFrame
         inputField.setRows(5);
         jScrollPane1.setViewportView(inputField);
 
+        jButton1.setText("To Clip");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sizeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sizeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(makeButton)))
+                    .addComponent(makeButton)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(sizeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(sizeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(makeButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 4, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(makeButton)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 102));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        canvas.setPreferredSize(new java.awt.Dimension(250, 250));
+        canvas.setBackground(new java.awt.Color(255, 255, 102));
 
         javax.swing.GroupLayout canvasLayout = new javax.swing.GroupLayout(canvas);
         canvas.setLayout(canvasLayout);
         canvasLayout.setHorizontalGroup(
             canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 562, Short.MAX_VALUE)
         );
         canvasLayout.setVerticalGroup(
             canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 258, Short.MAX_VALUE)
         );
 
-        jPanel2.add(canvas, new org.netbeans.lib.awtextra.AbsoluteConstraints(167, 20, 250, -1));
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(canvas, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void makeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_makeButtonActionPerformed
-    {//GEN-HEADEREND:event_makeButtonActionPerformed
+    private boolean render()
+    {
         try
         {
             String txt = inputField.getText();
-            int x = Integer.parseInt(sizeX.getText());
-            int y = Integer.parseInt(sizeY.getText());
+            if (txt.isEmpty())
+                return false;
+            final int x = 800;
+            final int y = 800;
             QRCodeWriter w = new QRCodeWriter();
             BitMatrix m = w.encode(txt, BarcodeFormat.QR_CODE, x, y);
-            img = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
+            BufferedImage img = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
             img.createGraphics();
             Graphics2D graphics = (Graphics2D) img.getGraphics();
             graphics.setColor(Color.WHITE);
@@ -174,24 +150,37 @@ public class QRGeneratorGUI extends javax.swing.JInternalFrame
                     }
                 }
             }
+            ((PixelCanvas)canvas).setImage(img);
         }
         catch (NumberFormatException | WriterException exception)
         {
             System.out.println(exception);
+            return false;
+        }    
+        return true;
+    }
+    
+    private void makeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_makeButtonActionPerformed
+    {//GEN-HEADEREND:event_makeButtonActionPerformed
+        if (render())
+        {
+            canvas.invalidate();
+            canvas.repaint();
         }
     }//GEN-LAST:event_makeButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        ((PixelCanvas)canvas).toClipboard();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel canvas;
     private javax.swing.JTextArea inputField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton makeButton;
-    private javax.swing.JTextField sizeX;
-    private javax.swing.JTextField sizeY;
     // End of variables declaration//GEN-END:variables
 }

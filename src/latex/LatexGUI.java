@@ -6,13 +6,10 @@
 package latex;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -173,10 +170,7 @@ public class LatexGUI extends javax.swing.JInternalFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        BufferedImage image = ((PixelCanvas)canvas).getImage();
-        if (image == null)
-            return; 
-        new ClipboardImage (image);
+        ((PixelCanvas)canvas).toClipboard();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 /*

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  */
 public class PixelCanvas extends JPanel
 {
-    private BufferedImage m_img = null;
+    protected BufferedImage m_img = null;
 
     public void setImage(BufferedImage i)
     {
@@ -27,6 +27,24 @@ public class PixelCanvas extends JPanel
         return m_img;
     }
 
+    public void toClipboard()
+    {
+        if (m_img == null)
+            return; 
+        new ClipboardImage (m_img);
+    }
+    
+    protected void drawImg (Graphics g)
+    {
+        int w = getWidth();
+        int h = getHeight();
+        int wi = m_img.getHeight(null);
+        int hi = m_img.getWidth(null);
+        int off_x = (w-wi)/2;
+        int off_y = (h-hi)/2;
+        g.drawImage(m_img, off_x, off_y, null);
+    }
+    
     @Override
     public void paint(Graphics g)
     {
@@ -35,7 +53,7 @@ public class PixelCanvas extends JPanel
         {
             return;
         }
-        g.drawImage(m_img, 0, 0, null);
+        drawImg(g);
     }
     
 }
