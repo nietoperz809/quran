@@ -27,6 +27,20 @@ public class PixelCanvas extends JPanel
         return m_img;
     }
 
+    public void tweet (String label)
+    {
+        if (m_img == null)
+            return;
+        try
+        {
+            TwitTools.get().sendImage(m_img, label);
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+    
     public void toClipboard()
     {
         if (m_img == null)

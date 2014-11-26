@@ -1,7 +1,14 @@
 package twittools;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import javax.imageio.ImageIO;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -49,7 +56,7 @@ public class TwitTools implements TwitterKeys
         return m_instance;
     }
 
-    public static Twitter connect (String user, String pass) throws TwitterException, IOException
+    public static Twitter connect(String user, String pass) throws TwitterException, IOException
     {
         Configuration configuration = new ConfigurationBuilder()
                 .setOAuthConsumerKey(consumerKey)
@@ -73,6 +80,31 @@ public class TwitTools implements TwitterKeys
         Twitter twitter = tf.getInstance();
 
         return twitter;
+    }
+
+    private File toFile(BufferedImage img) throws Exception
+    {
+        File file = new File("filename");
+        
+        // Create a read-write memory-mapped file
+        FileChannel rwChannel = new RandomAccessFile(file, "rw").getChannel();
+        ByteBuffer writeonlybuffer = rwChannel.map(FileChannel.MapMode.READ_WRITE, 0, (int) rwChannel.size());
+
+        ImageIO.write(img, "png", file);       
+        
+        return file;
+    }
+
+    public void sendImage(BufferedImage img, String label) throws Exception
+    {
+        if (m_twit == null)
+        {
+            return;
+        }
+        File f = toFile(img);
+        StatusUpdate st = new StatusUpdate(label);
+        st.setMedia(f); 
+        m_twit.updateStatus(st);
     }
 
     public void sendStringArray(String[] sa) throws Exception
