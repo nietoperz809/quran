@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
 
@@ -27,6 +28,7 @@ public class MainWindow extends javax.swing.JFrame
     public MainWindow()
     {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     static class BackWindow extends JDesktopPane implements PathNames
@@ -80,12 +82,15 @@ public class MainWindow extends javax.swing.JFrame
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("The Holy Qur'an");
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
 
+        menuBar.setBackground(new java.awt.Color(255, 255, 255));
         menuBar.setPreferredSize(new java.awt.Dimension(100, 21));
 
         fileMenu.setMnemonic('f');
@@ -177,6 +182,21 @@ public class MainWindow extends javax.swing.JFrame
 
         menuBar.add(helpMenu);
 
+        jMenu1.setText("Window");
+        jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jMenuItem7.setText("Arrange");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
+        menuBar.add(jMenu1);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,6 +268,15 @@ public class MainWindow extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
         mdiChild ("qrcode.QRGeneratorGUI");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+    
+    /**
+     * Arrange
+     * @param evt 
+     */
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem7ActionPerformed
+        MDIActions.arrange(desktopPane, evt);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,12 +302,14 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables
