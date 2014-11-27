@@ -71,7 +71,7 @@ public class Arraygen
         buff.deleteCharAt(buff.length()-1);
         if (code == CODE.PHP)
             buff.append("\n);");
-        if (code == CODE.JAVAFUNC)
+        else if (code == CODE.JAVAFUNC)
             buff.append("\n\t};\n}");
         else
             buff.append("\n};");
