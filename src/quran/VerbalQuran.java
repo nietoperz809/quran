@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package twittools;
+package quran;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import twittools.PathNames;
 
 /**
  *

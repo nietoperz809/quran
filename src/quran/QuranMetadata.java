@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package twittools;
+package quran;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import twittools.PathNames;
 
 /**
  *

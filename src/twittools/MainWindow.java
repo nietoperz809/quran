@@ -5,6 +5,7 @@
  */
 package twittools;
 
+import quran.QuranMetadata;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -224,7 +225,7 @@ public class MainWindow extends javax.swing.JFrame
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
-        mdiChild ("twittools.QuranGUI");
+        mdiChild ("quran.QuranGUI");
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed

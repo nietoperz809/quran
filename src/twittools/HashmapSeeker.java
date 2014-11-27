@@ -22,7 +22,7 @@ public class HashmapSeeker
         m_map = m;
     }
     
-    String[] seek (String what)
+    public String[] seek (String what)
     {
         Vector<String> result = new Vector<>();
 

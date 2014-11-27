@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package twittools;
+package quran;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+import twittools.HashmapSeeker;
+import twittools.StringDivider;
+import twittools.TwitTools;
 
 /**
  *
