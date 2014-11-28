@@ -19,64 +19,77 @@ import twittools.PathNames;
  */
 public class VerbalQuran implements Runnable, PathNames
 {
-    //private final String m_path; // = "c:\\quran\\000_versebyverse-1\\";
+    private ThreadParam param;
 
     class ThreadParam
     {
         public int sura;
         public int aya;
-        
-        public ThreadParam (int s, int a)
+
+        public ThreadParam(int s, int a)
         {
             sura = s;
             aya = a;
         }
     }
-    ThreadParam param;
-    
 
-    protected Player getPlayer (InputStream i) throws JavaLayerException
+    protected Player getPlayer(InputStream i) throws JavaLayerException
     {
         Player p = new Player(i);
         p.play(1);
         return p;
     }
-    
-    protected Player loadAya (int sura, int aya)
+
+    /**
+     *
+     * @param sura
+     * @param aya
+     * @return
+     * @throws Exception
+     */
+    public InputStream load(int sura, int aya) throws Exception
+    {
+        String pathToMp3 = String.format("%s%03d%03d%s", QuranSpeakerPath, sura, aya, ".mp3");
+        return new FileInputStream(pathToMp3);
+    }
+
+    protected Player loadAya(int sura, int aya)
     {
         try
         {
-            String pathToMp3 = String.format ("%s%03d%03d%s", QuranSpeakerPath, sura, aya, ".mp3");
-            FileInputStream f = new FileInputStream(pathToMp3);
-            return getPlayer (f);
+            InputStream f = load (sura, aya);
+            return getPlayer(f);
         }
-        catch (FileNotFoundException | JavaLayerException ex)
+        catch (Exception ex)
         {
+            System.out.println (ex);
         }
         return null;
     }
-    
-    public void playAsync (int sura, int aya)
+
+    public void playAsync(int sura, int aya)
     {
-        param = new ThreadParam (sura, aya);
+        param = new ThreadParam(sura, aya);
         new Thread(this).start();
     }
-    
-    public void play (int sura, int aya) throws JavaLayerException 
+
+    public void play(int sura, int aya) throws JavaLayerException
     {
-        Player p = loadAya (sura, aya);
+        Player p = loadAya(sura, aya);
         p.play();
     }
-    
-    public void play (int sura) throws JavaLayerException
+
+    public void play(int sura) throws JavaLayerException
     {
         int aya = 1;
         ArrayList<Player> list = new ArrayList<>();
-        for(;;)
+        for (;;)
         {
-            Player p = loadAya (sura, aya);
+            Player p = loadAya(sura, aya);
             if (p == null)
+            {
                 break;
+            }
             aya++;
             list.add(p);
         }
@@ -91,11 +104,11 @@ public class VerbalQuran implements Runnable, PathNames
     {
         try
         {
-            play (param.sura, param.aya);
+            play(param.sura, param.aya);
         }
         catch (JavaLayerException ex)
         {
-            System.out.println (ex);
+            System.out.println(ex);
         }
     }
 }

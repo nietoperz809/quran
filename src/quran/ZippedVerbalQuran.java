@@ -5,11 +5,9 @@
  */
 package quran;
 
-import quran.VerbalQuran;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javazoom.jl.player.Player;
@@ -21,26 +19,23 @@ import javazoom.jl.player.Player;
 public class ZippedVerbalQuran extends VerbalQuran
 {
     private final ZipFile m_zip;
-    
+
     public ZippedVerbalQuran() throws IOException
     {
         m_zip = new ZipFile(QuranSpeakerZipFile);
     }
 
+    /**
+     *
+     * @param sura
+     * @param aya
+     * @return
+     * @throws Exception
+     */
     @Override
-    protected Player loadAya (int sura, int aya)
+    public InputStream load(int sura, int aya) throws Exception
     {
-        try
-        {
-            String pathToMp3 = String.format ("%03d%03d%s", sura, aya, ".mp3");
-            InputStream i = m_zip.getInputStream (new ZipEntry(pathToMp3));
-            return getPlayer (i); 
-        }
-        catch (Exception ex)
-        {
-            
-        }
-        return null;
+        String pathToMp3 = String.format("%03d%03d%s", sura, aya, ".mp3");
+        return m_zip.getInputStream(new ZipEntry(pathToMp3));
     }
-    
 }
