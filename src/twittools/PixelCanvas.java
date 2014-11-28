@@ -33,7 +33,7 @@ public class PixelCanvas extends JPanel
             return;
         try
         {
-            TwitTools.get().sendImage(m_img, label);
+            TwitTools.get().send(m_img, label);
         }
         catch (Exception ex)
         {

@@ -2,10 +2,14 @@ package twittools;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import javax.imageio.ImageIO;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -82,31 +86,47 @@ public class TwitTools implements TwitterKeys
         return twitter;
     }
 
-    private File toFile(BufferedImage img) throws Exception
+    private File toFile (BufferedImage img) throws Exception
     {
-        File file = new File("filename");
-        
-        // Create a read-write memory-mapped file
-        FileChannel rwChannel = new RandomAccessFile(file, "rw").getChannel();
-        ByteBuffer writeonlybuffer = rwChannel.map(FileChannel.MapMode.READ_WRITE, 0, (int) rwChannel.size());
-
+        File file = File.createTempFile("twittools", ".tmp");
         ImageIO.write(img, "png", file);       
-        
         return file;
     }
 
-    public void sendImage(BufferedImage img, String label) throws Exception
+    private File toFile (InputStream in) throws Exception
+    {
+        File file = new File("tempfile");
+        Files.copy (in, file.toPath());
+        return file;
+    }
+    
+    private void sendFile (File f, String label) throws Exception
+    {
+        StatusUpdate st = new StatusUpdate(label);
+        st.setMedia(f); 
+        m_twit.updateStatus(st);
+    }
+    
+    public void send (BufferedImage img, String label) throws Exception
     {
         if (m_twit == null)
         {
             return;
         }
         File f = toFile(img);
-        StatusUpdate st = new StatusUpdate(label);
-        st.setMedia(f); 
-        m_twit.updateStatus(st);
+        sendFile (f, label);
     }
 
+    public void send (InputStream in, String label) throws Exception
+    {
+        if (m_twit == null)
+        {
+            return;
+        }
+        File f = toFile(in);
+        sendFile (f, label);
+    }
+    
     public void sendStringArray(String[] sa) throws Exception
     {
         if (m_twit == null)
