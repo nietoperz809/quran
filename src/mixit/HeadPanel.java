@@ -1,5 +1,6 @@
 package mixit;
 
+import applications.SlidersGUI;
 import java.awt.*;
 
 /**
@@ -9,7 +10,7 @@ import java.awt.*;
  * Time: 00:48:33
  * To change this template use File | Settings | File Templates.
  */
-class HeadPanel extends Panel
+public class HeadPanel extends Panel
 {
     final ControlPanel cp_rgb;
     private final ControlPanel cp_hsv;
@@ -17,6 +18,7 @@ class HeadPanel extends Panel
     private static final int INT = 100;
     private static final double DOUBLE = 50.0;
 
+    @Override
     public void setEnabled (boolean f)
     {
         if (!f)
@@ -32,7 +34,7 @@ class HeadPanel extends Panel
         h.c.setEnabled (f);
     }
 
-    HeadPanel (Sliders sl)
+    public HeadPanel (SlidersGUI sl)
     {
         cp_rgb = new ControlPanel ("R", "G", "B", sl);
         cp_hsv = new ControlPanel ("H", "S", "V", sl);

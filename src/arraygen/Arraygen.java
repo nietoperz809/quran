@@ -16,7 +16,7 @@ public class Arraygen
     public enum CODE {JAVA, JAVAFUNC, C, PHP};
     static CODE code = CODE.JAVAFUNC; 
     
-    static void setCode (CODE c)
+    public static void setCode (CODE c)
     {
         code = c;
     }

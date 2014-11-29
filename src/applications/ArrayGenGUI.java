@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package arraygen;
+package applications;
 
+import arraygen.Arraygen;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -16,12 +17,12 @@ import javax.swing.UIManager;
  *
  * @author PetSel
  */
-public class MainFrame extends JInternalFrame
+public class ArrayGenGUI extends JInternalFrame
 {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame()
+    public ArrayGenGUI()
     {
         initComponents();
         //setSize(800, 400);
@@ -253,7 +254,7 @@ public class MainFrame extends JInternalFrame
         {
             public void run()
             {
-                new MainFrame().setVisible(true);
+                new ArrayGenGUI().setVisible(true);
             }
         });
     }

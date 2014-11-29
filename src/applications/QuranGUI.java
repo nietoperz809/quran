@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quran;
+package applications;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -14,7 +14,13 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 import misc.HashmapSeeker;
 import misc.StringDivider;
-import misc.TwitTools;
+import quran.Quran;
+import quran.QuranMetadata;
+import quran.SeekResultGui;
+import quran.VerbalQuran;
+import quran.ZippedQuran;
+import quran.ZippedVerbalQuran;
+import twitter.TwitTools;
 
 /**
  *

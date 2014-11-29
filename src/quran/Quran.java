@@ -60,7 +60,11 @@ public class Quran implements PathNames
         this (m_files[idx]);
     }
 
-    protected String[] getFileNames()
+    /**
+     *
+     * @return
+     */
+    public String[] getFileNames()
     {
         return m_files;
     }

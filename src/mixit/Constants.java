@@ -9,7 +9,7 @@ import java.awt.*;
  * Time: 00:48:29
  * To change this template use File | Settings | File Templates.
  */
-final class Constants
+public final class Constants
 {
     public static final int MULTI = 1000000;
     public static final Color txcColor = new Color (150, 255, 150);

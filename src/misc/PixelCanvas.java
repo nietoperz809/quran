@@ -5,6 +5,7 @@
  */
 package misc;
 
+import twitter.TwitTools;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;

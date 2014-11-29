@@ -9,9 +9,9 @@ import java.awt.*;
  * Time: 00:48:23
  * To change this template use File | Settings | File Templates.
  */
-class CapturePanel extends Panel
+public class CapturePanel extends Panel
 {
-    CapturePanel (HeadPanel h)
+    public CapturePanel (HeadPanel h)
     {
         Label l = new Label (
                 " <--- Pixelgrabber: Hier klicken, Taste gedrückt halten und Maus über den Bildschirm bewegen"

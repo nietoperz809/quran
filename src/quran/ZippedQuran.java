@@ -41,7 +41,7 @@ public class ZippedQuran extends Quran
     }
 
     @Override
-    protected String[] getFileNames()
+    public String[] getFileNames()
     {
         return getZipEntries();
     }

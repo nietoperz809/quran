@@ -204,14 +204,13 @@ public class MainWindow extends javax.swing.JFrame
 
     /**
      * Creates new MDI child from class name
-     * @param classname Name and package name
+     * @param c Runtime class
      * Must be of type JInternalFrame
      */
-    private void mdiChild (String classname)
+    private void createMDIChild (Class<?> c)
     {
         try
         {
-            Class<?> c = Class.forName(classname);
             Constructor<?> cons = c.getConstructor();
             JInternalFrame q = (JInternalFrame)cons.newInstance();
             desktopPane.add(q);
@@ -222,40 +221,40 @@ public class MainWindow extends javax.swing.JFrame
             System.out.println(ex);
         }
     }
-
+    
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
-        mdiChild ("quran.QuranGUI");
+        createMDIChild (applications.QuranGUI.class);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-        mdiChild ("twittools.DirectTweet");
+        createMDIChild (applications.DirectTweetGUI.class);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
-        mdiChild ("latex.LatexGUI");
+        createMDIChild (applications.LatexGUI.class);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
-        mdiChild ("mixit.Sliders");
+        createMDIChild (applications.SlidersGUI.class);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
-        mdiChild ("regexer.RegExerGui");
+        createMDIChild (applications.RegExerGUI.class);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem5ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem5ActionPerformed
-        mdiChild ("arraygen.MainFrame");
+        createMDIChild (applications.ArrayGenGUI.class);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
-        mdiChild ("qrcode.QRGeneratorGUI");
+        createMDIChild (applications.QRGeneratorGUI.class);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
     
     /**

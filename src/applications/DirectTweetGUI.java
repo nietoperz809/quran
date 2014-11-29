@@ -3,19 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package misc;
+package applications;
+
+import misc.StringDivider;
+import twitter.TwitTools;
 
 /**
  *
  * @author Administrator
  */
-public class DirectTweet extends javax.swing.JInternalFrame
+public class DirectTweetGUI extends javax.swing.JInternalFrame
 {
 
     /**
      * Creates new form DirectTweet
      */
-    public DirectTweet()
+    public DirectTweetGUI()
     {
         initComponents();
     }

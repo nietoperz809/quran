@@ -1,11 +1,11 @@
-package regexer;
+package applications;
 
 
 import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JInternalFrame;
-import mixit.Sliders;
+import applications.SlidersGUI;
 
 /*
  * To change this template, choose Tools | Templates
@@ -16,12 +16,12 @@ import mixit.Sliders;
  *
  * @author PetSel
  */
-public class RegExerGui extends JInternalFrame
+public class RegExerGUI extends JInternalFrame
 {
     /**
      * Creates new form NewFrame
      */
-    public RegExerGui()
+    public RegExerGUI()
     {
         initComponents();
         setSize(800, 400);
@@ -58,7 +58,6 @@ public class RegExerGui extends JInternalFrame
 
         button1.setLabel("button1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RegExer");
         setBackground(new java.awt.Color(153, 255, 255));
         setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -350,7 +349,7 @@ public class RegExerGui extends JInternalFrame
         {
             public void run()
             {
-                new RegExerGui().setVisible(true);
+                new RegExerGUI().setVisible(true);
             }
         });
     }

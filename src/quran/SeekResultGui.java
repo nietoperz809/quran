@@ -5,7 +5,7 @@
  */
 package quran;
 
-import quran.QuranGUI;
+import applications.QuranGUI;
 
 /**
  *

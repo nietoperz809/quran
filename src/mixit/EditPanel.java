@@ -1,5 +1,6 @@
 package mixit;
 
+import applications.SlidersGUI;
 import java.awt.*;
 
 /**
@@ -17,10 +18,10 @@ class EditPanel extends Panel
     private ZeroText rh;
     private ZeroText gh;
     private ZeroText bh;
-    private final Sliders sl;
+    private final SlidersGUI sl;
     private static final int INT = 255;
 
-    EditPanel (String a1, String a2, String a3, Sliders sl)
+    EditPanel (String a1, String a2, String a3, SlidersGUI sl)
     {
         this.sl = sl;
 

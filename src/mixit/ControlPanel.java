@@ -1,5 +1,6 @@
 package mixit;
 
+import applications.SlidersGUI;
 import java.awt.*;
 
 /**
@@ -17,7 +18,7 @@ class ControlPanel extends Panel
     final AdjRGB adjrgb;
     private final AdjHSV adjhsv;
 
-    ControlPanel (String a1, String a2, String a3, Sliders sl)
+    ControlPanel (String a1, String a2, String a3, SlidersGUI sl)
     {
         adjrgb = new AdjRGB (this);
         adjhsv = new AdjHSV (this);

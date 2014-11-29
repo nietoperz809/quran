@@ -9,7 +9,7 @@ import java.awt.*;
  * Time: 00:48:25
  * To change this template use File | Settings | File Templates.
  */
-class Colorbox extends Panel
+public class Colorbox extends Panel
 {
     private ColorField selected;
     final HeadPanel twopanel;
@@ -21,13 +21,17 @@ class Colorbox extends Panel
             new ColorFieldPanel (this, "C6 = not (C3)"), new ColorFieldPanel (this, "C7 = not (C4)"),
             new ColorFieldPanel (this, "C8 = not (C5)")};
 
-    Colorbox (HeadPanel twopanel)
+    /**
+     *
+     * @param twopanel
+     */
+    public Colorbox (HeadPanel twopanel)
     {
         this.twopanel = twopanel;
         setLayout (new GridLayout (0, 3));
-        for (int s = 0; s < p.length; s++)
+        for (ColorFieldPanel p1 : p)
         {
-            add (p[s]);
+            add(p1);
         }
         p[0].field.ma.mouseClicked (null);
     }

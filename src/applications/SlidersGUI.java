@@ -1,33 +1,36 @@
-package mixit;
+package applications;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JInternalFrame;
+import mixit.CapturePanel;
+import mixit.Colorbox;
+import mixit.HeadPanel;
 
 /**
  * Created by IntelliJ IDEA. User: Administrator Date: 04.09.2008 Time: 00:48:36
  * To change this template use File | Settings | File Templates.
  */
-public class Sliders extends JInternalFrame implements ActionListener
+public class SlidersGUI extends JInternalFrame implements ActionListener
 {
-    final HeadPanel two = new HeadPanel(this);
-    final Colorbox cb = new Colorbox(two);
+    public final HeadPanel two = new HeadPanel(this);
+    public final Colorbox cb = new Colorbox(two);
     private static final int HEIGHTCONST = 400;
     private static final int WIDTHCONST = 800;
-    private static final int INTCONST = 100;
+    //private static final int INTCONST = 100;
 
     /**
      *
      */
-    public Sliders()
+    public SlidersGUI()
     {
         setTitle("Mix it, baby! - Der lustige Farbmischer für die ganze Familie. - Jetzt auch mit Pixelgrabber!");
         setLayout(new BorderLayout(1, 1));
         add("North", two);
         add("Center", cb);
         add("South", new CapturePanel(two));
-        setSize(Sliders.WIDTHCONST, Sliders.HEIGHTCONST);
+        setSize(SlidersGUI.WIDTHCONST, SlidersGUI.HEIGHTCONST);
         setBackground(Color.ORANGE);
         setVisible(true);
         setClosable(true);
@@ -37,7 +40,7 @@ public class Sliders extends JInternalFrame implements ActionListener
         setOpaque(true);
     }
     
-    private Sliders(int x, int y)
+    private SlidersGUI(int x, int y)
     {
 //        MenuBar m = new MenuBar();
 //        Menu me = new Menu("Menu...");
@@ -62,13 +65,13 @@ public class Sliders extends JInternalFrame implements ActionListener
 //            switch (e.getActionCommand())
 //            {
 //                case "Noch'n Mixer":
-//                    new Sliders(pt.x + 10, pt.y + 10);
+//                    new SlidersGUI(pt.x + 10, pt.y + 10);
 //                    break;
 //
 //                case "So geht's":
 //                    Dialog d = new Dialog(this, "...und so wird's gemacht", true);
 //                    d.setBackground(Color.WHITE);
-//                    d.setLocation(pt.x + Sliders.INTCONST, pt.y + Sliders.INTCONST);
+//                    d.setLocation(pt.x + SlidersGUI.INTCONST, pt.y + SlidersGUI.INTCONST);
 //                    d.setLayout(new GridLayout(0, 1));
 //                    d.addWindowListener(new WinCloser());
 //                    d.add(new Label("Die Farbfelder C0, C1, C2 sind wählbar.", Label.CENTER));
@@ -115,30 +118,7 @@ public class Sliders extends JInternalFrame implements ActionListener
 
     public static void main(String[] args)
     {
-        new Sliders(10, 10);
+        new SlidersGUI(10, 10);
     }
-}
 
-class ZeroText extends TextField
-{
-    ZeroText(String a)
-    {
-        if ("H".equals(a))
-        {
-            setText("0.0");
-            setColumns(6);
-        }
-        else if ("html".equals(a))
-        {
-            setText("#000000");
-        }
-        else
-        {
-            setText("0");
-            setColumns(2);
-        }
-        setEditable(false);
-        setBackground(Color.BLACK);
-        setForeground(Constants.txcColor);
-    }
 }
