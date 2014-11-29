@@ -12,8 +12,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import twittools.PixelCanvas;
-import twittools.TwitTools;
+import misc.PixelCanvas;
+import misc.TwitTools;
 
 /**
  *
@@ -45,7 +45,7 @@ public class QRGeneratorGUI extends javax.swing.JInternalFrame
         inputField = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        canvas = new twittools.QuadraticPixelCanvas();
+        canvas = new misc.QuadraticPixelCanvas();
 
         setClosable(true);
         setIconifiable(true);

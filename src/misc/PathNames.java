@@ -1,5 +1,5 @@
 
-package twittools;
+package misc;
 
 /**
  * GlobalSettings

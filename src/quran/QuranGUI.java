@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
-import twittools.HashmapSeeker;
-import twittools.StringDivider;
-import twittools.TwitTools;
+import misc.HashmapSeeker;
+import misc.StringDivider;
+import misc.TwitTools;
 
 /**
  *
