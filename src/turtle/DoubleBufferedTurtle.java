@@ -6,6 +6,7 @@
 package turtle;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
@@ -57,7 +58,8 @@ public class DoubleBufferedTurtle extends Turtle
     @Override
     public void paint(Graphics g)
     {
-        g.drawImage(offImg, 0, 0, this);
+        Dimension d = this.getSize();
+        g.drawImage(offImg, 0, 0, d.width, d.height, this);
     }
     
     /**

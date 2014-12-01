@@ -24,11 +24,14 @@ import javax.swing.UIManager;
  */
 public class MainWindow extends javax.swing.JFrame
 {
+    public static MainWindow instance;
+
     /**
      * Creates new form MDIApplication
      */
     public MainWindow()
     {
+        instance = this;
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
@@ -82,6 +85,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
@@ -167,6 +171,16 @@ public class MainWindow extends javax.swing.JFrame
         });
         fileMenu.add(jMenuItem6);
 
+        jMenuItem8.setText("LindenGUI");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem8);
+
         menuBar.add(fileMenu);
 
         jMenu1.setText("Window");
@@ -206,8 +220,9 @@ public class MainWindow extends javax.swing.JFrame
      * Creates new MDI child from class name
      * @param c Runtime class
      * Must be of type JInternalFrame
+     * @return New JInternalFrame or null on Error
      */
-    private void createMDIChild (Class<?> c)
+    public JInternalFrame createMDIChild (Class<?> c)
     {
         try
         {
@@ -215,11 +230,13 @@ public class MainWindow extends javax.swing.JFrame
             JInternalFrame q = (JInternalFrame)cons.newInstance();
             desktopPane.add(q);
             q.moveToFront();
+            return q;
         }
         catch (Exception ex)
         {
             System.out.println(ex);
         }
+        return null;
     }
     
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
@@ -266,6 +283,11 @@ public class MainWindow extends javax.swing.JFrame
         MDIActions.arrange(desktopPane, evt);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem8ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem8ActionPerformed
+        createMDIChild (applications.LindenGUI.class);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -274,7 +296,7 @@ public class MainWindow extends javax.swing.JFrame
     {
         QuranMetadata.get();
 
-        /* Set the Nimbus look and feel */
+        /* Set the look and feel */
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
         /* Create and display the form */
@@ -295,6 +317,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     // End of variables declaration//GEN-END:variables

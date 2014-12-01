@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+import misc.ComboBoxTools;
 import misc.HashmapSeeker;
 import misc.StringDivider;
 import quran.Quran;
@@ -54,13 +55,14 @@ public class QuranGUI extends javax.swing.JInternalFrame
     
     /**
      * Creates new form NewJInternalFrame
+     * @throws java.io.IOException
      */
     public QuranGUI() throws IOException
     {
         initComponents();
         m_quran = new ZippedQuran(0);
         m_speaker = new ZippedVerbalQuran();
-        combobox.setModel(new javax.swing.DefaultComboBoxModel(m_quran.getFileNames()));
+        ComboBoxTools.pollute(combobox, m_quran.getFileNames());
         showText();
     }
 

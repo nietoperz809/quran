@@ -6,6 +6,7 @@
 package quran;
 
 import applications.QuranGUI;
+import misc.ComboBoxTools;
 
 /**
  *
@@ -25,14 +26,7 @@ public class SeekResultGui extends javax.swing.JInternalFrame
         this.setTitle(text);
 
         // Fill JList from String array
-        listControl.setModel(new javax.swing.AbstractListModel()
-        {
-            //String[] strings = res;
-            @Override
-            public int getSize() { return res.length; }
-            @Override
-            public Object getElementAt(int i) { return res[i]; }
-        });    
+        ComboBoxTools.pollute(listControl, res);
     }
 
     /**
