@@ -6,7 +6,6 @@
 package quran;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import javazoom.jl.decoder.JavaLayerException;
