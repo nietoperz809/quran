@@ -5,6 +5,8 @@
  */
 package turtle;
 
+import static java.lang.Math.random;
+import static java.lang.System.out;
 import java.util.ArrayList;
 
 /**
@@ -116,7 +118,7 @@ public final class RuleManager
             String hash = ""+rule.hashCode();
             while (temp.contains(hash))
             {
-                if (Math.random() < rule.getProbability())
+                if (random() < rule.getProbability())
                     temp = temp.replaceFirst(hash, rule.getReplacement());
                 else
                     temp = temp.replaceFirst(hash, rule.getKey());
@@ -150,6 +152,6 @@ public final class RuleManager
         m.setRule("B->BC", 1.0);
         m.setRule("C->CD", 1.0);
         m.setRecursions(8);
-        System.out.println(m.getResult());
+        out.println(m.getResult());
     }
 }

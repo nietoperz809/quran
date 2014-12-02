@@ -5,6 +5,10 @@
  */
 package turtle;
 
+import static java.lang.Short.MAX_VALUE;
+import static javax.swing.GroupLayout.Alignment.LEADING;
+import static javax.swing.GroupLayout.DEFAULT_SIZE;
+
 /**
  *
  * @author Administrator

@@ -5,11 +5,11 @@
  */
 package turtle;
 
-import java.awt.Color;
+import static java.awt.Color.WHITE;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
+import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 import java.awt.image.BufferedImage;
 
 /**
@@ -18,8 +18,7 @@ import java.awt.image.BufferedImage;
  */
 public class DoubleBufferedTurtle extends Turtle
 {
-    private final GraphicsConfiguration gconf = GraphicsEnvironment
-            .getLocalGraphicsEnvironment()
+    private final GraphicsConfiguration gconf = getLocalGraphicsEnvironment()
             .getDefaultScreenDevice()
             .getDefaultConfiguration();
 
@@ -48,7 +47,7 @@ public class DoubleBufferedTurtle extends Turtle
     {
         super(width, height);
         offImg = gconf.createCompatibleImage(width, height);
-        penColor = Color.WHITE;
+        penColor = WHITE;
     }
 
     /**

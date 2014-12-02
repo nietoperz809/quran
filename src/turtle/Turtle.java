@@ -62,61 +62,7 @@ public class Turtle extends JPanel
     int pensize;
     public DoublePoint minmax = new DoublePoint();
     
-    public class DoublePoint
-    {
-        final Point Min;
-        final Point Max;
 
-        public DoublePoint()
-        {
-            Min = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
-            Max = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        }
-        
-        public DoublePoint(DoublePoint src)
-        {
-            Min = new Point(src.Min);
-            Max = new Point(src.Max);
-        }
-        
-        @Override
-        public String toString()
-        {
-            return "Min: " + Min + "/Max: " + Max;
-        }
-
-        void addPoint(Point pt)
-        {
-            if (pt.x < Min.x)
-            {
-                Min.x = pt.x;
-            }
-            if (pt.y < Min.y)
-            {
-                Min.y = pt.y;
-            }
-            if (pt.x > Max.x)
-            {
-                Max.x = pt.x;
-            }
-            if (pt.y > Max.y)
-            {
-                Max.y = pt.y;
-            }
-        }
-    }
-
-    class LindeResult
-    {
-        public DoublePoint minmax;
-        public String result;
-
-        LindeResult(DoublePoint p, String s)
-        {
-            minmax = p;
-            result = s;
-        }
-    }
 
 //    static public Turtle fromString(String s)
 //    {
@@ -515,10 +461,8 @@ public class Turtle extends JPanel
      * Resembles Graphics.drawline with thickness
      *
      * @param g Graphics context
-     * @param x1 X from
-     * @param y1 Y from
-     * @param x2 X to
-     * @param y2 Y to
+     * @param from
+     * @param to
      */
     protected void drawLine(Graphics g, Point from, Point to) //int x1, int y1, int x2, int y2)
     {
