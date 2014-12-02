@@ -6,6 +6,8 @@
 package applications;
 
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
+import misc.ComboBoxTools;
 import misc.MainWindow;
 
 /**
@@ -41,8 +43,9 @@ public class LindenGUI extends javax.swing.JInternalFrame
         jLabel4 = new javax.swing.JLabel();
         inputLastRule1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        combo = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -67,10 +70,33 @@ public class LindenGUI extends javax.swing.JInternalFrame
             }
         });
 
-        jComboBox1.setEditable(true);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo.setEditable(true);
+        combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "." }));
+        combo.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                comboItemStateChanged(evt);
+            }
+        });
 
         jButton2.setText("New");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Del");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,26 +106,28 @@ public class LindenGUI extends javax.swing.JInternalFrame
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputLastRule))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputStart))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(inputLastRule1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(90, 90, 90)
                         .addComponent(jButton1)
-                        .addGap(0, 155, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputStart))))
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,9 +137,10 @@ public class LindenGUI extends javax.swing.JInternalFrame
                     .addComponent(inputStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -130,6 +159,57 @@ public class LindenGUI extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         MainWindow.instance.createMDIChild(turtle.LindenView.class);
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    /**
+     * New Button clicked
+     * @param evt 
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        String[] a = ComboBoxTools.getAll(combo);
+        String[] b = new String[a.length+1];
+        b[0] = "";
+        System.arraycopy(a, 0, b, 1, a.length);
+        ComboBoxTools.pollute(combo, b);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**
+     * Del Button Clicked
+     * @param evt 
+     */
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
+    {//GEN-HEADEREND:event_jButton3ActionPerformed
+        String[] a = ComboBoxTools.getAll(combo);
+        if (a.length == 1) 
+            return;
+        String[] b = new String[a.length-1];
+        System.arraycopy(a, 1, b, 0, b.length);
+        ComboBoxTools.pollute(combo, b);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private int selindex = 0;
+    /**
+     * Edit Rule entry
+     * @param evt 
+     */
+    private void comboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_comboItemStateChanged
+    {//GEN-HEADEREND:event_comboItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            selindex = combo.getSelectedIndex();
+        }
+        if (evt.getStateChange() == ItemEvent.DESELECTED)
+        {
+            if (combo.getSelectedIndex() == -1)
+            {
+                String newtext = (String)combo.getSelectedItem();
+                String[] a = ComboBoxTools.getAll(combo);
+                a[selindex] = newtext;
+                ComboBoxTools.pollute(combo, a);
+                combo.setSelectedIndex(selindex);
+            }            
+        }
+    }//GEN-LAST:event_comboItemStateChanged
 
     /**
      * Ensure fixed size
@@ -146,12 +226,13 @@ public class LindenGUI extends javax.swing.JInternalFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox combo;
     private javax.swing.JTextField inputLastRule;
     private javax.swing.JTextField inputLastRule1;
     private javax.swing.JTextField inputStart;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

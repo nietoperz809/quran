@@ -18,6 +18,9 @@ public class SeekResultGui extends javax.swing.JInternalFrame
     
     /**
      * Creates new form SeekResultGui
+     * @param q
+     * @param text
+     * @param res
      */
     public SeekResultGui (QuranGUI q, String text, String[] res)
     {

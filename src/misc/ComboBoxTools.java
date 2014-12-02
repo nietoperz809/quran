@@ -6,6 +6,7 @@
 package misc;
 
 import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -21,6 +22,18 @@ public class ComboBoxTools
         box.setModel(new DefaultComboBoxModel(str));
     }
 
+    public static String[] getAll (JComboBox box)
+    {
+        ComboBoxModel m = box.getModel();
+        int size = m.getSize();
+        String[] str = new String[size];
+        for (int i=0; i<size; i++)
+        {
+            str[i] = (String)m.getElementAt(i);
+        }
+        return str;
+    }
+    
     public static void pollute (JList box, String[] str)
     {
         box.setModel(new AbstractListModel()
