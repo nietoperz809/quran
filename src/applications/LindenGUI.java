@@ -5,16 +5,19 @@
  */
 package applications;
 
-import java.awt.Dimension;
-import java.awt.event.ItemEvent;
-import misc.ComboBoxTools;
+import java.awt.Component;
+import javax.swing.JInternalFrame;
 import misc.MainWindow;
+import turtle.DoubleBufferedTurtle;
+import turtle.LindenView;
+import turtle.RulePanel;
+import turtle.Turtle;
 
 /**
  *
  * @author Administrator
  */
-public class LindenGUI extends javax.swing.JInternalFrame
+public class LindenGUI extends JInternalFrame
 {
 
     /**
@@ -35,31 +38,175 @@ public class LindenGUI extends javax.swing.JInternalFrame
     private void initComponents()
     {
 
-        jLabel1 = new javax.swing.JLabel();
-        inputStart = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        inputLastRule = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        inputLastRule1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        combo = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
+        North = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        penSize = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        penPosX = new javax.swing.JTextField();
+        penPosY = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lineLength = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        recursions = new javax.swing.JTextField();
+        axiom = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        angle = new javax.swing.JTextField();
+        South = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        rulePanelContainer = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Lindenmayer");
         setDoubleBuffered(true);
+        setMaximumSize(new java.awt.Dimension(32000, 32000));
+        setMinimumSize(new java.awt.Dimension(100, 38));
+        setPreferredSize(new java.awt.Dimension(650, 309));
         setVisible(true);
+
+        North.setBackground(new java.awt.Color(153, 255, 255));
+        North.setMinimumSize(new java.awt.Dimension(100, 180));
+        North.setPreferredSize(new java.awt.Dimension(591, 180));
+
+        jButton3.setText("Add Rule");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Axiom");
 
-        jLabel2.setText("Rule");
+        jButton2.setText("Final Rule");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("LastRule");
+        jLabel3.setText("PenSize");
 
-        jLabel4.setText("Probability");
+        penSize.setText("0");
+
+        jLabel4.setText("PenPos");
+
+        penPosX.setText("600");
+
+        penPosY.setText("600");
+
+        jLabel5.setText("LineLength");
+
+        lineLength.setText("7.0");
+
+        jLabel2.setText("Recursions");
+
+        recursions.setText("1");
+
+        axiom.setText("X");
+
+        jLabel6.setText("Angle");
+
+        angle.setText("90.0");
+
+        javax.swing.GroupLayout NorthLayout = new javax.swing.GroupLayout(North);
+        North.setLayout(NorthLayout);
+        NorthLayout.setHorizontalGroup(
+            NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NorthLayout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NorthLayout.createSequentialGroup()
+                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(NorthLayout.createSequentialGroup()
+                                .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addContainerGap())
+                    .addGroup(NorthLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(NorthLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(NorthLayout.createSequentialGroup()
+                                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(NorthLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(NorthLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54))))))
+        );
+        NorthLayout.setVerticalGroup(
+            NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NorthLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NorthLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(NorthLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(North, java.awt.BorderLayout.NORTH);
+
+        South.setBackground(new java.awt.Color(255, 153, 153));
+        South.setMinimumSize(new java.awt.Dimension(100, 50));
+        South.setPreferredSize(new java.awt.Dimension(591, 50));
 
         jButton1.setText("Render");
         jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -70,166 +217,103 @@ public class LindenGUI extends javax.swing.JInternalFrame
             }
         });
 
-        combo.setEditable(true);
-        combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "." }));
-        combo.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                comboItemStateChanged(evt);
-            }
-        });
-
-        jButton2.setText("New");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Del");
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputLastRule))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputStart))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(inputLastRule1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))))
+        javax.swing.GroupLayout SouthLayout = new javax.swing.GroupLayout(South);
+        South.setLayout(SouthLayout);
+        SouthLayout.setHorizontalGroup(
+            SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SouthLayout.createSequentialGroup()
+                .addContainerGap(438, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(inputStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(inputLastRule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(inputLastRule1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)))
+        SouthLayout.setVerticalGroup(
+            SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SouthLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
+
+        getContentPane().add(South, java.awt.BorderLayout.SOUTH);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        rulePanelContainer.setLayout(new javax.swing.BoxLayout(rulePanelContainer, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(rulePanelContainer);
+
+        jPanel1.add(jScrollPane1);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        MainWindow.instance.createMDIChild(turtle.LindenView.class);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void refreshUI()
+    {
+        invalidate();
+        repaint();
+        revalidate();  // Repaint
+    }
     
     /**
-     * New Button clicked
-     * @param evt 
+     *
+     * @param com
      */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
-        String[] a = ComboBoxTools.getAll(combo);
-        String[] b = new String[a.length+1];
-        b[0] = "";
-        System.arraycopy(a, 0, b, 1, a.length);
-        ComboBoxTools.pollute(combo, b);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    public void remove (RulePanel com)
+    {
+        rulePanelContainer.remove(com);
+        refreshUI();
+    }
+    
     /**
-     * Del Button Clicked
+     * Add rule
      * @param evt 
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
-        String[] a = ComboBoxTools.getAll(combo);
-        if (a.length == 1) 
-            return;
-        String[] b = new String[a.length-1];
-        System.arraycopy(a, 1, b, 0, b.length);
-        ComboBoxTools.pollute(combo, b);
+        rulePanelContainer.add (new RulePanel(this, false));
+        refreshUI();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private int selindex = 0;
     /**
-     * Edit Rule entry
+     * Add final rule
      * @param evt 
      */
-    private void comboItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_comboItemStateChanged
-    {//GEN-HEADEREND:event_comboItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED)
-        {
-            selindex = combo.getSelectedIndex();
-        }
-        if (evt.getStateChange() == ItemEvent.DESELECTED)
-        {
-            if (combo.getSelectedIndex() == -1)
-            {
-                String newtext = (String)combo.getSelectedItem();
-                String[] a = ComboBoxTools.getAll(combo);
-                a[selindex] = newtext;
-                ComboBoxTools.pollute(combo, a);
-                combo.setSelectedIndex(selindex);
-            }            
-        }
-    }//GEN-LAST:event_comboItemStateChanged
-
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        rulePanelContainer.add (new RulePanel(this, true));
+        refreshUI();
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    LindenView lindenView = null;
+    
     /**
-     * Ensure fixed size
-     * @param x
-     * @param y
-     * @param w
-     * @param h 
+     * Render button clicked
+     * @param evt 
      */
-    @Override
-    public void reshape (int x, int y, int w, int h)
-    {
-        Dimension d2 = this.getPreferredSize();
-        super.reshape (x, y, d2.width, d2.height);
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        if (lindenView != null)
+            return;
+        
+        lindenView = new LindenView();
+        Turtle t = lindenView.getTurtle();
 
+        Component[] comps = rulePanelContainer.getComponents();
+        for (Component c : comps)
+        {
+            RulePanel rp = (RulePanel)c;
+            String rule = rp.getRule();
+            double prob = rp.getProbability();
+        }
+        MainWindow.instance.addChild(lindenView);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox combo;
-    private javax.swing.JTextField inputLastRule;
-    private javax.swing.JTextField inputLastRule1;
-    private javax.swing.JTextField inputStart;
+    private javax.swing.JPanel North;
+    private javax.swing.JPanel South;
+    private javax.swing.JTextField angle;
+    private javax.swing.JTextField axiom;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -237,5 +321,15 @@ public class LindenGUI extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField lineLength;
+    private javax.swing.JTextField penPosX;
+    private javax.swing.JTextField penPosY;
+    private javax.swing.JTextField penSize;
+    private javax.swing.JTextField recursions;
+    private javax.swing.JPanel rulePanelContainer;
     // End of variables declaration//GEN-END:variables
 }

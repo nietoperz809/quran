@@ -216,6 +216,12 @@ public class MainWindow extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void addChild (JInternalFrame c)
+    {
+        desktopPane.add(c);
+        c.moveToFront();
+    }
+    
     /**
      * Creates new MDI child from class name
      * @param c Runtime class
@@ -228,8 +234,7 @@ public class MainWindow extends javax.swing.JFrame
         {
             Constructor<?> cons = c.getConstructor();
             JInternalFrame q = (JInternalFrame)cons.newInstance();
-            desktopPane.add(q);
-            q.moveToFront();
+            addChild(q);
             return q;
         }
         catch (Exception ex)

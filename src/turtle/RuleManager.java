@@ -102,7 +102,7 @@ public final class RuleManager
     }
 
     /**
-     * Apply all Rules in as List
+     * Apply all Rules in a List
      * @param list List containing the Rule
      * @param temp Target string
      * @return string with all rules applied
