@@ -11,7 +11,6 @@ package turtle;
  */
 public class LindenView extends javax.swing.JInternalFrame
 {
-
     /**
      * Creates new form LindenView
      */
@@ -24,9 +23,9 @@ public class LindenView extends javax.swing.JInternalFrame
      * Get embedded Turtle
      * @return 
      */
-    public Turtle getTurtle()
+    public DoubleBufferedTurtle getTurtle()
     {
-        return (Turtle)turtle;
+        return (DoubleBufferedTurtle)turtle;
     }
     
     /**
@@ -39,7 +38,7 @@ public class LindenView extends javax.swing.JInternalFrame
     private void initComponents()
     {
 
-        turtle = new DoubleBufferedTurtle(500,500);
+        turtle = new DoubleBufferedTurtle(520,520);
 
         setIconifiable(true);
         setMaximizable(true);

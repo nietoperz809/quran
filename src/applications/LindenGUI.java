@@ -6,12 +6,17 @@
 package applications;
 
 import java.awt.Component;
+import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import misc.MainWindow;
+import misc.Tools;
 import turtle.DoubleBufferedTurtle;
 import turtle.LindenView;
 import turtle.RulePanel;
 import turtle.Turtle;
+import twitter.TwitTools;
 
 /**
  *
@@ -56,6 +61,7 @@ public class LindenGUI extends JInternalFrame
         angle = new javax.swing.JTextField();
         South = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rulePanelContainer = new javax.swing.JPanel();
@@ -70,6 +76,31 @@ public class LindenGUI extends JInternalFrame
         setMinimumSize(new java.awt.Dimension(100, 38));
         setPreferredSize(new java.awt.Dimension(650, 309));
         setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
+        {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+            {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+        });
 
         North.setBackground(new java.awt.Color(153, 255, 255));
         North.setMinimumSize(new java.awt.Dimension(100, 180));
@@ -101,19 +132,19 @@ public class LindenGUI extends JInternalFrame
 
         jLabel4.setText("PenPos");
 
-        penPosX.setText("600");
+        penPosX.setText("506");
 
-        penPosY.setText("600");
+        penPosY.setText("254");
 
         jLabel5.setText("LineLength");
 
-        lineLength.setText("7.0");
+        lineLength.setText("2.0");
 
         jLabel2.setText("Recursions");
 
-        recursions.setText("1");
+        recursions.setText("6");
 
-        axiom.setText("X");
+        axiom.setText("F+XF+F+XF");
 
         jLabel6.setText("Angle");
 
@@ -217,20 +248,33 @@ public class LindenGUI extends JInternalFrame
             }
         });
 
+        jButton4.setText("Tweet");
+        jButton4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SouthLayout = new javax.swing.GroupLayout(South);
         South.setLayout(SouthLayout);
         SouthLayout.setHorizontalGroup(
             SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SouthLayout.createSequentialGroup()
-                .addContainerGap(438, Short.MAX_VALUE)
+            .addGroup(SouthLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4)
+                .addContainerGap(355, Short.MAX_VALUE))
         );
         SouthLayout.setVerticalGroup(
             SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SouthLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
 
@@ -286,18 +330,18 @@ public class LindenGUI extends JInternalFrame
     }//GEN-LAST:event_jButton2ActionPerformed
     
     LindenView lindenView = null;
-    
-    /**
-     * Render button clicked
-     * @param evt 
-     */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        if (lindenView != null)
-            return;
-        
-        lindenView = new LindenView();
-        Turtle t = lindenView.getTurtle();
+
+    void createLinde (Turtle t) throws Exception
+    {
+        t.CmdSetPenSize (Tools.readInt(penSize, 0));
+        t.CmdSetPenPositionAbsolute (
+                Tools.readInt(penPosX, 506), 
+                Tools.readInt(penPosY, 254));
+        t.CmdSetLindeLineLength (Tools.readDouble(lineLength, 2.0));
+        t.CmdSetLindeRecursionNumber(Tools.readInt(recursions, 6));
+        t.CmdSetLindeAngle(Tools.readDouble(angle, 90.0));
+        t.CmdSetLindeAxiom(axiom.getText());
+        //t.CmdSetLindeRule("X->XF-F+F-XF+F+XF-F+F-X");
 
         Component[] comps = rulePanelContainer.getComponents();
         for (Component c : comps)
@@ -305,9 +349,63 @@ public class LindenGUI extends JInternalFrame
             RulePanel rp = (RulePanel)c;
             String rule = rp.getRule();
             double prob = rp.getProbability();
+        
+            t.CmdSetLindeRule(rule, prob);
         }
-        MainWindow.instance.addChild(lindenView);
+        
+        t.CmdLindeDraw();
+        t.execute(t.getGraphics());
+    }
+    
+    /**
+     * Render button clicked
+     * @param evt 
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        if (lindenView == null)
+        {
+            lindenView = new LindenView();
+            MainWindow.instance.addChild(lindenView);
+        }
+        
+        Turtle t = lindenView.getTurtle();
+        try
+        {
+            createLinde (t);
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * Tweet button
+     * @param evt 
+     */
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+        if (lindenView == null)
+            return;
+        
+        BufferedImage img = lindenView.getTurtle().getImage();
+        try
+        {
+            TwitTools.get().send(img, "LindenTest");
+        }
+        catch (Exception ex)
+        {
+            System.out.println (ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
+    {//GEN-HEADEREND:event_formInternalFrameClosed
+        if (lindenView == null)
+            return;
+        lindenView.dispose();
+    }//GEN-LAST:event_formInternalFrameClosed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel North;
@@ -317,6 +415,7 @@ public class LindenGUI extends JInternalFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

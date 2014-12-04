@@ -27,12 +27,18 @@ public class DoubleBufferedTurtle extends Turtle
      */
     private final BufferedImage offImg;
     
+    public BufferedImage getImage()
+    {
+        return offImg;
+    }
+    
     /**
      * Must be called at end of drawing/moving the turtle
+     * @param g
      * @throws Exception 
      */
     @Override
-    void execute(Graphics g) throws Exception
+    public void execute(Graphics g) throws Exception
     {
         super.drawTurtleSteps(offImg.getGraphics());
         super.execute(g);

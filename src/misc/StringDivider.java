@@ -131,6 +131,6 @@ public class StringDivider
         //DebugTools.printStringArray(r);
         
         String[] ls = sd.splitByWords();
-        DebugTools.printStringArray(ls);
+        Tools.printStringArray(ls);
     }
 }

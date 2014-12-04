@@ -517,7 +517,7 @@ public class Turtle extends JPanel
         pos.y = p.y;
     }
 
-    void execute(Graphics g) throws Exception
+    public void execute(Graphics g) throws Exception
     {
     }
 
