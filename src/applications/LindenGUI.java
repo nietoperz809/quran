@@ -7,12 +7,9 @@ package applications;
 
 import java.awt.Component;
 import java.awt.image.BufferedImage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import misc.MainWindow;
 import misc.Tools;
-import turtle.DoubleBufferedTurtle;
 import turtle.LindenView;
 import turtle.RulePanel;
 import turtle.Turtle;
@@ -24,7 +21,6 @@ import twitter.TwitTools;
  */
 public class LindenGUI extends JInternalFrame
 {
-
     /**
      * Creates new form LindenGUI
      */
@@ -59,6 +55,9 @@ public class LindenGUI extends JInternalFrame
         axiom = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         angle = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        sizeY = new javax.swing.JTextField();
+        sizeX = new javax.swing.JTextField();
         South = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -74,7 +73,7 @@ public class LindenGUI extends JInternalFrame
         setDoubleBuffered(true);
         setMaximumSize(new java.awt.Dimension(32000, 32000));
         setMinimumSize(new java.awt.Dimension(100, 38));
-        setPreferredSize(new java.awt.Dimension(650, 309));
+        setPreferredSize(new java.awt.Dimension(600, 300));
         setVisible(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener()
         {
@@ -103,8 +102,8 @@ public class LindenGUI extends JInternalFrame
         });
 
         North.setBackground(new java.awt.Color(153, 255, 255));
-        North.setMinimumSize(new java.awt.Dimension(100, 180));
-        North.setPreferredSize(new java.awt.Dimension(591, 180));
+        North.setMinimumSize(new java.awt.Dimension(100, 100));
+        North.setPreferredSize(new java.awt.Dimension(591, 100));
 
         jButton3.setText("Add Rule");
         jButton3.addActionListener(new java.awt.event.ActionListener()
@@ -150,52 +149,61 @@ public class LindenGUI extends JInternalFrame
 
         angle.setText("90.0");
 
+        jLabel7.setText("Imagesize");
+
+        sizeY.setText("600");
+
+        sizeX.setText("600");
+
         javax.swing.GroupLayout NorthLayout = new javax.swing.GroupLayout(North);
         North.setLayout(NorthLayout);
         NorthLayout.setHorizontalGroup(
             NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NorthLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
+                .addContainerGap()
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(NorthLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(NorthLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(NorthLayout.createSequentialGroup()
-                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(NorthLayout.createSequentialGroup()
-                                .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(NorthLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(NorthLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(NorthLayout.createSequentialGroup()
-                                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(NorthLayout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(NorthLayout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sizeY, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sizeX, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(NorthLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 30, Short.MAX_VALUE))))
         );
         NorthLayout.setVerticalGroup(
             NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,33 +212,27 @@ public class LindenGUI extends JInternalFrame
                 .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NorthLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(NorthLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                    .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel7)
+                    .addComponent(sizeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sizeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(North, java.awt.BorderLayout.NORTH);
@@ -266,7 +268,7 @@ public class LindenGUI extends JInternalFrame
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addContainerGap(355, Short.MAX_VALUE))
+                .addContainerGap(367, Short.MAX_VALUE))
         );
         SouthLayout.setVerticalGroup(
             SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,15 +294,44 @@ public class LindenGUI extends JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Refresh UI after Rule added/removed
+     */
     private void refreshUI()
     {
         invalidate();
         repaint();
         revalidate();  // Repaint
     }
+
+    private void createView()
+    {
+        if (lindenView == null)
+        {
+            lindenView = new LindenView 
+            (
+                    Tools.readInt(sizeX, 500),
+                    Tools.readInt(sizeY, 500)
+            );
+            MainWindow.instance.addChild(lindenView);
+        }
+    }
     
     /**
-     *
+     * RemoveView
+     */
+    private void removeView()
+    {
+        if (lindenView != null)
+        {
+            MainWindow.instance.remove(lindenView);
+            lindenView.dispose();
+            lindenView = null;
+        }
+    }
+    
+    /**
+     * Remove Rule
      * @param com
      */
     public void remove (RulePanel com)
@@ -331,7 +362,7 @@ public class LindenGUI extends JInternalFrame
     
     LindenView lindenView = null;
 
-    void createLinde (Turtle t) throws Exception
+    void buldLindeFromControls (Turtle t) throws Exception
     {
         t.CmdSetPenSize (Tools.readInt(penSize, 0));
         t.CmdSetPenPositionAbsolute (
@@ -343,6 +374,7 @@ public class LindenGUI extends JInternalFrame
         t.CmdSetLindeAxiom(axiom.getText());
         //t.CmdSetLindeRule("X->XF-F+F-XF+F+XF-F+F-X");
 
+        // Process the Rules
         Component[] comps = rulePanelContainer.getComponents();
         for (Component c : comps)
         {
@@ -363,16 +395,13 @@ public class LindenGUI extends JInternalFrame
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        if (lindenView == null)
-        {
-            lindenView = new LindenView();
-            MainWindow.instance.addChild(lindenView);
-        }
+        removeView();
+        createView();
         
         Turtle t = lindenView.getTurtle();
         try
         {
-            createLinde (t);
+            buldLindeFromControls (t);
         }
         catch (Exception ex)
         {
@@ -422,6 +451,7 @@ public class LindenGUI extends JInternalFrame
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lineLength;
@@ -430,5 +460,7 @@ public class LindenGUI extends JInternalFrame
     private javax.swing.JTextField penSize;
     private javax.swing.JTextField recursions;
     private javax.swing.JPanel rulePanelContainer;
+    private javax.swing.JTextField sizeX;
+    private javax.swing.JTextField sizeY;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
  */
 public class Turtle extends JPanel
 {
+    private int linenumber;
     /**
      * Factor to make radians from degrees
      */
@@ -27,7 +28,7 @@ public class Turtle extends JPanel
     /**
      * Handles and applies Rules
      */
-    RuleManager rules = new RuleManager();
+    private RuleManager rules = new RuleManager();
     /**
      * Current turtle position x/y
      */
@@ -36,10 +37,6 @@ public class Turtle extends JPanel
      * Current angle
      */
     private double currentAngle;
-    /**
-     * Current command that is executed
-     */
-    private int linenumber;
     /**
      * Holds all commands
      */
@@ -61,15 +58,7 @@ public class Turtle extends JPanel
     Point multiplicator;
     int pensize;
     public DoublePoint minmax = new DoublePoint();
-    
 
-
-//    static public Turtle fromString(String s)
-//    {
-//        Turtle t = new Turtle();
-//        t.commands.append(s);
-//        return t;
-//    }
     /**
      * Constructor that sets Frame size
      *
