@@ -6,14 +6,19 @@
 package turtle;
 
 import applications.LindenGUI;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Administrator
  */
-public class RulePanel extends javax.swing.JPanel
+public class RulePanel extends javax.swing.JPanel implements ActionListener
 {
     private final LindenGUI parent;
+    
+    {
+        initComponents();
+    }
     
     /**
      * Creates new form RulePanel
@@ -23,7 +28,6 @@ public class RulePanel extends javax.swing.JPanel
     public RulePanel (LindenGUI con, boolean fin)
     {
         parent = con;
-        initComponents();
         if (fin)
         {
             this.setBackground (java.awt.Color.ORANGE);
@@ -68,57 +72,32 @@ public class RulePanel extends javax.swing.JPanel
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(592, 49));
         setMinimumSize(new java.awt.Dimension(592, 49));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("X");
         jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this);
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 15, 27, -1));
+        add(ruleTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 27, 430, -1));
 
         probTxt.setText("1.0");
+        add(probTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 27, 88, -1));
 
         ruleTypeText.setText("Rule");
+        add(ruleTypeText, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 2, 111, -1));
 
         jLabel2.setText("Probability");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 2, -1, -1));
+    }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ruleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ruleTypeText, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 29, Short.MAX_VALUE))
-                    .addComponent(probTxt))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ruleTypeText)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ruleTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(probTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == jButton1)
+        {
+            RulePanel.this.jButton1ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
     
     /**

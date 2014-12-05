@@ -6,13 +6,15 @@
 package applications;
 
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.Tools;
 import turtle.LindenView;
@@ -24,21 +26,43 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class LindenGUI extends JInternalFrame implements Serializable
+public class LindenGUI extends JInternalFrame implements Serializable, ActionListener, InternalFrameListener
 {
+    // Instance initializer
+    {
+        initComponents();
+    }
+
     /**
      * Creates new form LindenGUI
      */
     public LindenGUI()
     {
-        initComponents();
+
     }
 
-    private void saveContent() throws FileNotFoundException, IOException
+    /**
+     * Serialize
+     * @throws Exception 
+     */
+    private void saveContent() throws Exception
     {
         FileOutputStream f_out = new FileOutputStream("myobject.data");
         ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
         obj_out.writeObject(this);
+    }
+
+    /**
+     * Deserialize
+     * @throws Exception 
+     */
+    private void loadContent() throws Exception
+    {
+        FileInputStream f_in = new FileInputStream("myobject.data");
+        ObjectInputStream obj_in = new ObjectInputStream(f_in);
+        Object obj = obj_in.readObject();
+        
+        MainWindow.instance.addChild((JInternalFrame)obj);
     }
 
     /**
@@ -90,237 +114,93 @@ public class LindenGUI extends JInternalFrame implements Serializable
         setMinimumSize(new java.awt.Dimension(100, 38));
         setPreferredSize(new java.awt.Dimension(600, 300));
         setVisible(true);
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
-        {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
-            {
-                formInternalFrameClosed(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-        });
+        addInternalFrameListener(this);
 
         North.setBackground(new java.awt.Color(153, 255, 255));
         North.setMinimumSize(new java.awt.Dimension(100, 100));
         North.setPreferredSize(new java.awt.Dimension(591, 100));
+        North.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton3.setText("Add Rule");
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this);
+        North.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 71, -1, -1));
 
         jLabel1.setText("Axiom");
+        North.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 45, -1, -1));
 
         jButton2.setText("Final Rule");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(this);
+        North.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 71, -1, -1));
 
         jLabel3.setText("PenSize");
+        North.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
 
         penSize.setText("0");
+        North.add(penSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 13, 31, -1));
 
         jLabel4.setText("PenPos");
+        North.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 16, -1, -1));
 
         penPosX.setText("506");
+        North.add(penPosX, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 13, 39, -1));
 
         penPosY.setText("254");
+        North.add(penPosY, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 13, 38, -1));
 
         jLabel5.setText("LineLength");
+        North.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 16, -1, -1));
 
         lineLength.setText("2.0");
+        North.add(lineLength, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 13, 39, -1));
 
         jLabel2.setText("Recursions");
+        North.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 16, -1, -1));
 
         recursions.setText("6");
+        North.add(recursions, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 13, 26, -1));
 
         axiom.setText("F+XF+F+XF");
+        North.add(axiom, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 42, 186, -1));
 
         jLabel6.setText("Angle");
+        North.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, -1, -1));
 
         angle.setText("90.0");
+        North.add(angle, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 42, 43, -1));
 
         jLabel7.setText("Imagesize");
+        North.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 45, -1, -1));
 
         sizeY.setText("600");
+        North.add(sizeY, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 42, 37, -1));
 
         sizeX.setText("600");
-
-        javax.swing.GroupLayout NorthLayout = new javax.swing.GroupLayout(North);
-        North.setLayout(NorthLayout);
-        NorthLayout.setHorizontalGroup(
-            NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NorthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(NorthLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(NorthLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NorthLayout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(NorthLayout.createSequentialGroup()
-                        .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(NorthLayout.createSequentialGroup()
-                                .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sizeY, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(sizeX, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(NorthLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 30, Short.MAX_VALUE))))
-        );
-        NorthLayout.setVerticalGroup(
-            NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NorthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(penSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(penPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(penPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(lineLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(recursions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(angle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(axiom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel7)
-                    .addComponent(sizeY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sizeX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        North.add(sizeX, new org.netbeans.lib.awtextra.AbsoluteConstraints(463, 42, 37, -1));
 
         getContentPane().add(North, java.awt.BorderLayout.NORTH);
 
         South.setBackground(new java.awt.Color(255, 153, 153));
         South.setMinimumSize(new java.awt.Dimension(100, 50));
         South.setPreferredSize(new java.awt.Dimension(591, 70));
+        South.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Render");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this);
+        South.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 32, -1, -1));
 
         jButton4.setText("Tweet");
-        jButton4.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jButton4.addActionListener(this);
+        South.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 32, -1, -1));
+        South.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 21, 192, -1));
 
         jButton6.setText("Load from <--");
+        jButton6.addActionListener(this);
+        South.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 36, -1, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 0));
         jButton7.setText("Save as -->");
-        jButton7.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout SouthLayout = new javax.swing.GroupLayout(South);
-        South.setLayout(SouthLayout);
-        SouthLayout.setHorizontalGroup(
-            SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SouthLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
-                .addGap(53, 53, 53)
-                .addGroup(SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-        );
-        SouthLayout.setVerticalGroup(
-            SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SouthLayout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
-                .addContainerGap())
-            .addGroup(SouthLayout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(SouthLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton7.addActionListener(this);
+        South.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 4, 115, -1));
 
         getContentPane().add(South, java.awt.BorderLayout.SOUTH);
 
@@ -334,6 +214,68 @@ public class LindenGUI extends JInternalFrame implements Serializable
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == jButton3)
+        {
+            LindenGUI.this.jButton3ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton2)
+        {
+            LindenGUI.this.jButton2ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton1)
+        {
+            LindenGUI.this.jButton1ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton4)
+        {
+            LindenGUI.this.jButton4ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton7)
+        {
+            LindenGUI.this.jButton7ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton6)
+        {
+            LindenGUI.this.jButton6ActionPerformed(evt);
+        }
+    }
+
+    public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+    {
+        if (evt.getSource() == LindenGUI.this)
+        {
+            LindenGUI.this.formInternalFrameClosed(evt);
+        }
+    }
+
+    public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+    {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -503,11 +445,23 @@ public class LindenGUI extends JInternalFrame implements Serializable
         {
             saveContent();
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
             System.out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
+    {//GEN-HEADEREND:event_jButton6ActionPerformed
+        try
+        {
+            loadContent();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel North;
