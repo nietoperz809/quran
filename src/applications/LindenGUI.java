@@ -7,6 +7,11 @@ package applications;
 
 import java.awt.Component;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import javax.swing.JInternalFrame;
 import misc.MainWindow;
 import misc.Tools;
@@ -19,7 +24,7 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class LindenGUI extends JInternalFrame
+public class LindenGUI extends JInternalFrame implements Serializable
 {
     /**
      * Creates new form LindenGUI
@@ -27,6 +32,13 @@ public class LindenGUI extends JInternalFrame
     public LindenGUI()
     {
         initComponents();
+    }
+
+    private void saveContent() throws FileNotFoundException, IOException
+    {
+        FileOutputStream f_out = new FileOutputStream("myobject.data");
+        ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+        obj_out.writeObject(this);
     }
 
     /**
@@ -266,6 +278,13 @@ public class LindenGUI extends JInternalFrame
 
         jButton7.setBackground(new java.awt.Color(255, 255, 0));
         jButton7.setText("Save as -->");
+        jButton7.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout SouthLayout = new javax.swing.GroupLayout(South);
         South.setLayout(SouthLayout);
@@ -331,15 +350,14 @@ public class LindenGUI extends JInternalFrame
     {
         if (lindenView == null)
         {
-            lindenView = new LindenView 
-            (
+            lindenView = new LindenView(
                     Tools.readInt(sizeX, 500),
                     Tools.readInt(sizeY, 500)
             );
             MainWindow.instance.addChild(lindenView);
         }
     }
-    
+
     /**
      * RemoveView
      */
@@ -352,46 +370,55 @@ public class LindenGUI extends JInternalFrame
             lindenView = null;
         }
     }
-    
+
     /**
      * Remove Rule
+     *
      * @param com
      */
-    public void remove (RulePanel com)
+    public void remove(RulePanel com)
     {
         rulePanelContainer.remove(com);
         refreshUI();
     }
-    
+
     /**
      * Add rule
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
-        rulePanelContainer.add (new RulePanel(this, false));
+        rulePanelContainer.add(new RulePanel(this, false));
         refreshUI();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * Add final rule
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        rulePanelContainer.add (new RulePanel(this, true));
+        rulePanelContainer.add(new RulePanel(this, true));
         refreshUI();
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    LindenView lindenView = null;
 
-    void buldLindeFromControls (Turtle t) throws Exception
+    private transient LindenView lindenView = null;
+
+    /**
+     * Draws Lindenmayer system
+     *
+     * @param t
+     * @throws Exception
+     */
+    void buldLindeFromControls(Turtle t) throws Exception
     {
-        t.CmdSetPenSize (Tools.readInt(penSize, 0));
-        t.CmdSetPenPositionAbsolute (
-                Tools.readInt(penPosX, 506), 
+        t.CmdSetPenSize(Tools.readInt(penSize, 0));
+        t.CmdSetPenPositionAbsolute(
+                Tools.readInt(penPosX, 506),
                 Tools.readInt(penPosY, 254));
-        t.CmdSetLindeLineLength (Tools.readDouble(lineLength, 2.0));
+        t.CmdSetLindeLineLength(Tools.readDouble(lineLength, 2.0));
         t.CmdSetLindeRecursionNumber(Tools.readInt(recursions, 6));
         t.CmdSetLindeAngle(Tools.readDouble(angle, 90.0));
         t.CmdSetLindeAxiom(axiom.getText());
@@ -401,30 +428,31 @@ public class LindenGUI extends JInternalFrame
         Component[] comps = rulePanelContainer.getComponents();
         for (Component c : comps)
         {
-            RulePanel rp = (RulePanel)c;
+            RulePanel rp = (RulePanel) c;
             String rule = rp.getRule();
             double prob = rp.getProbability();
-        
+
             t.CmdSetLindeRule(rule, prob);
         }
-        
+
         t.CmdLindeDraw();
         t.execute(t.getGraphics());
     }
-    
+
     /**
      * Render button clicked
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         removeView();
         createView();
-        
+
         Turtle t = lindenView.getTurtle();
         try
         {
-            buldLindeFromControls (t);
+            buldLindeFromControls(t);
         }
         catch (Exception ex)
         {
@@ -434,13 +462,16 @@ public class LindenGUI extends JInternalFrame
 
     /**
      * Tweet button
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
         if (lindenView == null)
+        {
             return;
-        
+        }
+
         BufferedImage img = lindenView.getTurtle().getImage();
         try
         {
@@ -448,17 +479,36 @@ public class LindenGUI extends JInternalFrame
         }
         catch (Exception ex)
         {
-            System.out.println (ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * Close button hit
+     *
+     * @param evt
+     */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
         if (lindenView == null)
+        {
             return;
+        }
         lindenView.dispose();
     }//GEN-LAST:event_formInternalFrameClosed
-    
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
+    {//GEN-HEADEREND:event_jButton7ActionPerformed
+        try
+        {
+            saveContent();
+        }
+        catch (IOException ex)
+        {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel North;
     private javax.swing.JPanel South;
