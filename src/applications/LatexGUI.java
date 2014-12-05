@@ -8,27 +8,38 @@ package applications;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import javax.swing.JLabel;
+import misc.MainWindow;
+import misc.PittiFrame;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 import misc.PixelCanvas;
-import twitter.TwitTools;
+import misc.Tools;
 
 /**
  *
  * @author Administrator
  */
-public class LatexGUI extends javax.swing.JInternalFrame
+public class LatexGUI extends PittiFrame implements Serializable, ActionListener
 {
+    public static final long serialVersionUID = 1L;
 
+    /**
+     * Object initializer
+     */
+    {
+        initComponents();
+    }
+    
     /**
      * Creates new form LatexGUI
      */
     public LatexGUI()
     {
-        initComponents();
     }
 
     /**
@@ -47,6 +58,8 @@ public class LatexGUI extends javax.swing.JInternalFrame
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        saveName = new javax.swing.JTextField();
         canvas = new PixelCanvas();
 
         setClosable(true);
@@ -60,84 +73,96 @@ public class LatexGUI extends javax.swing.JInternalFrame
 
         jPanel1.setBackground(new java.awt.Color(255, 51, 51));
         jPanel1.setMaximumSize(new java.awt.Dimension(32767, 100));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textArea.setColumns(20);
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 90));
+
         jButton1.setText("Render");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         jButton2.setText("to Clipboard");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(this);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
 
         jButton3.setText("Tweet");
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addContainerGap(349, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton3))
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton7.setBackground(new java.awt.Color(255, 255, 0));
+        jButton7.setText("Save as -->");
+        jButton7.addActionListener(this);
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 115, -1));
+
+        saveName.setText("DirectTweet");
+        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 192, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
         canvas.setBackground(new java.awt.Color(51, 255, 0));
-
-        javax.swing.GroupLayout canvasLayout = new javax.swing.GroupLayout(canvas);
-        canvas.setLayout(canvasLayout);
-        canvasLayout.setHorizontalGroup(
-            canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
-        );
-        canvasLayout.setVerticalGroup(
-            canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 185, Short.MAX_VALUE)
-        );
-
+        canvas.setMinimumSize(new java.awt.Dimension(630, 201));
+        canvas.setName(""); // NOI18N
+        canvas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(canvas, java.awt.BorderLayout.CENTER);
 
         pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == jButton7)
+        {
+            LatexGUI.this.jButton7ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton3)
+        {
+            LatexGUI.this.jButton3ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton2)
+        {
+            LatexGUI.this.jButton2ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton1)
+        {
+            LatexGUI.this.jButton1ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
+    {//GEN-HEADEREND:event_jButton7ActionPerformed
+        try
+        {
+            Tools.serialize(saveName.getText(), this);
+            MainWindow.instance.initSavesMenu();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
+    {//GEN-HEADEREND:event_jButton3ActionPerformed
+        ((PixelCanvas)canvas).tweet ("test");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        ((PixelCanvas)canvas).toClipboard();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        render();
+        invalidate();
+        repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void render()
     {
@@ -175,23 +200,6 @@ public class LatexGUI extends javax.swing.JInternalFrame
         }
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        render();
-        invalidate();
-        repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
-        ((PixelCanvas)canvas).toClipboard();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
-    {//GEN-HEADEREND:event_jButton3ActionPerformed
-        ((PixelCanvas)canvas).tweet ("test");
-    }//GEN-LAST:event_jButton3ActionPerformed
-
 /*
      \sum_{n=0}^m10^n*a_{n}
      \\---\\
@@ -203,8 +211,16 @@ public class LatexGUI extends javax.swing.JInternalFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField saveName;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void initAfterDeserialization()
+    {
+        //
+    }
 }

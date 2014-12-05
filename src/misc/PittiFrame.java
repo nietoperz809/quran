@@ -13,5 +13,8 @@ import javax.swing.JInternalFrame;
  */
 public abstract class PittiFrame extends JInternalFrame
 {
+    /**
+     * Implement the Deserialisation "Constructor"
+     */
     abstract public void initAfterDeserialization();
 }

@@ -9,7 +9,6 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.PittiFrame;
@@ -25,7 +24,7 @@ import twitter.TwitTools;
  */
 public class LindenGUI extends PittiFrame implements Serializable, ActionListener, InternalFrameListener
 {
-    static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
     
     // Instance initializer
     {
