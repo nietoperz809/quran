@@ -28,7 +28,7 @@ public class Command
     /**
      * All commands as ENUM
      */
-    enum CMD
+    public enum CMD
     {
         F, f, R, r, plus, minus, draw, drawabs, move, moveabs, mult, color, reset, pensize, finalrule, push, pop, lindedraw, lindeaxiom, linderule, linderec, lindeangle, lindestep
     }

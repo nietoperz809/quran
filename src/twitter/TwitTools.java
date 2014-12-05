@@ -1,16 +1,17 @@
 package twitter;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
+import java.io.OutputStream;
 import java.nio.file.Files;
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -86,47 +87,47 @@ public class TwitTools implements TwitterKeys
         return twitter;
     }
 
-    private File toFile (BufferedImage img) throws Exception
+    private File toFile(BufferedImage img) throws Exception
     {
         File file = File.createTempFile("twittools", ".tmp");
-        ImageIO.write(img, "png", file);       
+        ImageIO.write(img, "png", file);
         return file;
     }
 
-    private File toFile (InputStream in) throws Exception
+    private File toFile(InputStream in) throws Exception
     {
         File file = new File("tempfile");
-        Files.copy (in, file.toPath());
+        Files.copy(in, file.toPath());
         return file;
     }
-    
-    private void sendFile (File f, String label) throws Exception
+
+    private void sendFile(File f, String label) throws Exception
     {
         StatusUpdate st = new StatusUpdate(label);
-        st.setMedia(f); 
+        st.setMedia(f);
         m_twit.updateStatus(st);
     }
-    
-    public void send (BufferedImage img, String label) throws Exception
+
+    public void send(BufferedImage img, String label) throws Exception
     {
         if (m_twit == null)
         {
             return;
         }
         File f = toFile(img);
-        sendFile (f, label);
+        sendFile(f, label);
     }
 
-    public void send (InputStream in, String label) throws Exception
+    public void send(InputStream in, String label) throws Exception
     {
         if (m_twit == null)
         {
             return;
         }
         File f = toFile(in);
-        sendFile (f, label);
+        sendFile(f, label);
     }
-    
+
     public void sendStringArray(String[] sa) throws Exception
     {
         if (m_twit == null)
@@ -140,6 +141,32 @@ public class TwitTools implements TwitterKeys
             //System.out.println(st.getText());
             //Thread.sleep (36000);
         }
+    }
+
+    public static BufferedImage thresholdImage(BufferedImage image, int threshold)
+    {
+        BufferedImage result = new BufferedImage (image.getWidth(), 
+                image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        result.getGraphics().drawImage(image, 0, 0, null);
+        WritableRaster raster = result.getRaster();
+        int[] pixels = new int[image.getWidth()];
+        for (int y = 0; y < image.getHeight(); y++)
+        {
+            raster.getPixels(0, y, image.getWidth(), 1, pixels);
+            for (int i = 0; i < pixels.length; i++)
+            {
+                if (pixels[i] < threshold)
+                {
+                    pixels[i] = 0;
+                }
+                else
+                {
+                    pixels[i] = 255;
+                }
+            }
+            raster.setPixels(0, y, image.getWidth(), 1, pixels);
+        }
+        return result;
     }
 
 //    /**

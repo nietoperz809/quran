@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 import java.awt.image.BufferedImage;
+import twitter.TwitTools;
 
 /**
  * Double buffered Turtle
@@ -25,7 +26,7 @@ public class DoubleBufferedTurtle extends Turtle
     /**
      * Off-screen image used as canvas
      */
-    private final BufferedImage offImg;
+    private BufferedImage offImg;
     
     public BufferedImage getImage()
     {
@@ -52,7 +53,10 @@ public class DoubleBufferedTurtle extends Turtle
     public DoubleBufferedTurtle(int width, int height)
     {
         super(width, height);
-        offImg = gconf.createCompatibleImage(width, height);
+        //offImg = gconf.createCompatibleImage(width, height);
+        //offImg = TwitTools.thresholdImage(offImg, 128);
+        offImg = new BufferedImage (width, 
+                height, BufferedImage.TYPE_BYTE_BINARY);
         penColor = WHITE;
     }
 

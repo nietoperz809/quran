@@ -3,11 +3,19 @@ package monitor;
 import javax.swing.*;
 import java.awt.*;
 import static java.awt.Color.*;
+import static java.awt.Font.PLAIN;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import static java.lang.Long.parseLong;
+import static java.lang.Runtime.getRuntime;
+import static java.lang.String.valueOf;
+import static java.lang.System.arraycopy;
+import static java.lang.System.out;
+import static java.lang.Thread.MIN_PRIORITY;
+import static java.lang.Thread.sleep;
 import java.util.Date;
 
 /*
@@ -68,7 +76,7 @@ public class MemoryMonitor extends JPanel
         //setBorder (new EtchedBorder());
         add(surf);
         controls.setPreferredSize(new Dimension(135, 80));
-        Font font = new Font("serif", Font.PLAIN, 10);
+        Font font = new Font("serif", PLAIN, 10);
         JLabel label = new JLabel("Sample Rate");
         label.setFont(font);
         label.setForeground(BLACK);
@@ -97,7 +105,7 @@ public class MemoryMonitor extends JPanel
                 {
                     try
                     {
-                        surf.sleepAmount = Long.parseLong(tf.getText().trim());
+                        surf.sleepAmount = parseLong(tf.getText().trim());
                     }
                     catch (Exception ex)
                     {
@@ -119,8 +127,8 @@ public class MemoryMonitor extends JPanel
         private int w, h;
         private BufferedImage bimg;
         private Graphics2D big;
-        private final Font font = new Font("Times New Roman", Font.PLAIN, 11);
-        private final Runtime r = Runtime.getRuntime();
+        private final Font font = new Font("Times New Roman", PLAIN, 11);
+        private final Runtime r = getRuntime();
         private int columnInc;
         private int pts[];
         private int ptNum;
@@ -171,8 +179,8 @@ public class MemoryMonitor extends JPanel
 
             // .. Draw allocated and used strings ..
             big.setColor(GREEN);
-            big.drawString(String.valueOf((int) totalMemory / 1024) + "K allocated", 4.0f, (float) ascent + 0.5f);
-            usedStr = String.valueOf(((int) (totalMemory - freeMemory)) / 1024)
+            big.drawString(valueOf((int) totalMemory / 1024) + "K allocated", 4.0f, (float) ascent + 0.5f);
+            usedStr = valueOf(((int) (totalMemory - freeMemory)) / 1024)
                       + "K used";
             big.drawString(usedStr, 4, h - descent);
 
@@ -247,16 +255,16 @@ public class MemoryMonitor extends JPanel
                 if (ptNum < graphW)
                 {
                     tmp = new int[ptNum];
-                    System.arraycopy(pts, 0, tmp, 0, tmp.length);
+                    arraycopy(pts, 0, tmp, 0, tmp.length);
                 }
                 else
                 {
                     tmp = new int[graphW];
-                    System.arraycopy(pts, pts.length - tmp.length, tmp, 0, tmp.length);
+                    arraycopy(pts, pts.length - tmp.length, tmp, 0, tmp.length);
                     ptNum = tmp.length - 2;
                 }
                 pts = new int[graphW];
-                System.arraycopy(tmp, 0, pts, 0, tmp.length);
+                arraycopy(tmp, 0, pts, 0, tmp.length);
             }
             else
             {
@@ -279,7 +287,7 @@ public class MemoryMonitor extends JPanel
                 if (ptNum + 2 == pts.length)
                 {
                     // throw out oldest point
-                    System.arraycopy(pts, 1, pts, 0, ptNum - 1);
+                    arraycopy(pts, 1, pts, 0, ptNum - 1);
                     --ptNum;
                 }
                 else
@@ -293,7 +301,7 @@ public class MemoryMonitor extends JPanel
         public void start()
         {
             Thread thread = new Thread(this);
-            thread.setPriority(Thread.MIN_PRIORITY);
+            thread.setPriority(MIN_PRIORITY);
             thread.start();
             running = true;
         }
@@ -326,15 +334,15 @@ public class MemoryMonitor extends JPanel
                 }
                 try
                 {
-                    Thread.sleep(sleepAmount);
+                    sleep(sleepAmount);
                 }
                 catch (InterruptedException e)
                 {
                     break;
                 }
-                if (MemoryMonitor.dateStampCB.isSelected())
+                if (dateStampCB.isSelected())
                 {
-                    System.out.println(new Date().toString() + " " + usedStr);
+                    out.println(new Date().toString() + " " + usedStr);
                 }
             }
             //System.out.println ("stopped");

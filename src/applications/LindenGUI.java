@@ -61,6 +61,9 @@ public class LindenGUI extends JInternalFrame
         South = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rulePanelContainer = new javax.swing.JPanel();
@@ -239,7 +242,7 @@ public class LindenGUI extends JInternalFrame
 
         South.setBackground(new java.awt.Color(255, 153, 153));
         South.setMinimumSize(new java.awt.Dimension(100, 50));
-        South.setPreferredSize(new java.awt.Dimension(591, 50));
+        South.setPreferredSize(new java.awt.Dimension(591, 70));
 
         jButton1.setText("Render");
         jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -259,6 +262,11 @@ public class LindenGUI extends JInternalFrame
             }
         });
 
+        jButton6.setText("Load from <--");
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 0));
+        jButton7.setText("Save as -->");
+
         javax.swing.GroupLayout SouthLayout = new javax.swing.GroupLayout(South);
         South.setLayout(SouthLayout);
         SouthLayout.setHorizontalGroup(
@@ -268,16 +276,31 @@ public class LindenGUI extends JInternalFrame
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addGroup(SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
         );
         SouthLayout.setVerticalGroup(
             SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SouthLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(SouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton4))
                 .addContainerGap())
+            .addGroup(SouthLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jButton7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(SouthLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(South, java.awt.BorderLayout.SOUTH);
@@ -445,6 +468,8 @@ public class LindenGUI extends JInternalFrame
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -454,6 +479,7 @@ public class LindenGUI extends JInternalFrame
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField lineLength;
     private javax.swing.JTextField penPosX;
     private javax.swing.JTextField penPosY;
