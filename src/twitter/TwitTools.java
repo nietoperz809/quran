@@ -1,17 +1,15 @@
 package twitter;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
-import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -141,32 +139,6 @@ public class TwitTools implements TwitterKeys
             //System.out.println(st.getText());
             //Thread.sleep (36000);
         }
-    }
-
-    public static BufferedImage thresholdImage(BufferedImage image, int threshold)
-    {
-        BufferedImage result = new BufferedImage (image.getWidth(), 
-                image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
-        result.getGraphics().drawImage(image, 0, 0, null);
-        WritableRaster raster = result.getRaster();
-        int[] pixels = new int[image.getWidth()];
-        for (int y = 0; y < image.getHeight(); y++)
-        {
-            raster.getPixels(0, y, image.getWidth(), 1, pixels);
-            for (int i = 0; i < pixels.length; i++)
-            {
-                if (pixels[i] < threshold)
-                {
-                    pixels[i] = 0;
-                }
-                else
-                {
-                    pixels[i] = 255;
-                }
-            }
-            raster.setPixels(0, y, image.getWidth(), 1, pixels);
-        }
-        return result;
     }
 
 //    /**

@@ -8,14 +8,11 @@ package applications;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
+import misc.PittiFrame;
 import misc.Tools;
 import turtle.LindenView;
 import turtle.RulePanel;
@@ -26,8 +23,10 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class LindenGUI extends JInternalFrame implements Serializable, ActionListener, InternalFrameListener
+public class LindenGUI extends PittiFrame implements Serializable, ActionListener, InternalFrameListener
 {
+    static final long serialVersionUID = 1L;
+    
     // Instance initializer
     {
         initComponents();
@@ -39,30 +38,6 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
     public LindenGUI()
     {
 
-    }
-
-    /**
-     * Serialize
-     * @throws Exception 
-     */
-    private void saveContent() throws Exception
-    {
-        FileOutputStream f_out = new FileOutputStream("myobject.data");
-        ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-        obj_out.writeObject(this);
-    }
-
-    /**
-     * Deserialize
-     * @throws Exception 
-     */
-    private void loadContent() throws Exception
-    {
-        FileInputStream f_in = new FileInputStream("myobject.data");
-        ObjectInputStream obj_in = new ObjectInputStream(f_in);
-        Object obj = obj_in.readObject();
-        
-        MainWindow.instance.addChild((JInternalFrame)obj);
     }
 
     /**
@@ -97,8 +72,7 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
         South = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        saveName = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -191,16 +165,14 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
         jButton4.setText("Tweet");
         jButton4.addActionListener(this);
         South.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 32, -1, -1));
-        South.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 21, 192, -1));
 
-        jButton6.setText("Load from <--");
-        jButton6.addActionListener(this);
-        South.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 36, -1, -1));
+        saveName.setText("LindeSave");
+        South.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 192, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 0));
         jButton7.setText("Save as -->");
         jButton7.addActionListener(this);
-        South.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 4, 115, -1));
+        South.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 115, -1));
 
         getContentPane().add(South, java.awt.BorderLayout.SOUTH);
 
@@ -239,10 +211,6 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
         else if (evt.getSource() == jButton7)
         {
             LindenGUI.this.jButton7ActionPerformed(evt);
-        }
-        else if (evt.getSource() == jButton6)
-        {
-            LindenGUI.this.jButton6ActionPerformed(evt);
         }
     }
 
@@ -354,7 +322,7 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
      * @param t
      * @throws Exception
      */
-    void buldLindeFromControls(Turtle t) throws Exception
+    void buildLindeFromControls(Turtle t) throws Exception
     {
         t.CmdSetPenSize(Tools.readInt(penSize, 0));
         t.CmdSetPenPositionAbsolute(
@@ -394,7 +362,7 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
         Turtle t = lindenView.getTurtle();
         try
         {
-            buldLindeFromControls(t);
+            buildLindeFromControls(t);
         }
         catch (Exception ex)
         {
@@ -439,29 +407,22 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
         lindenView.dispose();
     }//GEN-LAST:event_formInternalFrameClosed
 
+    /** 
+     * Save "this"
+     * @param evt 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
     {//GEN-HEADEREND:event_jButton7ActionPerformed
         try
         {
-            saveContent();
+            Tools.serialize(saveName.getText(), this);
+            MainWindow.instance.initSavesMenu();
         }
         catch (Exception ex)
         {
             System.out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
-    {//GEN-HEADEREND:event_jButton6ActionPerformed
-        try
-        {
-            loadContent();
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex);
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel North;
@@ -472,7 +433,6 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -483,14 +443,20 @@ public class LindenGUI extends JInternalFrame implements Serializable, ActionLis
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField lineLength;
     private javax.swing.JTextField penPosX;
     private javax.swing.JTextField penPosY;
     private javax.swing.JTextField penSize;
     private javax.swing.JTextField recursions;
     private javax.swing.JPanel rulePanelContainer;
+    private javax.swing.JTextField saveName;
     private javax.swing.JTextField sizeX;
     private javax.swing.JTextField sizeY;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void initAfterDeserialization()
+    {
+        // Nothing to do here
+    }
 }

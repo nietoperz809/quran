@@ -8,13 +8,22 @@ package applications;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
 import misc.HashmapSeeker;
+import misc.PittiFrame;
 import misc.StringDivider;
+import misc.Tools;
 import quran.Quran;
 import quran.QuranMetadata;
 import quran.SeekResultGui;
@@ -27,11 +36,27 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class QuranGUI extends javax.swing.JInternalFrame
+public class QuranGUI extends PittiFrame implements Serializable, ActionListener, KeyListener, InternalFrameListener
 {
-    private Quran m_quran;
-    private final VerbalQuran m_speaker;
+    static final long serialVersionUID = 1L;
+
+    transient private Quran m_quran;
+    transient private VerbalQuran m_speaker;
     private final ArrayList<SeekResultGui> seekResults = new ArrayList<>();
+
+    @Override
+    public void initAfterDeserialization()
+    {
+        try
+        {
+            m_quran = new ZippedQuran(0);
+            m_speaker = new ZippedVerbalQuran();
+        }
+        catch (IOException ex)
+        {
+            System.out.println (ex);
+        }
+    }
     
     class Verse
     {
@@ -53,17 +78,27 @@ public class QuranGUI extends javax.swing.JInternalFrame
         tf_aya.setText(""+aya);
     }
     
+    // Initializer
+    {
+        m_quran = new ZippedQuran(0);
+        m_speaker = new ZippedVerbalQuran();
+        initComponents();
+        fillCB();
+        showText();
+    }
+
+    private void fillCB()
+    {
+        ComboBoxTools.pollute(combobox, m_quran.getFileNames());
+    }
+    
     /**
      * Creates new form NewJInternalFrame
      * @throws java.io.IOException
      */
     public QuranGUI() throws IOException
     {
-        initComponents();
-        m_quran = new ZippedQuran(0);
-        m_speaker = new ZippedVerbalQuran();
         ComboBoxTools.pollute(combobox, m_quran.getFileNames());
-        showText();
     }
 
     private String getSuraHeader (int sura)
@@ -152,6 +187,8 @@ public class QuranGUI extends javax.swing.JInternalFrame
         infoText = new javax.swing.JTextField();
         seekText = new javax.swing.JTextField();
         seekButton = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        saveName = new javax.swing.JTextField();
         outText = new javax.swing.JLabel();
 
         setClosable(true);
@@ -160,224 +197,89 @@ public class QuranGUI extends javax.swing.JInternalFrame
         setResizable(true);
         setPreferredSize(new java.awt.Dimension(600, 400));
         setVisible(true);
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
-        {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
-            {
-                formInternalFrameClosed(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-        });
+        addInternalFrameListener(this);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(394, 100));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Sura");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, -1, -1));
 
         tf_sura.setText("1");
-        tf_sura.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
-                tf_suraKeyReleased(evt);
-            }
-        });
+        tf_sura.addKeyListener(this);
+        jPanel1.add(tf_sura, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 1, 60, -1));
 
         jLabel2.setText("Aya");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 35, -1, -1));
 
         tf_aya.setText("1");
-        tf_aya.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
-                tf_ayaKeyReleased(evt);
-            }
-        });
+        tf_aya.addKeyListener(this);
+        jPanel1.add(tf_aya, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 32, 60, -1));
 
         jLabel3.setText("Quran");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 4, -1, -1));
 
         combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        combobox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                comboboxActionPerformed(evt);
-            }
-        });
+        combobox.addActionListener(this);
+        jPanel1.add(combobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 0, 132, -1));
 
         jButton1.setText("Recite");
         jButton1.setToolTipText("");
         jButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 56, -1));
 
         upButton.setText("+");
         upButton.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        upButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                upButtonActionPerformed(evt);
-            }
-        });
+        upButton.addActionListener(this);
+        jPanel1.add(upButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 32, 28, -1));
 
         downButton.setText("-");
         downButton.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        downButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                downButtonActionPerformed(evt);
-            }
-        });
+        downButton.addActionListener(this);
+        jPanel1.add(downButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 32, 28, -1));
 
         jButton2.setText("Tweet");
         jButton2.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(this);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 58, -1));
 
         jButton3.setText("Copy");
         jButton3.setToolTipText("");
         jButton3.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 56, -1));
 
         upButton1.setText("+");
         upButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        upButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                upButton1ActionPerformed(evt);
-            }
-        });
+        upButton1.addActionListener(this);
+        jPanel1.add(upButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 0, 28, -1));
 
         downButton1.setText("-");
         downButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        downButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                downButton1ActionPerformed(evt);
-            }
-        });
+        downButton1.addActionListener(this);
+        jPanel1.add(downButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 28, -1));
 
         infoText.setEditable(false);
         infoText.setBackground(new java.awt.Color(102, 255, 204));
         infoText.setFont(new java.awt.Font("Arabic Typesetting", 1, 24)); // NOI18N
         infoText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         infoText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel1.add(infoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 660, 37));
+        jPanel1.add(seekText, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 33, 100, -1));
 
         seekButton.setText("Seek");
-        seekButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                seekButtonActionPerformed(evt);
-            }
-        });
+        seekButton.addActionListener(this);
+        jPanel1.add(seekButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 32, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(2, 2, 2)
-                        .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(2, 2, 2)
-                        .addComponent(tf_sura, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(upButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(downButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(seekText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(seekButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(upButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(downButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 97, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65))
-            .addComponent(infoText)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tf_sura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(downButton1)
-                    .addComponent(upButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(downButton)
-                        .addComponent(jButton3)
-                        .addComponent(upButton)
-                        .addComponent(seekText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(seekButton))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(tf_aya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(infoText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton4.setText("save -->");
+        jButton4.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jButton4.addActionListener(this);
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 60, -1));
+
+        saveName.setText("Quran");
+        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 160, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -393,6 +295,104 @@ public class QuranGUI extends javax.swing.JInternalFrame
         getContentPane().add(outText, java.awt.BorderLayout.CENTER);
 
         pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == combobox)
+        {
+            QuranGUI.this.comboboxActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton1)
+        {
+            QuranGUI.this.jButton1ActionPerformed(evt);
+        }
+        else if (evt.getSource() == upButton)
+        {
+            QuranGUI.this.upButtonActionPerformed(evt);
+        }
+        else if (evt.getSource() == downButton)
+        {
+            QuranGUI.this.downButtonActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton2)
+        {
+            QuranGUI.this.jButton2ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton3)
+        {
+            QuranGUI.this.jButton3ActionPerformed(evt);
+        }
+        else if (evt.getSource() == upButton1)
+        {
+            QuranGUI.this.upButton1ActionPerformed(evt);
+        }
+        else if (evt.getSource() == downButton1)
+        {
+            QuranGUI.this.downButton1ActionPerformed(evt);
+        }
+        else if (evt.getSource() == seekButton)
+        {
+            QuranGUI.this.seekButtonActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton4)
+        {
+            QuranGUI.this.jButton4ActionPerformed(evt);
+        }
+    }
+
+    public void keyPressed(java.awt.event.KeyEvent evt)
+    {
+    }
+
+    public void keyReleased(java.awt.event.KeyEvent evt)
+    {
+        if (evt.getSource() == tf_sura)
+        {
+            QuranGUI.this.tf_suraKeyReleased(evt);
+        }
+        else if (evt.getSource() == tf_aya)
+        {
+            QuranGUI.this.tf_ayaKeyReleased(evt);
+        }
+    }
+
+    public void keyTyped(java.awt.event.KeyEvent evt)
+    {
+    }
+
+    public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+    {
+        if (evt.getSource() == QuranGUI.this)
+        {
+            QuranGUI.this.formInternalFrameClosed(evt);
+        }
+    }
+
+    public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+    {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboboxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboboxActionPerformed
@@ -566,6 +566,18 @@ public class QuranGUI extends javax.swing.JInternalFrame
         });
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+        try
+        {
+            Tools.serialize (saveName.getText(), this);
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox combobox;
@@ -575,11 +587,13 @@ public class QuranGUI extends javax.swing.JInternalFrame
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel outText;
+    private javax.swing.JTextField saveName;
     private javax.swing.JButton seekButton;
     private javax.swing.JTextField seekText;
     private javax.swing.JTextField tf_aya;

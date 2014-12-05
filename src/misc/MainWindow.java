@@ -8,14 +8,19 @@ package misc;
 import quran.QuranMetadata;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 
 /**
@@ -26,6 +31,30 @@ public class MainWindow extends javax.swing.JFrame
 {
     public static MainWindow instance;
 
+    public void initSavesMenu()
+    {
+        savesMenu.removeAll();
+        List<String> saves = Tools.listSaves();
+        saves.stream().forEach((s) ->
+        {
+            JMenuItem men = new JMenuItem(s);
+            men.addActionListener((ActionEvent e) ->
+            {
+                try
+                {
+                    PittiFrame obj = (PittiFrame)Tools.deSerialize(e.getActionCommand());
+                    obj.initAfterDeserialization();
+                    MainWindow.instance.addChild(obj);
+                }
+                catch (Exception ex)
+                {
+                   System.out.println(ex);
+                }
+            });
+            savesMenu.add(men);
+        });
+    }
+
     /**
      * Creates new form MDIApplication
      */
@@ -34,6 +63,7 @@ public class MainWindow extends javax.swing.JFrame
         instance = this;
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initSavesMenu();
     }
 
     static class BackWindow extends JDesktopPane implements PathNames
@@ -87,6 +117,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
@@ -194,6 +225,9 @@ public class MainWindow extends javax.swing.JFrame
 
         menuBar.add(fileMenu);
 
+        savesMenu.setText("Saves");
+        menuBar.add(savesMenu);
+
         jMenu1.setText("Window");
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -227,24 +261,24 @@ public class MainWindow extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addChild (JInternalFrame c)
+    public void addChild(JInternalFrame c)
     {
         desktopPane.add(c);
         c.moveToFront();
     }
-    
+
     /**
      * Creates new MDI child from class name
-     * @param c Runtime class
-     * Must be of type JInternalFrame
+     *
+     * @param c Runtime class Must be of type JInternalFrame
      * @return New JInternalFrame or null on Error
      */
-    public JInternalFrame createMDIChild (Class<?> c)
+    public JInternalFrame createMDIChild(Class<?> c)
     {
         try
         {
             Constructor<?> cons = c.getConstructor();
-            JInternalFrame q = (JInternalFrame)cons.newInstance();
+            JInternalFrame q = (JInternalFrame) cons.newInstance();
             addChild(q);
             return q;
         }
@@ -254,45 +288,46 @@ public class MainWindow extends javax.swing.JFrame
         }
         return null;
     }
-    
+
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
-        createMDIChild (applications.QuranGUI.class);
+        createMDIChild(applications.QuranGUI.class);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-        createMDIChild (applications.DirectTweetGUI.class);
+        createMDIChild(applications.DirectTweetGUI.class);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
-        createMDIChild (applications.LatexGUI.class);
+        createMDIChild(applications.LatexGUI.class);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
-        createMDIChild (applications.SlidersGUI.class);
+        createMDIChild(applications.SlidersGUI.class);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
-        createMDIChild (applications.RegExerGUI.class);
+        createMDIChild(applications.RegExerGUI.class);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem5ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem5ActionPerformed
-        createMDIChild (applications.ArrayGenGUI.class);
+        createMDIChild(applications.ArrayGenGUI.class);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
-        createMDIChild (applications.QRGeneratorGUI.class);
+        createMDIChild(applications.QRGeneratorGUI.class);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-    
+
     /**
      * Arrange
-     * @param evt 
+     *
+     * @param evt
      */
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem7ActionPerformed
@@ -301,12 +336,12 @@ public class MainWindow extends javax.swing.JFrame
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem8ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem8ActionPerformed
-        createMDIChild (applications.LindenGUI.class);
+        createMDIChild(applications.LindenGUI.class);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem9ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem9ActionPerformed
-        createMDIChild (applications.MemoryMonitorGUI.class);
+        createMDIChild(applications.MemoryMonitorGUI.class);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
@@ -342,6 +377,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
+    private javax.swing.JMenu savesMenu;
     // End of variables declaration//GEN-END:variables
 
 }

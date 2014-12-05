@@ -93,6 +93,11 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="savesMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Saves"/>
+          </Properties>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Window"/>
