@@ -98,7 +98,7 @@ public class LatexGUI extends PittiFrame implements Serializable, ActionListener
         jButton7.addActionListener(this);
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 115, -1));
 
-        saveName.setText("DirectTweet");
+        saveName.setText("LaTEX");
         jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 192, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);

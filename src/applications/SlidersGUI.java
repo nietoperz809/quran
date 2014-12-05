@@ -3,7 +3,8 @@ package applications;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
+import java.io.Serializable;
+import misc.PittiFrame;
 import mixit.CapturePanel;
 import mixit.Colorbox;
 import mixit.HeadPanel;
@@ -12,8 +13,10 @@ import mixit.HeadPanel;
  * Created by IntelliJ IDEA. User: Administrator Date: 04.09.2008 Time: 00:48:36
  * To change this template use File | Settings | File Templates.
  */
-public class SlidersGUI extends JInternalFrame implements ActionListener
+public class SlidersGUI extends PittiFrame implements Serializable, ActionListener
 {
+    public static final long serialVersionUID = 1L;
+    
     public final HeadPanel two = new HeadPanel(this);
     public final Colorbox cb = new Colorbox(two);
     private static final int HEIGHTCONST = 400;
@@ -119,6 +122,12 @@ public class SlidersGUI extends JInternalFrame implements ActionListener
     public static void main(String[] args)
     {
         new SlidersGUI(10, 10);
+    }
+
+    @Override
+    public void initAfterDeserialization()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  */
 public class PixelCanvas extends JPanel
 {
-    protected BufferedImage m_img = null;
+    protected transient BufferedImage m_img = null;
 
     public void setImage(BufferedImage i)
     {
@@ -70,5 +70,4 @@ public class PixelCanvas extends JPanel
         }
         drawImg(g);
     }
-    
 }
