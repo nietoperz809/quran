@@ -10,6 +10,7 @@ import java.io.Serializable;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
+import turtle.TurtleWindow;
 
 /**
  *
@@ -18,6 +19,7 @@ import misc.Tools;
 public class C64TextGUI extends PittiFrame implements Serializable, ActionListener
 {
     public static final long serialVersionUID = 1L;
+    private transient TurtleWindow bitmapView = null;
 
     /**
      * Initializer
@@ -31,6 +33,25 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
      */
     public C64TextGUI()
     {
+    }
+
+    private void createView()
+    {
+        if (bitmapView == null)
+        {
+            bitmapView = new TurtleWindow(500, 500);
+            MainWindow.instance.addChild(bitmapView);
+        }
+    }
+    
+    private void removeView()
+    {
+        if (bitmapView != null)
+        {
+            MainWindow.instance.remove(bitmapView);
+            bitmapView.dispose();
+            bitmapView = null;
+        }
     }
 
     /**
@@ -113,7 +134,8 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        removeView();
+        createView();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed

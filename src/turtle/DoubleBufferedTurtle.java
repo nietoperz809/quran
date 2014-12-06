@@ -11,7 +11,6 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 import java.awt.image.BufferedImage;
-import twitter.TwitTools;
 
 /**
  * Double buffered Turtle

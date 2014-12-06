@@ -150,8 +150,17 @@ public class Chargen
         return chrs;
     }
 
+    public void printChar (BufferedImage img, int idx, int x, int y)
+    {
+        Image i = getImage (idx);
+        Graphics g = img.getGraphics();
+        g.drawImage(i, x, y, null);
+    }
+    
     public Image getImage (int idx)
     {
+        int setbit = BLACK.getRGB();
+        int clrbit = WHITE.getRGB();
         BufferedImage img = new BufferedImage (8,8, TYPE_INT_ARGB);
         for (int rows = 0; rows<8; rows++)
         {
@@ -160,9 +169,9 @@ public class Chargen
             for (int lines = 0; lines<8; lines++)
             {
                 if ((c & i) == i)
-                    img.setRGB (lines, rows, BLACK.getRGB());
+                    img.setRGB (lines, rows, setbit);
                 else
-                    img.setRGB (lines, rows, WHITE.getRGB());
+                    img.setRGB (lines, rows, clrbit);
                 i >>>= 1;
             }
         }

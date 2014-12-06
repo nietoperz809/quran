@@ -9,11 +9,10 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
-import turtle.LindenView;
+import turtle.TurtleWindow;
 import turtle.RulePanel;
 import turtle.Turtle;
 import twitter.TwitTools;
@@ -22,9 +21,10 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class LindenGUI extends PittiFrame implements Serializable, ActionListener, InternalFrameListener
+public class LindenGUI extends PittiFrame implements Serializable, ActionListener
 {
     public static final long serialVersionUID = 1L;
+    private transient TurtleWindow bitmapView = null;
     
     // Instance initializer
     {
@@ -87,7 +87,6 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
         setMinimumSize(new java.awt.Dimension(100, 38));
         setPreferredSize(new java.awt.Dimension(600, 300));
         setVisible(true);
-        addInternalFrameListener(this);
 
         North.setBackground(new java.awt.Color(153, 255, 255));
         North.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -211,38 +210,6 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
         {
             LindenGUI.this.jButton7ActionPerformed(evt);
         }
-    }
-
-    public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
-    {
-        if (evt.getSource() == LindenGUI.this)
-        {
-            LindenGUI.this.formInternalFrameClosed(evt);
-        }
-    }
-
-    public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
-    {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -257,13 +224,13 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
 
     private void createView()
     {
-        if (lindenView == null)
+        if (bitmapView == null)
         {
-            lindenView = new LindenView(
+            bitmapView = new TurtleWindow(
                     Tools.readInt(sizeX, 500),
                     Tools.readInt(sizeY, 500)
             );
-            MainWindow.instance.addChild(lindenView);
+            MainWindow.instance.addChild(bitmapView);
         }
     }
 
@@ -272,11 +239,11 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
      */
     private void removeView()
     {
-        if (lindenView != null)
+        if (bitmapView != null)
         {
-            MainWindow.instance.remove(lindenView);
-            lindenView.dispose();
-            lindenView = null;
+            MainWindow.instance.remove(bitmapView);
+            bitmapView.dispose();
+            bitmapView = null;
         }
     }
 
@@ -312,8 +279,6 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
         rulePanelContainer.add(new RulePanel(this, true));
         refreshUI();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private transient LindenView lindenView = null;
 
     /**
      * Draws Lindenmayer system
@@ -358,7 +323,7 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
         removeView();
         createView();
 
-        Turtle t = lindenView.getTurtle();
+        Turtle t = bitmapView.getTurtle();
         try
         {
             buildLindeFromControls(t);
@@ -376,12 +341,12 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
-        if (lindenView == null)
+        if (bitmapView == null)
         {
             return;
         }
 
-        BufferedImage img = lindenView.getTurtle().getImage();
+        BufferedImage img = bitmapView.getTurtle().getImage();
         try
         {
             TwitTools.get().send(img, "LindenTest");
@@ -391,20 +356,6 @@ public class LindenGUI extends PittiFrame implements Serializable, ActionListene
             System.out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    /**
-     * Close button hit
-     *
-     * @param evt
-     */
-    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
-    {//GEN-HEADEREND:event_formInternalFrameClosed
-        if (lindenView == null)
-        {
-            return;
-        }
-        lindenView.dispose();
-    }//GEN-LAST:event_formInternalFrameClosed
 
     /** 
      * Save "this"
