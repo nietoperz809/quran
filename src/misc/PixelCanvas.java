@@ -8,14 +8,17 @@ package misc;
 import twitter.TwitTools;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Administrator
  */
-public class PixelCanvas extends JPanel
+public class PixelCanvas extends JPanel implements Serializable
 {
+    static final long serialVersionUID = 1L;
+
     protected transient BufferedImage m_img = null;
 
     public void setImage(BufferedImage i)
@@ -51,12 +54,12 @@ public class PixelCanvas extends JPanel
     
     protected void drawImg (Graphics g)
     {
-        int w = getWidth();
-        int h = getHeight();
-        int wi = m_img.getHeight(null);
-        int hi = m_img.getWidth(null);
-        int off_x = (w-wi)/2;
-        int off_y = (h-hi)/2;
+//        int w = getWidth();
+//        int h = getHeight();
+//        int wi = m_img.getHeight(null);
+//        int hi = m_img.getWidth(null);
+        int off_x = 20; //(w-wi)/2;
+        int off_y = 20; //(h-hi)/2;
         g.drawImage(m_img, off_x, off_y, null);
     }
     

@@ -68,6 +68,7 @@ public class LatexGUI extends PittiFrame implements Serializable, ActionListener
         setResizable(true);
         setTitle("LaTEX");
         setToolTipText("");
+        setMinimumSize(new java.awt.Dimension(130, 163));
         setName(""); // NOI18N
         setVisible(true);
 
@@ -106,6 +107,7 @@ public class LatexGUI extends PittiFrame implements Serializable, ActionListener
         canvas.setBackground(new java.awt.Color(51, 255, 0));
         canvas.setMinimumSize(new java.awt.Dimension(630, 201));
         canvas.setName(""); // NOI18N
+        canvas.setPreferredSize(new java.awt.Dimension(0, 201));
         canvas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(canvas, java.awt.BorderLayout.CENTER);
 
@@ -116,21 +118,21 @@ public class LatexGUI extends PittiFrame implements Serializable, ActionListener
 
     public void actionPerformed(java.awt.event.ActionEvent evt)
     {
-        if (evt.getSource() == jButton7)
+        if (evt.getSource() == jButton1)
         {
-            LatexGUI.this.jButton7ActionPerformed(evt);
-        }
-        else if (evt.getSource() == jButton3)
-        {
-            LatexGUI.this.jButton3ActionPerformed(evt);
+            LatexGUI.this.jButton1ActionPerformed(evt);
         }
         else if (evt.getSource() == jButton2)
         {
             LatexGUI.this.jButton2ActionPerformed(evt);
         }
-        else if (evt.getSource() == jButton1)
+        else if (evt.getSource() == jButton3)
         {
-            LatexGUI.this.jButton1ActionPerformed(evt);
+            LatexGUI.this.jButton3ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton7)
+        {
+            LatexGUI.this.jButton7ActionPerformed(evt);
         }
     }// </editor-fold>//GEN-END:initComponents
 
