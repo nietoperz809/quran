@@ -6,6 +6,7 @@ package chargen;
 
 import static java.awt.Color.BLACK;
 import static java.awt.Color.WHITE;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -23,17 +24,20 @@ public class Chargen
 {
     private final HashMap<Character, Integer> map = new HashMap<>();
     private char pixel = 'O';
-    
+    private static int setbit = WHITE.getRGB();
+    private static int clrbit = BLACK.getRGB();
+
     /**
      * Constructor that sets character as pixel
-     * @param pix 
+     *
+     * @param pix
      */
-    public Chargen (char pix)
+    public Chargen(char pix)
     {
         this();
         pixel = pix;
     }
-    
+
     /**
      * Constructor, fills the char map
      */
@@ -124,177 +128,83 @@ public class Chargen
         map.put('-', 0x968);
         map.put('.', 0x970);
         map.put('/', 0x978);
+
+        map.put(':', 58*8);
+        map.put(';', 59*8);
     }
 
-    /**
-     * Get 8 pixels as chars
-     * @param idx index into charge table
-     * @return char array of pixels in row
-     */
-    private char[] getRow(int idx)
+    private int getIndex(char c)
     {
-        char[] chrs =
+        if (map.containsKey(c))
         {
-            ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-        };
-        int c = ChargenData.c64Chargen[idx];
-        int i = 128;
-        for (int s = 0; s < 8; s++)
-        {
-            if ((c & i) == i)
-            {
-                chrs[s] = pixel;
-            }
-            i >>>= 1;
+            return map.get(c);
         }
-        return chrs;
+        return 0x298;  // dummy heart
     }
 
-    public void printChar (BufferedImage img, int idx, int x, int y)
+    public Dimension textParams (String txt)
     {
-        Image i = getImage (idx);
+        Dimension d = new Dimension(0,0);
+        String[] strs = txt.split("\n");
+        for (String str : strs)
+        {
+            if (str.length() > d.width)
+                d.width = str.length();
+            d.height += 8;
+        }
+        d.width *= 8;
+        
+        d.width += 10;
+        d.height += 10;
+        return d;
+    }
+    
+    public void printImg (BufferedImage img, CharSequence s, int x, int y)
+    {
+        int xstart = x;
+        for (int i=0; i<s.length(); i++)
+        {
+            char c = s.charAt(i);
+            if (c == '\n')
+            {
+                y += 8;
+                x = xstart;
+            }
+            else
+            {
+                printImg (img, c, x, y);
+                x += 8;
+            }
+        }
+    }
+    
+    public void printImg (BufferedImage img, char c, int x, int y)
+    {
+        Image i = getImage(getIndex(c));
         Graphics g = img.getGraphics();
         g.drawImage(i, x, y, null);
     }
-    
-    public Image getImage (int idx)
+
+    public Image getImage(int idx)
     {
-        int setbit = BLACK.getRGB();
-        int clrbit = WHITE.getRGB();
-        BufferedImage img = new BufferedImage (8,8, TYPE_INT_ARGB);
-        for (int rows = 0; rows<8; rows++)
+        BufferedImage img = new BufferedImage(8, 8, TYPE_INT_ARGB);
+        for (int rows = 0; rows < 8; rows++)
         {
             int c = ChargenData.c64Chargen[idx++];
             int i = 128;
-            for (int lines = 0; lines<8; lines++)
+            for (int lines = 0; lines < 8; lines++)
             {
                 if ((c & i) == i)
-                    img.setRGB (lines, rows, setbit);
+                {
+                    img.setRGB(lines, rows, setbit);
+                }
                 else
-                    img.setRGB (lines, rows, clrbit);
+                {
+                    img.setRGB(lines, rows, clrbit);
+                }
                 i >>>= 1;
             }
         }
         return img;
     }
-    
-    /**
-     * Get all rows of a character
-     * @param idx The starting index of a char
-     * @return two dimensional array
-     */
-    private char[][] getRows(int idx)
-    {
-        char[][] res = new char[8][8];
-        for (int s = 0; s < 8; s++)
-        {
-            res[s] = getRow(idx++);
-        }
-        return res;
-    }
-    
-    /**
-     * Get char as printable string
-     * @param idx starting index
-     * @return string that is the char
-     */
-    private String getCharAt(int idx)
-    {
-        StringBuilder out = new StringBuilder();
-        for (int s = 0; s < 8; s++)
-        {
-            out.append(getRow(idx++)).append("\n");
-        }
-        return out.toString();
-    }
-
-    /**
-     * Get multiple chars as printable String
-     * @param chars
-     * @return 
-     */
-    public String getLine(int... chars)
-    {
-        StringBuilder out = new StringBuilder();
-        char[][][] all = new char[chars.length][8][8];
-        for (int s = 0; s < chars.length; s++)
-        {
-            all[s] = getRows(chars[s]);
-        }
-
-        for (int r = 0; r < 8; r++)
-        {
-            for (int s = 0; s < chars.length; s++)
-            {
-                out.append(all[s][r]);
-                out.append("  ");
-            }
-            out.append("\n");
-        }
-
-        return out.toString();
-    }
-
-    /**
-     * Translates a string and then get it as big pixel string
-     * @param in input string
-     * @return output string
-     */
-    public String translatedLine(String in)
-    {
-        int[] idxs = new int[in.length()];
-
-        for (int s = 0; s < in.length(); s++)
-        {
-            char c = in.charAt(s);
-            if (map.containsKey(c))
-                idxs[s] = map.get(c);
-            else
-                idxs[s] = 0x298;  // dummy heart
-        }
-        return getLine(idxs);
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args)
-    {
-        Chargen g = new Chargen('*');
-        //System.out.println (getCharAt(0));
-        //System.out.println (gtCharAt(8));
-        //System.out.println (getCharAt(16));
-
-        //System.out.println (getLine (0,8,16));
-        //System.out.println (getLine (0x800+8,0x800+16,0x800+24));
-        //System.out.println (translatedLine("HALLO b"));
-        //System.out.println (translatedLine("0123456789"));
-        out.println(g.translatedLine("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"));
-        out.println(g.translatedLine("the quick brown fox jumps over the lazy dog"));
-        out.println(g.translatedLine("0123456789+-*/"));
-
-        class PAN extends JPanel
-        {
-            Chargen g;
-            
-            PAN(Chargen g)
-            {
-                this.g = g;            
-            }
-            
-            @Override
-            public void paint (Graphics gra)
-            {
-                Image img = g.getImage(0x808);
-                gra.drawImage(img, 10, 10, this);
-            }
-        }
-        
-        JFrame frame = new JFrame();
-        JPanel pan = new PAN(g);
-        frame.add (pan);
-        frame.setSize(100, 100);
-        frame.setVisible (true);
-    }
-    
 }

@@ -5,12 +5,16 @@
  */
 package applications;
 
+import chargen.Chargen;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
 import turtle.TurtleWindow;
+import twitter.TwitTools;
 
 /**
  *
@@ -20,7 +24,8 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
 {
     public static final long serialVersionUID = 1L;
     private transient TurtleWindow bitmapView = null;
-
+    private transient Chargen chargen = new Chargen();
+    
     /**
      * Initializer
      */
@@ -35,11 +40,11 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
     {
     }
 
-    private void createView()
+    private void createView (int x, int y)
     {
         if (bitmapView == null)
         {
-            bitmapView = new TurtleWindow(500, 500);
+            bitmapView = new TurtleWindow(x, y);
             MainWindow.instance.addChild(bitmapView);
         }
     }
@@ -65,12 +70,13 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
     {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        inputText = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -80,9 +86,9 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         setMinimumSize(new java.awt.Dimension(550, 38));
         setVisible(true);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        inputText.setColumns(20);
+        inputText.setRows(5);
+        jScrollPane1.setViewportView(inputText);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -99,15 +105,20 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         jButton7.setText("Save as -->");
         jButton7.addActionListener(this);
         jPanel1.add(jButton7);
-        jButton7.setBounds(200, 10, 120, 25);
+        jButton7.setBounds(390, 10, 120, 25);
 
         saveName.setText("C64Text");
         jPanel1.add(saveName);
-        saveName.setBounds(330, 10, 160, 22);
+        saveName.setBounds(510, 10, 160, 22);
 
         jButton2.setText("To Clip");
         jPanel1.add(jButton2);
         jButton2.setBounds(90, 10, 90, 30);
+
+        jButton4.setText("Tweet");
+        jButton4.addActionListener(this);
+        jPanel1.add(jButton4);
+        jButton4.setBounds(250, 10, 71, 25);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -126,6 +137,10 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         {
             C64TextGUI.this.jButton7ActionPerformed(evt);
         }
+        else if (evt.getSource() == jButton4)
+        {
+            C64TextGUI.this.jButton4ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -134,8 +149,16 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
+        if (chargen == null)
+            chargen = new Chargen();
+        String txt = inputText.getText();
+        Dimension d = chargen.textParams (txt);
+        
         removeView();
-        createView();
+        createView (d.width, d.height);
+        
+        BufferedImage img = bitmapView.getTurtle().getImage();
+        chargen.printImg (img, txt, 5, 5);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
@@ -151,14 +174,33 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+        if (bitmapView == null)
+        {
+            return;
+        }
+
+        BufferedImage img = bitmapView.getTurtle().getImage();
+        try
+        {
+            TwitTools.get().send(img, "C64 Font");
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea inputText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField saveName;
     // End of variables declaration//GEN-END:variables
 
