@@ -5,8 +5,6 @@
  */
 package turtle;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author Administrator

@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import misc.ClipboardImage;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
@@ -112,6 +113,7 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         saveName.setBounds(510, 10, 160, 22);
 
         jButton2.setText("To Clip");
+        jButton2.addActionListener(this);
         jPanel1.add(jButton2);
         jButton2.setBounds(90, 10, 90, 30);
 
@@ -141,6 +143,10 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         {
             C64TextGUI.this.jButton4ActionPerformed(evt);
         }
+        else if (evt.getSource() == jButton2)
+        {
+            C64TextGUI.this.jButton2ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -160,7 +166,11 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         BufferedImage img = bitmapView.getTurtle().getImage();
         chargen.printImg (img, txt, 5, 5);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    /**
+     * Save the window
+     * @param evt 
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
     {//GEN-HEADEREND:event_jButton7ActionPerformed
         try
@@ -192,6 +202,15 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * To clipboard
+     * @param evt 
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        BufferedImage img = bitmapView.getTurtle().getImage();
+        new ClipboardImage (img);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea inputText;
