@@ -78,6 +78,7 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         saveName = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        messageTxt = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -85,10 +86,12 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         setResizable(true);
         setTitle("C64Font");
         setMinimumSize(new java.awt.Dimension(550, 38));
+        setPreferredSize(new java.awt.Dimension(499, 284));
         setVisible(true);
 
         inputText.setColumns(20);
         inputText.setRows(5);
+        inputText.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(inputText);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -120,7 +123,11 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         jButton4.setText("Tweet");
         jButton4.addActionListener(this);
         jPanel1.add(jButton4);
-        jButton4.setBounds(250, 10, 71, 25);
+        jButton4.setBounds(250, 0, 71, 25);
+
+        messageTxt.setText("C64_Font");
+        jPanel1.add(messageTxt);
+        messageTxt.setBounds(230, 30, 120, 22);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -139,13 +146,13 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         {
             C64TextGUI.this.jButton7ActionPerformed(evt);
         }
-        else if (evt.getSource() == jButton4)
-        {
-            C64TextGUI.this.jButton4ActionPerformed(evt);
-        }
         else if (evt.getSource() == jButton2)
         {
             C64TextGUI.this.jButton2ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton4)
+        {
+            C64TextGUI.this.jButton4ActionPerformed(evt);
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,7 +201,7 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         BufferedImage img = bitmapView.getTurtle().getImage();
         try
         {
-            TwitTools.get().send(img, "C64 Font");
+            TwitTools.get().send(img, messageTxt.getText());
         }
         catch (Exception ex)
         {
@@ -220,6 +227,7 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField messageTxt;
     private javax.swing.JTextField saveName;
     // End of variables declaration//GEN-END:variables
 

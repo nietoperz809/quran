@@ -11,10 +11,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static java.lang.System.out;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -128,7 +125,12 @@ public class Chargen
         map.put('-', 0x968);
         map.put('.', 0x970);
         map.put('/', 0x978);
-
+       
+        map.put('’', 39*8);
+        map.put('‘', 39*8);
+        map.put('”', 34*8);
+        map.put('“', 34*8);
+        map.put('–', 0x968);
         map.put(':', 58*8);
         map.put(';', 59*8);
     }
