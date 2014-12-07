@@ -6,7 +6,6 @@
 package misc;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.beans.PropertyVetoException;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -17,7 +16,14 @@ import javax.swing.JInternalFrame;
  */
 public class MDIActions
 {
-    public static void arrange (JDesktopPane desk, ActionEvent ev)
+    public static void closeAll (JDesktopPane desk)
+    {
+        JInternalFrame[] allframes = desk.getAllFrames();
+        for (JInternalFrame f : allframes)
+            desk.getDesktopManager().closeFrame(f);
+    }
+    
+    public static void arrange (JDesktopPane desk)
     {
         // How many frames do we have?
         JInternalFrame[] allframes = desk.getAllFrames();
@@ -48,7 +54,7 @@ public class MDIActions
         int x = 0;
         int y = 0;
 
-    // Iterate over the frames, deiconifying any iconified frames and then
+        // Iterate over the frames, deiconifying any iconified frames and then
         // relocating & resizing each.
         for (int i = 0; i < rows; i++)
         {

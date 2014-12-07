@@ -40,13 +40,14 @@ public class MainWindow extends javax.swing.JFrame
             {
                 try
                 {
-                    PittiFrame obj = (PittiFrame)Tools.deSerialize(e.getActionCommand());
+                    PittiFrame obj = (PittiFrame)Tools.deSerialize(s);
                     obj.initAfterDeserialization();
                     MainWindow.instance.addChild(obj);
                 }
                 catch (Exception ex)
                 {
                     savesMenu.remove(men); // Remove damaged entry
+                    Tools.deleteSave(s);    
                     //System.out.println(ex);
                 }
             });
@@ -120,6 +121,7 @@ public class MainWindow extends javax.swing.JFrame
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("The Holy Qur'an");
@@ -251,6 +253,16 @@ public class MainWindow extends javax.swing.JFrame
         });
         jMenu1.add(jMenuItem7);
 
+        jMenuItem11.setText("Close All");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem11);
+
         menuBar.add(Box.createGlue());
 
         menuBar.add(jMenu1);
@@ -341,7 +353,7 @@ public class MainWindow extends javax.swing.JFrame
      */
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem7ActionPerformed
-        MDIActions.arrange(desktopPane, evt);
+        MDIActions.arrange(desktopPane);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -358,6 +370,15 @@ public class MainWindow extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jMenuItem10ActionPerformed
         createMDIChild (applications.C64TextGUI.class);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    /**
+     * Close all
+     * @param evt 
+     */
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem11ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem11ActionPerformed
+        MDIActions.closeAll (desktopPane);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +404,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

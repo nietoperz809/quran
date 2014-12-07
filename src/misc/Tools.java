@@ -70,21 +70,63 @@ public class Tools
 
     static final String m_path = "../ser/";
 
+    /**
+     * Create a save
+     * @param filename
+     * @param o
+     * @throws Exception 
+     */
     public static void serialize(String filename, Object o) throws Exception
     {
         new File(m_path).mkdirs();
         FileOutputStream f_out = new FileOutputStream(m_path + filename);
         ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
         obj_out.writeObject(o);
+        obj_out.close();
+        f_out.close();
     }
 
+    /**
+     * Delete a save
+     * @param filename 
+     */
+    public static void deleteSave (String filename) 
+    {
+        File f = new File (m_path+filename);
+        String message = f.exists() ? "is in use by another app" : "does not exist";        
+        if (!f.delete())
+        {
+            System.out.println ("Could not delete "+m_path+filename+" -- "+message);
+        }
+    }
+    
+    /**
+     * Open a save
+     * @param filename
+     * @return
+     * @throws Exception 
+     */
     public static Object deSerialize(String filename) throws Exception
     {
+        Object ret = null;
         FileInputStream f_in = new FileInputStream(m_path + filename);
         ObjectInputStream obj_in = new ObjectInputStream(f_in);
-        return obj_in.readObject();
+        try
+        {
+            ret = obj_in.readObject();
+        }
+        finally
+        {
+            obj_in.close();
+            f_in.close();
+        }
+        return ret;
     }
 
+    /**
+     * Get a list of all saves
+     * @return 
+     */
     public static List<String> listSaves()
     {
         List<String> result = new ArrayList<>();
