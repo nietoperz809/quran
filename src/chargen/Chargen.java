@@ -125,14 +125,14 @@ public class Chargen
         map.put('-', 0x968);
         map.put('.', 0x970);
         map.put('/', 0x978);
-       
-        map.put('’', 39*8);
-        map.put('‘', 39*8);
-        map.put('”', 34*8);
-        map.put('“', 34*8);
+
+        map.put('’', 39 * 8);
+        map.put('‘', 39 * 8);
+        map.put('”', 34 * 8);
+        map.put('“', 34 * 8);
         map.put('–', 0x968);
-        map.put(':', 58*8);
-        map.put(';', 59*8);
+        map.put(':', 58 * 8);
+        map.put(';', 59 * 8);
     }
 
     private int getIndex(char c)
@@ -144,27 +144,36 @@ public class Chargen
         return 0x298;  // dummy heart
     }
 
-    public Dimension textParams (String txt)
+
+    /**
+     * Prints string array to bitmap
+     *
+     * @param img
+     * @param arr
+     * @param x
+     * @param y
+     */
+    public void printImg(BufferedImage img, String[] arr, int x, int y)
     {
-        Dimension d = new Dimension(0,0);
-        String[] strs = txt.split("\n");
-        for (String str : strs)
+        for (String str : arr)
         {
-            if (str.length() > d.width)
-                d.width = str.length();
-            d.height += 8;
+            printImg(img, str, x, y);
+            y += 8;
         }
-        d.width *= 8;
-        
-        d.width += 10;
-        d.height += 10;
-        return d;
     }
-    
-    public void printImg (BufferedImage img, CharSequence s, int x, int y)
+
+    /**
+     * Prints String into bitmap
+     *
+     * @param img Destination bitmap
+     * @param s String to print
+     * @param x start position x
+     * @param y start position y
+     */
+    public void printImg(BufferedImage img, CharSequence s, int x, int y)
     {
         int xstart = x;
-        for (int i=0; i<s.length(); i++)
+        for (int i = 0; i < s.length(); i++)
         {
             char c = s.charAt(i);
             if (c == '\n')
@@ -174,13 +183,13 @@ public class Chargen
             }
             else
             {
-                printImg (img, c, x, y);
+                printImg(img, c, x, y);
                 x += 8;
             }
         }
     }
-    
-    public void printImg (BufferedImage img, char c, int x, int y)
+
+    public void printImg(BufferedImage img, char c, int x, int y)
     {
         Image i = getImage(getIndex(c));
         Graphics g = img.getGraphics();

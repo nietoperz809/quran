@@ -6,6 +6,7 @@
 package applications;
 
 import chargen.Chargen;
+import chargen.TextTools;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -79,6 +80,8 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         messageTxt = new javax.swing.JTextField();
+        checkCentered = new javax.swing.JCheckBox();
+        checkRight = new javax.swing.JCheckBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -103,7 +106,7 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         jButton1.setText("Render");
         jButton1.addActionListener(this);
         jPanel1.add(jButton1);
-        jButton1.setBounds(10, 10, 75, 30);
+        jButton1.setBounds(10, 0, 75, 20);
 
         jButton7.setBackground(new java.awt.Color(255, 255, 0));
         jButton7.setText("Save as -->");
@@ -118,7 +121,7 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         jButton2.setText("To Clip");
         jButton2.addActionListener(this);
         jPanel1.add(jButton2);
-        jButton2.setBounds(90, 10, 90, 30);
+        jButton2.setBounds(10, 30, 90, 20);
 
         jButton4.setText("Tweet");
         jButton4.addActionListener(this);
@@ -128,6 +131,14 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         messageTxt.setText("C64_Font");
         jPanel1.add(messageTxt);
         messageTxt.setBounds(230, 30, 120, 22);
+
+        checkCentered.setText("centered");
+        jPanel1.add(checkCentered);
+        checkCentered.setBounds(111, 0, 110, 25);
+
+        checkRight.setText("right");
+        jPanel1.add(checkRight);
+        checkRight.setBounds(110, 20, 91, 25);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -165,8 +176,14 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
         if (chargen == null)
             chargen = new Chargen();
         String txt = inputText.getText();
-        Dimension d = chargen.textParams (txt);
+        TextTools tt = new TextTools(txt);
+        Dimension d = tt.getImageDimension();
         
+        if (checkCentered.isSelected())
+            txt = tt.getCenteredText();
+        if (checkRight.isSelected())
+            txt = tt.getRightText();
+                
         removeView();
         createView (d.width, d.height);
         
@@ -220,6 +237,8 @@ public class C64TextGUI extends PittiFrame implements Serializable, ActionListen
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkCentered;
+    private javax.swing.JCheckBox checkRight;
     private javax.swing.JTextArea inputText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
