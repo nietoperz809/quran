@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
@@ -31,7 +29,7 @@ public class MainWindow extends javax.swing.JFrame
 {
     public static MainWindow instance;
 
-    public void initSavesMenu()
+    public final void initSavesMenu()
     {
         savesMenu.removeAll();
         List<String> saves = Tools.listSaves();
@@ -48,7 +46,8 @@ public class MainWindow extends javax.swing.JFrame
                 }
                 catch (Exception ex)
                 {
-                   System.out.println(ex);
+                    savesMenu.remove(men); // Remove damaged entry
+                    //System.out.println(ex);
                 }
             });
             savesMenu.add(men);
