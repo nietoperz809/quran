@@ -6,7 +6,6 @@ package chargen;
 
 import static java.awt.Color.BLACK;
 import static java.awt.Color.WHITE;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
