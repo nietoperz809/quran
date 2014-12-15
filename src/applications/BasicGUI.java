@@ -184,8 +184,11 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
 
     private void basic()
     {
-        StreamingTextArea st = (StreamingTextArea)area;
-        ci = new CommandInterpreter(st.getDataInputStream(), st.getPrintStream());
+        if (ci == null)
+        {
+            StreamingTextArea st = (StreamingTextArea)area;
+            ci = new CommandInterpreter(st);
+        }
         try
         {
             ci.start();

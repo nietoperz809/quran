@@ -24,7 +24,8 @@ package com.basic;
  * @see BASICSyntaxError
  * @see BASICRuntimeError
  */
-public class BASICError extends Exception {
+public class BASICError extends Exception implements Ser 
+{
     String msg = "None.";
     Statement s = null;
 

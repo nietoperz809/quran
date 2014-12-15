@@ -35,7 +35,8 @@ import com.basic.util.RedBlackTree;
  * See the class ParseExpression for the grammar and precidence rules.
  */
 
-class Expression {
+class Expression implements Ser
+{
     Expression arg1, arg2;
     int oper;
 

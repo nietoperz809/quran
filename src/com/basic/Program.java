@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.util.Enumeration;
 import java.util.Random;
 import com.basic.util.RedBlackTree;
+import java.io.Serializable;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -46,8 +47,10 @@ import java.util.Vector;
  * @see CommandInterpreter
  *
  */
-public class Program implements Runnable
+public class Program implements Runnable, Serializable
 {
+    public static final long serialVersionUID = 1L;
+    
     // this tree holds all of the statements.
     private RedBlackTree stmts = new RedBlackTree(new NumberCompare());
 

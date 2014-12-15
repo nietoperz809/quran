@@ -20,7 +20,8 @@ package com.basic;
 /**
  * Thrown by the parser if it can't parse an input line.
  */
-public class BASICRuntimeError extends BASICError {
+public class BASICRuntimeError extends BASICError 
+{
     /**
      * A runtime error with message <i>errorMessage</i>
      */

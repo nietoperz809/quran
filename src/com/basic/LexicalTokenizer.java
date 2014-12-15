@@ -17,6 +17,7 @@
  */
 package com.basic;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
@@ -24,8 +25,9 @@ import java.util.Vector;
  * command line) and returns them as tokens. Each tokenizer maintains state on
  * where it is in the process.
  */
-public class LexicalTokenizer
+public class LexicalTokenizer implements Serializable
 {
+    public static final long serialVersionUID = 1L;
 
     int currentPos = 0;
     int previousPos = 0;

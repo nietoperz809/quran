@@ -17,6 +17,7 @@
  */
 package com.basic;
 
+import com.basic.streameditor.StreamingTextArea;
 import java.io.*;
 
 /**
@@ -29,8 +30,8 @@ public class CommandInterpreter implements Serializable
 {
     public static final long serialVersionUID = 1L;
 
-    transient private final DataInputStream inStream;
-    transient private final PrintStream outStream;
+    transient private DataInputStream inStream;
+    transient private PrintStream outStream;
 
     final static String commands[] =
     {
@@ -50,27 +51,16 @@ public class CommandInterpreter implements Serializable
     static final int CMD_DUMP = 9;
     static final int CMD_CONT = 10;
 
+    StreamingTextArea area;
+    
     /**
      * Create a new command interpreter attached to the passed in streams.
      */
-    public CommandInterpreter(InputStream in, OutputStream out)
+    public CommandInterpreter (StreamingTextArea ar)
     {
-        if (in instanceof DataInputStream)
-        {
-            inStream = (DataInputStream) in;
-        }
-        else
-        {
-            inStream = new DataInputStream(in);
-        }
-        if (out instanceof PrintStream)
-        {
-            outStream = (PrintStream) out;
-        }
-        else
-        {
-            outStream = new PrintStream(out);
-        }
+        area = ar;
+        inStream = new DataInputStream (ar.getInputStream());
+        outStream = new PrintStream (ar.getOutputStream());
     }
 
     /**
@@ -256,6 +246,9 @@ public class CommandInterpreter implements Serializable
         }
         return buff.toString();
     }
+
+    LexicalTokenizer lt;
+    Program pgm;
     
     /**
      * Starts the interactive session. When running the user should see the
@@ -264,11 +257,23 @@ public class CommandInterpreter implements Serializable
      */
     public void start()
     {
-        LexicalTokenizer lt = new LexicalTokenizer(data);
-        Program pgm = new Program();
+        if (inStream == null)
+        {
+            inStream = new DataInputStream (area.getInputStream());
+        }
+        if (outStream == null)
+        {
+            outStream = new PrintStream (area.getOutputStream());
+        }
+        
+        if (lt == null)
+            lt = new LexicalTokenizer(data);
+        if (pgm == null)
+            pgm = new Program();
+        
         DataInputStream dis = inStream;
         String lineData;
-
+    
         outStream.println("\nJavaBASIC Version 1.0");
         outStream.println("Copyright (C) 1996 Chuck McManis. All Rights Reserved.");
 

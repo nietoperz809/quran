@@ -17,14 +17,14 @@
  */
 
 package com.basic;
-import java.io.PrintStream;
 
 /**
  * This class implements Boolean expression parsing and evaluation.
  * unlike normal arithmetic expressions, boolean expressions are only
  * true or false.
  */
-class BooleanExpression extends Expression {
+class BooleanExpression extends Expression 
+{
 
     BooleanExpression(int t, Expression a, Expression b) throws BASICSyntaxError {
         super(t, a, b);

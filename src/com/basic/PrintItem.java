@@ -20,7 +20,8 @@ package com.basic;
 
 import java.io.PrintStream;
 
-class PrintItem {
+class PrintItem implements Ser
+{
     final static int EXPRESSION = 0;
     final static int STRING_VARIABLE = 1;
     final static int STRING_CONSTANT = 2;

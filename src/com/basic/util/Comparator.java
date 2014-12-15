@@ -15,10 +15,13 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic.util;
 
-public interface Comparator {
+import java.io.Serializable;
+
+public interface Comparator extends Serializable
+{
+    public static final long serialVersionUID = 1L;
     /**
      * Compare two objects, return -1 if a < b, 0 if a == b, and 1 if a > b.
      */
@@ -38,7 +41,6 @@ public interface Comparator {
      * Return true if object a is greater than or equal to object b.
      */
     abstract public boolean greaterEqual(Object a, Object b);
-
 
     /**
      * Return true if object a is less than object b

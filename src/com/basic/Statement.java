@@ -37,7 +37,8 @@ import java.util.Enumeration;
  * The <i>execute</i> interface defines what the BASIC statements *do*.
  * These are all called by the containing <b>Program</b>.
  */
-abstract class Statement {
+abstract class Statement implements Ser
+{
     protected int keyword; // type of statement
     protected int line;
 
