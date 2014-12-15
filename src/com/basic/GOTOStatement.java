@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.InputStream;
@@ -25,48 +24,52 @@ import java.util.Vector;
 /**
  * The GOTO statement.
  *
- * The GOTO statement unconditionally tranfers control to a non-linear
- * sequence in the program. The destination is indicated by a line number.
+ * The GOTO statement unconditionally tranfers control to a non-linear sequence
+ * in the program. The destination is indicated by a line number.
  *
- * Syntax :
- *      GOTO line
+ * Syntax : GOTO line
  *
- * Syntax Errors:
- *      Line number required.
+ * Syntax Errors: Line number required.
  *
- * Runtime Errors:
- *      Non-existent line number.
+ * Runtime Errors: Non-existent line number.
  */
-class GOTOStatement extends Statement {
+class GOTOStatement extends Statement
+{
 
     // This is the line number to transfer control too.
     int lineTarget;
 
-    GOTOStatement(LexicalTokenizer lt) throws BASICSyntaxError {
+    GOTOStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         super(GOTO);
 
         parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         Statement s;
         s = pgm.getStatement(lineTarget);
-        if (s != null) {
+        if (s != null)
+        {
             return s;
         }
-        throw new BASICRuntimeError("GOTO non-existent line "+lineTarget+".");
+        throw new BASICRuntimeError("GOTO non-existent line " + lineTarget + ".");
     }
 
-    String unparse() {
-        return "GOTO "+lineTarget;
+    String unparse()
+    {
+        return "GOTO " + lineTarget;
     }
 
     /**
      * Parse GOTO Statement.
      */
-    private static void parse(GOTOStatement s, LexicalTokenizer lt) throws BASICSyntaxError {
+    private static void parse(GOTOStatement s, LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Token t = lt.nextToken();
-        if (t.typeNum() != Token.CONSTANT) {
+        if (t.typeNum() != Token.CONSTANT)
+        {
             throw new BASICSyntaxError("Line number required after GOTO.");
         }
         s.lineTarget = (int) t.numValue();
