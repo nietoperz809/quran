@@ -2,14 +2,11 @@ package twitter;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import javax.imageio.ImageIO;
+import misc.StringDivider;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -141,6 +138,21 @@ public class TwitTools implements TwitterKeys
         }
     }
 
+    public static void sendLongString (String str)
+    {
+        StringDivider sd = new StringDivider(str, 120);
+        String[] div = sd.splitByWords();
+        TwitTools tw = TwitTools.get();
+        try
+        {
+            tw.sendStringArray(div);
+        }
+        catch (Exception ex)
+        {
+           System.out.println (ex);
+        }
+    }
+    
 //    /**
 //     * @param args the command line arguments
 //     */

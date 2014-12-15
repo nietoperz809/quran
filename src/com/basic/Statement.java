@@ -52,7 +52,7 @@ abstract class Statement implements Ser
          "if", "then", "end", "data", "restore", "read",
          "on", "rem", "for", "to", "next", "step", "gosub",
          "goto", "let", "input", "stop", "dim", "randomize",
-         "tron", "troff", "timer", "cls", "sleep"
+         "tron", "troff", "timer", "cls", "sleep", "tweet"
     };
 
     /**
@@ -87,6 +87,7 @@ abstract class Statement implements Ser
     final static int TIMER = 26; // not a real statement
     final static int CLS = 27;
     final static int SLEEP = 28;
+    final static int TWEET = 29;
     
     Statement nxt;  // if there are chained statements
 

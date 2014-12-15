@@ -18,7 +18,6 @@
 
 package com.basic;
 import java.io.PrintStream;
-import java.util.Vector;
 import com.basic.util.RedBlackTree;
 
 /**

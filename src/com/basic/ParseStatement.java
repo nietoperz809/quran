@@ -18,7 +18,6 @@
 
 package com.basic;
 
-import java.util.Vector;
 import java.io.PrintStream;
 import java.io.InputStream;
 
@@ -186,6 +185,18 @@ class ParseStatement extends Statement {
 
                 case PRINT:
                     s = new PRINTStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == Token.EOL))
+                        return s;
+
+                    if (t.isSymbol(':')) {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
+                case TWEET:
+                    s = new TWEETStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
                         return s;
