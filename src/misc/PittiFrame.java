@@ -5,14 +5,16 @@
  */
 package misc;
 
+import java.io.Serializable;
 import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Administrator
  */
-public abstract class PittiFrame extends JInternalFrame
+public abstract class PittiFrame extends JInternalFrame implements Serializable
 {
+    public static final long serialVersionUID = 1L;
     /**
      * Implement the Deserialisation "Constructor"
      */

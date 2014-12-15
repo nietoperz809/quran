@@ -9,17 +9,12 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDragEvent;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.dnd.DropTargetEvent;
-import java.awt.dnd.DropTargetListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintStream;
 import javax.swing.JTextArea;
 
 /**
@@ -34,7 +29,7 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
     private final RingBuffer<Character> outBuffer;
     private final OutStream out;
 
-    Thread thread;
+    private transient Thread thread;
     boolean running = true;
 
     /**
@@ -47,11 +42,16 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
         in = new InStream(inBuffer);
         out = new OutStream(outBuffer);
         addKeyListener(this);
-        setLineWrap(true);
+        startThread();
+    }
+
+    public final void startThread()
+    {
+        running = true;
         thread = new Thread(this);
         thread.start();
     }
-
+    
     /**
      *
      * @return
@@ -61,6 +61,16 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
         return in;
     }
 
+    public PrintStream getPrintStream()
+    {
+        return new PrintStream (out);
+    } 
+    
+    public DataInputStream getDataInputStream()
+    {
+        return new DataInputStream(in);
+    }
+    
     /**
      *
      * @return
@@ -119,7 +129,6 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
         }
         try
         {
-            //System.out.println(e);
             inBuffer.add(e.getKeyChar());
         }
         catch (InterruptedException ex)
@@ -128,27 +137,41 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
         }
     }
 
-    @Override
-    public void keyPressed(KeyEvent e)
+    public void fakeIn (String s)
     {
-        if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) 
+        for (int n=0; n<s.length(); n++)
         {
             try
             {
-                inBuffer.add('\b');
-                //System.out.println("bs");
+                inBuffer.add (s.charAt(n));
             }
             catch (InterruptedException ex)
             {
-                System.out.println (ex);
+                System.out.println(ex);
             }
         }
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
     }
 
     @Override
     public void keyReleased(KeyEvent e)
     {
-
+//        if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) 
+//        {
+//            try
+//            {
+//                inBuffer.add('\b');
+//                //System.out.println("bs");
+//            }
+//            catch (InterruptedException ex)
+//            {
+//                System.out.println (ex);
+//            }
+//        }
     }
 
     public void destroy()
@@ -181,5 +204,6 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
                 System.out.println(ex);
             }
         }
+        System.out.println("Streaming input thread end");
     }
 }

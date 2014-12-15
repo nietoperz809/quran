@@ -25,10 +25,12 @@ import java.io.*;
  * hosts an interactive session allowing the user to enter BASIC programs, run
  * them, save them, and load them.
  */
-public class CommandInterpreter
+public class CommandInterpreter implements Serializable
 {
-    private DataInputStream inStream;
-    private PrintStream outStream;
+    public static final long serialVersionUID = 1L;
+
+    transient private final DataInputStream inStream;
+    transient private final PrintStream outStream;
 
     final static String commands[] =
     {
@@ -36,17 +38,17 @@ public class CommandInterpreter
         "bye", "save", "load", "dump", "cont",
     };
 
-    final int CMD_NEW = 0;
-    final int CMD_RUN = 1;
-    final int CMD_LIST = 2;
-    final int CMD_CAT = 3;
-    final int CMD_DEL = 4;
-    final int CMD_RESUME = 5;
-    final int CMD_BYE = 6;
-    final int CMD_SAVE = 7;
-    final int CMD_LOAD = 8;
-    final int CMD_DUMP = 9;
-    final int CMD_CONT = 10;
+    static final int CMD_NEW = 0;
+    static final int CMD_RUN = 1;
+    static final int CMD_LIST = 2;
+    static final int CMD_CAT = 3;
+    static final int CMD_DEL = 4;
+    static final int CMD_RESUME = 5;
+    static final int CMD_BYE = 6;
+    static final int CMD_SAVE = 7;
+    static final int CMD_LOAD = 8;
+    static final int CMD_DUMP = 9;
+    static final int CMD_CONT = 10;
 
     /**
      * Create a new command interpreter attached to the passed in streams.
@@ -232,6 +234,30 @@ public class CommandInterpreter
     char data[] = new char[256];
 
     /**
+     * Processes backspace
+     * @param in
+     * @return String with BS processed
+     */
+    private String processBS (String in)
+    {
+        StringBuilder buff = new StringBuilder();
+        for (int n=0; n<in.length(); n++)
+        {
+            char c = in.charAt(n);
+            if (c == '\b')
+            {
+                if (buff.length() > 0)
+                    buff.deleteCharAt(buff.length()-1);
+            }
+            else
+            {
+                buff.append(c);
+            }
+        }
+        return buff.toString();
+    }
+    
+    /**
      * Starts the interactive session. When running the user should see the
      * "Ready." prompt. The session ends when the user types the
      * <code>byte</code> command.
@@ -251,7 +277,7 @@ public class CommandInterpreter
             Statement s = null;
             try
             {
-                lineData = dis.readLine();
+                lineData = processBS(dis.readLine());
                 System.out.println (lineData);
             }
             catch (IOException ioe)
@@ -291,7 +317,7 @@ public class CommandInterpreter
                 case Token.COMMAND:
                     if (t.numValue() == CMD_BYE)
                     {
-                        System.exit(0);
+                        //System.exit(0);
                         return;
                     }
                     else if (t.numValue() == CMD_NEW)

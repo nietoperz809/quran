@@ -13,7 +13,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.PixelCanvas;
@@ -23,10 +22,8 @@ import misc.Tools;
  *
  * @author Administrator
  */
-public class QRGeneratorGUI extends PittiFrame implements Serializable, ActionListener
+public class QRGeneratorGUI extends PittiFrame implements ActionListener
 {
-    static final long serialVersionUID = 1L;
-    
     /**
      * Object initializer
      */

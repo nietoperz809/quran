@@ -1,11 +1,9 @@
 package applications;
 
 
-import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JInternalFrame;
-import applications.SlidersGUI;
 
 /*
  * To change this template, choose Tools | Templates

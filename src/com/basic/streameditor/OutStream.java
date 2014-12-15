@@ -7,15 +7,15 @@ package com.basic.streameditor;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.Serializable;
 
 /**
  *
  * @author Administrator
  */
-public class OutStream extends OutputStream
+public class OutStream extends OutputStream implements Serializable
 {
+    public static final long serialVersionUID = 1L;
     private final RingBuffer<Character> buffer;
 
     public OutStream (RingBuffer b)

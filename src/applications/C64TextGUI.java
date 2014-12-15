@@ -10,7 +10,6 @@ import chargen.TextTools;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import misc.ClipboardImage;
 import misc.MainWindow;
 import misc.PittiFrame;
@@ -22,9 +21,8 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class C64TextGUI extends PittiFrame implements Serializable, ActionListener
+public class C64TextGUI extends PittiFrame implements ActionListener
 {
-    public static final long serialVersionUID = 1L;
     private transient TurtleWindow bitmapView = null;
     private transient Chargen chargen = new Chargen();
     

@@ -6,13 +6,15 @@
 package com.basic.streameditor;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  *
  * @author Administrator
  */
-public class InStream extends java.io.InputStream
+public class InStream extends java.io.InputStream implements Serializable
 {
+    public static final long serialVersionUID = 1L;
     private final RingBuffer<Character> buffer;
 
     public InStream (RingBuffer b)

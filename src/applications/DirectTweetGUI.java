@@ -6,7 +6,6 @@
 package applications;
 
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.StringDivider;
@@ -17,10 +16,8 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class DirectTweetGUI extends PittiFrame implements Serializable, ActionListener
+public class DirectTweetGUI extends PittiFrame implements ActionListener
 {
-    public static final long serialVersionUID = 1L;
-
     /**
      * Initializer
      */

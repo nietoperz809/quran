@@ -24,10 +24,8 @@ import misc.Tools;
  *
  * @author Administrator
  */
-public class LatexGUI extends PittiFrame implements Serializable, ActionListener
+public class LatexGUI extends PittiFrame implements ActionListener
 {
-    public static final long serialVersionUID = 1L;
-
     /**
      * Object initializer
      */

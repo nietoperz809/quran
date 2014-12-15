@@ -5,6 +5,8 @@
  */
 package com.basic.streameditor;
 
+import java.io.Serializable;
+
 /**
  * ****************************************************************************
  * File: RingBuffer.java Author: Keith Schwarz (htiek@cs.stanford.edu)
@@ -35,8 +37,10 @@ package com.basic.streameditor;
  * creating data while some number of threads consume it, and at no time are too
  * many elements kept in memory waiting to be read.
  */
-public final class RingBuffer<T>
+public final class RingBuffer<T> implements Serializable
 {
+    public static final long serialVersionUID = 1L;
+
     /* The actual ring buffer. */
     private final T[] elements;
 

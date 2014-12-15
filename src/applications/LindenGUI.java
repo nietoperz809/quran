@@ -8,7 +8,6 @@ package applications;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
@@ -21,9 +20,8 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class LindenGUI extends PittiFrame implements Serializable, ActionListener
+public class LindenGUI extends PittiFrame implements ActionListener
 {
-    public static final long serialVersionUID = 1L;
     private transient TurtleWindow bitmapView = null;
     
     // Instance initializer

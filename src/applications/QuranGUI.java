@@ -11,7 +11,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -33,10 +32,8 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class QuranGUI extends PittiFrame implements Serializable, ActionListener, KeyListener, InternalFrameListener
+public class QuranGUI extends PittiFrame implements ActionListener, KeyListener, InternalFrameListener
 {
-    static final long serialVersionUID = 1L;
-
     transient private Quran m_quran;
     transient private VerbalQuran m_speaker;
     private final ArrayList<SeekResultGui> seekResults = new ArrayList<>();
