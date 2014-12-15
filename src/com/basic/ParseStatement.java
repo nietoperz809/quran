@@ -161,6 +161,14 @@ class ParseStatement extends Statement {
 
                     return s;
 
+                case CLS:
+                    s = new CLSStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                        throw new BASICSyntaxError(extraError);
+
+                    return s;
+                
                 case RETURN:
                     s = new RETURNStatement(lt);
                     t = lt.nextToken();

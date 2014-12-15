@@ -17,6 +17,7 @@
  */
 package com.basic;
 
+import com.basic.streameditor.StreamingTextArea;
 import java.io.PrintStream;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -50,6 +51,8 @@ import java.util.Vector;
 public class Program implements Runnable, Serializable
 {
     public static final long serialVersionUID = 1L;
+    
+    public StreamingTextArea area;
     
     // this tree holds all of the statements.
     private RedBlackTree stmts = new RedBlackTree(new NumberCompare());
@@ -108,6 +111,11 @@ public class Program implements Runnable, Serializable
      * There are two ways to create a new program object, you can load one from
      * an already open stream or you can pass in a file name and load one from
      * the file system.
+     * @param source
+     * @param out
+     * @return 
+     * @throws java.io.IOException
+     * @throws com.basic.BASICSyntaxError
      */
     public static Program load(InputStream source, PrintStream out) throws IOException, BASICSyntaxError
     {

@@ -269,7 +269,10 @@ public class CommandInterpreter implements Serializable
         if (lt == null)
             lt = new LexicalTokenizer(data);
         if (pgm == null)
+        {
             pgm = new Program();
+            pgm.area = area;
+        }
         
         DataInputStream dis = inStream;
         String lineData;
