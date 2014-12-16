@@ -24,11 +24,12 @@ import java.io.Serializable;
  */
 public class Token implements Serializable
 {
+
+    /**
+     *
+     */
     public static final long serialVersionUID = 1L;
     
-    protected Token()
-    {
-    }
 
     final static String names[] =
     {
@@ -102,28 +103,31 @@ public class Token implements Serializable
      */
     final static int VARIABLE = 12;
 
+    static boolean isSymbol(Token t, char s)
+    {
+        return ((t != null) && (t.typeNum() == SYMBOL) && (t.numValue() == s));
+    }
+
+    /**
+     *
+     */
     protected int type;     // this token's type
+
+    /**
+     *
+     */
     protected double nValue;     // Its numeric value (if it has one)
+
+    /**
+     *
+     */
     protected String sValue;     // Its string value (if it has one)
 
-    double numValue()
+    /**
+     *
+     */
+    protected Token()
     {
-        return nValue;
-    }
-
-    String stringValue()
-    {
-        return sValue;
-    }
-
-    int typeNum()
-    {
-        return type;
-    }
-
-    String typeString()
-    {
-        return names[type];
     }
 
     /**
@@ -150,7 +154,7 @@ public class Token implements Serializable
     Token(int t, int v)
     {
         type = t;
-        nValue = (double) v;
+        nValue = v;
     }
 
     /**
@@ -160,7 +164,27 @@ public class Token implements Serializable
     {
         type = t;
         sValue = sv;
-        nValue = (double) iv;
+        nValue = iv;
+    }
+
+    double numValue()
+    {
+        return nValue;
+    }
+
+    String stringValue()
+    {
+        return sValue;
+    }
+
+    int typeNum()
+    {
+        return type;
+    }
+
+    String typeString()
+    {
+        return names[type];
     }
 
     String unparse()
@@ -176,27 +200,23 @@ public class Token implements Serializable
         }
     }
 
+    @Override
     public String toString()
     {
         return ("TOKEN: Type=" + names[type] + ", Numeric Value = " + nValue + ", String Value = '" + sValue + "'");
     }
 
-    static final boolean isSymbol(Token t, char s)
-    {
-        return ((t != null) && (t.typeNum() == SYMBOL) && (t.numValue() == s));
-    }
-
-    final boolean isSymbol(char c)
+    boolean isSymbol(char c)
     {
         return isSymbol(this, c);
     }
 
-    final boolean isOp(int op)
+    boolean isOp(int op)
     {
         return ((type == OPERATOR) && ((int) nValue == op));
     }
 
-    final void negate()
+    void negate()
     {
         if (type != CONSTANT)
         {

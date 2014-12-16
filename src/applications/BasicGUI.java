@@ -8,6 +8,9 @@ package applications;
 import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.PittiFrame;
@@ -82,9 +85,14 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
+        area.setBackground(new java.awt.Color(0, 0, 153));
         area.setColumns(20);
+        area.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        area.setForeground(new java.awt.Color(255, 255, 102));
         area.setLineWrap(true);
         area.setRows(20);
+        area.setCaretColor(new java.awt.Color(255, 102, 102));
+        area.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(area);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -148,8 +156,9 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
      */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
+        ci.pgm.thread_running = false;  // Force thread to end if pg runs
         StreamingTextArea st = (StreamingTextArea)area;
-        st.fakeIn("bye\n");
+        st.fakeIn("bye\n");  // Force thread to end if no pg runs
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed

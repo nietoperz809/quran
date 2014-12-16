@@ -15,30 +15,34 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 /**
- * This class implements Boolean expression parsing and evaluation.
- * unlike normal arithmetic expressions, boolean expressions are only
- * true or false.
+ * This class implements Boolean expression parsing and evaluation. unlike
+ * normal arithmetic expressions, boolean expressions are only true or false.
  */
-class BooleanExpression extends Expression 
+class BooleanExpression extends Expression
 {
 
-    BooleanExpression(int t, Expression a, Expression b) throws BASICSyntaxError {
+    BooleanExpression(int t, Expression a, Expression b) throws BASICSyntaxError
+    {
         super(t, a, b);
     }
 
-    BooleanExpression(int t, Expression a) throws BASICSyntaxError {
+    BooleanExpression(int t, Expression a) throws BASICSyntaxError
+    {
         super(t, a);
     }
 
-    double value(Program pgm) throws BASICRuntimeError {
-        if (! (arg1.isString() || arg2.isString()))
+    double value(Program pgm) throws BASICRuntimeError
+    {
+        if (!(arg1.isString() || arg2.isString()))
+        {
             return super.value(pgm);
+        }
 
-        switch (oper) {
+        switch (oper)
+        {
             case OP_EQ:
                 return (arg1.stringValue(pgm).compareTo(arg2.stringValue(pgm)) == 0) ? 1 : 0;
             case OP_NE:
@@ -57,4 +61,3 @@ class BooleanExpression extends Expression
     }
 
 }
-

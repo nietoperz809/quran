@@ -53,7 +53,8 @@ public class Program implements Runnable, Serializable
     public static final long serialVersionUID = 1L;
     
     public StreamingTextArea area;
-    public boolean running = true;
+    public boolean running = true;  // Program running
+    public boolean thread_running = true; // Thread running 
     
     // this tree holds all of the statements.
     private RedBlackTree stmts = new RedBlackTree(new NumberCompare());
@@ -477,7 +478,7 @@ public class Program implements Runnable, Serializable
      *
      * @throws BASICRuntimeError if an error occurs while running.
      */
-    public void run(InputStream in, OutputStream out) throws BASICRuntimeError
+    public void run(InputStream in, OutputStream out) throws BASICRuntimeError, Exception
     {
         PrintStream pout;
         Enumeration e = stmts.elements();
@@ -517,29 +518,17 @@ public class Program implements Runnable, Serializable
         s = (Statement) e.nextElement();
         do
         {
-//            int yyy;
-//
-//            /* While running we skip Data statements. */
-//            try
-//            {
-//                yyy = in.available();
-//            }
-//            catch (IOException ez)
-//            {
-//                yyy = 0;
-//            }
-//            if (yyy != 0)
-//            {
-//                pout.println("Stopped at :" + s);
-//                push(s);
-//                break;
-//            }
             if (!running)
             {
                 running = true;
                 pout.println("Stopped at :" + s);
                 push(s);
                 break;
+            }
+            if (!thread_running)
+            {
+                thread_running = true;
+                throw new Exception ("Basic Thread forced to stop");
             }
             if (s.keyword != Statement.DATA)
             {
@@ -605,6 +594,7 @@ public class Program implements Runnable, Serializable
      * BASICRuntimeError. Instead it catches it and prints an error message to
      * standard out.
      */
+    @Override
     public void run()
     {
         try
@@ -614,6 +604,10 @@ public class Program implements Runnable, Serializable
         catch (BASICRuntimeError e)
         {
             System.out.println("Error Running program: " + e.getMsg());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
         }
     }
 

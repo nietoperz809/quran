@@ -28,11 +28,45 @@ import java.util.Vector;
 public class LexicalTokenizer implements Serializable
 {
     public static final long serialVersionUID = 1L;
+    // multiple expressions can be chained with these operators
+    private static final String[] boolOps = {
+        //".and.", ".or.", ".xor.", ".not."
+        "and", "or", "xor", "not"
+    };
+    private static final int[] boolTokens = {
+        Expression.OP_BAND, Expression.OP_BIOR, Expression.OP_BXOR, Expression.OP_BNOT,
+    };
+
+    /**
+     * return true if char is between a-z or A=Z
+     */
+    static boolean isLetter(char c)
+    {
+        return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')));
+    }
+
+    /**
+     * Return true if char is between 0 and 9
+     */
+    static boolean isDigit(char c)
+    {
+        return ((c >= '0') && (c <= '9'));
+    }
+
+    /**
+     * Return true if char is whitespace.
+     */
+    static boolean isSpace(char c)
+    {
+        return ((c == ' ') || (c == '\t'));
+    }
 
     int currentPos = 0;
     int previousPos = 0;
     int markPos = 0;
     char buffer[];
+    // we just keep this around 'cuz we return it a lot.
+    Token EOLToken = new Token(Token.EOL, 0);
 
     public LexicalTokenizer(char data[])
     {
@@ -107,8 +141,8 @@ public class LexicalTokenizer implements Serializable
         int errorPos = previousPos;
         currentPos = 0;
         String txt = asString();
-        StringBuffer sb = new StringBuffer();
-        sb.append(txt + "\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append(txt).append("\n");
         for (int i = 0; i < errorPos; i++)
         {
             sb.append('-');
@@ -130,17 +164,6 @@ public class LexicalTokenizer implements Serializable
         }
     }
 
-    // multiple expressions can be chained with these operators
-    private final static String boolOps[] =
-    {
-        //".and.", ".or.", ".xor.", ".not."
-       "and", "or", "xor", "not"
-    };
-
-    private final static int boolTokens[] =
-    {
-        Expression.OP_BAND, Expression.OP_BIOR, Expression.OP_BXOR, Expression.OP_BNOT,
-    };
 
     /**
      * Check the input stream to see if it is one of the boolean operations.
@@ -189,7 +212,7 @@ public class LexicalTokenizer implements Serializable
     Token parseBooleanOp()
     {
         int oldPos = currentPos;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int len = 0;
         Token r = null;
 
@@ -256,8 +279,8 @@ public class LexicalTokenizer implements Serializable
             while (isDigit(buffer[currentPos]))
             {
                 isConstant = true;
-                f = f + (t * (buffer[currentPos++] - '0'));
-                t = t / 10.0;
+                f += (t * (buffer[currentPos++] - '0'));
+                t /= 10.0;
             }
         }
 
@@ -301,7 +324,7 @@ public class LexicalTokenizer implements Serializable
 
         try
         {
-            e = Math.pow(10, (double) p);
+            e = Math.pow(10, p);
         }
         catch (ArithmeticException zzz)
         {
@@ -316,33 +339,6 @@ public class LexicalTokenizer implements Serializable
     }
 
     /**
-     * return true if char is between a-z or A=Z
-     */
-    static boolean isLetter(char c)
-    {
-        return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')));
-    }
-
-    /**
-     * Return true if char is between 0 and 9
-     */
-    static boolean isDigit(char c)
-    {
-        return ((c >= '0') && (c <= '9'));
-    }
-
-    /**
-     * Return true if char is whitespace.
-     */
-    static boolean isSpace(char c)
-    {
-        return ((c == ' ') || (c == '\t'));
-    }
-
-    // we just keep this around 'cuz we return it a lot.
-    Token EOLToken = new Token(Token.EOL, 0);
-
-    /**
      * This is the meat of this class, return the "next" token from the current
      * tokenizer buffer. If the token isn't recognized an ERROR token will be
      * returned.
@@ -352,43 +348,36 @@ public class LexicalTokenizer implements Serializable
         Token r;
         // if we recurse then we need to know what the position was
         int savePos = currentPos;
-
         /*
-         * Always return a token, even if it is just EOL
-         */
+        * Always return a token, even if it is just EOL
+        */
         if (currentPos >= buffer.length)
         {
             return EOLToken;
         }
-
         /*
-         * Save our previous position for unGetToken() to work.
-         */
+        * Save our previous position for unGetToken() to work.
+        */
         previousPos = currentPos;
-
         /*
-         * eat white space.
-         */
+        * eat white space.
+        */
         while (isSpace(buffer[currentPos]))
         {
             currentPos++;
         }
-
         /*
          * Start by checking all of the special characters.
          */
         switch (buffer[currentPos])
         {
-
             // Various lexical symbols that have meaning.
             case '+':
                 currentPos++;
                 return new Token(Token.OPERATOR, "+", Expression.OP_ADD);
-
             case '-':
                 currentPos++;
                 return new Token(Token.OPERATOR, "-", Expression.OP_SUB);
-
             case '*':
                 if (buffer[currentPos + 1] == '*')
                 {
@@ -397,31 +386,24 @@ public class LexicalTokenizer implements Serializable
                 }
                 currentPos++;
                 return new Token(Token.OPERATOR, "*", Expression.OP_MUL);
-
             case '/':
                 currentPos++;
                 return new Token(Token.OPERATOR, "/", Expression.OP_DIV);
-
             case '^':
                 currentPos++;
                 return new Token(Token.OPERATOR, "^", Expression.OP_XOR);
-
             case '&':
                 currentPos++;
                 return new Token(Token.OPERATOR, "&", Expression.OP_AND);
-
             case '|':
                 currentPos++;
                 return new Token(Token.OPERATOR, "|", Expression.OP_IOR);
-
             case '!':
                 currentPos++;
                 return new Token(Token.OPERATOR, "!", Expression.OP_NOT);
-
             case '=':
                 currentPos++;
                 return new Token(Token.OPERATOR, "=", Expression.OP_EQ);
-
             case '<':
                 if (buffer[currentPos + 1] == '=')
                 {
@@ -435,7 +417,6 @@ public class LexicalTokenizer implements Serializable
                 }
                 currentPos++;
                 return new Token(Token.OPERATOR, "<", Expression.OP_LT);
-
             case '>':
                 if (buffer[currentPos + 1] == '=')
                 {
@@ -449,57 +430,52 @@ public class LexicalTokenizer implements Serializable
                 }
                 currentPos++;
                 return new Token(Token.OPERATOR, ">", Expression.OP_GT);
-
             case '(':
             case '\'':
             case '?':
             case ')':
-            case ':':
-            case ';':
+        case ':':
+        case ';':
             case ',':
-                return new Token(Token.SYMBOL, (double) buffer[currentPos++]);
-
-//            case '.':
+                return new Token(Token.SYMBOL, buffer[currentPos++]);
+                //            case '.':
 //                r = parseBooleanOp();
 //                if (r != null)
 //                {
 //                    return r;
 //                }
-            /* Else we fall through to the next CASE (numeric constant) */
+                /* Else we fall through to the next CASE (numeric constant) */
             case '0':
             case '1':
             case '2':
             case '3':
             case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                r = parseNumericConstant();
-                if (r != null)
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            r = parseNumericConstant();
+            if (r != null)
                 {
                     return r;
                 }
-                return new Token(Token.SYMBOL, (double) buffer[currentPos++]);
-
+            return new Token(Token.SYMBOL, buffer[currentPos++]);
             // process EOL characters. (dump <CR><LF> as just EOL)
-            case '\r':
-            case '\n':
-                while (currentPos < buffer.length)
-                {
-                    currentPos++;
+        case '\r':
+        case '\n':
+            while (currentPos < buffer.length)
+            {
+                currentPos++;
                 }
                 return EOLToken;
-
-            // text enclosed in "quotes" is a string constant.
+        // text enclosed in "quotes" is a string constant.
             case '"':
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 currentPos++;
-
                 while (true)
                 {
-                    switch ((int) buffer[currentPos])
+                    switch (buffer[currentPos])
                     {
                         case '\n':
                             return new Token(Token.ERROR, "Missing end quote.");
@@ -524,7 +500,6 @@ public class LexicalTokenizer implements Serializable
                         return new Token(Token.ERROR, "Missing end quote.");
                     }
                 }
-
             default:
                 r = parseBooleanOp();
                 if (r != null)
@@ -533,15 +508,12 @@ public class LexicalTokenizer implements Serializable
                 }
                 break;
         }
-
         if (!isLetter(buffer[currentPos]))
         {
             return new Token(Token.ERROR, "Unrecognized input.");
         }
-
         /* compose an identifier */
-        StringBuffer q = new StringBuffer();
-
+        StringBuilder q = new StringBuilder();
         while (isLetter(buffer[currentPos]) || isDigit(buffer[currentPos]))
         {
             q.append(Character.toLowerCase(buffer[currentPos]));
@@ -551,9 +523,7 @@ public class LexicalTokenizer implements Serializable
         {
             q.append(buffer[currentPos++]);
         }
-
         String t = q.toString();
-
         /* Is it a function name ? */
         for (int i = 0; i < FunctionExpression.functions.length; i++)
         {
@@ -562,7 +532,6 @@ public class LexicalTokenizer implements Serializable
                 return new Token(Token.FUNCTION, FunctionExpression.functions[i], i);
             }
         }
-
         /* Is it a BASIC keyword ? */
         for (int i = 0; i < Statement.keywords.length; i++)
         {
@@ -571,7 +540,6 @@ public class LexicalTokenizer implements Serializable
                 return new Token(Token.KEYWORD, Statement.keywords[i], i);
             }
         }
-
         /* Is it a command ? */
         for (int i = 0; i < CommandInterpreter.commands.length; i++)
         {
@@ -580,14 +548,13 @@ public class LexicalTokenizer implements Serializable
                 return new Token(Token.COMMAND, CommandInterpreter.commands[i], i);
             }
         }
-
         /*
-         * It must be a variable.
-         *
-         * If this is an array reference, the variable name
-         * will be followed by '(' index ',' index ',' index ')'
-         * (one to four indices)
-         */
+        * It must be a variable.
+        *
+        * If this is an array reference, the variable name
+        * will be followed by '(' index ',' index ',' index ')'
+        * (one to four indices)
+        */
         if (buffer[currentPos] == '(')
         {
             currentPos++;
@@ -629,8 +596,8 @@ public class LexicalTokenizer implements Serializable
     }
 
     /*
-     * Return the buffer from the current position to the end as a string.
-     */
+    * Return the buffer from the current position to the end as a string.
+    */
     String asString()
     {
         int ndx = currentPos;
@@ -644,4 +611,5 @@ public class LexicalTokenizer implements Serializable
         currentPos = ndx;
         return (result);
     }
+
 }

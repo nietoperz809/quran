@@ -29,7 +29,8 @@ public class BASICError extends Exception implements Ser
     String msg = "None.";
     Statement s = null;
 
-    /** A new runtime error with message <i>errorMessage</i>. */
+    /** A new runtime error with message <i>errorMessage</i>.
+     * @param errorMessage */
     public BASICError(String errorMessage) {
         super(errorMessage);
         msg = errorMessage;
@@ -47,6 +48,7 @@ public class BASICError extends Exception implements Ser
     /**
      * Once caught, you can use this method to get a string representation
      * of the error you've caught.
+     * @return 
      */
     public String getMsg() {
         if (s != null)

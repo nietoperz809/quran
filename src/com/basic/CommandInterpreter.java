@@ -68,7 +68,7 @@ public class CommandInterpreter implements Serializable
     /**
      * This method basically dispatches the commands of the command interpreter.
      */
-    Program processCommand(Program pgm, LexicalTokenizer lt, Token x)
+    Program processCommand(Program pgm, LexicalTokenizer lt, Token x) throws Exception
     {
         Token t;
         Statement s = null;
@@ -255,7 +255,7 @@ public class CommandInterpreter implements Serializable
      * "Ready." prompt. The session ends when the user types the
      * <code>byte</code> command.
      */
-    public void start()
+    public void start() throws Exception
     {
         if (inStream == null)
         {
@@ -276,14 +276,14 @@ public class CommandInterpreter implements Serializable
         DataInputStream dis = inStream;
         String lineData;
     
-        outStream.println("\nJavaBASIC Version 1.0");
-        outStream.println("Copyright (C) 1996 Chuck McManis. All Rights Reserved.");
+        outStream.println("*JavaBasic*");
 
         while (true)
         {
             Statement s = null;
             try
             {
+                outStream.print(">");
                 lineData = processBS(dis.readLine());
                 System.out.println (lineData);
             }

@@ -1,30 +1,8 @@
-/*
- * Statement.java - BASIC Statement object
- *
- * Copyright (c) 1996 Chuck McManis, All Rights Reserved.
- *
- * Permission to use, copy, modify, and distribute this software
- * and its documentation for NON-COMMERCIAL purposes and without
- * fee is hereby granted provided that this copyright notice
- * appears in all copies.
- *
- * CHUCK MCMANIS MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
- * SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING
- * BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. CHUCK MCMANIS
- * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
- * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
- */
+
 package com.basic;
 
 import java.io.PrintStream;
-import java.io.OutputStream;
 import java.io.InputStream;
-import java.io.DataInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ByteArrayOutputStream;
-import java.util.Vector;
 import com.basic.util.RedBlackTree;
 import java.util.Enumeration;
 
@@ -39,10 +17,6 @@ import java.util.Enumeration;
  */
 abstract class Statement implements Ser
 {
-    protected int keyword; // type of statement
-    protected int line;
-
-    private String orig;    // original string that was parsed into this statement.
 
     /**
      * These are all of the statement keywords we can parse.
@@ -88,8 +62,15 @@ abstract class Statement implements Ser
     final static int CLS = 27;
     final static int SLEEP = 28;
     final static int TWEET = 29;
+    protected int keyword; // type of statement
+    // type of statement
+    protected int line;
+    private String orig; // original string that was parsed into this statement.
+    // original string that was parsed into this statement.
     
     Statement nxt;  // if there are chained statements
+    protected RedBlackTree vars; // variables used by this statement.
+    // variables used by this statement.
 
     /**
      * Construct a new statement object with a valid key.
@@ -119,8 +100,9 @@ abstract class Statement implements Ser
      * original text was set then use that, otherwise reconstruct
      * the string from the parse tree.
      */
+    @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("BASIC Statement :");
         if (orig != null) {
             sb.append(orig);
@@ -147,8 +129,9 @@ abstract class Statement implements Ser
      */
     void addLine(int l) {
         line = l;
-        if (nxt != null)
+        if (nxt != null) {
             nxt.addLine(l);
+        }
     }
 
     /**
@@ -172,25 +155,27 @@ abstract class Statement implements Ser
     abstract Statement doit(Program pgm, InputStream in, PrintStream out)
     throws BASICRuntimeError;
 
-    protected RedBlackTree vars; // variables used by this statement.
     /**
      * The trace method can be used during execution to print out what
      * the program is doing.
      */
     void trace(Program pgm, PrintStream ps) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String n;
         sb.append("**:");
 
-        if (vars == null)
+        if (vars == null) {
             vars = getVars();
+        }
 
         /*
          * Print the line we're executing on the output stream.
          */
         n = line+"";
         for (int zz = 0; zz < 5 - n.length(); zz++)
+        {
             sb.append(' ');
+        }
         sb.append(n);
         sb.append(':');
         sb.append(unparse());
