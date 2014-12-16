@@ -35,9 +35,9 @@ import java.util.Vector;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
- * parsed and ready to run. You can run it by invoking the run() method. The
- * standard input and output of the running basic program can either be passed
- * into the <b>run</b> method, or they can be presumed to be the in and out
+ parsed and ready to run. You can run it by invoking the run() method. The
+ standard input and output of the basic_prg_running basic program can either be passed
+ into the <b>run</b> method, or they can be presumed to be the in and out
  * streams referenced by the <b>System</b> class.
  *
  * This class uses Red-Black trees to hold the parsed statements and the symbol
@@ -53,8 +53,8 @@ public class Program implements Runnable, Serializable
     public static final long serialVersionUID = 1L;
     
     public StreamingTextArea area;
-    public boolean running = true;  // Program running
-    public boolean thread_running = true; // Thread running 
+    public boolean basic_prg_running = true;  // Program basic_prg_running
+    public boolean thread_running = true; // Thread basic_prg_running 
     
     // this tree holds all of the statements.
     private RedBlackTree stmts = new RedBlackTree(new NumberCompare());
@@ -222,7 +222,7 @@ public class Program implements Runnable, Serializable
     }
 
     /**
-     * This method starts this program running in its own thread.
+     * This method starts this program basic_prg_running in its own thread.
      */
     void start()
     {
@@ -472,11 +472,11 @@ public class Program implements Runnable, Serializable
      * Run the program and use the passed in streams as its input and output
      * streams.
      *
-     * Prior to running the program the statement stack is cleared, and the data
-     * fifo is also cleared. Thus re-running a stopped program will always work
-     * correctly.
+     * Prior to basic_prg_running the program the statement stack is cleared, and the data
+ fifo is also cleared. Thus re-basic_prg_running a stopped program will always work
+ correctly.
      *
-     * @throws BASICRuntimeError if an error occurs while running.
+     * @throws BASICRuntimeError if an error occurs while basic_prg_running.
      */
     public void run(InputStream in, OutputStream out) throws BASICRuntimeError, Exception
     {
@@ -518,9 +518,10 @@ public class Program implements Runnable, Serializable
         s = (Statement) e.nextElement();
         do
         {
-            if (!running)
+            Thread.yield();   // Let others run
+            if (!basic_prg_running)
             {
-                running = true;
+                basic_prg_running = true;
                 pout.println("Stopped at :" + s);
                 push(s);
                 break;
@@ -642,7 +643,7 @@ public class Program implements Runnable, Serializable
         s = pop();
         do
         {
-//            /* While running we skip Data statements. */
+//            /* While basic_prg_running we skip Data statements. */
 //            try
 //            {
 //                yyy = in.available();
@@ -657,9 +658,9 @@ public class Program implements Runnable, Serializable
 //                push(s);
 //                break;
 //            }
-            if (!running)
+            if (!basic_prg_running)
             {
-                running = true;
+                basic_prg_running = true;
                 pout.println("Stopped at :" + s);
                 push(s);
                 break;

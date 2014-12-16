@@ -181,7 +181,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        ci.pgm.running = false;
+        ci.pgm.basic_prg_running = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -224,12 +224,9 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     @Override
     public void run()
     {
+        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         System.out.println ("BasicThread start");
         basic();
-//        while (running)
-//        {
-//            area.append("lala");
-//        }
         System.out.println ("BasicThread end");
     }
 }
