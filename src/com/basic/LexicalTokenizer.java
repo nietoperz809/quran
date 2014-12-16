@@ -133,8 +133,8 @@ public class LexicalTokenizer implements Serializable
     // multiple expressions can be chained with these operators
     private final static String boolOps[] =
     {
-        ".and.", ".or.", ".xor.", ".not."
-       //  "and", "or", "xor", "not"
+        //".and.", ".or.", ".xor.", ".not."
+       "and", "or", "xor", "not"
     };
 
     private final static int boolTokens[] =
@@ -145,6 +145,47 @@ public class LexicalTokenizer implements Serializable
     /**
      * Check the input stream to see if it is one of the boolean operations.
      */
+//    Token parseBooleanOp()
+//    {
+//        int oldPos = currentPos;
+//        StringBuffer sb = new StringBuffer();
+//        int len = 0;
+//        Token r = null;
+//
+//        if (buffer[currentPos] != '.')
+//        {
+//            return null;
+//        }
+//        sb.append('.');
+//        currentPos++;
+//        do
+//        {
+//            sb.append(buffer[currentPos + len]);
+//            len++;
+//        }
+//        while ((len < 7) && isLetter(buffer[currentPos + len]));
+//        if (buffer[currentPos + len] == '.')
+//        {
+//            sb.append('.');
+//            len++;
+//            String x = sb.toString();
+//            for (int i = 0; i < boolOps.length; i++)
+//            {
+//                if (x.equalsIgnoreCase(boolOps[i]))
+//                {
+//                    r = new Token(Token.OPERATOR, boolOps[i], boolTokens[i]);
+//                    break;
+//                }
+//            }
+//            if (r != null)
+//            {
+//                currentPos += len;
+//                return r;
+//            }
+//        }
+//        currentPos = oldPos;
+//        return null;
+//    }
     Token parseBooleanOp()
     {
         int oldPos = currentPos;
@@ -152,22 +193,14 @@ public class LexicalTokenizer implements Serializable
         int len = 0;
         Token r = null;
 
-        if (buffer[currentPos] != '.')
-        {
-            return null;
-        }
-        sb.append('.');
-        currentPos++;
         do
         {
             sb.append(buffer[currentPos + len]);
             len++;
         }
-        while ((len < 7) && isLetter(buffer[currentPos + len]));
-        if (buffer[currentPos + len] == '.')
+        while (isLetter(buffer[currentPos + len]));
+        if (true)
         {
-            sb.append('.');
-            len++;
             String x = sb.toString();
             for (int i = 0; i < boolOps.length; i++)
             {
@@ -426,12 +459,12 @@ public class LexicalTokenizer implements Serializable
             case ',':
                 return new Token(Token.SYMBOL, (double) buffer[currentPos++]);
 
-            case '.':
-                r = parseBooleanOp();
-                if (r != null)
-                {
-                    return r;
-                }
+//            case '.':
+//                r = parseBooleanOp();
+//                if (r != null)
+//                {
+//                    return r;
+//                }
             /* Else we fall through to the next CASE (numeric constant) */
             case '0':
             case '1':
@@ -493,6 +526,11 @@ public class LexicalTokenizer implements Serializable
                 }
 
             default:
+                r = parseBooleanOp();
+                if (r != null)
+                {
+                    return r;
+                }
                 break;
         }
 
