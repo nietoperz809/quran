@@ -49,6 +49,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         jButton1 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         area = new StreamingTextArea();
 
@@ -75,6 +76,10 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         saveName.setText("BASIC");
         jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 160, -1));
 
+        jButton2.setText("Stop");
+        jButton2.addActionListener(this);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
+
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
         area.setColumns(20);
@@ -98,6 +103,10 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         else if (evt.getSource() == jButton9)
         {
             BasicGUI.this.jButton9ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton2)
+        {
+            BasicGUI.this.jButton2ActionPerformed(evt);
         }
     }
 
@@ -161,12 +170,16 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        ci.pgm.running = false;
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea area;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

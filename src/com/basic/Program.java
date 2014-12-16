@@ -53,6 +53,7 @@ public class Program implements Runnable, Serializable
     public static final long serialVersionUID = 1L;
     
     public StreamingTextArea area;
+    public boolean running = true;
     
     // this tree holds all of the statements.
     private RedBlackTree stmts = new RedBlackTree(new NumberCompare());
@@ -70,6 +71,11 @@ public class Program implements Runnable, Serializable
     boolean traceState = false;
     PrintStream traceFile = null;
 
+    public Program (StreamingTextArea ta)
+    {
+        area = ta;
+    }
+    
     void trace(boolean a)
     {
         traceState = a;
@@ -126,7 +132,7 @@ public class Program implements Runnable, Serializable
         String lineData;
         Statement s;
         Token t;
-        Program result = new Program();
+        Program result = new Program(null);
 
         while (true)
         {
@@ -511,19 +517,26 @@ public class Program implements Runnable, Serializable
         s = (Statement) e.nextElement();
         do
         {
-            int yyy;
-
-            /* While running we skip Data statements. */
-            try
+//            int yyy;
+//
+//            /* While running we skip Data statements. */
+//            try
+//            {
+//                yyy = in.available();
+//            }
+//            catch (IOException ez)
+//            {
+//                yyy = 0;
+//            }
+//            if (yyy != 0)
+//            {
+//                pout.println("Stopped at :" + s);
+//                push(s);
+//                break;
+//            }
+            if (!running)
             {
-                yyy = in.available();
-            }
-            catch (IOException ez)
-            {
-                yyy = 0;
-            }
-            if (yyy != 0)
-            {
+                running = true;
                 pout.println("Stopped at :" + s);
                 push(s);
                 break;
@@ -635,17 +648,24 @@ public class Program implements Runnable, Serializable
         s = pop();
         do
         {
-            /* While running we skip Data statements. */
-            try
+//            /* While running we skip Data statements. */
+//            try
+//            {
+//                yyy = in.available();
+//            }
+//            catch (IOException e)
+//            {
+//                yyy = 0;
+//            }
+//            if (yyy != 0)
+//            {
+//                pout.println("Stopped at :" + s);
+//                push(s);
+//                break;
+//            }
+            if (!running)
             {
-                yyy = in.available();
-            }
-            catch (IOException e)
-            {
-                yyy = 0;
-            }
-            if (yyy != 0)
-            {
+                running = true;
                 pout.println("Stopped at :" + s);
                 push(s);
                 break;

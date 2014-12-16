@@ -29,6 +29,8 @@ import java.io.*;
 public class CommandInterpreter implements Serializable
 {
     public static final long serialVersionUID = 1L;
+    LexicalTokenizer lt;
+    public Program pgm;
 
     transient private DataInputStream inStream;
     transient private PrintStream outStream;
@@ -247,8 +249,6 @@ public class CommandInterpreter implements Serializable
         return buff.toString();
     }
 
-    LexicalTokenizer lt;
-    Program pgm;
     
     /**
      * Starts the interactive session. When running the user should see the
@@ -270,8 +270,7 @@ public class CommandInterpreter implements Serializable
             lt = new LexicalTokenizer(data);
         if (pgm == null)
         {
-            pgm = new Program();
-            pgm.area = area;
+            pgm = new Program(area);
         }
         
         DataInputStream dis = inStream;
@@ -330,7 +329,7 @@ public class CommandInterpreter implements Serializable
                     }
                     else if (t.numValue() == CMD_NEW)
                     {
-                        pgm = new Program();
+                        pgm = new Program(area);
                         System.gc();
                         break;
                     }

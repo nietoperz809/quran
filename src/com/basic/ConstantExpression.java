@@ -15,63 +15,82 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
+
 import java.io.PrintStream;
 
 /**
  * This class implements the simplest possible expression, a constant.
  */
-class ConstantExpression extends Expression {
+class ConstantExpression extends Expression
+{
     private double v;
     private String strCons;
 
-    ConstantExpression(double a) {
+    ConstantExpression(double a)
+    {
         super();
         v = a;
     }
 
-    ConstantExpression(String a) {
+    ConstantExpression(String a)
+    {
         super();
         strCons = a;
     }
 
-    void print(PrintStream p) {
-        p.print((strCons == null) ? v+" " : strCons);
+    void print(PrintStream p)
+    {
+        p.print((strCons == null) ? v + " " : strCons);
     }
 
-    double value(Program pgm) throws BASICRuntimeError {
+    double value(Program pgm) throws BASICRuntimeError
+    {
         if (strCons != null)
+        {
             return 0;
+        }
         return v;
     }
 
-    String unparse() {
-        if (strCons != null) {
-            return ("\""+strCons+"\"");
+    String unparse()
+    {
+        if (strCons != null)
+        {
+            return ("\"" + strCons + "\"");
         }
-        return ""+v;
+        return "" + v;
     }
 
-    String stringValue(Program pgm, int c) throws BASICRuntimeError {
+    String stringValue(Program pgm, int c) throws BASICRuntimeError
+    {
         if (strCons != null)
+        {
             return strCons;
-        return ""+v;
+        }
+        return "" + v;
     }
 
-    String stringValue(Program pgm) throws BASICRuntimeError {
+    String stringValue(Program pgm) throws BASICRuntimeError
+    {
         if (strCons != null)
+        {
             return strCons;
-        return ""+v;
+        }
+        return "" + v;
     }
 
-    boolean isString() {
+    boolean isString()
+    {
         return (strCons != null);
     }
 
-    public String toString() {
+    public String toString()
+    {
         if (strCons != null)
+        {
             return strCons;
-        return v+" ";
+        }
+        return v + " ";
     }
 }

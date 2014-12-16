@@ -17,8 +17,13 @@
  */
 package com.basic;
 
+import com.basic.streameditor.StreamingTextArea;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class implements the mathematical functions for BASIC. The tokenizer
@@ -39,7 +44,7 @@ class FunctionExpression extends Expression
     {
         "rnd", "int", "sin", "cos", "tan", "atn", "sqr", "max", "min", "abs",
         "left$", "right$", "mid$", "chr$", "len", "val", "spc$", "log", "fre",
-        "sgn", "tab", "str$",
+        "sgn", "tab", "str$", "inkey$"
     };
 
     final static int RND = 0;
@@ -64,6 +69,7 @@ class FunctionExpression extends Expression
     final static int SGN = 19;
     final static int TAB = 20;
     final static int STR = 21;
+    final static int INKEYS = 22;
 
     Random r;
 
@@ -210,6 +216,7 @@ class FunctionExpression extends Expression
             case STR:
             case SPC:
             case TAB:
+            case INKEYS:
                 return true;
             default:
                 return false;
@@ -246,6 +253,22 @@ class FunctionExpression extends Expression
                 return ss.substring(t - 1, (t - 1) + (int) arg2.value(pgm));
             case CHR:
                 return "" + (char) arg2.value(pgm);
+            case INKEYS:
+            {
+                try
+                {
+                    InputStream in = pgm.area.getInputStream();
+                    if (in.available() == 0)
+                    {
+                        return "";
+                    }
+                    return "" + (char) in.read();
+                }
+                catch (IOException ex)
+                {
+                    System.out.println(ex);
+                }
+            }
             case STR:
                 return "" + arg2.value(pgm);
             case SPC:
@@ -282,6 +305,11 @@ class FunctionExpression extends Expression
         Expression b;
         Expression se;
         Token t;
+
+        if (ty == INKEYS)
+        {
+            return new FunctionExpression(ty, new ConstantExpression(0));
+        }
 
         t = lt.nextToken();
         if (!t.isSymbol('('))

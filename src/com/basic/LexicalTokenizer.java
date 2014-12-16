@@ -134,6 +134,7 @@ public class LexicalTokenizer implements Serializable
     private final static String boolOps[] =
     {
         ".and.", ".or.", ".xor.", ".not."
+       //  "and", "or", "xor", "not"
     };
 
     private final static int boolTokens[] =
