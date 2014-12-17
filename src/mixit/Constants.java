@@ -1,19 +1,26 @@
 package mixit;
 
-import java.awt.*;
+import java.awt.Color;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Administrator
- * Date: 04.09.2008
- * Time: 00:48:29
- * To change this template use File | Settings | File Templates.
- */
-public final class Constants
+
+public class Constants
 {
-    public static final int MULTI = 1000000;
+
+    /**
+     *
+     */
+    public static final int MULTI = 1_000_000;
+
+    /**
+     *
+     */
     public static final Color txcColor = new Color (150, 255, 150);
 
+    /**
+     *
+     * @param h
+     * @return
+     */
     public static int fromHex (String h)
     {
         for (int s = 0; s < Constants.html.length; s += 2)
@@ -26,6 +33,11 @@ public final class Constants
         return -1;
     }
 
+    /**
+     *
+     * @param x
+     * @return
+     */
     public static String HexStr (int x)
     {
         String r;
@@ -37,6 +49,9 @@ public final class Constants
         return r;
     }
 
+    /**
+     *
+     */
     public static final String[] html = {"AliceBlue", "F0F8FF", "AntiqueWhite", "FAEBD7", "Aqua", "00FFFF",
             "Aquamarine", "7FFFD4", "Azure", "F0FFFF", "Beige", "F5F5DC", "Bisque", "FFE4C4", "Black", "000000",
             "BlanchedAlmond", "FFEBCD", "Blue", "0000FF", "BlueViolet", "8A2BE2", "Brown", "A52A2A", "BurlyWood",
@@ -70,4 +85,8 @@ public final class Constants
             "008080", "Thistle", "D8BFD8", "Tomato", "FF6347", "Turquoise", "40E0D0", "Violet", "EE82EE", "VioletRed",
             "D02090", "Wheat", "F5DEB3", "White", "FFFFFF", "WhiteSmoke", "F5F5F5", "Yellow", "FFFF00", "YellowGreen",
             "9ACD32"};
+
+    private Constants()
+    {
+    }
 }
