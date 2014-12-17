@@ -7,16 +7,19 @@ package com.basic.streameditor;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
+import static java.awt.Toolkit.getDefaultToolkit;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
+import static java.awt.datatransfer.DataFlavor.stringFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import static java.lang.System.err;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
@@ -39,6 +42,7 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
 
     class FancyCaret extends DefaultCaret
     {
+        @Override
         protected synchronized void damage(Rectangle r)
         {
             if (r == null)
@@ -62,6 +66,7 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
             repaint(); // calls getComponent().repaint(x, y, width, height)
         }
 
+        @Override
         public void paint(Graphics g)
         {
             JTextComponent comp = getComponent();
@@ -148,22 +153,21 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
 
     private String getClipboard()
     {
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Clipboard clipboard = getDefaultToolkit().getSystemClipboard();
         Transferable clipData = clipboard.getContents(clipboard);
         if (clipData != null)
         {
             try
             {
-                if (clipData.isDataFlavorSupported(DataFlavor.stringFlavor))
+                if (clipData.isDataFlavorSupported(stringFlavor))
                 {
-                    String s = (String) (clipData.getTransferData(
-                            DataFlavor.stringFlavor));
+                    String s = (String) (clipData.getTransferData(stringFlavor));
                     return s;
                 }
             }
-            catch (Exception ufe)
+            catch (UnsupportedFlavorException | IOException ufe)
             {
-                System.err.println("Flavor unsupported: " + ufe);
+                err.println("Flavor unsupported: " + ufe);
             }
         }
         return null;
@@ -228,18 +232,7 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
     @Override
     public void keyReleased(KeyEvent e)
     {
-//        if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) 
-//        {
-//            try
-//            {
-//                inBuffer.add('\b');
-//                //System.out.println("bs");
-//            }
-//            catch (InterruptedException ex)
-//            {
-//                System.out.println (ex);
-//            }
-//        }
+
     }
 
     public void destroy()
@@ -269,7 +262,7 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
             }
             catch (InterruptedException ex)
             {
-                System.out.println(ex);
+               System. out.println(ex);
             }
         }
         System.out.println("Streaming input thread end");

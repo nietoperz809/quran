@@ -37,6 +37,7 @@ public class RedBlackTreeEnumerator implements Enumeration
     /**
      * Returns true if there is another element in the list.
      */
+    @Override
     public boolean hasMoreElements()
     {
         return (x != null);
@@ -48,6 +49,7 @@ public class RedBlackTreeEnumerator implements Enumeration
      * @exception NoSuchElementException thrown if it is out of elements.
      * @exception Exception thrown if the tree has been modified.
      */
+    @Override
     public Object nextElement()
     {
         RedBlackTreeNode y = x;

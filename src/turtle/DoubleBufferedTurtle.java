@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 import java.awt.image.BufferedImage;
+import static java.awt.image.BufferedImage.TYPE_BYTE_BINARY;
 
 /**
  * Double buffered Turtle
@@ -55,7 +56,7 @@ public class DoubleBufferedTurtle extends Turtle
         //offImg = gconf.createCompatibleImage(width, height);
         //offImg = TwitTools.thresholdImage(offImg, 128);
         offImg = new BufferedImage (width, 
-                height, BufferedImage.TYPE_BYTE_BINARY);
+                height, TYPE_BYTE_BINARY);
         penColor = WHITE;
     }
 

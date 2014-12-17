@@ -5,6 +5,8 @@
  */
 package turtle;
 
+import static java.awt.BorderLayout.CENTER;
+
 /**
  *
  * @author Administrator
@@ -25,7 +27,7 @@ public class TurtleWindow extends javax.swing.JInternalFrame
         imgsizeX = x;
         imgsizeY = y;
         turtle = new DoubleBufferedTurtle (imgsizeX,imgsizeY);
-        getContentPane().add (turtle, java.awt.BorderLayout.CENTER);
+        getContentPane().add (turtle, CENTER);
         initComponents();
     }
     

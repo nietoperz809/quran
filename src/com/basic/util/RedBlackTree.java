@@ -20,9 +20,8 @@ package com.basic.util;
 import java.io.PrintStream;
 import java.util.Dictionary;
 import java.util.Enumeration;
-import java.util.NoSuchElementException;
-import com.basic.util.Comparator;
 import java.io.Serializable;
+import static java.lang.System.out;
 
 /**
  * This class implements a Dictionary using a B-tree. This exact type of tree is
@@ -606,7 +605,7 @@ public class RedBlackTree implements Serializable
      */
     public void printTree()
     {
-        printNode(listRoot, "", System.out);
+        printNode(listRoot, "", out);
     }
 
     /**
@@ -753,6 +752,7 @@ public class RedBlackTree implements Serializable
         return (y);
     }
 
+    @Override
     public String toString()
     {
         return ("RedBlackTree object with " + count + " elements.");

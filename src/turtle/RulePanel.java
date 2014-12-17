@@ -6,7 +6,11 @@
 package turtle;
 
 import applications.LindenGUI;
+import static java.awt.Color.ORANGE;
 import java.awt.event.ActionListener;
+import static java.lang.Double.parseDouble;
+import static javax.swing.BorderFactory.createBevelBorder;
+import static javax.swing.border.BevelBorder.RAISED;
 
 /**
  *
@@ -30,7 +34,7 @@ public class RulePanel extends javax.swing.JPanel implements ActionListener
         parent = con;
         if (fin)
         {
-            this.setBackground (java.awt.Color.ORANGE);
+            this.setBackground (ORANGE);
             ruleTypeText.setText("Final Rule");
         }
     }
@@ -44,9 +48,9 @@ public class RulePanel extends javax.swing.JPanel implements ActionListener
     {
         try
         {
-            return Double.parseDouble (probTxt.getText());
+            return parseDouble (probTxt.getText());
         }
-        catch (Exception ex)
+        catch (NumberFormatException ex)
         {
             return 1.0;
         }

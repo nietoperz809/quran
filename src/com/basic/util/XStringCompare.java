@@ -19,31 +19,37 @@ package com.basic.util;
 
 public class XStringCompare implements Comparator
 {
+    @Override
     public int compare(Object a, Object b)
     {
         return ((String) a).compareTo((String) b);
     }
 
+    @Override
     public boolean equals(Object a, Object b)
     {
         return compare(a, b) == 0;
     }
 
+    @Override
     public boolean lessThan(Object a, Object b)
     {
         return compare(a, b) < 0;
     }
 
+    @Override
     public boolean lessEqual(Object a, Object b)
     {
         return compare(a, b) <= 0;
     }
 
+    @Override
     public boolean greaterThan(Object a, Object b)
     {
         return compare(a, b) > 0;
     }
 
+    @Override
     public boolean greaterEqual(Object a, Object b)
     {
         return compare(a, b) >= 0;

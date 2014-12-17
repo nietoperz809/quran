@@ -8,6 +8,7 @@ package com.basic.streameditor;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
+import static java.lang.System.out;
 
 /**
  *
@@ -32,7 +33,7 @@ public class OutStream extends OutputStream implements Serializable
         }
         catch (InterruptedException ex)
         {
-           System.out.println (ex);
+            out.println (ex);
         }
     }
 }
