@@ -55,6 +55,7 @@ public class Program implements Runnable, Serializable
     public StreamingTextArea area;
     public boolean basic_prg_running = true;  // Program basic_prg_running
     public boolean thread_running = true; // Thread basic_prg_running 
+    public long basetime = System.currentTimeMillis();
     
     // this tree holds all of the statements.
     private RedBlackTree stmts = new RedBlackTree(new NumberCompare());

@@ -17,13 +17,10 @@
  */
 package com.basic;
 
-import com.basic.streameditor.StreamingTextArea;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class implements the mathematical functions for BASIC. The tokenizer
@@ -37,14 +34,13 @@ import java.util.logging.Logger;
  */
 class FunctionExpression extends Expression
 {
-
     Expression sVar; // STRING function variable.
 
     final static String functions[] =
     {
         "rnd", "int", "sin", "cos", "tan", "atn", "sqr", "max", "min", "abs",
         "left$", "right$", "mid$", "chr$", "len", "val", "spc$", "log", "fre",
-        "sgn", "tab", "str$", "inkey$"
+        "sgn", "tab", "str$", "inkey$", "time"
     };
 
     final static int RND = 0;
@@ -70,6 +66,7 @@ class FunctionExpression extends Expression
     final static int TAB = 20;
     final static int STR = 21;
     final static int INKEYS = 22;
+    final static int TIME = 23;
 
     Random r;
 
@@ -165,6 +162,8 @@ class FunctionExpression extends Expression
                     return Math.log(arg2.value(p));
                 case FRE:
                     return 8192.0; // a round number.
+                case TIME:
+                    return System.currentTimeMillis() - p.basetime;
                 case SGN:
                     double v = arg2.value(p);
                     if (v < 0)
@@ -306,7 +305,7 @@ class FunctionExpression extends Expression
         Expression se;
         Token t;
 
-        if (ty == INKEYS)
+        if (ty == INKEYS || ty == TIME)
         {
             return new FunctionExpression(ty, new ConstantExpression(0));
         }
