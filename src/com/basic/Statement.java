@@ -26,7 +26,8 @@ abstract class Statement implements Ser
          "if", "then", "end", "data", "restore", "read",
          "on", "rem", "for", "to", "next", "step", "gosub",
          "goto", "let", "input", "stop", "dim", "randomize",
-         "tron", "troff", "timer", "cls", "sleep", "tweet"
+         "tron", "troff", "timer", "cls", "sleep", "tweet",
+         "seq"
     };
 
     /**
@@ -62,6 +63,8 @@ abstract class Statement implements Ser
     final static int CLS = 27;
     final static int SLEEP = 28;
     final static int TWEET = 29;
+    final static int SEQ = 30;
+
     protected int keyword; // type of statement
     // type of statement
     protected int line;

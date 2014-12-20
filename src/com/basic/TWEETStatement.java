@@ -17,7 +17,6 @@
  */
 package com.basic;
 
-import static com.basic.Statement.PRINT;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Vector;

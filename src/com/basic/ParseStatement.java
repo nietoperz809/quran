@@ -226,6 +226,18 @@ class ParseStatement extends Statement {
                     }
                     throw new BASICSyntaxError(extraError);
 
+                case SEQ:
+                    s = new SEQStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == Token.EOL))
+                        return s;
+
+                    if (t.isSymbol(':')) {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
                 case RESTORE:
                     s = new RESTOREStatement(lt);
                     t = lt.nextToken();
