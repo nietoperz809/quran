@@ -15,80 +15,101 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
+
 import java.io.PrintStream;
 import com.basic.util.RedBlackTree;
 
 /**
- * This class implements an expression that is simply a variable. Or
- * more correctly the value of that variable.
+ * This class implements an expression that is simply a variable. Or more
+ * correctly the value of that variable.
  */
-class VariableExpression extends Expression {
+class VariableExpression extends Expression
+{
     private Variable v;
 
-    VariableExpression(Variable a) {
+    VariableExpression(Variable a)
+    {
         super();
         v = a;
     }
 
-    void print(PrintStream p) {
+    void print(PrintStream p)
+    {
         p.print(v.toString());
     }
 
-    double value(Program pgm) throws BASICRuntimeError {
+    double value(Program pgm) throws BASICRuntimeError
+    {
         if (v.isString())
+        {
             return 0;
+        }
         return (pgm.getVariable(v));
     }
 
-    String stringValue(Program pgm, int c) throws BASICRuntimeError {
+    String stringValue(Program pgm, int c) throws BASICRuntimeError
+    {
         if (v.isString())
+        {
             return pgm.getString(v);
-        return (""+pgm.getVariable(v));
+        }
+        return ("" + pgm.getVariable(v));
     }
 
-    String stringValue(Program pgm) throws BASICRuntimeError {
+    String stringValue(Program pgm) throws BASICRuntimeError
+    {
         if (v.isString())
+        {
             return pgm.getString(v);
-        return (""+pgm.getVariable(v));
+        }
+        return ("" + pgm.getVariable(v));
     }
 
-    String unparse() {
+    String unparse()
+    {
         return v.unparse();
     }
 
     /**
      * Add the value of this variable to the trace record.
      */
-    void trace(RedBlackTree tracer) {
+    void trace(RedBlackTree tracer)
+    {
         tracer.put(v.name, this);
-        if (v.isArray() && (v.numExpn() != 0)) {
-            for (int i=0; i < v.numExpn(); i++) {
+        if (v.isArray() && (v.numExpn() != 0))
+        {
+            for (int i = 0; i < v.numExpn(); i++)
+            {
                 (v.expn(i)).trace(tracer);
             }
         }
     }
 
-    boolean isString() {
+    boolean isString()
+    {
         return (v.isString());
     }
 
-    public String toString() {
+    public String toString()
+    {
         return v.toString();
     }
 }
 
-class Traceable {
+class Traceable
+{
     String name;
     String value;
 
-    Traceable(String n, String v) {
+    Traceable(String n, String v)
+    {
         name = n;
         value = v;
     }
 
-    public String toString() {
-        return ("  : "+name+" = "+value);
+    public String toString()
+    {
+        return ("  : " + name + " = " + value);
     }
 }

@@ -15,7 +15,7 @@ import java.util.Enumeration;
  * The <i>execute</i> interface defines what the BASIC statements *do*.
  * These are all called by the containing <b>Program</b>.
  */
-abstract class Statement implements Ser
+public abstract class Statement implements Ser
 {
 
     /**

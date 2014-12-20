@@ -30,7 +30,9 @@ import java.util.Enumeration;
 import java.util.Random;
 import com.basic.util.RedBlackTree;
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Stack;
+import java.util.TreeMap;
 import java.util.Vector;
 
 /**
@@ -58,7 +60,7 @@ public class Program implements Runnable, Serializable
     public long basetime = System.currentTimeMillis();
     
     // this tree holds all of the statements.
-    private RedBlackTree stmts = new RedBlackTree(new NumberCompare());
+    private final RedBlackTree<Integer, Statement> stmts = new RedBlackTree<>(new NumberCompare());
 
     // this tree holds all of the variables.
     private RedBlackTree vars = new RedBlackTree();
@@ -399,7 +401,7 @@ public class Program implements Runnable, Serializable
         {
             return s.nxt;
         }
-        return ((Statement) stmts.next(new Integer(s.line)));
+        return ((Statement) stmts.next(s.line));
     }
 
     /**
@@ -420,7 +422,8 @@ public class Program implements Runnable, Serializable
     {
         for (Enumeration e = stmts.elements(); e.hasMoreElements();)
         {
-            Statement s = (Statement) e.nextElement();
+            Map.Entry<Integer,Statement> entry = (Map.Entry<Integer,Statement>) e.nextElement();
+            Statement s = entry.getValue();
             if ((s.lineNo() >= start) && (s.lineNo() <= end))
             {
                 p.print(s.asString());
@@ -508,7 +511,7 @@ public class Program implements Runnable, Serializable
         /* First we load all of the data statements */
         while (e.hasMoreElements())
         {
-            s = (Statement) e.nextElement();
+            s = ((Map.Entry<Integer,Statement>)e.nextElement()).getValue();
             if (s.keyword == Statement.DATA)
             {
                 s.execute(this, in, pout);
@@ -516,7 +519,7 @@ public class Program implements Runnable, Serializable
         }
 
         e = stmts.elements();
-        s = (Statement) e.nextElement();
+        s = ((Map.Entry<Integer,Statement>)e.nextElement()).getValue();
         do
         {
             Thread.yield();   // Let others run
