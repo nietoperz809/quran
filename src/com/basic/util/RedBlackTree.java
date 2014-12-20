@@ -57,22 +57,6 @@ public class RedBlackTree implements Serializable
     }
 
     /**
-     * Returns the number of elements in the tree.
-     */
-    public int size()
-    {
-        return (count);
-    }
-
-    /**
-     * Returns true if the tree is empty.
-     */
-    public boolean isEmpty()
-    {
-        return (listRoot == null);
-    }
-
-    /**
      * Return an enumeration of the trees keys. This will return the keys in
      * sorted order as it does an inorder walk from the minimum valued key to
      * the maximum valued key.
@@ -277,7 +261,14 @@ public class RedBlackTree implements Serializable
         while (x != null)
         {
             y = x;
-            x = (cmp.compare(x.key, z.key) > 0) ? x.left : x.right;
+            int res = cmp.compare(x.key, z.key);
+            if (res == 0)
+            {
+                System.out.println ("BTREE equal");
+                delete(x);
+                insert (z);
+            }
+            x = (res > 0) ? x.left : x.right;
         }
         z.parent = y;
         if (y == null)
@@ -405,6 +396,7 @@ public class RedBlackTree implements Serializable
         RedBlackTreeNode oldValue = null;
 
         oldValue = insert(x);
+        System.out.println ("BTREE: "+oldValue);
         if (oldValue != null)
         {
             return (oldValue);
@@ -595,18 +587,18 @@ public class RedBlackTree implements Serializable
      * 1. Nodes lower on the output are to the "left" of nodes earlier or higher
      * in the output. (rotate 90 degrees clockwise)
      */
-    public void printTree(PrintStream o)
-    {
-        printNode(listRoot, "", o);
-    }
+//    public void printTree(PrintStream o)
+//    {
+//        printNode(listRoot, "", o);
+//    }
 
     /**
      * Print the tree to System.out
      */
-    public void printTree()
-    {
-        printNode(listRoot, "", out);
-    }
+//    public void printTree()
+//    {
+//        printNode(listRoot, "", out);
+//    }
 
     /**
      * Fix up the coloring of the tree after a remove operation.
@@ -752,11 +744,11 @@ public class RedBlackTree implements Serializable
         return (y);
     }
 
-    @Override
-    public String toString()
-    {
-        return ("RedBlackTree object with " + count + " elements.");
-    }
+//    @Override
+//    public String toString()
+//    {
+//        return ("RedBlackTree object with " + count + " elements.");
+//    }
 }
 
 

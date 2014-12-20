@@ -357,6 +357,7 @@ public class CommandInterpreter implements Serializable
                     }
                     try
                     {
+                        //pgm.del((int) t.numValue()); // Peter: first del line
                         s = ParseStatement.statement(lt);
                         s.addText(lineData);
                         s.addLine((int) t.numValue());

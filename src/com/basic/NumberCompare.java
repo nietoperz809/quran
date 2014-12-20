@@ -22,11 +22,11 @@ import com.basic.util.Comparator;
 public class NumberCompare implements Comparator
 {
 
+    @Override
     public int compare(Object a, Object b)
     {
-        int result;
-        int x = ((Integer) a).intValue();
-        int y = ((Integer) b).intValue();
+        int x = ((Integer) a);
+        int y = ((Integer) b);
 
         if (x < y)
         {
@@ -39,26 +39,31 @@ public class NumberCompare implements Comparator
         return 0;
     }
 
+    @Override
     public boolean equals(Object a, Object b)
     {
         return compare(a, b) == 0;
     }
 
+    @Override
     public boolean lessThan(Object a, Object b)
     {
         return compare(a, b) < 0;
     }
 
+    @Override
     public boolean lessEqual(Object a, Object b)
     {
         return compare(a, b) <= 0;
     }
 
+    @Override
     public boolean greaterThan(Object a, Object b)
     {
         return compare(a, b) > 0;
     }
 
+    @Override
     public boolean greaterEqual(Object a, Object b)
     {
         return compare(a, b) >= 0;
