@@ -21,7 +21,6 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -44,20 +43,13 @@ public class RedBlackTree<K,V> implements Serializable
     public static final long serialVersionUID = 1L;
     private final SortedMap<K,V> map = new TreeMap<>();
 
-    public RedBlackTree(Comparator c)
-    {
-        //cmp = c;
-    }
-
     public RedBlackTree()
     {
-        //cmp = new XStringCompare();
+        // 
     }
 
     /**
-     * Return an enumeration of the trees keys. This will return the keys in
-     * sorted order as it does an inorder walk from the minimum valued key to
-     * the maximum valued key.
+     * Return an enumeration of the trees keys.
      */
     public Enumeration keys()
     {
@@ -65,9 +57,7 @@ public class RedBlackTree<K,V> implements Serializable
     }
 
     /**
-     * Return an enumeration of the trees objects. This will return the elements
-     * in sorted order as it does an inorder walk from minimum key to the
-     * maximum key.
+     * Return an enumeration of the trees objects.
      */
     public Enumeration elements()
     {
@@ -85,9 +75,7 @@ public class RedBlackTree<K,V> implements Serializable
     }
 
     /**
-     * Add a new object to the tree. Note that if there is already a node in the
-     * tree with this key value, the old value is replaced with the new value.
-     * The old value is returned. If no previous node exists, this returns null.
+     * Add a new object to the tree.
      * @param key
      * @param value
      * @return 

@@ -60,7 +60,7 @@ public class Program implements Runnable, Serializable
     public long basetime = System.currentTimeMillis();
     
     // this tree holds all of the statements.
-    private final RedBlackTree<Integer, Statement> stmts = new RedBlackTree<>(new NumberCompare());
+    private final RedBlackTree<Integer, Statement> stmts = new RedBlackTree<>();
 
     // this tree holds all of the variables.
     private RedBlackTree vars = new RedBlackTree();
