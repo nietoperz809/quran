@@ -1,8 +1,6 @@
 package midisystem;
 
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.Semaphore;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
@@ -27,6 +25,7 @@ public final class MidiSynthSystem
     private Sequence sm_sequence;
     private final Instrument[] orchestra;
     private static MidiSynthSystem this_mss;
+    private final Object waitObject;
 
     /**
      * Constructor
@@ -45,6 +44,7 @@ public final class MidiSynthSystem
         sm_sequencer.open();
         sm_sequencer.stop();
         orchestra = sm_synthesizer.getAvailableInstruments();
+        waitObject = new Object();
     }
 
     public static MidiSynthSystem get()
@@ -54,7 +54,7 @@ public final class MidiSynthSystem
             try
             {
                 this_mss = new MidiSynthSystem();
-                System.out.println ("Midi system OPEN");
+                System.out.println("Midi system OPEN");
             }
             catch (Exception ex)
             {
@@ -70,11 +70,13 @@ public final class MidiSynthSystem
     public void shutdown()
     {
         if (this_mss == null)
+        {
             return;
+        }
         sm_sequencer.stop();
         sm_sequencer.close();
         sm_synthesizer.close();
-        System.out.println ("Midi system END");
+        System.out.println("Midi system END");
         this_mss = null;
     }
 
@@ -122,12 +124,12 @@ public final class MidiSynthSystem
         }
         return orchestra[idx];
     }
-  
-    public void setLoops (int i)
+
+    public void setLoops(int i)
     {
         sm_sequencer.setLoopCount(i);
     }
-    
+
     public boolean start()
     {
         try
@@ -138,30 +140,42 @@ public final class MidiSynthSystem
         {
             return false;
         }
-  
+
         sm_sequencer.addMetaEventListener((MetaMessage event) ->
         {
             if (event.getType() == 47)
             {
-                System.out.println ("end of midi");
+                //System.out.println ("end of midi");
                 try
                 {
                     deleteAllTracks();
+                    synchronized (waitObject)
+                    {
+                        waitObject.notify();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    System.out.println ("deleteAllTracks failed");
+                    System.out.println("deleteAllTracks failed");
                 }
             }
         });
         sm_sequencer.start();
         return true;
     }
-    
+
+    public void waitUntilEnd() throws InterruptedException
+    {
+        synchronized (waitObject)
+        {
+            waitObject.wait();
+        }
+    }
+
     /**
      * Deletes all tracks
      */
-    public void deleteAllTracks () throws Exception
+    public void deleteAllTracks() throws Exception
     {
         sm_sequence = new Sequence(Sequence.SMPTE_30, 1);
     }

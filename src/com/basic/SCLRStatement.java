@@ -7,6 +7,8 @@ package com.basic;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import midisystem.MidiSynthSystem;
 
 /**
@@ -28,7 +30,14 @@ class SCLRStatement extends Statement
     @Override
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        MidiSynthSystem.get().deleteAllTracks();
+        try
+        {
+            MidiSynthSystem.get().deleteAllTracks();
+        }
+        catch (Exception ex)
+        {
+           throw new BASICRuntimeError ("Cannot delete tracks");
+        }
         return pgm.nextStatement(this);
     }
 

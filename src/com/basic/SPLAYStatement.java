@@ -5,7 +5,6 @@
  */
 package com.basic;
 
-import static com.basic.Statement.CLS;
 import java.io.InputStream;
 import java.io.PrintStream;
 import midisystem.MidiSynthSystem;
@@ -31,6 +30,14 @@ class SPLAYStatement extends Statement
     {
         System.out.println ("Start midi");
         MidiSynthSystem.get().start();
+        try
+        {
+            MidiSynthSystem.get().waitUntilEnd();
+        }
+        catch (InterruptedException ex)
+        {
+            throw new BASICRuntimeError ("WaitUntilEnd failed");
+        }
         return pgm.nextStatement(this);
     }
 
