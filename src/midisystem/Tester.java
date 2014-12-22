@@ -1,7 +1,7 @@
 package midisystem;
 
 /*
- *	SimpleMidiPlayer.java
+ *	Tester.java
  *
  *	This file is part of jsresources.org
  */
@@ -11,7 +11,7 @@ package midisystem;
  */
 import javax.sound.midi.MetaMessage;
 
-public class SimpleMidiPlayer
+public class Tester
 {
     static void handleEnd (MidiSynthSystem mss)
     {

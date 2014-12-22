@@ -19,6 +19,8 @@ package com.basic;
 
 import com.basic.streameditor.StreamingTextArea;
 import java.io.*;
+import javax.sound.midi.Instrument;
+import midisystem.MidiSynthSystem;
 
 /**
  * This class is an "interactive" BASIC environment. You can think of it as
@@ -38,7 +40,7 @@ public class CommandInterpreter implements Serializable
     final static String commands[] =
     {
         "new", "run", "list", "cat", "del", "resume",
-        "bye", "save", "load", "dump", "cont",
+        "bye", "save", "load", "dump", "cont", "instrlist"
     };
 
     static final int CMD_NEW = 0;
@@ -52,7 +54,8 @@ public class CommandInterpreter implements Serializable
     static final int CMD_LOAD = 8;
     static final int CMD_DUMP = 9;
     static final int CMD_CONT = 10;
-
+    static final int CMD_INSTRLIST = 11;
+    
     StreamingTextArea area;
     
     /**
@@ -107,6 +110,19 @@ public class CommandInterpreter implements Serializable
                 }
                 return pgm;
 
+            case CMD_INSTRLIST:
+                Instrument[] instr = MidiSynthSystem.get().getInstruments();
+                StringBuilder sb = new StringBuilder();
+                for (int n = 0; n<instr.length; n++)
+                {
+                    sb.append (n);
+                    sb.append (" -- ");
+                    sb.append(instr[n].toString());
+                    sb.append ('\n');
+                }
+                outStream.println (sb.toString());
+                return pgm;
+                
             case CMD_SAVE:
                 t = lt.nextToken();
                 if (t.typeNum() != Token.STRING)
@@ -160,6 +176,7 @@ public class CommandInterpreter implements Serializable
                     return pgm;
                 }
                 return pgm;
+                
             case CMD_DUMP:
                 PrintStream zzz = outStream;
                 t = lt.nextToken();

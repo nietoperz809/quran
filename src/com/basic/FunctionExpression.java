@@ -17,10 +17,12 @@
  */
 package com.basic;
 
+import com.basic.util.StaticFuncs;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 import java.io.PrintStream;
+import java.text.DecimalFormat;
 
 /**
  * This class implements the mathematical functions for BASIC. The tokenizer
@@ -226,7 +228,7 @@ class FunctionExpression extends Expression
     {
         return stringValue(pgm, 0);
     }
-
+    
     String stringValue(Program pgm, int column) throws BASICRuntimeError
     {
         String ss = null;
@@ -268,8 +270,10 @@ class FunctionExpression extends Expression
                     System.out.println(ex);
                 }
             }
+            
             case STR:
-                return "" + arg2.value(pgm);
+                return StaticFuncs.df.format(arg2.value(pgm));
+            
             case SPC:
                 sb = new StringBuffer();
                 a = (int) arg2.value(pgm);

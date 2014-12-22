@@ -26,7 +26,7 @@ import com.basic.util.RedBlackTree;
  */
 class VariableExpression extends Expression
 {
-    private Variable v;
+    private final Variable v;
 
     VariableExpression(Variable a)
     {
@@ -34,11 +34,13 @@ class VariableExpression extends Expression
         v = a;
     }
 
+    @Override
     void print(PrintStream p)
     {
         p.print(v.toString());
     }
 
+    @Override
     double value(Program pgm) throws BASICRuntimeError
     {
         if (v.isString())
@@ -48,6 +50,7 @@ class VariableExpression extends Expression
         return (pgm.getVariable(v));
     }
 
+    @Override
     String stringValue(Program pgm, int c) throws BASICRuntimeError
     {
         if (v.isString())
@@ -57,6 +60,7 @@ class VariableExpression extends Expression
         return ("" + pgm.getVariable(v));
     }
 
+    @Override
     String stringValue(Program pgm) throws BASICRuntimeError
     {
         if (v.isString())
@@ -66,6 +70,7 @@ class VariableExpression extends Expression
         return ("" + pgm.getVariable(v));
     }
 
+    @Override
     String unparse()
     {
         return v.unparse();
@@ -74,6 +79,7 @@ class VariableExpression extends Expression
     /**
      * Add the value of this variable to the trace record.
      */
+    @Override
     void trace(RedBlackTree tracer)
     {
         tracer.put(v.name, this);
@@ -86,11 +92,13 @@ class VariableExpression extends Expression
         }
     }
 
+    @Override
     boolean isString()
     {
         return (v.isString());
     }
 
+    @Override
     public String toString()
     {
         return v.toString();
@@ -108,6 +116,7 @@ class Traceable
         value = v;
     }
 
+    @Override
     public String toString()
     {
         return ("  : " + name + " = " + value);

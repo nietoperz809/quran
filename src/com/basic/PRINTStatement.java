@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.InputStream;
@@ -25,73 +24,84 @@ import java.util.Vector;
 /**
  * The PRINT statement.
  *
- * The PRINT statement writes values out to the output stream. It
- * can print both numeric and string exressions.
+ * The PRINT statement writes values out to the output stream. It can print both
+ * numeric and string exressions.
  *
- * The syntax of the PRINT statement is :
- *      PRINT   Expression [, Expression] | [; Expression]
+ * The syntax of the PRINT statement is : PRINT Expression [, Expression] | [;
+ * Expression]
  *
  * Items separated by a semicolon will have no space between them, items
  * separated by a comma will have a tab inserted between them.
  *
- * Syntax Errors:
- *      Unexpected symbol in input.
+ * Syntax Errors: Unexpected symbol in input.
  */
-class PRINTStatement extends Statement {
+class PRINTStatement extends Statement
+{
 
     // This is the line number to transfer control too.
     Vector args;
 
-    PRINTStatement(LexicalTokenizer lt) throws BASICSyntaxError {
+    PRINTStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         super(PRINT);
         parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    @Override
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         PrintItem pi = null;
         int col = 0;
-        for (int i = 0; i < args.size(); i++) {
+        for (int i = 0; i < args.size(); i++)
+        {
             String z;
-            pi = (PrintItem)(args.elementAt(i));
+            pi = (PrintItem) (args.elementAt(i));
             z = pi.value(pgm, col);
             out.print(z);
             col += z.length();
         }
-        if ((pi == null) || pi.needCR()) {
+        if ((pi == null) || pi.needCR())
+        {
             out.print("\n");
         }
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
-        StringBuffer sb = new StringBuffer();
+    @Override
+    String unparse()
+    {
+        StringBuilder sb = new StringBuilder();
         sb.append("PRINT ");
-        for (int i = 0; i < args.size(); i++) {
-            PrintItem pi = (PrintItem)(args.elementAt(i));
+        for (int i = 0; i < args.size(); i++)
+        {
+            PrintItem pi = (PrintItem) (args.elementAt(i));
             sb.append(pi.unparse());
         }
         return sb.toString();
     }
 
-    private static Vector parseStringExpression(LexicalTokenizer lt) throws BASICSyntaxError {
+    private static Vector parseStringExpression(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Vector result = new Vector();
         Token t;
 
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            switch (t.typeNum()) {
+            switch (t.typeNum())
+            {
                 case Token.CONSTANT:
                 case Token.FUNCTION:
                 case Token.VARIABLE:
                 case Token.STRING:
                 case Token.OPERATOR:
                     lt.unGetToken();
-                    result.addElement(new
-                            PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
+                    result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
                     break;
                 case Token.SYMBOL:
-                    switch ((int) t.numValue()) {
-                        case '(' :
+                    switch ((int) t.numValue())
+                    {
+                        case '(':
                             lt.unGetToken();
                             result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
                             break;
@@ -115,7 +125,8 @@ class PRINTStatement extends Statement {
         }
     }
 
-    private static void parse(PRINTStatement s, LexicalTokenizer lt) throws BASICSyntaxError {
+    private static void parse(PRINTStatement s, LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Token t;
         s.args = parseStringExpression(lt);
     }

@@ -2,8 +2,6 @@ package com.basic;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import midisystem.MidiSynthSystem;
 import midisystem.TrackMaker;
 
@@ -13,6 +11,7 @@ import midisystem.TrackMaker;
 class SEQStatement extends Statement
 {
     String arg;
+    VariableExpression ve;
     
     SEQStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
@@ -24,7 +23,8 @@ class SEQStatement extends Statement
     @Override
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        //System.out.println (arg);
+        if (ve != null)
+            arg = ve.stringValue(pgm);
         TrackMaker tm = new TrackMaker (MidiSynthSystem.get());
         try
         {
@@ -44,15 +44,22 @@ class SEQStatement extends Statement
     }
 
     /**
-     * Parse DATA Statement.
+     * Parse SEQ Statement.
      */
     private static void parse(SEQStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        if (t.typeNum() != Token.STRING)
+        System.out.println (t);
+        if (t.typeNum() == Token.STRING)
         {
-            throw new BASICSyntaxError("Only Sound String allowed.");
+            s.arg = t.stringValue();
+            return;
         }
-        s.arg = t.stringValue();
+        else if (t.typeNum() == Token.VARIABLE)
+        {
+            s.ve = new VariableExpression((Variable)t);
+            return;
+        }
+        throw new BASICSyntaxError("Only Sound String allowed.");
     }
 }

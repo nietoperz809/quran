@@ -128,6 +128,12 @@ public final class MidiSynthSystem
         return orchestra[idx];
     }
 
+    public Instrument[] getInstruments()
+    {
+        return orchestra;
+    }
+    
+    
     /**
      * Set the number of Loops
      * @param i 

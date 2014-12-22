@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 /**
@@ -26,59 +25,62 @@ package com.basic;
  * precedence relationship of operators into the grammar. The grammar is defined
  * as follows:
  *
- * ELEMENT    ::=   id  | ( expression ) | function
- * PRIMARY    ::=   - ELEMENT | ! ELEMENT | .NOT. ELEMENT | ELEMENT
- * FACTOR     ::=   PRIMARY ** FACTOR | PRIMARY
- * TERM       ::=   TERM * FACTOR | TERM / FACTOR | FACTOR
- * SUM        ::=   SUM + TERM | SUM - TERM | TERM
- * LOGIC      ::=   LOGIC & SUM | LOGIC ^ SUM | LOGIC | SUM | SUM
- * RELATION   ::=   LOGIC = LOGIC  | LOGIC < LOGIC  | LOGIC > LOGIC |
- *                  LOGIC <> LOGIC | LOGIC <= LOGIC | LOGIC >= LOGIC | LOGIC |
- * EXPRESSION ::=   RELATION .AND. RELATION |
- *                  RELATION .OR. RELATION |
- *                  RELATION .XOR. RELATION |
- *                  RELATION
+ * ELEMENT ::= id | ( expression ) | function PRIMARY ::= - ELEMENT | ! ELEMENT
+ * | .NOT. ELEMENT | ELEMENT FACTOR ::= PRIMARY ** FACTOR | PRIMARY TERM ::=
+ * TERM * FACTOR | TERM / FACTOR | FACTOR SUM ::= SUM + TERM | SUM - TERM | TERM
+ * LOGIC ::= LOGIC & SUM | LOGIC ^ SUM | LOGIC | SUM | SUM RELATION ::= LOGIC =
+ * LOGIC | LOGIC < LOGIC  | LOGIC > LOGIC | LOGIC <> LOGIC | LOGIC <= LOGIC | LOGIC
+ * >= LOGIC | LOGIC | EXPRESSION ::= RELATION .AND. RELATION | RELATION .OR.
+ * RELATION | RELATION .XOR. RELATION | RELATION
  *
  * STRELEMENT ::= id | strfunction
  *
- * STREXP     ::= STRELEMENT + STREXP | STRELEMENT
+ * STREXP ::= STRELEMENT + STREXP | STRELEMENT
  *
  * Expressions that are parsed as either EXPRESSIONs or RELATIONs have the type
  * BooleanExpression when they are returned.
  *
- * Precidence rules from lowest to highest :
- *  0.  .AND., .OR., .XOR.
- *  1.  =, < , <=, >, >=
- *  2.  &, |, ^
- *  3.  +, -
- *  4.  *, /
- *  5.  **
- *  6.  unary -, unary !, unary .NOT.
+ * Precidence rules from lowest to highest : 0. .AND., .OR., .XOR. 1. =, < , <=,
+ * >, >= 2. &, |, ^ 3. +, - 4. *, / 5. ** 6. unary -, unary !, unary .NOT.
  *
  */
-class ParseExpression extends Expression {
+class ParseExpression extends Expression
+{
 
-    static Expression element(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression element(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result = null;
 
         Token t = lt.nextToken();
 
-        if (t.isSymbol('(')) {
+        if (t.isSymbol('('))
+        {
             result = expression(lt);
             t = lt.nextToken();
-            if (! t.isSymbol(')')) {
+            if (!t.isSymbol(')'))
+            {
                 lt.unGetToken();
                 throw new BASICSyntaxError("mismatched parenthesis in expression");
             }
-        } else if (t.typeNum() == Token.CONSTANT) {
+        }
+        else if (t.typeNum() == Token.CONSTANT)
+        {
             result = new ConstantExpression(t.numValue());
-        } else if (t.typeNum() == Token.STRING) {
+        }
+        else if (t.typeNum() == Token.STRING)
+        {
             result = new ConstantExpression(t.stringValue());
-        } else if (t.typeNum() == Token.VARIABLE) {
+        }
+        else if (t.typeNum() == Token.VARIABLE)
+        {
             result = new VariableExpression((Variable) t);
-        } else if (t.typeNum() == Token.FUNCTION) {
-            result = FunctionExpression.parse((int)t.numValue(), lt);
-        } else {
+        }
+        else if (t.typeNum() == Token.FUNCTION)
+        {
+            result = FunctionExpression.parse((int) t.numValue(), lt);
+        }
+        else
+        {
             lt.unGetToken();
             throw new BASICSyntaxError("Unexpected symbol in expression.");
         }
@@ -86,134 +88,185 @@ class ParseExpression extends Expression {
         return result;
     }
 
-    static Expression primary(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression primary(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Token t = lt.nextToken();
 
-        if (t.isOp(OP_NOT)) {
+        if (t.isOp(OP_NOT))
+        {
             return new Expression(OP_NOT, primary(lt));
-        } else if (t.isOp(OP_SUB)) {
+        }
+        else if (t.isOp(OP_SUB))
+        {
             return new Expression(OP_NEG, primary(lt));
-        } else if (t.isOp(OP_BNOT)) {
+        }
+        else if (t.isOp(OP_BNOT))
+        {
             return new BooleanExpression(OP_BNOT, primary(lt));
         }
         lt.unGetToken();
         return element(lt);
     }
 
-    static Expression factor(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression factor(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
         Token t;
 
         result = primary(lt);
         if (result.isString())
+        {
             return result;
+        }
 
         t = lt.nextToken();
-        if (t.isOp(OP_EXP)) {
+        if (t.isOp(OP_EXP))
+        {
             return new Expression(OP_EXP, result, factor(lt));
         }
         lt.unGetToken();
         return result;
     }
 
-    static Expression term(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression term(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
         Token t;
 
         result = factor(lt);
         if (result.isString())
+        {
             return result;
+        }
 
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            if (t.isOp(OP_MUL)) {
+            if (t.isOp(OP_MUL))
+            {
                 result = new Expression(OP_MUL, result, factor(lt));
-            } else if (t.isOp(OP_DIV)) {
+            }
+            else if (t.isOp(OP_DIV))
+            {
                 result = new Expression(OP_DIV, result, factor(lt));
-            } else
+            }
+            else
+            {
                 break;
+            }
         }
         lt.unGetToken();
         return result;
     }
 
-    static Expression sum(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression sum(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
         Token t;
 
         result = term(lt);
         if (result.isString())
+        {
             return result;
+        }
 
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            if (t.isOp(OP_ADD)) {
+            if (t.isOp(OP_ADD))
+            {
                 result = new Expression(OP_ADD, result, term(lt));
-            } else if (t.isOp(OP_SUB)) {
+            }
+            else if (t.isOp(OP_SUB))
+            {
                 result = new Expression(OP_SUB, result, term(lt));
-            } else
+            }
+            else
+            {
                 break;
+            }
         }
         lt.unGetToken();
         return result;
     }
 
-    static Expression logic(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression logic(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
         Token t;
 
         result = sum(lt);
         if (result.isString())
+        {
             return result;
+        }
 
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            if (t.isOp(OP_AND)) {
+            if (t.isOp(OP_AND))
+            {
                 result = new Expression(OP_AND, result, sum(lt));
-            } else if (t.isOp(OP_XOR)) {
-                result =  new Expression(OP_XOR, result, sum(lt));
-            } else if (t.isOp(OP_IOR)) {
+            }
+            else if (t.isOp(OP_XOR))
+            {
+                result = new Expression(OP_XOR, result, sum(lt));
+            }
+            else if (t.isOp(OP_IOR))
+            {
                 result = new Expression(OP_IOR, result, sum(lt));
-            } else
+            }
+            else
+            {
                 break;
+            }
         }
         lt.unGetToken();
         return result;
     }
 
-    static Expression string(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression string(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
         Token t;
 
         result = logic(lt);
-        if (! result.isString())
+        if (!result.isString())
+        {
             return result;
-        while (true) {
+        }
+        while (true)
+        {
             Expression arg2;
             t = lt.nextToken();
-            if (! t.isOp(OP_ADD)) {
+            if (!t.isOp(OP_ADD))
+            {
                 lt.unGetToken();
                 return result;
             }
             arg2 = logic(lt);
-            if (! arg2.isString()) {
+            if (!arg2.isString())
+            {
                 throw new BASICSyntaxError("Only add is allowed in string expressions.");
             }
             result = new StringExpression(OP_ADD, result, arg2);
         }
     }
 
-    static Expression relation(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression relation(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
         Token t;
 
         result = string(lt);
         t = lt.nextToken();
-        if (t.typeNum() != Token.OPERATOR) {
+        if (t.typeNum() != Token.OPERATOR)
+        {
             lt.unGetToken();
             return result;
         }
-        switch ((int)t.numValue()) {
+        switch ((int) t.numValue())
+        {
             case OP_EQ:
                 result = new BooleanExpression(OP_EQ, result, string(lt));
                 break;
@@ -237,21 +290,31 @@ class ParseExpression extends Expression {
         return result;
     }
 
-    static Expression expression(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Expression expression(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Expression result;
-        Token   t;
+        Token t;
 
         result = relation(lt);
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            if (t.isOp(OP_BAND)) {
+            if (t.isOp(OP_BAND))
+            {
                 result = new BooleanExpression(OP_BAND, result, relation(lt));
-            } else if (t.isOp(OP_BIOR)) {
+            }
+            else if (t.isOp(OP_BIOR))
+            {
                 result = new BooleanExpression(OP_BIOR, result, relation(lt));
-            } else if (t.isOp(OP_BXOR)) {
+            }
+            else if (t.isOp(OP_BXOR))
+            {
                 result = new BooleanExpression(OP_BXOR, result, relation(lt));
-            } else
+            }
+            else
+            {
                 break;
+            }
         }
         lt.unGetToken();
         return result;
