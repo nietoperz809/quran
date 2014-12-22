@@ -174,7 +174,23 @@ class ParseStatement extends Statement {
                         throw new BASICSyntaxError(extraError);
 
                     return s;
-                
+
+                case SPLAY:
+                    s = new SPLAYStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                        throw new BASICSyntaxError(extraError);
+
+                    return s;
+                    
+                case SCLR:
+                    s = new SCLRStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                        throw new BASICSyntaxError(extraError);
+
+                    return s;
+
                 case RETURN:
                     s = new RETURNStatement(lt);
                     t = lt.nextToken();

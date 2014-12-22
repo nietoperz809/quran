@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.Vector;
+import midisystem.MidiSynthSystem;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
@@ -498,7 +499,7 @@ public class Program implements Runnable, Serializable
         {
             return;
         }
-
+        MidiSynthSystem.get().deleteAllTracks(); // Run MidiSynthSystem
         if (out instanceof PrintStream)
         {
             pout = (PrintStream) out;
@@ -550,6 +551,7 @@ public class Program implements Runnable, Serializable
             }
         }
         while (s != null);
+        MidiSynthSystem.get().shutdown();
     }
 
     /**

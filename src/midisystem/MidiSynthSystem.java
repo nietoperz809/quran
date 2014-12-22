@@ -1,8 +1,11 @@
 package midisystem;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -17,11 +20,11 @@ import javax.sound.midi.Synthesizer;
  *
  * @author Administrator
  */
-public class MidiSynthSystem
+public final class MidiSynthSystem
 {
     private final Sequencer sm_sequencer;
     private final Synthesizer sm_synthesizer;
-    private final Sequence sm_sequence;
+    private Sequence sm_sequence;
     private final Instrument[] orchestra;
     private static MidiSynthSystem this_mss;
 
@@ -135,7 +138,31 @@ public class MidiSynthSystem
         {
             return false;
         }
+  
+        sm_sequencer.addMetaEventListener((MetaMessage event) ->
+        {
+            if (event.getType() == 47)
+            {
+                System.out.println ("end of midi");
+                try
+                {
+                    deleteAllTracks();
+                }
+                catch (Exception ex)
+                {
+                    System.out.println ("deleteAllTracks failed");
+                }
+            }
+        });
         sm_sequencer.start();
         return true;
+    }
+    
+    /**
+     * Deletes all tracks
+     */
+    public void deleteAllTracks () throws Exception
+    {
+        sm_sequence = new Sequence(Sequence.SMPTE_30, 1);
     }
 }

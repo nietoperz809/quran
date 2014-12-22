@@ -32,15 +32,12 @@ public class SimpleMidiPlayer
         MidiSynthSystem ssys = MidiSynthSystem.get();
         
         //makeDemoTrack(sequence);
-        TrackMaker tm = new TrackMaker (ssys, 2);
+        TrackMaker tm = new TrackMaker (ssys);
         tm.fromString("I:70 50:50 80:50");
-        TrackMaker tm2 = new TrackMaker (ssys, 1);
+        TrackMaker tm2 = new TrackMaker (ssys);
         tm2.fromString("I:88 50:10 80:10 50:10 80:10 50:10 P:100 50:10 80:10 50:10 80:10 50:10 P:10");
 
-
         handleEnd(ssys);
-
-
         /*
          *	Now, we can start over.
          */

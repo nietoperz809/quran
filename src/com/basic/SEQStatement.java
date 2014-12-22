@@ -1,9 +1,11 @@
 package com.basic;
 
-import static com.basic.Statement.DATA;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import midisystem.MidiSynthSystem;
+import midisystem.TrackMaker;
 
 /**
  * SEQ based on DATA Statement
@@ -22,7 +24,16 @@ class SEQStatement extends Statement
     @Override
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        System.out.println (arg);
+        //System.out.println (arg);
+        TrackMaker tm = new TrackMaker (MidiSynthSystem.get());
+        try
+        {
+            tm.fromString(arg);
+        }
+        catch (Exception ex)
+        {
+           throw new BASICRuntimeError ("Bogus Sequence string");
+        }
         return pgm.nextStatement(this);
     }
 

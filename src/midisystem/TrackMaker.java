@@ -2,8 +2,6 @@ package midisystem;
 
 
 import javax.sound.midi.Instrument;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
 import javax.sound.midi.Track;
 
 /*
@@ -25,15 +23,26 @@ public class TrackMaker
     
     /**
      * Constructor
-     * @param ms
-     * @param chan
+     * @param ms SoundSystem object
+     * @param chan Channel
      */
     public TrackMaker (MidiSynthSystem ms, int chan)
     {
         synthsys = ms;
         track = ms.getSequence().createTrack();
         timeoffset = 5;
-        emaker = new EventMaker (chan); 
+        emaker = new EventMaker (chan);
+        System.out.println ("Track using chan:"+chan);
+    }
+
+    /**
+     * Constructor
+     * @param ms SoundSystem object
+     */
+    public TrackMaker (MidiSynthSystem ms)
+    {
+        this (ms, 
+              ms.getSequence().getTracks().length +1);
     }
     
     /**
