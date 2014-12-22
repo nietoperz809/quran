@@ -15,6 +15,7 @@ import midisystem.MidiSynthSystem;
  */
 class SPLAYStatement extends Statement
 {
+    int repeats = 0;
     /**
      * CLC command
      * @param lt
@@ -23,12 +24,20 @@ class SPLAYStatement extends Statement
     SPLAYStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(SPLAY);
+        Token t = lt.nextToken();
+        if (t.type == Token.EOL)
+            return;
+        if (t.type == Token.CONSTANT)
+            repeats = (int)t.nValue - 1;
+        System.out.println (t);
     }
 
     @Override
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         System.out.println ("Start midi");
+        if (repeats > 0)
+            MidiSynthSystem.get().setLoops(repeats);
         MidiSynthSystem.get().start();
         try
         {

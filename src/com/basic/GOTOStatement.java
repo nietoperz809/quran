@@ -34,7 +34,6 @@ import java.io.PrintStream;
  */
 class GOTOStatement extends Statement
 {
-
     // This is the line number to transfer control too.
     int lineTarget;
 
@@ -45,6 +44,7 @@ class GOTOStatement extends Statement
         parse(this, lt);
     }
 
+    @Override
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         Statement s;
@@ -56,6 +56,7 @@ class GOTOStatement extends Statement
         throw new BASICRuntimeError("GOTO non-existent line " + lineTarget + ".");
     }
 
+    @Override
     String unparse()
     {
         return "GOTO " + lineTarget;

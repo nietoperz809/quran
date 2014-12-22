@@ -28,8 +28,7 @@ public final class MidiSynthSystem
     private final Object waitObject;
 
     /**
-     * Constructor
-     *
+     * Private Constructor
      * @throws Exception If smth goes wrong
      */
     private MidiSynthSystem() throws Exception
@@ -47,6 +46,10 @@ public final class MidiSynthSystem
         waitObject = new Object();
     }
 
+    /**
+     * Get the singleton instance
+     * @return 
+     */
     public static MidiSynthSystem get()
     {
         if (this_mss == null)
@@ -125,11 +128,19 @@ public final class MidiSynthSystem
         return orchestra[idx];
     }
 
+    /**
+     * Set the number of Loops
+     * @param i 
+     */
     public void setLoops(int i)
     {
         sm_sequencer.setLoopCount(i);
     }
 
+    /**
+     * Starts playing the sequence 
+     * @return 
+     */
     public boolean start()
     {
         try
@@ -148,6 +159,7 @@ public final class MidiSynthSystem
                 //System.out.println ("end of midi");
                 try
                 {
+                    Thread.sleep(200);
                     deleteAllTracks();
                     synchronized (waitObject)
                     {
@@ -164,7 +176,11 @@ public final class MidiSynthSystem
         return true;
     }
 
-    public void waitUntilEnd() throws InterruptedException
+    /**
+     * Wait for end of playing
+     * @throws InterruptedException 
+     */
+    public void waitUntilEnd() throws InterruptedException 
     {
         synchronized (waitObject)
         {
