@@ -38,10 +38,10 @@ import midisystem.MidiSynthSystem;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
- parsed and ready to run. You can run it by invoking the run() method. The
- standard input and output of the basic_prg_running basic program can either be passed
- into the <b>run</b> method, or they can be presumed to be the in and out
- * streams referenced by the <b>System</b> class.
+ * parsed and ready to run. You can run it by invoking the run() method. The
+ * standard input and output of the basic_prg_running basic program can either
+ * be passed into the <b>run</b> method, or they can be presumed to be the in
+ * and out streams referenced by the <b>System</b> class.
  *
  * This class uses Red-Black trees to hold the parsed statements and the symbol
  * table.
@@ -54,17 +54,17 @@ import midisystem.MidiSynthSystem;
 public class Program implements Runnable, Serializable
 {
     public static final long serialVersionUID = 1L;
-    
+
     public StreamingTextArea area;
     public boolean basic_prg_running = true;  // Program basic_prg_running
     public boolean thread_running = true; // Thread basic_prg_running 
     public long basetime = System.currentTimeMillis();
-    
+
     // this tree holds all of the statements.
     private final RedBlackTree<Integer, Statement> stmts = new RedBlackTree<>();
 
     // this tree holds all of the variables.
-    private RedBlackTree vars = new RedBlackTree();
+    private RedBlackTree<String, Variable> vars = new RedBlackTree<>();
 
     private Stack stmtStack = new Stack();
     Vector dataStore = new Vector();
@@ -76,11 +76,11 @@ public class Program implements Runnable, Serializable
     boolean traceState = false;
     PrintStream traceFile = null;
 
-    public Program (StreamingTextArea ta)
+    public Program(StreamingTextArea ta)
     {
         area = ta;
     }
-    
+
     void trace(boolean a)
     {
         traceState = a;
@@ -122,9 +122,10 @@ public class Program implements Runnable, Serializable
      * There are two ways to create a new program object, you can load one from
      * an already open stream or you can pass in a file name and load one from
      * the file system.
+     *
      * @param source
      * @param out
-     * @return 
+     * @return
      * @throws java.io.IOException
      * @throws com.basic.BASICSyntaxError
      */
@@ -285,7 +286,7 @@ public class Program implements Runnable, Serializable
      */
     double getVariable(Variable v) throws BASICRuntimeError
     {
-        Variable vi = (Variable) vars.get(v.name);
+        Variable vi = vars.get(v.name);
         if (vi == null)
         {
             throw new BASICRuntimeError("Undefined variable '" + v.name + "'");
@@ -305,7 +306,7 @@ public class Program implements Runnable, Serializable
      */
     String getString(Variable v) throws BASICRuntimeError
     {
-        Variable vi = (Variable) vars.get(v.name);
+        Variable vi = vars.get(v.name);
         if (vi == null)
         {
             throw new BASICRuntimeError("Variable " + v.name + " has not been initialized.");
@@ -325,7 +326,7 @@ public class Program implements Runnable, Serializable
      */
     void setVariable(Variable v, double value) throws BASICRuntimeError
     {
-        Variable vi = (Variable) vars.get(v.name);
+        Variable vi = vars.get(v.name);
         if (vi == null)
         {
             if (v.isArray())
@@ -354,7 +355,7 @@ public class Program implements Runnable, Serializable
      */
     void setVariable(Variable v, String value) throws BASICRuntimeError
     {
-        Variable vi = (Variable) vars.get(v.name);
+        Variable vi = vars.get(v.name);
         if (vi == null)
         {
             if (v.isArray())
@@ -383,7 +384,7 @@ public class Program implements Runnable, Serializable
         Variable vi;
         int ii[] = getIndices(v);
         vi = new Variable(v.name, ii);
-        Variable xx = (Variable) vars.put(v.name, vi);
+        Variable xx = vars.put(v.name, vi);
     }
 
     /**
@@ -423,7 +424,7 @@ public class Program implements Runnable, Serializable
     {
         for (Enumeration e = stmts.elements(); e.hasMoreElements();)
         {
-            Map.Entry<Integer,Statement> entry = (Map.Entry<Integer,Statement>) e.nextElement();
+            Map.Entry<Integer, Statement> entry = (Map.Entry<Integer, Statement>) e.nextElement();
             Statement s = entry.getValue();
             if ((s.lineNo() >= start) && (s.lineNo() <= end))
             {
@@ -439,9 +440,9 @@ public class Program implements Runnable, Serializable
      */
     void dump(PrintStream p)
     {
-        for (Enumeration e = vars.elements(); e.hasMoreElements();)
+        for (Enumeration<Variable> e = vars.elements(); e.hasMoreElements();)
         {
-            Variable v = (Variable) e.nextElement();
+            Variable v = e.nextElement();
             p.println(v.unparse() + " = " + (v.isString() ? "\"" + v.stringValue() + "\"" : "" + v.numValue()));
         }
     }
@@ -477,13 +478,16 @@ public class Program implements Runnable, Serializable
      * Run the program and use the passed in streams as its input and output
      * streams.
      *
-     * Prior to basic_prg_running the program the statement stack is cleared, and the data
- fifo is also cleared. Thus re-basic_prg_running a stopped program will always work
- correctly.
+     * Prior to basic_prg_running the program the statement stack is cleared,
+     * and the data fifo is also cleared. Thus re-basic_prg_running a stopped
+     * program will always work correctly.
      *
+     * @param in
+     * @param out
+     * @param firstline
      * @throws BASICRuntimeError if an error occurs while basic_prg_running.
      */
-    public void run(InputStream in, OutputStream out) throws BASICRuntimeError, Exception
+    public void run(InputStream in, OutputStream out, int firstline) throws BASICRuntimeError, Exception
     {
         PrintStream pout;
         Enumeration e = stmts.elements();
@@ -492,7 +496,7 @@ public class Program implements Runnable, Serializable
         dataPtr = 0;
         Statement s;
 
-        vars = new RedBlackTree();
+        vars = new RedBlackTree<>();
 
         // if the program isn't yet valid.
         if (!e.hasMoreElements())
@@ -512,7 +516,7 @@ public class Program implements Runnable, Serializable
         /* First we load all of the data statements */
         while (e.hasMoreElements())
         {
-            s = ((Map.Entry<Integer,Statement>)e.nextElement()).getValue();
+            s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
             if (s.keyword == Statement.DATA)
             {
                 s.execute(this, in, pout);
@@ -520,7 +524,18 @@ public class Program implements Runnable, Serializable
         }
 
         e = stmts.elements();
-        s = ((Map.Entry<Integer,Statement>)e.nextElement()).getValue();
+        s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
+        if (firstline != 0)  // Skip lines if desired
+        {
+            do 
+            {
+                if (s.line >= firstline)
+                {
+                    break;
+                }
+                s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
+            } while (e.hasMoreElements());
+        }
         do
         {
             Thread.yield();   // Let others run
@@ -534,7 +549,7 @@ public class Program implements Runnable, Serializable
             if (!thread_running)
             {
                 thread_running = true;
-                throw new Exception ("Basic Thread forced to stop");
+                throw new Exception("Basic Thread forced to stop");
             }
             if (s.keyword != Statement.DATA)
             {
@@ -606,7 +621,7 @@ public class Program implements Runnable, Serializable
     {
         try
         {
-            run(System.in, System.out);
+            run(System.in, System.out, 0);
         }
         catch (BASICRuntimeError e)
         {

@@ -88,6 +88,7 @@ public class CommandInterpreter implements Serializable
                     outStream.println(e.getMsg());
                 }
                 return pgm;
+            
             case CMD_CONT:
                 try
                 {
@@ -100,9 +101,19 @@ public class CommandInterpreter implements Serializable
                 return pgm;
 
             case CMD_RUN:
+                t = lt.nextToken();
+                int startline = 0;
+                if (t.typeNum() == Token.EOL)
+                {
+                    startline = 0;
+                }
+                else if (t.typeNum() == Token.CONSTANT)
+                {
+                    startline = (int) t.numValue();
+                }
                 try
                 {
-                    pgm.run(inStream, outStream);
+                    pgm.run(inStream, outStream, startline);
                 }
                 catch (BASICRuntimeError e2)
                 {
