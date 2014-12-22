@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import static java.lang.System.err;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
@@ -107,6 +109,13 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
      */
     public StreamingTextArea()
     {
+        // Disable arrow keys
+        ActionMap am = this.getActionMap();
+        am.get("caret-down").setEnabled(false);
+        am.get("caret-up").setEnabled(false);
+        am.get("caret-forward").setEnabled(false);
+        am.get("caret-backward").setEnabled(false);
+        
         setCaret(new FancyCaret());
         inBuffer = new RingBuffer<>(128);
         outBuffer = new RingBuffer<>(128);
@@ -232,7 +241,6 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
     @Override
     public void keyReleased(KeyEvent e)
     {
-
     }
 
     public void destroy()
@@ -262,7 +270,7 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
             }
             catch (InterruptedException ex)
             {
-               System. out.println(ex);
+                System.out.println(ex);
             }
         }
         System.out.println("Streaming input thread end");

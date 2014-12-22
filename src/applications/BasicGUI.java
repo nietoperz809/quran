@@ -8,6 +8,9 @@ package applications;
 import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
 import java.awt.event.ActionListener;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.PittiFrame;
@@ -21,11 +24,12 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
 {
     transient private Thread thread;
     CommandInterpreter ci;
+
     
     {
         initComponents();
     }
-    
+
     /**
      * Creates new form NewJInternalFrame
      */
@@ -149,12 +153,13 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
 
     /**
      * Window closed
-     * @param evt 
+     *
+     * @param evt
      */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
         ci.pgm.thread_running = false;  // Force thread to end if pg runs
-        StreamingTextArea st = (StreamingTextArea)area;
+        StreamingTextArea st = (StreamingTextArea) area;
         st.fakeIn("bye\n");  // Force thread to end if no pg runs
     }//GEN-LAST:event_formInternalFrameClosed
 
@@ -195,7 +200,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     @Override
     public void initAfterDeserialization()
     {
-        StreamingTextArea st = (StreamingTextArea)area;
+        StreamingTextArea st = (StreamingTextArea) area;
         st.startThread();
         thread = new Thread(this);
         thread.start();
@@ -205,7 +210,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     {
         if (ci == null)
         {
-            StreamingTextArea st = (StreamingTextArea)area;
+            StreamingTextArea st = (StreamingTextArea) area;
             ci = new CommandInterpreter(st);
         }
         try
@@ -217,13 +222,13 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
             System.out.println(e);
         }
     }
-    
+
     @Override
     public void run()
     {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-        System.out.println ("BasicThread start");
+        System.out.println("BasicThread start");
         basic();
-        System.out.println ("BasicThread end");
+        System.out.println("BasicThread end");
     }
 }
