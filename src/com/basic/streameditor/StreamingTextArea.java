@@ -21,8 +21,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import static java.lang.System.err;
 import javax.swing.ActionMap;
-import javax.swing.InputMap;
 import javax.swing.JTextArea;
+import javax.swing.event.CaretEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
@@ -31,7 +31,7 @@ import javax.swing.text.JTextComponent;
  *
  * @author Administrator
  */
-public class StreamingTextArea extends JTextArea implements KeyListener, Runnable
+public class StreamingTextArea extends JTextArea implements Runnable
 {
     private final RingBuffer<Character> inBuffer;
     private final InStream in;
@@ -42,6 +42,8 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
     private transient Thread thread;
     boolean running = true;
 
+    private int linenum = 0;
+    
     class FancyCaret extends DefaultCaret
     {
         @Override
@@ -104,24 +106,92 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
         }
     }
 
+    private void listenCaret()
+    {
+        // Add a caretListener to the editor. This is an anonymous class because it is inline and has no specific name.
+        this.addCaretListener((CaretEvent e) ->
+        {
+            JTextArea editArea = (JTextArea) e.getSource();
+            
+            // Lets start with some default values for the line and column.
+            
+            // We create a try catch to catch any exceptions. We will simply ignore such an error for our demonstration.
+            try
+            {
+                // First we find the position of the caret. This is the number of where the caret is in relation to the start of the JTextArea
+                // in the upper left corner. We use this position to find offset values (eg what line we are on for the given position as well as
+                // what position that line starts on.
+                int caretpos = editArea.getCaretPosition();
+                linenum = editArea.getLineOfOffset(caretpos);
+                
+                // We subtract the offset of where our line starts from the overall caret position.
+                // So lets say that we are on line 5 and that line starts at caret position 100, if our caret position is currently 106
+                // we know that we must be on column 6 of line 5.
+                //columnnum = caretpos - editArea.getLineStartOffset(linenum);
+            }
+            catch (Exception ex)
+            {
+            }
+            // Once we know the position of the line and the column, pass it to a helper function for updating the status bar.
+        } );
+        
+        this.addKeyListener(new KeyListener()
+        {
+            @Override
+            public void keyTyped(KeyEvent e)
+            {
+                if (e.getKeyChar() == '\n')
+                {
+                    try 
+                    {
+                        StreamingTextArea editArea = (StreamingTextArea) e.getSource();
+                        String[] lines = editArea.getText().split("\\n");
+                        int idx = (linenum>0) ? linenum-1 : linenum;
+                        if (lines.length > idx)
+                        {
+                            String t = lines[idx];
+                            for (int n=0; n<t.length();n++)
+                                inBuffer.add(t.charAt(n));
+                        }
+                        inBuffer.add ('\n');
+                    }
+                    catch (InterruptedException ex) 
+                    {
+                        System.out.println (ex);
+                    }
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+            }
+        });
+    }
+    
     /**
      *
      */
     public StreamingTextArea()
     {
         // Disable arrow keys
-        ActionMap am = this.getActionMap();
-        am.get("caret-down").setEnabled(false);
-        am.get("caret-up").setEnabled(false);
-        am.get("caret-forward").setEnabled(false);
-        am.get("caret-backward").setEnabled(false);
+//        ActionMap am = this.getActionMap();
+//        am.get("caret-down").setEnabled(false);
+//        am.get("caret-up").setEnabled(false);
+//        am.get("caret-forward").setEnabled(false);
+//        am.get("caret-backward").setEnabled(false);
         
         setCaret(new FancyCaret());
         inBuffer = new RingBuffer<>(128);
         outBuffer = new RingBuffer<>(128);
         in = new InStream(inBuffer);
         out = new OutStream(outBuffer);
-        addKeyListener(this);
+        listenCaret();
         startThread();
     }
 
@@ -201,23 +271,6 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
         //System.out.println(s);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e)
-    {
-        if (e.isControlDown())
-        {
-            return;
-        }
-        try
-        {
-            inBuffer.add(e.getKeyChar());
-        }
-        catch (InterruptedException ex)
-        {
-            System.out.println(ex);
-        }
-    }
-
     public void fakeIn(String s)
     {
         for (int n = 0; n < s.length(); n++)
@@ -231,16 +284,6 @@ public class StreamingTextArea extends JTextArea implements KeyListener, Runnabl
                 System.out.println(ex);
             }
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e)
-    {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e)
-    {
     }
 
     public void destroy()

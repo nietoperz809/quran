@@ -311,7 +311,6 @@ public class CommandInterpreter implements Serializable
             Statement s = null;
             try
             {
-                outStream.print(">");
                 lineData = processBS(dis.readLine());
                 System.out.println (lineData);
             }
