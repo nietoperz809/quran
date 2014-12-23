@@ -24,6 +24,7 @@ public class BASICRuntimeError extends BASICError
 {
     /**
      * A runtime error with message <i>errorMessage</i>
+     * @param errorMessage
      */
     public BASICRuntimeError(String errorMessage) {
         super(errorMessage);
@@ -36,5 +37,6 @@ public class BASICRuntimeError extends BASICError
     /**
      * Return the runtime error message.
      */
-    public String getMsg() { return "Runtime Error: "+super.getMsg(); }
+    @Override
+    public String getMsg() { return " "+super.getMsg(); }
 }

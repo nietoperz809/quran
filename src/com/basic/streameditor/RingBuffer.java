@@ -37,8 +37,11 @@ import java.io.Serializable;
  * creating data while some number of threads consume it, and at no time are too
  * many elements kept in memory waiting to be read.
  */
-public final class RingBuffer<T> implements Serializable
+public class RingBuffer<T> implements Serializable
 {
+    /**
+     *
+     */
     public static final long serialVersionUID = 1L;
 
     /* The actual ring buffer. */
@@ -104,15 +107,20 @@ public final class RingBuffer<T> implements Serializable
         notifyAll();
     }
 
+    /**
+     *
+     */
     public synchronized void deleteLast()
     {
-        if (unconsumedElements == 0)
+        if (unconsumedElements == 0) {
             return;
+        }
         unconsumedElements--;
         
         offset--;
-        if (offset == -1)
+        if (offset == -1) {
             offset = elements.length-1;
+        }
     }
     
     /**

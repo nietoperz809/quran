@@ -281,7 +281,7 @@ public class CommandInterpreter implements Serializable
     /**
      * Starts the interactive session. When running the user should see the
      * "Ready." prompt. The session ends when the user types the
-     * <code>byte</code> command.
+     * <code>bye</code> command.
      */
     public void start() throws Exception
     {
@@ -364,7 +364,7 @@ public class CommandInterpreter implements Serializable
                     {
                         pgm = processCommand(pgm, lt, t);
                     }
-                    outStream.println("Ready.\n");
+                    outStream.println("Ready.");
                     break;
 
                 /*

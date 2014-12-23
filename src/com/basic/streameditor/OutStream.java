@@ -8,7 +8,6 @@ package com.basic.streameditor;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
-import static java.lang.System.out;
 
 /**
  *
@@ -16,9 +15,17 @@ import static java.lang.System.out;
  */
 public class OutStream extends OutputStream implements Serializable
 {
+
+    /**
+     *
+     */
     public static final long serialVersionUID = 1L;
     private final RingBuffer<Character> buffer;
 
+    /**
+     *
+     * @param b
+     */
     public OutStream (RingBuffer b)
     {
         buffer = b;
@@ -33,7 +40,6 @@ public class OutStream extends OutputStream implements Serializable
         }
         catch (InterruptedException ex)
         {
-            out.println (ex);
         }
     }
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.basic.streameditor;
 
 import java.awt.Graphics;
@@ -19,8 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import static java.lang.System.err;
-import javax.swing.ActionMap;
 import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.text.BadLocationException;
@@ -44,66 +38,26 @@ public class StreamingTextArea extends JTextArea implements Runnable
 
     private int linenum = 0;
     
-    class FancyCaret extends DefaultCaret
+
+    /**
+     *
+     */
+    public StreamingTextArea()
     {
-        @Override
-        protected synchronized void damage(Rectangle r)
-        {
-            if (r == null)
-            {
-                return;
-            }
-
-            // give values to x,y,width,height (inherited from java.awt.Rectangle)
-            x = r.x;
-            y = r.y;
-            height = r.height;
-            // A value for width was probably set by paint(), which we leave alone.
-            // But the first call to damage() precedes the first call to paint(), so
-            // in this case we must be prepared to set a valid width, or else paint()
-            // will receive a bogus clip area and caret will not get drawn properly.
-            if (width <= 0)
-            {
-                width = getComponent().getWidth();
-            }
-
-            repaint(); // calls getComponent().repaint(x, y, width, height)
-        }
-
-        @Override
-        public void paint(Graphics g)
-        {
-            JTextComponent comp = getComponent();
-            if (comp == null)
-            {
-                return;
-            }
-
-            int dot = getDot();
-            Rectangle r;
-            try
-            {
-                r = comp.modelToView(dot);
-                if (r == null)
-                {
-                    return;
-                }
-            }
-            catch (BadLocationException e)
-            {
-                return;
-            }
-
-            g.setColor(comp.getCaretColor());
-            g.setXORMode(comp.getBackground()); // do this to draw in XOR mode
-
-            int diam = r.height;
-            if (isVisible())
-            {
-                g.fillRect(r.x, r.y, width, r.height); //, 12, 12);
-            }
-            width = diam / 2 + 2;
-        }
+        // Disable arrow keys
+//        ActionMap am = this.getActionMap();
+//        am.get("caret-down").setEnabled(false);
+//        am.get("caret-up").setEnabled(false);
+//        am.get("caret-forward").setEnabled(false);
+//        am.get("caret-backward").setEnabled(false);
+        
+        setCaret(new FancyCaret());
+        inBuffer = new RingBuffer<>(128);
+        outBuffer = new RingBuffer<>(128);
+        in = new InStream(inBuffer);
+        out = new OutStream(outBuffer);
+        listenCaret();
+        startThread();
     }
 
     private void listenCaret()
@@ -134,7 +88,6 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
             // Once we know the position of the line and the column, pass it to a helper function for updating the status bar.
         } );
-        
         this.addKeyListener(new KeyListener()
         {
             @Override
@@ -150,14 +103,15 @@ public class StreamingTextArea extends JTextArea implements Runnable
                         if (lines.length > idx)
                         {
                             String t = lines[idx];
-                            for (int n=0; n<t.length();n++)
+                            for (int n = 0; n<t.length(); n++)
+                            {
                                 inBuffer.add(t.charAt(n));
+                            }
                         }
                         inBuffer.add ('\n');
                     }
                     catch (InterruptedException ex) 
                     {
-                        System.out.println (ex);
                     }
                 }
             }
@@ -172,27 +126,6 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
             }
         });
-    }
-    
-    /**
-     *
-     */
-    public StreamingTextArea()
-    {
-        // Disable arrow keys
-//        ActionMap am = this.getActionMap();
-//        am.get("caret-down").setEnabled(false);
-//        am.get("caret-up").setEnabled(false);
-//        am.get("caret-forward").setEnabled(false);
-//        am.get("caret-backward").setEnabled(false);
-        
-        setCaret(new FancyCaret());
-        inBuffer = new RingBuffer<>(128);
-        outBuffer = new RingBuffer<>(128);
-        in = new InStream(inBuffer);
-        out = new OutStream(outBuffer);
-        listenCaret();
-        startThread();
     }
 
     public final void startThread()
@@ -246,7 +179,6 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
             catch (UnsupportedFlavorException | IOException ufe)
             {
-                err.println("Flavor unsupported: " + ufe);
             }
         }
         return null;
@@ -265,7 +197,6 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
             catch (InterruptedException ex)
             {
-                System.out.println(ex);
             }
         }
         //System.out.println(s);
@@ -281,12 +212,14 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
             catch (InterruptedException ex)
             {
-                System.out.println(ex);
             }
         }
     }
 
-    public void destroy()
+    /**
+     *
+     */
+    public synchronized void destroy()
     {
         running = false;
         inBuffer.notifyAll();
@@ -297,7 +230,6 @@ public class StreamingTextArea extends JTextArea implements Runnable
         }
         catch (InterruptedException ex)
         {
-            System.out.println(ex);
         }
     }
 
@@ -313,9 +245,69 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
             catch (InterruptedException ex)
             {
-                System.out.println(ex);
             }
         }
-        System.out.println("Streaming input thread end");
+    }
+
+    class FancyCaret extends DefaultCaret
+    {
+        @Override
+        protected synchronized void damage(Rectangle r)
+        {
+            if (r == null)
+            {
+                return;
+            }
+            
+            // give values to x,y,width,height (inherited from java.awt.Rectangle)
+            x = r.x;
+            y = r.y;
+            height = r.height;
+            // A value for width was probably set by paint(), which we leave alone.
+            // But the first call to damage() precedes the first call to paint(), so
+            // in this case we must be prepared to set a valid width, or else paint()
+            // will receive a bogus clip area and caret will not get drawn properly.
+            if (width <= 0)
+            {
+                width = getComponent().getWidth();
+            }
+            
+            repaint(); // calls getComponent().repaint(x, y, width, height)
+        }
+        
+        @Override
+        public void paint(Graphics g)
+        {
+            JTextComponent comp = getComponent();
+            if (comp == null)
+            {
+                return;
+            }
+            
+            int dot = getDot();
+            Rectangle r;
+            try
+            {
+                r = comp.modelToView(dot);
+                if (r == null)
+                {
+                    return;
+                }
+            }
+            catch (BadLocationException e)
+            {
+                return;
+            }
+            
+            g.setColor(comp.getCaretColor());
+            g.setXORMode(comp.getBackground()); // do this to draw in XOR mode
+            
+            int diam = r.height;
+            if (isVisible())
+            {
+                g.fillRect(r.x, r.y, width, r.height); //, 12, 12);
+            }
+            width = diam / 2 + 2;
+        }
     }
 }

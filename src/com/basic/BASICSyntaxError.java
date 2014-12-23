@@ -23,6 +23,7 @@ package com.basic;
 public class BASICSyntaxError extends BASICError {
     /**
      * A Syntax error with message <i>errorMessage</i>
+     * @param errorMessage
      */
     public BASICSyntaxError(String errorMessage) {
         super(errorMessage);
@@ -34,6 +35,8 @@ public class BASICSyntaxError extends BASICError {
 
     /**
      * Return the syntax error message.
+     * @return 
      */
-    public String getMsg() { return "Syntax Error : "+super.getMsg(); }
+    @Override
+    public String getMsg() { return " "+super.getMsg(); }
 }

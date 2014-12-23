@@ -31,6 +31,7 @@ class CLSStatement extends Statement
         return pgm.nextStatement(this);
     }
 
+    @Override
     String unparse()
     {
         return "CLS";
