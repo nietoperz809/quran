@@ -11,6 +11,10 @@ package midisystem;
  */
 import javax.sound.midi.MetaMessage;
 
+/**
+ *
+ * @author Administrator
+ */
 public class Tester
 {
     static void handleEnd (MidiSynthSystem mss)
@@ -19,14 +23,19 @@ public class Tester
         {
             if (event.getType() == 47)
             {
-                System.out.println ("end of midi");
                 //mss.getSequencer().close();
                 //if (mss.getSynthesizer() != null)
                 //    mss.getSynthesizer().close();
+                
             }
         });
     }
 
+    /**
+     *
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception
     {
         MidiSynthSystem ssys = MidiSynthSystem.get();

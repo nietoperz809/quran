@@ -17,10 +17,10 @@
  */
 package com.basic.util;
 
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -40,9 +40,16 @@ import java.util.TreeMap;
  */
 public class RedBlackTree<K,V> implements Serializable
 {
+
+    /**
+     *
+     */
     public static final long serialVersionUID = 1L;
     private final SortedMap<K,V> map = new TreeMap<>();
 
+    /**
+     *
+     */
     public RedBlackTree()
     {
         // 
@@ -50,6 +57,7 @@ public class RedBlackTree<K,V> implements Serializable
 
     /**
      * Return an enumeration of the trees keys.
+     * @return 
      */
     public Enumeration keys()
     {
@@ -58,6 +66,7 @@ public class RedBlackTree<K,V> implements Serializable
 
     /**
      * Return an enumeration of the trees objects.
+     * @return 
      */
     public Enumeration elements()
     {
@@ -107,10 +116,12 @@ public class RedBlackTree<K,V> implements Serializable
         boolean flag = false;
         for (K o : keySet)
         {
-            if (flag == true)
-                return (V)map.get(o);
-            if (o.equals(key))
+            if (flag == true) {
+                return map.get(o);
+            }
+            if (o.equals(key)) {
                 flag = true;
+            }
         }
         return null;
     }
@@ -126,8 +137,9 @@ public class RedBlackTree<K,V> implements Serializable
         Object before = null;
         for (K o : keySet)
         {
-            if (o.equals(key))
+            if (o.equals(key)) {
                 break;
+            }
             before = o;
         }
         return (V)before;

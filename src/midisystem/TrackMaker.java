@@ -1,6 +1,5 @@
 package midisystem;
 
-
 import javax.sound.midi.Instrument;
 import javax.sound.midi.Track;
 
@@ -32,7 +31,6 @@ public class TrackMaker
         track = ms.getSequence().createTrack();
         timeoffset = 5;
         emaker = new EventMaker (chan);
-        System.out.println ("Track using chan:"+chan);
     }
 
     /**
@@ -100,14 +98,21 @@ public class TrackMaker
         return track;
     }
     
+    /**
+     *
+     * @param str
+     * @return
+     * @throws Exception
+     */
     public Track fromString (String str) throws Exception
     {
         String[] split = str.split(" ");
         for (String s : split)
         {
             String[] cmd = s.split(":");
-            if (cmd.length != 2)
+            if (cmd.length != 2) {
                 throw new Exception ("Unknown token");
+            }
             int len = Integer.parseInt(cmd[1]);
             switch (cmd[0])
             {

@@ -308,7 +308,7 @@ public class CommandInterpreter implements Serializable
 
         while (true)
         {
-            Statement s = null;
+            //Statement s;
             try
             {
                 lineData = processBS(dis.readLine());
@@ -385,7 +385,7 @@ public class CommandInterpreter implements Serializable
                     try
                     {
                         //pgm.del((int) t.numValue()); // Peter: first del line
-                        s = ParseStatement.statement(lt);
+                        Statement s = ParseStatement.statement(lt);
                         s.addText(lineData);
                         s.addLine((int) t.numValue());
                         pgm.add((int) t.numValue(), s);
@@ -408,7 +408,7 @@ public class CommandInterpreter implements Serializable
                     lt.unGetToken();
                     try
                     {
-                        s = ParseStatement.statement(lt);
+                        Statement s = ParseStatement.statement(lt);
                         do
                         {
                             s = s.execute(pgm, inStream, outStream);

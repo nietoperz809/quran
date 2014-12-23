@@ -1,6 +1,5 @@
 package midisystem;
 
-import java.util.concurrent.Semaphore;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
@@ -18,13 +17,32 @@ import javax.sound.midi.Synthesizer;
  *
  * @author Administrator
  */
-public final class MidiSynthSystem
+public class MidiSynthSystem
 {
+    private static MidiSynthSystem this_mss;
+
+    /**
+     * Get the singleton instance
+     * @return
+     */
+    public static MidiSynthSystem get()
+    {
+        if (this_mss == null)
+        {
+            try
+            {
+                this_mss = new MidiSynthSystem();
+            }catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        return this_mss;
+    }
     private final Sequencer sm_sequencer;
     private final Synthesizer sm_synthesizer;
     private Sequence sm_sequence;
     private final Instrument[] orchestra;
-    private static MidiSynthSystem this_mss;
     private final Object waitObject;
 
     /**
@@ -47,27 +65,6 @@ public final class MidiSynthSystem
     }
 
     /**
-     * Get the singleton instance
-     * @return 
-     */
-    public static MidiSynthSystem get()
-    {
-        if (this_mss == null)
-        {
-            try
-            {
-                this_mss = new MidiSynthSystem();
-                System.out.println("Midi system OPEN");
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-        return this_mss;
-    }
-
-    /**
      * Shuts down the sound system
      */
     public void shutdown()
@@ -79,7 +76,6 @@ public final class MidiSynthSystem
         sm_sequencer.stop();
         sm_sequencer.close();
         sm_synthesizer.close();
-        System.out.println("Midi system END");
         this_mss = null;
     }
 
@@ -132,8 +128,7 @@ public final class MidiSynthSystem
     {
         return orchestra;
     }
-    
-    
+
     /**
      * Set the number of Loops
      * @param i 
@@ -143,8 +138,9 @@ public final class MidiSynthSystem
         sm_sequencer.setLoopCount(i);
     }
 
+    
     /**
-     * Starts playing the sequence 
+     * Starts playing the sequence
      * @return 
      */
     public boolean start()
@@ -157,7 +153,6 @@ public final class MidiSynthSystem
         {
             return false;
         }
-
         sm_sequencer.addMetaEventListener((MetaMessage event) ->
         {
             if (event.getType() == 47)
@@ -174,7 +169,6 @@ public final class MidiSynthSystem
                 }
                 catch (Exception ex)
                 {
-                    System.out.println("deleteAllTracks failed");
                 }
             }
         });
@@ -201,4 +195,5 @@ public final class MidiSynthSystem
     {
         sm_sequence = new Sequence(Sequence.SMPTE_30, 1);
     }
+
 }

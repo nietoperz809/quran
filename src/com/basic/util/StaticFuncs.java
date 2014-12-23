@@ -13,5 +13,12 @@ import java.text.DecimalFormat;
  */
 public class StaticFuncs
 {
+    /**
+     *
+     */
     public static DecimalFormat df = new DecimalFormat("#.########");
+
+    private StaticFuncs()
+    {
+    }
 }

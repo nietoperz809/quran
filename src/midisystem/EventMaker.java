@@ -22,6 +22,10 @@ public class EventMaker
     static private MidiChannel[] channels;
     private final int channel;  // Used channel
     
+    /**
+     *
+     * @param ch
+     */
     public EventMaker(int ch)
     {
         channel = ch;
@@ -31,10 +35,15 @@ public class EventMaker
         }
         catch (MidiUnavailableException ex)
         {
-           System.out.println (ex);
         }
     }
     
+    /**
+     *
+     * @param note
+     * @param time
+     * @return
+     */
     public MidiEvent on(int note, int time)
     {
         ShortMessage a;
@@ -50,6 +59,12 @@ public class EventMaker
         return noteOn;
     }
 
+    /**
+     *
+     * @param note
+     * @param time
+     * @return
+     */
     public MidiEvent off(int note, int time)
     {
         ShortMessage b;
@@ -65,6 +80,11 @@ public class EventMaker
         return noteOff;
     }
 
+    /**
+     *
+     * @param pause
+     * @return
+     */
     public MidiEvent insertPause(int pause)
     {
         ShortMessage a;
@@ -80,6 +100,11 @@ public class EventMaker
         return ev;
     }
 
+    /**
+     *
+     * @param pause
+     * @return
+     */
     public MidiEvent insertStop(int pause)
     {
         ShortMessage a;
@@ -95,6 +120,12 @@ public class EventMaker
         return ev;
     }
     
+    /**
+     *
+     * @param instr
+     * @param time
+     * @return
+     */
     public MidiEvent changeInstrument(Instrument instr, int time)
     {
         Patch pa = instr.getPatch();
