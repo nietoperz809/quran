@@ -129,7 +129,7 @@ public class Program implements Runnable, Serializable
      * @throws java.io.IOException
      * @throws com.basic.BASICSyntaxError
      */
-    public static Program load(InputStream source, PrintStream out) throws IOException, BASICSyntaxError
+    public static Program load(InputStream source, PrintStream out, StreamingTextArea ar) throws IOException, BASICSyntaxError
     {
         DataInputStream dis = null;
         dis = new DataInputStream(new BufferedInputStream(source));
@@ -138,7 +138,7 @@ public class Program implements Runnable, Serializable
         String lineData;
         Statement s;
         Token t;
-        Program result = new Program(null);
+        Program result = new Program(ar);
 
         while (true)
         {
@@ -187,14 +187,14 @@ public class Program implements Runnable, Serializable
      * @throws BASICSyntaxError when the file does not contain a properly formed
      * BASIC program.
      */
-    public static Program load(String source, PrintStream out) throws IOException, BASICSyntaxError
+    public static Program load(String source, PrintStream out, StreamingTextArea ar) throws IOException, BASICSyntaxError
     {
         // XXX this needs to use the SourceManager class //
         FileInputStream fis = new FileInputStream(source);
         Program r = null;
         try
         {
-            r = load(fis, out);
+            r = load(fis, out, ar);
         }
         catch (BASICSyntaxError e)
         {
@@ -440,9 +440,10 @@ public class Program implements Runnable, Serializable
      */
     void dump(PrintStream p)
     {
-        for (Enumeration<Variable> e = vars.elements(); e.hasMoreElements();)
+        for (Enumeration e = vars.elements(); e.hasMoreElements();)
         {
-            Variable v = e.nextElement();
+            Map.Entry<String, Variable> entry = (Map.Entry<String, Variable>) e.nextElement();
+            Variable v = entry.getValue();
             p.println(v.unparse() + " = " + (v.isString() ? "\"" + v.stringValue() + "\"" : "" + v.numValue()));
         }
     }

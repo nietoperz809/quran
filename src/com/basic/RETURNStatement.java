@@ -15,50 +15,57 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Vector;
 
 /**
  * The RETURN statement.
  *
- * The RETURN statement transfers control to the first statement following
- * the last GOSUB to be executed. Note that if the GOSUB used a colon to
- * combine statements on a line, it is that statement that control returns
- * to.
+ * The RETURN statement transfers control to the first statement following the
+ * last GOSUB to be executed. Note that if the GOSUB used a colon to combine
+ * statements on a line, it is that statement that control returns to.
  *
- * Syntax:
- *      RETURN
+ * Syntax: RETURN
  *
- * Syntax Errors:
- *      Extra stuff past the end of the statement.
+ * Syntax Errors: Extra stuff past the end of the statement.
  *
- * Runtime Errors:
- *      Return without GOSUB.
+ * Runtime Errors: Return without GOSUB.
  */
-class RETURNStatement extends Statement {
+class RETURNStatement extends Statement
+{
 
-    RETURNStatement(LexicalTokenizer lt) throws BASICSyntaxError {
+    RETURNStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         super(RETURN);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    @Override
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         Statement s;
-        do {
-            s = pgm.pop();
-            if ((s.keyword == GOSUB) || (s.keyword == ON_GOSUB))
-                break;
-        } while (s != null);
-
-        if (s == null)
+        try
+        {
+            do
+            {
+                s = pgm.pop();
+                if ((s.keyword == GOSUB) || (s.keyword == ON_GOSUB))
+                {
+                    break;
+                }
+            }
+            while (s != null);
+        }
+        catch (Exception ex)
+        {
             throw new BASICRuntimeError("RETURN without GOSUB");
+        }
         return pgm.nextStatement(s);
     }
 
-    String unparse() {
+    String unparse()
+    {
         return "RETURN";
     }
 }

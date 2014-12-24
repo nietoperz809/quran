@@ -72,6 +72,7 @@ class FunctionExpression extends Expression
 
     Random r;
 
+    @Override
     void print(PrintStream p)
     {
         p.print(functions[oper].toUpperCase());
@@ -86,14 +87,16 @@ class FunctionExpression extends Expression
         }
     }
 
+    @Override
     public String toString()
     {
         return "FunctionExpression:: '" + unparse() + "'";
     }
 
+    @Override
     String unparse()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(functions[oper].toUpperCase());
         sb.append("(");
@@ -127,6 +130,7 @@ class FunctionExpression extends Expression
         oper = t;
     }
 
+    @Override
     double value(Program p) throws BASICRuntimeError
     {
         try
@@ -188,7 +192,7 @@ class FunctionExpression extends Expression
                     {
                         throw new BASICRuntimeError("Invalid string for VAL function.");
                     }
-                    return dd.doubleValue();
+                    return dd;
                 default:
                     throw new BASICRuntimeError("Unknown or non-numeric function.");
             }
@@ -206,6 +210,7 @@ class FunctionExpression extends Expression
         }
     }
 
+    @Override
     boolean isString()
     {
         switch (oper)
@@ -224,11 +229,13 @@ class FunctionExpression extends Expression
         }
     }
 
+    @Override
     String stringValue(Program pgm) throws BASICRuntimeError
     {
         return stringValue(pgm, 0);
     }
     
+    @Override
     String stringValue(Program pgm, int column) throws BASICRuntimeError
     {
         String ss = null;

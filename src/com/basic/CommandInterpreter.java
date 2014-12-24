@@ -1,7 +1,7 @@
 /*
  * CommandInterpreter.java -  Provide the basic command line interface.
  *
- * Copyright (c) 1996 Chuck McManis, All Rights Reserved.
+ * ^
  *
  * Permission to use, copy, modify, and distribute this software
  * and its documentation for NON-COMMERCIAL purposes and without
@@ -40,7 +40,8 @@ public class CommandInterpreter implements Serializable
     final static String commands[] =
     {
         "new", "run", "list", "cat", "del", "resume",
-        "bye", "save", "load", "dump", "cont", "instrlist"
+        "bye", "save", "load", "dump", "cont", "instrlist",
+        "dir"
     };
 
     static final int CMD_NEW = 0;
@@ -55,17 +56,13 @@ public class CommandInterpreter implements Serializable
     static final int CMD_DUMP = 9;
     static final int CMD_CONT = 10;
     static final int CMD_INSTRLIST = 11;
-    
-    StreamingTextArea area;
-    
+    static final int CMD_DIR = 12;
+
     /**
      * Create a new command interpreter attached to the passed in streams.
      */
-    public CommandInterpreter (StreamingTextArea ar)
+    public CommandInterpreter ()
     {
-        area = ar;
-        inStream = new DataInputStream (ar.getInputStream());
-        outStream = new PrintStream (ar.getOutputStream());
     }
 
     /**
@@ -88,7 +85,7 @@ public class CommandInterpreter implements Serializable
                     outStream.println(e.getMsg());
                 }
                 return pgm;
-            
+
             case CMD_CONT:
                 try
                 {
@@ -124,16 +121,26 @@ public class CommandInterpreter implements Serializable
             case CMD_INSTRLIST:
                 Instrument[] instr = MidiSynthSystem.get().getInstruments();
                 StringBuilder sb = new StringBuilder();
-                for (int n = 0; n<instr.length; n++)
+                for (int n = 0; n < instr.length; n++)
                 {
-                    sb.append (n);
-                    sb.append (" -- ");
+                    sb.append(n);
+                    sb.append(" -- ");
                     sb.append(instr[n].toString());
-                    sb.append ('\n');
+                    sb.append('\n');
                 }
-                outStream.println (sb.toString());
+                outStream.println(sb.toString());
                 return pgm;
-                
+
+            case CMD_DEL:
+                t = lt.nextToken();
+                if (t.typeNum() != Token.STRING)
+                {
+                    outStream.println("File name expected for DEL Command.");
+                    return pgm;
+                }
+                new File(t.stringValue()).delete();
+                return pgm;
+            
             case CMD_SAVE:
                 t = lt.nextToken();
                 if (t.typeNum() != Token.STRING)
@@ -141,14 +148,20 @@ public class CommandInterpreter implements Serializable
                     outStream.println("File name expected for SAVE Command.");
                     return pgm;
                 }
+                if (new File(t.stringValue()).exists())
+                {
+                    outStream.println("ERROR: file already exists");
+                    return pgm;
+                }
                 outStream.println("Saving file...");
-                FileOutputStream fos = null;
+                FileOutputStream fos;
                 try
                 {
                     fos = new FileOutputStream(t.stringValue());
                 }
                 catch (IOException except)
                 {
+                    outStream.println("ERROR while saving");
                     return pgm;
                 }
                 PrintStream pp = new PrintStream(fos);
@@ -160,7 +173,6 @@ public class CommandInterpreter implements Serializable
                 }
                 catch (IOException except)
                 {
-                    return pgm;
                 }
                 return pgm;
 
@@ -172,7 +184,7 @@ public class CommandInterpreter implements Serializable
                 }
                 try
                 {
-                    pgm = Program.load(t.stringValue(), outStream);
+                    pgm = Program.load(t.stringValue(), outStream, pgm.area);
                     outStream.println("File loaded.");
                 }
                 catch (IOException e)
@@ -187,7 +199,18 @@ public class CommandInterpreter implements Serializable
                     return pgm;
                 }
                 return pgm;
-                
+
+            case CMD_DIR:
+                File[] filesInFolder = new File(".").listFiles();
+                for (final File fileEntry : filesInFolder)
+                {
+                    if (fileEntry.isFile())
+                    {
+                        outStream.println(fileEntry.getName());
+                    }
+                }
+                return pgm;
+
             case CMD_DUMP:
                 PrintStream zzz = outStream;
                 t = lt.nextToken();
@@ -255,19 +278,22 @@ public class CommandInterpreter implements Serializable
 
     /**
      * Processes backspace
+     *
      * @param in
      * @return String with BS processed
      */
-    private String processBS (String in)
+    private String processBS(String in)
     {
         StringBuilder buff = new StringBuilder();
-        for (int n=0; n<in.length(); n++)
+        for (int n = 0; n < in.length(); n++)
         {
             char c = in.charAt(n);
             if (c == '\b')
             {
                 if (buff.length() > 0)
-                    buff.deleteCharAt(buff.length()-1);
+                {
+                    buff.deleteCharAt(buff.length() - 1);
+                }
             }
             else
             {
@@ -277,60 +303,56 @@ public class CommandInterpreter implements Serializable
         return buff.toString();
     }
 
-    
     /**
      * Starts the interactive session. When running the user should see the
      * "Ready." prompt. The session ends when the user types the
      * <code>bye</code> command.
+     * @return EndReason 1 == BYE detected
+     * @throws java.lang.Exception
      */
-    public void start() throws Exception
+    public int start (StreamingTextArea area) throws Exception
     {
-        if (inStream == null)
-        {
-            inStream = new DataInputStream (area.getInputStream());
-        }
-        if (outStream == null)
-        {
-            outStream = new PrintStream (area.getOutputStream());
-        }
-        
+        inStream = new DataInputStream(area.getInputStream());
+        outStream = new PrintStream(area.getOutputStream());
+
         if (lt == null)
+        {
             lt = new LexicalTokenizer(data);
+        }
         if (pgm == null)
         {
             pgm = new Program(area);
         }
-        
+
         DataInputStream dis = inStream;
         String lineData;
-    
+
         outStream.println("*JavaBasic*");
 
         while (true)
         {
-            //Statement s;
             try
             {
                 lineData = processBS(dis.readLine());
-                System.out.println (lineData);
+                System.out.println(lineData);
             }
             catch (IOException ioe)
             {
-                System.out.println ("Caught an IO exception reading the input stream!");
-                return;
+                System.out.println("Caught an IO exception reading the input stream!");
+                return 0;
             }
 
             // exit on eof of the input stream
             if (lineData == null)
             {
-                System.out.println ("exit on EOF");
-                return;
+                System.out.println("exit on EOF");
+                return 0;
             }
 
             // ignore blank lines.
             if (lineData.length() == 0)
             {
-                System.out.println ("ignore blank line");
+                System.out.println("ignore blank line");
                 continue;
             }
 
@@ -338,7 +360,7 @@ public class CommandInterpreter implements Serializable
 
             if (!lt.hasMoreTokens())
             {
-                System.out.println ("no more tokens");
+                System.out.println("no more tokens");
                 continue;
             }
 
@@ -352,7 +374,7 @@ public class CommandInterpreter implements Serializable
                     if (t.numValue() == CMD_BYE)
                     {
                         //System.exit(0);
-                        return;
+                        return 1;
                     }
                     else if (t.numValue() == CMD_NEW)
                     {
@@ -384,7 +406,6 @@ public class CommandInterpreter implements Serializable
                     }
                     try
                     {
-                        //pgm.del((int) t.numValue()); // Peter: first del line
                         Statement s = ParseStatement.statement(lt);
                         s.addText(lineData);
                         s.addLine((int) t.numValue());
@@ -420,7 +441,6 @@ public class CommandInterpreter implements Serializable
                     {
                         outStream.println("Syntax Error : " + e.getMsg());
                         outStream.println(lt.showError());
-                        continue;
                     }
                     catch (BASICRuntimeError er)
                     {

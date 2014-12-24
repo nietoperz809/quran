@@ -8,9 +8,6 @@ package applications;
 import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
 import java.awt.event.ActionListener;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.PittiFrame;
@@ -206,21 +203,22 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         thread.start();
     }
 
-    private void basic()
+    private int basic()
     {
         if (ci == null)
         {
-            StreamingTextArea st = (StreamingTextArea) area;
-            ci = new CommandInterpreter(st);
+            ci = new CommandInterpreter();
         }
         try
         {
-            ci.start();
+            StreamingTextArea st = (StreamingTextArea) area;
+            return ci.start(st);
         }
         catch (Exception e)
         {
             System.out.println(e);
         }
+        return 0;
     }
 
     @Override
@@ -228,7 +226,8 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         System.out.println("BasicThread start");
-        basic();
+        if (basic() == 1)
+            dispose();
         System.out.println("BasicThread end");
     }
 }

@@ -38,19 +38,12 @@ public class StreamingTextArea extends JTextArea implements Runnable
 
     private int linenum = 0;
     
-
     /**
      *
      */
     public StreamingTextArea()
     {
-        // Disable arrow keys
-//        ActionMap am = this.getActionMap();
-//        am.get("caret-down").setEnabled(false);
-//        am.get("caret-up").setEnabled(false);
-//        am.get("caret-forward").setEnabled(false);
-//        am.get("caret-backward").setEnabled(false);
-        
+        super();
         setCaret(new FancyCaret());
         inBuffer = new RingBuffer<>(128);
         outBuffer = new RingBuffer<>(128);

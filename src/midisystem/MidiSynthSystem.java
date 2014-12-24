@@ -157,7 +157,7 @@ public class MidiSynthSystem
         {
             if (event.getType() == 47)
             {
-                //System.out.println ("end of midi");
+                System.out.println ("end of midi");
                 try
                 {
                     Thread.sleep(200);
