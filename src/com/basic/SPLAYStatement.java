@@ -35,7 +35,6 @@ class SPLAYStatement extends Statement
     @Override
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        System.out.println ("Start midi");
         if (repeats > 0)
             MidiSynthSystem.get().setLoops(repeats);
         MidiSynthSystem.get().start();

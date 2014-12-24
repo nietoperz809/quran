@@ -1,5 +1,6 @@
 package midisystem;
 
+import java.util.Arrays;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
@@ -23,6 +24,7 @@ public class MidiSynthSystem
 
     /**
      * Get the singleton instance
+     *
      * @return
      */
     public static MidiSynthSystem get()
@@ -32,7 +34,8 @@ public class MidiSynthSystem
             try
             {
                 this_mss = new MidiSynthSystem();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return null;
             }
@@ -44,9 +47,11 @@ public class MidiSynthSystem
     private Sequence sm_sequence;
     private final Instrument[] orchestra;
     private final Object waitObject;
+    private boolean doWait = false;
 
     /**
      * Private Constructor
+     *
      * @throws Exception If smth goes wrong
      */
     private MidiSynthSystem() throws Exception
@@ -131,17 +136,18 @@ public class MidiSynthSystem
 
     /**
      * Set the number of Loops
-     * @param i 
+     *
+     * @param i
      */
     public void setLoops(int i)
     {
         sm_sequencer.setLoopCount(i);
     }
 
-    
     /**
      * Starts playing the sequence
-     * @return 
+     *
+     * @return
      */
     public boolean start()
     {
@@ -157,13 +163,19 @@ public class MidiSynthSystem
         {
             if (event.getType() == 47)
             {
-                System.out.println ("end of midi");
+                if (doWait == false)
+                {
+                    System.out.println("spurious");
+                    return;
+                }
+                System.out.println("end of midi " + System.currentTimeMillis() + " - " + Arrays.toString(event.getData()));
                 try
                 {
                     Thread.sleep(200);
                     deleteAllTracks();
                     synchronized (waitObject)
                     {
+                        doWait = false;
                         waitObject.notify();
                     }
                 }
@@ -178,12 +190,15 @@ public class MidiSynthSystem
 
     /**
      * Wait for end of playing
-     * @throws InterruptedException 
+     *
+     * @throws InterruptedException
      */
-    public void waitUntilEnd() throws InterruptedException 
+    public void waitUntilEnd() throws InterruptedException
     {
+        System.out.println("wait for endmidi " + System.currentTimeMillis());
         synchronized (waitObject)
         {
+            doWait = true;
             waitObject.wait();
         }
     }
@@ -195,5 +210,4 @@ public class MidiSynthSystem
     {
         sm_sequence = new Sequence(Sequence.SMPTE_30, 1);
     }
-
 }
