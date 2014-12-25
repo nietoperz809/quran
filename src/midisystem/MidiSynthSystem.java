@@ -169,7 +169,7 @@ public class MidiSynthSystem
                     DebugOut.get().out.println("spurious");
                     return;
                 }
-                DebugOut.get().out.println("end of midi " + System.currentTimeMillis() + " - " + Arrays.toString(event.getData()));
+                DebugOut.get().out.println("end of midi " + System.currentTimeMillis());
                 try
                 {
                     Thread.sleep(200);

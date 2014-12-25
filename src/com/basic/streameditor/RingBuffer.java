@@ -190,6 +190,17 @@ public class RingBuffer<T> implements Serializable
         return result;
     }
 
+    public synchronized String removeAsString() throws InterruptedException
+    {
+        StringBuilder sb = new StringBuilder();
+        while (true)
+        {
+            sb.append(remove());
+            if (unconsumedElements == 0)
+                return sb.toString();
+        }
+    }
+    
     /**
      * Returns the number of elements that are currently being stored in the
      * ring buffer.

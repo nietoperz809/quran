@@ -1,4 +1,3 @@
-
 package com.basic.streameditor;
 
 import java.awt.Graphics;
@@ -15,11 +14,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
+import misc.DebugOut;
 
 /**
  *
@@ -37,7 +39,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
     boolean running = true;
 
     private int linenum = 0;
-    
+
     /**
      *
      */
@@ -59,9 +61,8 @@ public class StreamingTextArea extends JTextArea implements Runnable
         this.addCaretListener((CaretEvent e) ->
         {
             JTextArea editArea = (JTextArea) e.getSource();
-            
+
             // Lets start with some default values for the line and column.
-            
             // We create a try catch to catch any exceptions. We will simply ignore such an error for our demonstration.
             try
             {
@@ -70,7 +71,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
                 // what position that line starts on.
                 int caretpos = editArea.getCaretPosition();
                 linenum = editArea.getLineOfOffset(caretpos);
-                
+
                 // We subtract the offset of where our line starts from the overall caret position.
                 // So lets say that we are on line 5 and that line starts at caret position 100, if our caret position is currently 106
                 // we know that we must be on column 6 of line 5.
@@ -80,7 +81,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
             }
             // Once we know the position of the line and the column, pass it to a helper function for updating the status bar.
-        } );
+        });
         this.addKeyListener(new KeyListener()
         {
             @Override
@@ -88,22 +89,22 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
                 if (e.getKeyChar() == '\n')
                 {
-                    try 
+                    try
                     {
                         StreamingTextArea editArea = (StreamingTextArea) e.getSource();
                         String[] lines = editArea.getText().split("\\n");
-                        int idx = (linenum>0) ? linenum-1 : linenum;
+                        int idx = (linenum > 0) ? linenum - 1 : linenum;
                         if (lines.length > idx)
                         {
                             String t = lines[idx];
-                            for (int n = 0; n<t.length(); n++)
+                            for (int n = 0; n < t.length(); n++)
                             {
                                 inBuffer.add(t.charAt(n));
                             }
                         }
-                        inBuffer.add ('\n');
+                        inBuffer.add('\n');
                     }
-                    catch (InterruptedException ex) 
+                    catch (InterruptedException ex)
                     {
                     }
                 }
@@ -231,13 +232,27 @@ public class StreamingTextArea extends JTextArea implements Runnable
     {
         while (running)
         {
+            String txt = null;
             try
             {
-                append("" + outBuffer.remove());
-                setCaretPosition(getDocument().getLength());
+                txt = outBuffer.removeAsString();
             }
             catch (InterruptedException ex)
             {
+               
+            }
+            try
+            {
+                synchronized (this)
+                {
+                    int cp = getCaretPosition();
+                    insert(txt, cp);
+                    setCaretPosition(cp + txt.length());
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugOut.get().out.println(ex + " -- " + txt);
             }
         }
     }
@@ -251,7 +266,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
                 return;
             }
-            
+
             // give values to x,y,width,height (inherited from java.awt.Rectangle)
             x = r.x;
             y = r.y;
@@ -264,10 +279,10 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
                 width = getComponent().getWidth();
             }
-            
+
             repaint(); // calls getComponent().repaint(x, y, width, height)
         }
-        
+
         @Override
         public void paint(Graphics g)
         {
@@ -276,7 +291,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
                 return;
             }
-            
+
             int dot = getDot();
             Rectangle r;
             try
@@ -291,10 +306,10 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
                 return;
             }
-            
+
             g.setColor(comp.getCaretColor());
             g.setXORMode(comp.getBackground()); // do this to draw in XOR mode
-            
+
             int diam = r.height;
             if (isVisible())
             {
