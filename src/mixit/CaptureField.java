@@ -1,9 +1,13 @@
 package mixit;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Label;
+import java.awt.Point;
+import java.awt.Robot;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.SwingUtilities;
 
 /**
  * Created by IntelliJ IDEA.

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import misc.DebugOut;
 import misc.PathNames;
 
 /**
@@ -61,7 +62,7 @@ public class VerbalQuran implements Runnable, PathNames
         }
         catch (Exception ex)
         {
-            System.out.println (ex);
+            DebugOut.get().out.println (ex);
         }
         return null;
     }
@@ -107,7 +108,7 @@ public class VerbalQuran implements Runnable, PathNames
         }
         catch (JavaLayerException ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }
 }

@@ -19,7 +19,6 @@ package com.basic;
 
 import com.basic.util.StaticFuncs;
 import java.io.PrintStream;
-import java.text.DecimalFormat;
 
 class PrintItem implements Ser
 {

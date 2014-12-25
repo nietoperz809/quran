@@ -17,10 +17,9 @@
  */
 package com.basic;
 
+import com.basic.util.RedBlackTree;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Vector;
-import com.basic.util.RedBlackTree;
 
 /**
  * The FOR Statement

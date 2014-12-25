@@ -1,9 +1,18 @@
 package misc;
 
-import java.awt.*;
-import java.awt.datatransfer.*;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class ClipboardImage implements ClipboardOwner
 {
@@ -34,7 +43,7 @@ public class ClipboardImage implements ClipboardOwner
     @Override
     public void lostOwnership(Clipboard clip, Transferable trans)
     {
-        System.out.println("Lost Clipboard Ownership");
+        DebugOut.get().out.println("Lost Clipboard Ownership");
     }
 
     private class TransferableImage implements Transferable

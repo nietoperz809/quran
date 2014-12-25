@@ -9,8 +9,6 @@ import applications.LindenGUI;
 import static java.awt.Color.ORANGE;
 import java.awt.event.ActionListener;
 import static java.lang.Double.parseDouble;
-import static javax.swing.BorderFactory.createBevelBorder;
-import static javax.swing.border.BevelBorder.RAISED;
 
 /**
  *

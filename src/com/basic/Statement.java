@@ -1,8 +1,8 @@
 package com.basic;
 
-import java.io.PrintStream;
-import java.io.InputStream;
 import com.basic.util.RedBlackTree;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Enumeration;
 
 /**

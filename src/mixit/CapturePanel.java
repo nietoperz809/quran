@@ -1,6 +1,9 @@
 package mixit;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Label;
+import java.awt.Panel;
 
 /**
  * Created by IntelliJ IDEA.

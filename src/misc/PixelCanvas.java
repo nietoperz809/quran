@@ -5,11 +5,11 @@
  */
 package misc;
 
-import twitter.TwitTools;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import javax.swing.JPanel;
+import twitter.TwitTools;
 
 /**
  *
@@ -41,7 +41,7 @@ public class PixelCanvas extends JPanel implements Serializable
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }
     

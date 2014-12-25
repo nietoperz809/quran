@@ -18,11 +18,11 @@
 
 package com.basic;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Vector;
-import java.io.DataInputStream;
-import java.io.IOException;
 
 /**
  * This is the INPUT statement.

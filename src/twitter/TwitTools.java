@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import javax.imageio.ImageIO;
+import misc.DebugOut;
 import misc.StringDivider;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -133,7 +134,7 @@ public class TwitTools implements TwitterKeys
         for (String s : sa)
         {
             Status st = m_twit.updateStatus(s);
-            //System.out.println(st.getText());
+            //DebugOut.get().out.println(st.getText());
             //Thread.sleep (36000);
         }
     }
@@ -149,7 +150,7 @@ public class TwitTools implements TwitterKeys
         }
         catch (Exception ex)
         {
-           System.out.println (ex);
+           DebugOut.get().out.println (ex);
         }
     }
     
@@ -194,7 +195,7 @@ public class TwitTools implements TwitterKeys
 ////        int surnum = 107;
 ////        Quran q = new ZippedQuran (1);
 ////        String sura = q.getSura (surnum);
-////        System.out.println (sura);
+////        DebugOut.get().out.println (sura);
 ////        VerbalQuran vq = new VerbalQuran();
 ////        vq.play(surnum);
 ////        vq.play(1,2);

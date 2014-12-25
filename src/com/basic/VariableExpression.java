@@ -17,8 +17,8 @@
  */
 package com.basic;
 
-import java.io.PrintStream;
 import com.basic.util.RedBlackTree;
+import java.io.PrintStream;
 
 /**
  * This class implements an expression that is simply a variable. Or more

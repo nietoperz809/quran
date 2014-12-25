@@ -1,9 +1,13 @@
 package mixit;
 
 //import applications.ZeroText;
-import java.awt.*;
-import java.awt.event.ItemListener;
+import java.awt.BorderLayout;
+import java.awt.Choice;
+import java.awt.Color;
+import java.awt.Label;
+import java.awt.Panel;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,6 +1,7 @@
 package mixit;
 
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

@@ -1,8 +1,11 @@
 package applications;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import misc.PittiFrame;
 import mixit.CapturePanel;

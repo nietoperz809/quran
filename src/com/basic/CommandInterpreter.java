@@ -18,9 +18,15 @@
 package com.basic;
 
 import com.basic.streameditor.StreamingTextArea;
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.Serializable;
 import javax.sound.midi.Instrument;
 import midisystem.MidiSynthSystem;
+import misc.DebugOut;
 
 /**
  * This class is an "interactive" BASIC environment. You can think of it as
@@ -334,25 +340,25 @@ public class CommandInterpreter implements Serializable
             try
             {
                 lineData = processBS(dis.readLine());
-                System.out.println(lineData);
+                DebugOut.get().out.println(lineData);
             }
             catch (IOException ioe)
             {
-                System.out.println("Caught an IO exception reading the input stream!");
+                DebugOut.get().out.println("Caught an IO exception reading the input stream!");
                 return 0;
             }
 
             // exit on eof of the input stream
             if (lineData == null)
             {
-                System.out.println("exit on EOF");
+                DebugOut.get().out.println("exit on EOF");
                 return 0;
             }
 
             // ignore blank lines.
             if (lineData.length() == 0)
             {
-                System.out.println("ignore blank line");
+                DebugOut.get().out.println("ignore blank line");
                 continue;
             }
 
@@ -360,7 +366,7 @@ public class CommandInterpreter implements Serializable
 
             if (!lt.hasMoreTokens())
             {
-                System.out.println("no more tokens");
+                DebugOut.get().out.println("no more tokens");
                 continue;
             }
 

@@ -17,8 +17,8 @@
  */
 package com.basic;
 
-import java.io.PrintStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 /**
  * The REM Statement

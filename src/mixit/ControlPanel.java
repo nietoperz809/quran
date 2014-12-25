@@ -1,7 +1,8 @@
 package mixit;
 
 import applications.SlidersGUI;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Panel;
 
 /**
  * Created by IntelliJ IDEA.

@@ -17,9 +17,9 @@
  */
 package com.basic;
 
+import com.basic.util.RedBlackTree;
 import java.io.InputStream;
 import java.io.PrintStream;
-import com.basic.util.RedBlackTree;
 import java.util.Vector;
 
 /**

@@ -8,6 +8,7 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
+import misc.DebugOut;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -165,10 +166,10 @@ public class MidiSynthSystem
             {
                 if (doWait == false)
                 {
-                    System.out.println("spurious");
+                    DebugOut.get().out.println("spurious");
                     return;
                 }
-                System.out.println("end of midi " + System.currentTimeMillis() + " - " + Arrays.toString(event.getData()));
+                DebugOut.get().out.println("end of midi " + System.currentTimeMillis() + " - " + Arrays.toString(event.getData()));
                 try
                 {
                     Thread.sleep(200);
@@ -195,7 +196,7 @@ public class MidiSynthSystem
      */
     public void waitUntilEnd() throws InterruptedException
     {
-        System.out.println("wait for endmidi " + System.currentTimeMillis());
+        DebugOut.get().out.println("wait for endmidi " + System.currentTimeMillis());
         synchronized (waitObject)
         {
             doWait = true;

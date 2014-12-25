@@ -8,12 +8,13 @@ package applications;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
-import turtle.TurtleWindow;
 import turtle.RulePanel;
 import turtle.Turtle;
+import turtle.TurtleWindow;
 import twitter.TwitTools;
 
 /**
@@ -328,7 +329,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -351,7 +352,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -368,7 +369,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 

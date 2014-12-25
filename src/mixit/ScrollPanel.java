@@ -1,6 +1,8 @@
 package mixit;
 
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.Scrollbar;
 
 /**
  * Created by IntelliJ IDEA.

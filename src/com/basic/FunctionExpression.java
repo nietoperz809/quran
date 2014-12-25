@@ -20,9 +20,9 @@ package com.basic;
 import com.basic.util.StaticFuncs;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
 import java.io.PrintStream;
-import java.text.DecimalFormat;
+import java.util.Random;
+import misc.DebugOut;
 
 /**
  * This class implements the mathematical functions for BASIC. The tokenizer
@@ -274,7 +274,7 @@ class FunctionExpression extends Expression
                 }
                 catch (IOException ex)
                 {
-                    System.out.println(ex);
+                    DebugOut.get().out.println(ex);
                 }
             }
             

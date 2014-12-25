@@ -10,15 +10,15 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import javax.swing.JLabel;
+import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
+import misc.PixelCanvas;
+import misc.Tools;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
-import misc.PixelCanvas;
-import misc.Tools;
 
 /**
  *
@@ -143,7 +143,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -196,7 +196,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            System.out.println (ex);
+            DebugOut.get().out.println (ex);
         }
     }
     

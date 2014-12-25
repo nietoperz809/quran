@@ -1,8 +1,8 @@
 package mixit;
 
-import java.awt.event.AdjustmentListener;
+import java.awt.Color;
 import java.awt.event.AdjustmentEvent;
-import java.awt.*;
+import java.awt.event.AdjustmentListener;
 
 /**
  * Created by IntelliJ IDEA.

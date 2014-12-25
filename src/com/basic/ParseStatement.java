@@ -18,8 +18,8 @@
 
 package com.basic;
 
-import java.io.PrintStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 class ParseStatement extends Statement {
 
@@ -50,7 +50,7 @@ class ParseStatement extends Statement {
      */
     static Statement statement(LexicalTokenizer lt) throws BASICSyntaxError {
         Statement s = doParse(lt);
-        // System.out.println("UNPARSE = '"+s.unparse()+"'");
+        // DebugOut.get().out.println("UNPARSE = '"+s.unparse()+"'");
         return s;
     }
 

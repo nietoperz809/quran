@@ -5,11 +5,8 @@
  */
 package com.basic;
 
-import static com.basic.Statement.GOTO;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 class SLEEPStatement extends Statement
 {

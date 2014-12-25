@@ -18,23 +18,23 @@
 package com.basic;
 
 import com.basic.streameditor.StreamingTextArea;
-import java.io.PrintStream;
+import com.basic.util.RedBlackTree;
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.FileOutputStream;
-import java.util.Enumeration;
-import java.util.Random;
-import com.basic.util.RedBlackTree;
+import java.io.PrintStream;
 import java.io.Serializable;
+import java.util.Enumeration;
 import java.util.Map;
+import java.util.Random;
 import java.util.Stack;
-import java.util.TreeMap;
 import java.util.Vector;
 import midisystem.MidiSynthSystem;
+import misc.DebugOut;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
@@ -96,7 +96,7 @@ public class Program implements Runnable, Serializable
             }
             catch (IOException e)
             {
-                System.out.println("Couldn't open trace file.");
+                DebugOut.get().out.println("Couldn't open trace file.");
                 traceFile = null;
             }
         }
@@ -626,11 +626,11 @@ public class Program implements Runnable, Serializable
         }
         catch (BASICRuntimeError e)
         {
-            System.out.println("Error Running program: " + e.getMsg());
+            DebugOut.get().out.println("Error Running program: " + e.getMsg());
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }
 

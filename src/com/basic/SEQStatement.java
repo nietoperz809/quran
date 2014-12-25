@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import midisystem.MidiSynthSystem;
 import midisystem.TrackMaker;
+import misc.DebugOut;
 
 /**
  * SEQ based on DATA Statement
@@ -49,7 +50,7 @@ class SEQStatement extends Statement
     private static void parse(SEQStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        System.out.println (t);
+        DebugOut.get().out.println (t);
         if (t.typeNum() == Token.STRING)
         {
             s.arg = t.stringValue();

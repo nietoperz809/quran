@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Scanner;
+import misc.DebugOut;
 import misc.PathNames;
 
 /**
@@ -80,7 +81,7 @@ public class Quran implements PathNames
             }
             int idx = line.lastIndexOf('|');
             if (idx == -1)
-                System.out.println (0);
+                DebugOut.get().out.println (0);
             String txt = line.substring(idx + 1);
             String head = line.substring(0, idx);
             m_map.put(head, txt);

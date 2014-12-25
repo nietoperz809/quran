@@ -1,9 +1,17 @@
 package monitor;
 
-import javax.swing.*;
-import java.awt.*;
-import static java.awt.Color.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import static java.awt.Color.BLACK;
+import static java.awt.Color.GREEN;
+import static java.awt.Color.YELLOW;
+import java.awt.Dimension;
+import java.awt.Font;
 import static java.awt.Font.PLAIN;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
@@ -17,6 +25,10 @@ import static java.lang.System.out;
 import static java.lang.Thread.MIN_PRIORITY;
 import static java.lang.Thread.sleep;
 import java.util.Date;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /*
  * @(#)MemoryMonitor.java	1.37 06/08/29
@@ -345,7 +357,7 @@ public class MemoryMonitor extends JPanel
                     out.println(new Date().toString() + " " + usedStr);
                 }
             }
-            //System.out.println ("stopped");
+            //DebugOut.get().out.println ("stopped");
         }
     }
 }

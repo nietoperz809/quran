@@ -5,7 +5,6 @@
  */
 package misc;
 
-import quran.QuranMetadata;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
+import quran.QuranMetadata;
 
 /**
  *
@@ -48,7 +48,7 @@ public class MainWindow extends javax.swing.JFrame
                 {
                     savesMenu.remove(men); // Remove damaged entry
                     Tools.deleteSave(s);    
-                    //System.out.println(ex);
+                    //DebugOut.get().out.println(ex);
                 }
             });
             savesMenu.add(men);
@@ -317,7 +317,7 @@ public class MainWindow extends javax.swing.JFrame
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
         return null;
     }

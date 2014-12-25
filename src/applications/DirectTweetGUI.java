@@ -6,6 +6,7 @@
 package applications;
 
 import java.awt.event.ActionListener;
+import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.StringDivider;
@@ -112,7 +113,7 @@ public class DirectTweetGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-           System.out.println (ex);
+           DebugOut.get().out.println (ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -125,7 +126,7 @@ public class DirectTweetGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            DebugOut.get().out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 

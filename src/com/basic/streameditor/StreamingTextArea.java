@@ -192,7 +192,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
             {
             }
         }
-        //System.out.println(s);
+        //DebugOut.get().out.println(s);
     }
 
     public void fakeIn(String s)
