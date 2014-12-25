@@ -1,6 +1,5 @@
 package midisystem;
 
-import java.util.Arrays;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
@@ -10,11 +9,6 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
 import misc.DebugOut;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Administrator
@@ -43,13 +37,21 @@ public class MidiSynthSystem
         }
         return this_mss;
     }
+
     private final Sequencer sm_sequencer;
     private final Synthesizer sm_synthesizer;
     private Sequence sm_sequence;
+    private int mult = 1;
     private final Instrument[] orchestra;
     private final Object waitObject;
     private boolean doWait = false;
 
+    public void setSpeed (int s) throws InvalidMidiDataException
+    {
+        mult = s;
+        sm_sequence = new Sequence(Sequence.SMPTE_30, mult);
+    }
+    
     /**
      * Private Constructor
      *
@@ -61,7 +63,7 @@ public class MidiSynthSystem
         sm_sequencer.close();
         sm_synthesizer = MidiSystem.getSynthesizer();
         sm_synthesizer.close();
-        sm_sequence = new Sequence(Sequence.SMPTE_30, 1);
+        sm_sequence = new Sequence(Sequence.SMPTE_30, mult);
 
         sm_synthesizer.open();
         sm_sequencer.open();
@@ -172,7 +174,7 @@ public class MidiSynthSystem
                 DebugOut.get().out.println("end of midi " + System.currentTimeMillis());
                 try
                 {
-                    Thread.sleep(200);
+                    //Thread.sleep(200);
                     deleteAllTracks();
                     synchronized (waitObject)
                     {
@@ -209,6 +211,6 @@ public class MidiSynthSystem
      */
     public void deleteAllTracks() throws Exception
     {
-        sm_sequence = new Sequence(Sequence.SMPTE_30, 1);
+        sm_sequence = new Sequence(Sequence.SMPTE_30, mult);
     }
 }

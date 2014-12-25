@@ -150,6 +150,13 @@ class ParseStatement extends Statement {
                         throw new BASICSyntaxError(extraError);
                     return s;
 
+                case SSPEED:
+                    s = new SSPEEDStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                        throw new BASICSyntaxError(extraError);
+                    return s;
+                    
                 case SLEEP:
                     s = new SLEEPStatement(lt);
                     t = lt.nextToken();
