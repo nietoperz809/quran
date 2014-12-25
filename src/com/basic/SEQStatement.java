@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import midisystem.MidiSynthSystem;
 import midisystem.TrackMaker;
-import misc.DebugOut;
 
 /**
  * SEQ based on DATA Statement
@@ -12,6 +11,7 @@ import misc.DebugOut;
 class SEQStatement extends Statement
 {
     String arg;
+    int channel;
     VariableExpression ve;
     
     SEQStatement(LexicalTokenizer lt) throws BASICSyntaxError
@@ -26,7 +26,7 @@ class SEQStatement extends Statement
     {
         if (ve != null)
             arg = ve.stringValue(pgm);
-        TrackMaker tm = new TrackMaker (MidiSynthSystem.get());
+        TrackMaker tm = new TrackMaker (MidiSynthSystem.get(), channel);
         try
         {
             tm.fromString(arg);
@@ -50,7 +50,17 @@ class SEQStatement extends Statement
     private static void parse(SEQStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        DebugOut.get().out.println (t);
+        if (t.typeNum() != Token.CONSTANT)
+        {
+            throw new BASICSyntaxError("Channel number missing.");
+        }
+        s.channel = (int) t.numValue();
+        t = lt.nextToken();
+        if (t.typeNum() != Token.SYMBOL || t.nValue != ',')
+        {
+            throw new BASICSyntaxError("Comma expected.");
+        }
+        t = lt.nextToken();
         if (t.typeNum() == Token.STRING)
         {
             s.arg = t.stringValue();
