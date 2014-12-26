@@ -171,7 +171,13 @@ class ParseStatement extends Statement {
                         s.nxt = statement(lt);
                     else if (t.typeNum() != Token.EOL)
                         throw new BASICSyntaxError(extraError);
+                    return s;
 
+                case NOTES:
+                    s = new NOTESStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                        throw new BASICSyntaxError(extraError);
                     return s;
 
                 case CLS:
@@ -179,7 +185,6 @@ class ParseStatement extends Statement {
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
                         throw new BASICSyntaxError(extraError);
-
                     return s;
 
                 case SPLAY:

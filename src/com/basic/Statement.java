@@ -26,7 +26,7 @@ public abstract class Statement implements Ser
         "on", "rem", "for", "to", "next", "step", "gosub",
         "goto", "let", "input", "stop", "dim", "randomize",
         "tron", "troff", "timer", "cls", "sleep", "tweet",
-        "seq", "sclr", "splay", "sspeed"
+        "seq", "sclr", "splay", "sspeed", "notes"
     };
 
     /**
@@ -66,6 +66,7 @@ public abstract class Statement implements Ser
     final static int SCLR = 31;
     final static int SPLAY = 32;
     final static int SSPEED = 33;
+    final static int NOTES = 34;
     
     protected int keyword; // type of statement
     // type of statement
