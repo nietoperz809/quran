@@ -36,7 +36,6 @@ import java.io.PrintStream;
  */
 class Expression implements Ser
 {
-
     /**
      * These are the valid operator types.
      */
@@ -64,7 +63,7 @@ class Expression implements Ser
     final static String opVals[] =
     {
         "<NULL>", "+", "-", "*", "/", "**", "&", "|", "^", "!", "=", "<>",
-        "<", "<=", ">", ">=", ".AND.", ".OR.", ".XOR.", ".NOT.", "-",
+        "<", "<=", ">", ">=", "AND", "OR", "XOR", "NOT", "-",
     };
 
 
@@ -91,18 +90,18 @@ class Expression implements Ser
         */
         if (op > OP_GE)
         {
-            if ((!(arg1 instanceof BooleanExpression))
-                    || (!(arg2 instanceof BooleanExpression)))
-            {
-                throw new BASICSyntaxError(typeError);
-            }
+//            if ((!(arg1 instanceof BooleanExpression))
+//                    || (!(arg2 instanceof BooleanExpression)))
+//            {
+//                throw new BASICSyntaxError(typeError);
+//            }
         }
         else
         {
-            if ((arg1 instanceof BooleanExpression) || (arg2 instanceof BooleanExpression))
-            {
-                throw new BASICSyntaxError(typeError);
-            }
+//            if ((arg1 instanceof BooleanExpression) || (arg2 instanceof BooleanExpression))
+//            {
+//                throw new BASICSyntaxError(typeError);
+//            }
         }
     }
 
@@ -113,10 +112,10 @@ class Expression implements Ser
     {
         arg2 = a;
         oper = op;
-        if ((oper == OP_BNOT) && (!(arg2 instanceof BooleanExpression)))
-        {
-            throw new BASICSyntaxError(typeError);
-        }
+//        if ((oper == OP_BNOT) && (!(arg2 instanceof BooleanExpression)))
+//        {
+//            throw new BASICSyntaxError(typeError);
+//        }
     }
 
     void print(PrintStream p)

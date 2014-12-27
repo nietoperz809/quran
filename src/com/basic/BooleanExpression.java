@@ -23,7 +23,6 @@ package com.basic;
  */
 class BooleanExpression extends Expression
 {
-
     BooleanExpression(int t, Expression a, Expression b) throws BASICSyntaxError
     {
         super(t, a, b);
@@ -34,13 +33,17 @@ class BooleanExpression extends Expression
         super(t, a);
     }
 
+    @Override
     double value(Program pgm) throws BASICRuntimeError
     {
-        if (!(arg1.isString() || arg2.isString()))
+        if (arg1 != null && arg2 != null)
         {
-            return super.value(pgm);
+            if (!(arg1.isString() || arg2.isString()))
+            {
+                return super.value(pgm);
+            }
         }
-
+        
         switch (oper)
         {
             case OP_EQ:
