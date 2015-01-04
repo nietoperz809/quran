@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import misc.DebugOut;
 import misc.MainWindow;
-import misc.InteractivePixelCanvas;
 import misc.PittiFrame;
 import misc.PixelCanvas;
 import misc.Tools;
@@ -59,7 +58,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
-        canvas = new InteractivePixelCanvas();
+        canvas = new misc.WarpCanvas();
 
         setClosable(true);
         setIconifiable(true);

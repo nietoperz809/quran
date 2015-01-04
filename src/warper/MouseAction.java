@@ -11,7 +11,7 @@ import java.awt.Point;
  *
  * @author Administrator
  */
-public interface Warpable
+public interface MouseAction
 {
-    public void doWarp (Point pt1, Point pt2);
+    public void doMouseAction (Point pt1, Point pt2);
 }

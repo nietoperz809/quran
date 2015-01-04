@@ -7,9 +7,11 @@ package misc;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import warper.MouseAction;
 
 /**
  *
@@ -22,12 +24,19 @@ public class InteractivePixelCanvas extends PixelCanvas implements MouseListener
     private int m_oldx;
     private int m_oldy;
     private final Color m_xorcolor = new Color(255, 255, 255);
-    
-    public InteractivePixelCanvas()
+    protected MouseAction action; 
+
+    public InteractivePixelCanvas ()
     {
         super();
         addMouseListener (this);
         addMouseMotionListener (this);
+    }
+    
+    public InteractivePixelCanvas (MouseAction m)
+    {
+        this();
+        action = m;
     }
     
     @Override
@@ -50,6 +59,8 @@ public class InteractivePixelCanvas extends PixelCanvas implements MouseListener
         if (m_img == null)
             return;
         repaint();
+        if (action == null)
+            return;
         float yb = m_img.getHeight();
         float xb = m_img.getWidth();
         float ys = size().height;
@@ -58,6 +69,7 @@ public class InteractivePixelCanvas extends PixelCanvas implements MouseListener
         int yb1 = (int) (yb * m_y / ys);
         int xb2 = (int) (xb * e.getX() / xs);
         int yb2 = (int) (yb * e.getY() / ys);
+        action.doMouseAction (new Point(xb2, yb2), new Point(xb1, yb1));
     }
 
     @Override

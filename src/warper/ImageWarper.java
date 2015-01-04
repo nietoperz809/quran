@@ -19,7 +19,7 @@ public class ImageWarper
     int mWidth;
     int mHeight; // width & height of warp image
 
-    ImageWarper (BufferedImage img, Point fromPoint, Point toPoint)
+    public ImageWarper (BufferedImage img, Point fromPoint, Point toPoint)
     {
         mFromPoint = fromPoint;
         mToPoint = toPoint;
