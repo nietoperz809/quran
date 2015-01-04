@@ -5,13 +5,18 @@
  */
 package misc;
 
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JTextField;
 
 /**
@@ -20,6 +25,30 @@ import javax.swing.JTextField;
  */
 public class Tools
 {
+    /**
+     * Load a buffered image from disk
+     * @param parent
+     * @return 
+     */
+    public static BufferedImage loadImage(Frame parent)
+    {
+        FileDialog fd = new FileDialog(parent, "Load", FileDialog.LOAD);
+        fd.show();
+        if (fd.getFile() == null)
+        {
+            return null;
+        }
+        File f = new File(fd.getDirectory() + fd.getFile());
+        try
+        {
+            return ImageIO.read(f);
+        }
+        catch (IOException ex)
+        {
+        }
+        return null;
+    }
+
     public static double readDouble(JTextField jf, double defaultvalue)
     {
         double res;
@@ -72,9 +101,10 @@ public class Tools
 
     /**
      * Create a save
+     *
      * @param filename
      * @param o
-     * @throws Exception 
+     * @throws Exception
      */
     public static void serialize(String filename, Object o) throws Exception
     {
@@ -88,23 +118,25 @@ public class Tools
 
     /**
      * Delete a save
-     * @param filename 
+     *
+     * @param filename
      */
-    public static void deleteSave (String filename) 
+    public static void deleteSave(String filename)
     {
-        File f = new File (m_path+filename);
-        String message = f.exists() ? "is in use by another app" : "does not exist";        
+        File f = new File(m_path + filename);
+        String message = f.exists() ? "is in use by another app" : "does not exist";
         if (!f.delete())
         {
-            DebugOut.get().out.println ("Could not delete "+m_path+filename+" -- "+message);
+            DebugOut.get().out.println("Could not delete " + m_path + filename + " -- " + message);
         }
     }
-    
+
     /**
      * Open a save
+     *
      * @param filename
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     public static Object deSerialize(String filename) throws Exception
     {
@@ -125,7 +157,8 @@ public class Tools
 
     /**
      * Get a list of all saves
-     * @return 
+     *
+     * @return
      */
     public static List<String> listSaves()
     {
