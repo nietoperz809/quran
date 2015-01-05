@@ -58,7 +58,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
-        canvas = new misc.WarpCanvas();
+        canvas = new misc.PixelCanvas();
 
         setClosable(true);
         setIconifiable(true);

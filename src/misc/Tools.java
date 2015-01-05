@@ -49,6 +49,25 @@ public class Tools
         return null;
     }
 
+    public static void saveImage(Frame parent, BufferedImage img)
+    {
+        FileDialog fd = new FileDialog(parent, "Save", FileDialog.SAVE);
+        fd.show();
+        if (fd.getFile() == null)
+        {
+            return;
+        }
+        File f = new File(fd.getDirectory() + fd.getFile());
+        try
+        {
+            ImageIO.write(img, "png",f);
+        }
+        catch (IOException ex)
+        {
+        }
+    }
+    
+    
     public static double readDouble(JTextField jf, double defaultvalue)
     {
         double res;

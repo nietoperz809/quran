@@ -5,6 +5,7 @@
  */
 package misc;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import warper.ImageWarper;
 import warper.MouseAction;
@@ -26,5 +27,11 @@ public class WarpCanvas extends InteractivePixelCanvas implements MouseAction
     {
         ImageWarper wa = new ImageWarper (m_img, pt1, pt2);
         m_img = wa.warpPixels();
+    }
+
+    @Override
+    protected void drawImg (Graphics g)
+    {
+        g.drawImage(m_img, 0, 0, getWidth(), getHeight(), null);
     }
 }

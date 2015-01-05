@@ -24,6 +24,7 @@ public class PixelCanvas extends JPanel implements Serializable
     public void setImage(BufferedImage i)
     {
         m_img = i;
+        repaint();
     }
 
     public BufferedImage getImage()
