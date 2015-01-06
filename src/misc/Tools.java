@@ -67,7 +67,6 @@ public class Tools
         }
     }
     
-    
     public static double readDouble(JTextField jf, double defaultvalue)
     {
         double res;

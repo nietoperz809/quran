@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import misc.DebugOut;
 import misc.PathNames;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -70,15 +69,15 @@ public class QuranMetadata implements PathNames
         return null;
     }
     
-    private void iterate(NamedNodeMap attributesList)
-    {
-        for (int j = 0; j < attributesList.getLength(); j++)
-        {
-            DebugOut.get().out.println("Attribute: "
-                    + attributesList.item(j).getNodeName() + " = "
-                    + attributesList.item(j).getNodeValue());
-        }
-    }
+//    private void iterate(NamedNodeMap attributesList)
+//    {
+//        for (int j = 0; j < attributesList.getLength(); j++)
+//        {
+//            DebugOut.get().out.println("Attribute: "
+//                    + attributesList.item(j).getNodeName() + " = "
+//                    + attributesList.item(j).getNodeValue());
+//        }
+//    }
 
     private void traverseXML(Node node)
     {

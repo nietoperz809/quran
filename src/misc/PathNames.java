@@ -32,4 +32,8 @@ public interface PathNames
      * File with quran meta data
      */
     public final String MetaDataPath = "c:\\quran\\quran-data.xml";
+    /**
+     * Hadith collection
+     */
+    public final String HadithPath = "c:\\quran\\hadith\\hadith.txt";
 }
