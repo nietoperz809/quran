@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
-import misc.StringDivider;
 import misc.Tools;
 import twitter.TwitTools;
 
@@ -104,17 +103,7 @@ public class DirectTweetGUI extends PittiFrame implements ActionListener
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         String s = textArea.getText();
-        StringDivider sd = new StringDivider(s, 120);
-        String[] div = sd.splitByWords();
-        TwitTools tw = TwitTools.get();
-        try
-        {
-            tw.sendStringArray(div);
-        }
-        catch (Exception ex)
-        {
-           DebugOut.get().out.println (ex);
-        }
+        TwitTools.sendLongStringAsync(s);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed

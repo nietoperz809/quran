@@ -21,6 +21,7 @@ public class HadithCollection
 {
     private final ArrayList<String> list = new ArrayList<>();
     private final Random rnd = new Random();
+    private String last = null;
     
     public HadithCollection() throws IOException
     {
@@ -34,13 +35,19 @@ public class HadithCollection
     
     public String getHadith (int n)
     {
-        return list.get(n);
+        last = list.get(n);
+        return last;
     }
     
     public String getRandomHadith()
     {
-        int i = rnd.nextInt(list.size());
-        return list.get(i);
+        last = list.get(rnd.nextInt(list.size()));
+        return last;
+    }
+    
+    public String getLast()
+    {
+        return last;
     }
     
     private void makeDatabase() throws IOException

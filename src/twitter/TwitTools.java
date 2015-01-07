@@ -57,18 +57,18 @@ public class TwitTools implements TwitterKeys
         return m_instance;
     }
 
-    public static Twitter connect(String user, String pass) throws TwitterException, IOException
-    {
-        Configuration configuration = new ConfigurationBuilder()
-                .setOAuthConsumerKey(consumerKey)
-                .setOAuthConsumerSecret(consumerSecret)
-                .build();
+//    private Twitter connect(String user, String pass) throws TwitterException, IOException
+//    {
+//        Configuration configuration = new ConfigurationBuilder()
+//                .setOAuthConsumerKey(consumerKey)
+//                .setOAuthConsumerSecret(consumerSecret)
+//                .build();
+//
+//        Twitter twitter = new TwitterFactory(configuration).getInstance(new BasicAuthorization(user, pass)); // yes, use "BasicAuthorization" although that seems strange
+//        return twitter;
+//    }
 
-        Twitter twitter = new TwitterFactory(configuration).getInstance(new BasicAuthorization(user, pass)); // yes, use "BasicAuthorization" although that seems strange
-        return twitter;
-    }
-
-    public static Twitter connect() throws TwitterException, IOException
+    private Twitter connect() throws TwitterException, IOException
     {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true);
@@ -104,7 +104,7 @@ public class TwitTools implements TwitterKeys
         m_twit.updateStatus(st);
     }
 
-    public void send(BufferedImage img, String label) throws Exception
+    public void send (BufferedImage img, String label) throws Exception
     {
         if (m_twit == null)
         {
@@ -114,7 +114,7 @@ public class TwitTools implements TwitterKeys
         sendFile(f, label);
     }
 
-    public void send(InputStream in, String label) throws Exception
+    public void send (InputStream in, String label) throws Exception
     {
         if (m_twit == null)
         {
@@ -134,8 +134,6 @@ public class TwitTools implements TwitterKeys
         for (String s : sa)
         {
             Status st = m_twit.updateStatus(s);
-            //DebugOut.get().out.println(st.getText());
-            //Thread.sleep (36000);
         }
     }
 
@@ -152,6 +150,15 @@ public class TwitTools implements TwitterKeys
         {
            DebugOut.get().out.println (ex);
         }
+    }
+    
+    public static void sendLongStringAsync (String str)
+    {
+        Runnable r = () ->
+        {
+            sendLongString(str);
+        };
+        new Thread(r).start();
     }
     
 //    /**

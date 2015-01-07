@@ -13,6 +13,8 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
@@ -463,15 +465,11 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         {
             Verse v = getSelectedVerse();
             String t = loadText() + " #Quran " + v.sura + ":" + v.aya;
-            TwitTools tw = TwitTools.get();
-            StringDivider sd = new StringDivider(t, 120);
-            String[] div = sd.splitByWords();
-            //DebugTools.printStringArray (div);
-            tw.sendStringArray(div);
+            TwitTools.sendLongString(t);
         }
         catch (Exception ex)
         {
-
+            DebugOut.get().out.println (ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
     
