@@ -13,8 +13,6 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.auth.BasicAuthorization;
-import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 /*
@@ -33,7 +31,7 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitTools implements TwitterKeys
 {
     static private TwitTools m_instance = null;
-    static private Twitter m_twit = null;
+    static private Twitter m_twit;
 
     private TwitTools()
     {
@@ -67,7 +65,6 @@ public class TwitTools implements TwitterKeys
 //        Twitter twitter = new TwitterFactory(configuration).getInstance(new BasicAuthorization(user, pass)); // yes, use "BasicAuthorization" although that seems strange
 //        return twitter;
 //    }
-
     private Twitter connect() throws TwitterException, IOException
     {
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -101,10 +98,13 @@ public class TwitTools implements TwitterKeys
     {
         StatusUpdate st = new StatusUpdate(label);
         st.setMedia(f);
-        m_twit.updateStatus(st);
+        synchronized (m_twit)
+        {
+            m_twit.updateStatus(st);
+        }
     }
 
-    public void send (BufferedImage img, String label) throws Exception
+    public void send(BufferedImage img, String label) throws Exception
     {
         if (m_twit == null)
         {
@@ -114,7 +114,7 @@ public class TwitTools implements TwitterKeys
         sendFile(f, label);
     }
 
-    public void send (InputStream in, String label) throws Exception
+    public void send(InputStream in, String label) throws Exception
     {
         if (m_twit == null)
         {
@@ -133,11 +133,14 @@ public class TwitTools implements TwitterKeys
 
         for (String s : sa)
         {
-            Status st = m_twit.updateStatus(s);
+            synchronized (m_twit)
+            {
+                Status st = m_twit.updateStatus(s);
+            }
         }
     }
 
-    public static void sendLongString (String str)
+    public static void sendLongString(String str)
     {
         StringDivider sd = new StringDivider(str);
         String[] div = sd.splitByWords();
@@ -148,11 +151,11 @@ public class TwitTools implements TwitterKeys
         }
         catch (Exception ex)
         {
-           DebugOut.get().out.println (ex);
+            DebugOut.get().out.println(ex);
         }
     }
-    
-    public static void sendLongStringAsync (String str)
+
+    public static void sendLongStringAsync(String str)
     {
         Runnable r = () ->
         {
@@ -160,7 +163,7 @@ public class TwitTools implements TwitterKeys
         };
         new Thread(r).start();
     }
-    
+
 //    /**
 //     * @param args the command line arguments
 //     */

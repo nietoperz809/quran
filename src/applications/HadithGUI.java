@@ -122,7 +122,7 @@ public class HadithGUI extends javax.swing.JInternalFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        TwitTools.sendLongString (hadith.getLast());
+        TwitTools.sendLongStringAsync (hadith.getLast());
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
