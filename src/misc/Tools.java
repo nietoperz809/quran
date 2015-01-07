@@ -103,6 +103,7 @@ public class Tools
         for (String s : sa)
         {
             DebugOut.get().out.println(s);
+            DebugOut.get().out.println (s.length());
             DebugOut.get().out.println("----------------");
         }
     }

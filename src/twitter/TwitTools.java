@@ -139,7 +139,7 @@ public class TwitTools implements TwitterKeys
 
     public static void sendLongString (String str)
     {
-        StringDivider sd = new StringDivider(str, 120);
+        StringDivider sd = new StringDivider(str);
         String[] div = sd.splitByWords();
         TwitTools tw = TwitTools.get();
         try
