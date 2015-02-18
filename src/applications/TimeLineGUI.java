@@ -100,7 +100,7 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
         {
             sb.append("<b>");
             sb.append(status.getUser().getName());
-            sb.append("</b>:");
+            sb.append("</b>: ");
             sb.append(status.getText());
             sb.append("<br><br>");
         }
