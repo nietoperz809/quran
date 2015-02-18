@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.List;
 import javax.imageio.ImageIO;
 import misc.DebugOut;
 import misc.StringDivider;
@@ -164,6 +165,19 @@ public class TwitTools implements TwitterKeys
         new Thread(r).start();
     }
 
+    public static List<Status> getTimeLine()
+    {
+        TwitTools tw = TwitTools.get();
+        try
+        {
+            return TwitTools.m_twit.getHomeTimeline();
+        }
+        catch (Exception ex)
+        {
+          return null;
+        }
+    }
+    
 //    /**
 //     * @param args the command line arguments
 //     */
