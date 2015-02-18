@@ -5,23 +5,17 @@
  */
 package applications;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
 import misc.DebugOut;
 import misc.HashmapSeeker;
 import misc.PittiFrame;
-import misc.StringDivider;
 import misc.Tools;
 import quran.Quran;
 import quran.QuranMetadata;
@@ -483,9 +477,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         {
             Verse v = getSelectedVerse();
             String t = loadText() + " #Quran " + v.sura + ":" + v.aya;
-            StringSelection selection = new StringSelection(t);
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(selection, selection);
+            Tools.toClipBoard(t);
         }
         catch (Exception ex)
         {

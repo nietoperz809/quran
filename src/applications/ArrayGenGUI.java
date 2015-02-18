@@ -5,12 +5,10 @@
 package applications;
 
 import arraygen.Arraygen;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
+import misc.Tools;
 
 
 /**
@@ -207,10 +205,7 @@ public class ArrayGenGUI extends JInternalFrame
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonActionPerformed
     {//GEN-HEADEREND:event_buttonActionPerformed
-        String s = textArea.getText();
-        StringSelection stringSelection = new StringSelection(s);
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clpbrd.setContents(stringSelection, null);
+        Tools.toClipBoard(textArea.getText());
     }//GEN-LAST:event_buttonActionPerformed
 
     private void rbJavaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_rbJavaActionPerformed

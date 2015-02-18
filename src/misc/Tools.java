@@ -7,6 +7,9 @@ package misc;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JTextField;
-import twitter.TwitTools;
 
 /**
  *
@@ -175,6 +177,21 @@ public class Tools
         return ret;
     }
 
+    public static void toClipBoard (final String s)
+    {
+        StringSelection selection = new StringSelection(s);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
+    }
+  
+    public static String removeHTML (String s)
+    {
+        s = s.replace ("<br>", "\n");
+        s = s.replaceAll("\\<.*?>","");
+        return s;
+    }        
+        
+    
     /**
      * Get a list of all saves
      *

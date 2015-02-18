@@ -6,6 +6,7 @@
 package applications;
 
 import java.util.List;
+import misc.Tools;
 import twitter.TwitTools;
 import twitter4j.Status;
 
@@ -38,6 +39,7 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
         view = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -48,11 +50,13 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
         jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 500));
 
         view.setBackground(new java.awt.Color(0, 0, 0));
+        view.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
         view.setForeground(new java.awt.Color(255, 255, 102));
         view.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        view.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        view.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        view.setMaximumSize(new java.awt.Dimension(1000, 10000));
         view.setOpaque(true);
-        view.setPreferredSize(new java.awt.Dimension(200, 800));
+        view.setPreferredSize(new java.awt.Dimension(200, 2000));
         jScrollPane1.setViewportView(view);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -66,6 +70,15 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
             }
         });
 
+        jButton2.setText("toClipBrd");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,13 +86,17 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -96,16 +113,28 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         List<Status> l = TwitTools.getTimeLine();
         StringBuilder sb = new StringBuilder();
-        for (Status status : l)
+        l.stream().forEach((status) ->
         {
-            sb.append("<b>");
-            sb.append(status.getUser().getName());
-            sb.append("</b>: ");
-            sb.append(status.getText());
-            sb.append("<br><br>");
-        }
+            sb.append("<font color='green'>")
+                    .append(status.getCreatedAt())
+                    .append ("</font>")
+                    .append(" - <b><font color='white'>")
+                    .append(status.getUser().getName())
+                    .append("</font></b><br>")
+                    .append(status.getText())
+                    .append("<br><br>");
+        });
         print (sb.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * to Clipboard
+     * @param evt 
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        Tools.toClipBoard(Tools.removeHTML(view.getText()));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void print (String s)
     {
@@ -114,6 +143,7 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel view;
