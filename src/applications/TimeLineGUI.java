@@ -34,6 +34,7 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     private void initComponents()
     {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         view = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -44,14 +45,17 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
         setResizable(true);
         setVisible(true);
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 500));
+
         view.setBackground(new java.awt.Color(0, 0, 0));
         view.setForeground(new java.awt.Color(255, 255, 102));
         view.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        view.setText("jLabel1");
         view.setMaximumSize(new java.awt.Dimension(1000, 1000));
         view.setOpaque(true);
-        view.setPreferredSize(new java.awt.Dimension(800, 500));
-        getContentPane().add(view, java.awt.BorderLayout.CENTER);
+        view.setPreferredSize(new java.awt.Dimension(200, 800));
+        jScrollPane1.setViewportView(view);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jButton1.setText("Fetch");
         jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -111,6 +115,7 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }
