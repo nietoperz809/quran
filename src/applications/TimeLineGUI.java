@@ -5,8 +5,12 @@
  */
 package applications;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JPanel;
 import misc.Tools;
+import twitter.SingleTweet;
 import twitter.TwitTools;
 import twitter4j.Status;
 
@@ -35,31 +39,18 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     private void initComponents()
     {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        view = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        buttonPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        itemPanel = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setPreferredSize(new java.awt.Dimension(660, 500));
         setVisible(true);
-
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 500));
-
-        view.setBackground(new java.awt.Color(0, 0, 0));
-        view.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
-        view.setForeground(new java.awt.Color(255, 255, 102));
-        view.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        view.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        view.setMaximumSize(new java.awt.Dimension(1000, 10000));
-        view.setOpaque(true);
-        view.setPreferredSize(new java.awt.Dimension(200, 2000));
-        jScrollPane1.setViewportView(view);
-
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jButton1.setText("Fetch");
         jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -79,52 +70,80 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
+        buttonPanel.setLayout(buttonPanelLayout);
+        buttonPanelLayout.setHorizontalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        buttonPanelLayout.setVerticalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
+
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
+
+        itemPanel.setMinimumSize(new java.awt.Dimension(100, 1000));
+        itemPanel.setPreferredSize(new java.awt.Dimension(100, 100));
+        itemPanel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        jScrollPane1.setViewportView(itemPanel);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addItem()
+    {
+        int count = itemPanel.getComponentCount();
+        JPanel jp = new SingleTweet();
+        Dimension d = jp.getPreferredSize();
+        d.height = 5+count*(d.height+5);  // 5 is the Flowlayout Gap
+        itemPanel.setPreferredSize(d);
+        itemPanel.add(jp);
+        revalidate();
+        repaint();
+    }
+
+    private void delItem()
+    {
+        Component[] com = itemPanel.getComponents();
+        if (com.length == 0)
+            return;
+        itemPanel.remove(com[0]);
+        Dimension d = com[0].getPreferredSize();
+        d.height = 5+com.length*(d.height+5);  // 5 is the Flowlayout Gap
+        itemPanel.setPreferredSize(d);
+        revalidate();
+        repaint();
+    }
+    
     /**
      * Clicked Fetch Button
      * @param evt 
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        List<Status> l = TwitTools.getTimeLine();
-        StringBuilder sb = new StringBuilder();
-        l.stream().forEach((status) ->
-        {
-            sb.append("<font color='green'>")
-                    .append(status.getCreatedAt())
-                    .append ("</font>")
-                    .append(" - <b><font color='white'>")
-                    .append(status.getUser().getName())
-                    .append("</font></b><br>")
-                    .append(status.getText())
-                    .append("<br><br>");
-        });
-        print (sb.toString());
+        addItem();
+//        List<Status> l = TwitTools.getTimeLine();
+//        StringBuilder sb = new StringBuilder();
+//        l.stream().forEach((status) ->
+//        {
+//            addItem();
+//        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -133,19 +152,19 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        Tools.toClipBoard(Tools.removeHTML(view.getText()));
+        //Tools.toClipBoard(Tools.removeHTML(view.getText()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void print (String s)
     {
-        view.setText ("<html>"+s+"<br></html>");
+        //view.setText ("<html>"+s+"<br></html>");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JPanel itemPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel view;
     // End of variables declaration//GEN-END:variables
 }
