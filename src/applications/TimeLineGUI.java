@@ -106,14 +106,21 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addItem()
+    private void addItem(Status st)
     {
         int count = itemPanel.getComponentCount();
-        JPanel jp = new SingleTweet();
+        JPanel jp = new SingleTweet(st);
         Dimension d = jp.getPreferredSize();
-        d.height = 5+count*(d.height+5);  // 5 is the Flowlayout Gap
+        d.height = 5 + count * (d.height + 5);  // 5 is the Flowlayout Gap
         itemPanel.setPreferredSize(d);
         itemPanel.add(jp);
+        revalidate();
+        repaint();
+    }
+
+    private void clear()
+    {
+        itemPanel.removeAll();
         revalidate();
         repaint();
     }
@@ -122,44 +129,47 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     {
         Component[] com = itemPanel.getComponents();
         if (com.length == 0)
+        {
             return;
+        }
         itemPanel.remove(com[0]);
         Dimension d = com[0].getPreferredSize();
-        d.height = 5+com.length*(d.height+5);  // 5 is the Flowlayout Gap
+        d.height = 5 + com.length * (d.height + 5);  // 5 is the Flowlayout Gap
         itemPanel.setPreferredSize(d);
         revalidate();
         repaint();
     }
-    
+
     /**
      * Clicked Fetch Button
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        addItem();
-//        List<Status> l = TwitTools.getTimeLine();
-//        StringBuilder sb = new StringBuilder();
-//        l.stream().forEach((status) ->
-//        {
-//            addItem();
-//        });
+        List<Status> l = TwitTools.getTimeLine();
+        clear();
+        l.stream().forEach((status) ->
+        {
+            addItem(status);
+        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * to Clipboard
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         //Tools.toClipBoard(Tools.removeHTML(view.getText()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void print (String s)
+    private void print(String s)
     {
         //view.setText ("<html>"+s+"<br></html>");
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JPanel itemPanel;

@@ -262,7 +262,7 @@ public class LexicalTokenizer implements Serializable
         int oldPos = currentPos; // save our place.
         boolean wasNeg = false;
         boolean isConstant = false;
-        Token r = null;
+        //Token r = null;
 
         // Look for the integral part.
         while (isDigit(buffer[currentPos]))
@@ -519,7 +519,7 @@ public class LexicalTokenizer implements Serializable
             q.append(Character.toLowerCase(buffer[currentPos]));
             currentPos++;
         }
-        if (buffer[currentPos] == '$')
+        if (buffer[currentPos] == '$' || buffer[currentPos] == '%')
         {
             q.append(buffer[currentPos++]);
         }

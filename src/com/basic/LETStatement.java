@@ -79,15 +79,15 @@ class LETStatement extends Statement {
     /**
      * Parse LET Statement.
      */
-    private static void parse(LETStatement s, LexicalTokenizer lt) throws BASICSyntaxError {
+    private static void parse(LETStatement s, LexicalTokenizer lt) throws BASICSyntaxError 
+    {
         Token t = lt.nextToken();
-        Variable vi;
-
+        //Variable vi;
 
         if (t.typeNum() != Token.VARIABLE)
             throw new BASICSyntaxError("variable expected for LET statement.");
 
-        vi = (Variable)t;
+        //vi = (Variable)t;
         s.myVar = (Variable) t;
         t = lt.nextToken();
         if (! t.isOp(Expression.OP_EQ))

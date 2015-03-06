@@ -25,14 +25,15 @@ package com.basic;
  * The class is a subclass of Token so that we can pass these back from the
  * LexicalTokenizer class and the program parser is easier.
  */
-class Variable extends Token
+public class Variable extends Token
 {
-
     // Legal variable sub types
     final static int NUMBER = 0;
-    final static int STRING = 1;
+    final static int INTEGER = 10;
+    final static int thSTRING = 1;
     final static int NUMBER_ARRAY = 2;
     final static int STRING_ARRAY = 4;
+    final static int INTEGER_ARRAY = 11;
 
     String name;
     int subType;
@@ -52,6 +53,15 @@ class Variable extends Token
      */
     Expression expns[];
 
+    @Override
+    double numValue()
+    {
+        if (subType == INTEGER)
+            return (int)super.nValue;
+        return super.nValue;
+    }
+
+    
     /**
      * Create a reference to this array.
      */
@@ -61,6 +71,10 @@ class Variable extends Token
         if (someName.endsWith("$"))
         {
             subType = STRING_ARRAY;
+        }
+        else if (someName.endsWith("%"))
+        {
+            subType = INTEGER_ARRAY;
         }
         else
         {
@@ -78,7 +92,11 @@ class Variable extends Token
         type = VARIABLE;
         if (someName.endsWith("$"))
         {
-            subType = STRING;
+            subType = thSTRING;
+        }
+        else if (someName.endsWith("%"))
+        {
+            subType = INTEGER;
         }
         else
         {
@@ -108,6 +126,11 @@ class Variable extends Token
         {
             sArrayValues = new String[offset];
             subType = STRING_ARRAY;
+        }
+        else if (name.endsWith("%"))
+        {
+            nArrayValues = new double[offset];
+            subType = INTEGER_ARRAY;
         }
         else
         {
@@ -211,13 +234,13 @@ class Variable extends Token
     {
         return nArrayValues[computeIndex(ii)];
     }
-
+    
     /**
      * Returns value as a string, even if this internally is a number.
      */
     String stringValue(int ii[]) throws BASICRuntimeError
     {
-        if (subType == NUMBER_ARRAY)
+        if (subType == NUMBER_ARRAY || subType == INTEGER_ARRAY)
         {
             return "" + nArrayValues[computeIndex(ii)];
         }
@@ -231,7 +254,7 @@ class Variable extends Token
     @Override
     String stringValue()
     {
-        if (subType == NUMBER)
+        if (subType == INTEGER || subType == NUMBER)
         {
             return "" + nValue;
         }
@@ -254,7 +277,7 @@ class Variable extends Token
         sValue = s;
     }
 
-    void setValue(double v, int ii[]) throws BASICRuntimeError
+    void setValue (double v, int ii[]) throws BASICRuntimeError
     {
         int offset = computeIndex(ii);
         if (nArrayValues == null)
@@ -284,7 +307,7 @@ class Variable extends Token
 
     boolean isArray()
     {
-        return (subType == NUMBER_ARRAY) || (subType == STRING_ARRAY);
+        return (subType == NUMBER_ARRAY) || (subType == STRING_ARRAY) || (subType == INTEGER_ARRAY);
     }
 
     int numExpn()
@@ -303,6 +326,7 @@ class Variable extends Token
 
     /**
      * just print the variable's name.
+     * @return 
      */
     @Override
     public String toString()
