@@ -28,15 +28,10 @@ package com.basic;
 public class Variable extends Token
 {
     // Legal variable sub types
-    final static int NUMBER = 0;
-    final static int INTEGER = 10;
-    final static int thSTRING = 1;
-    final static int NUMBER_ARRAY = 2;
-    final static int STRING_ARRAY = 4;
-    final static int INTEGER_ARRAY = 11;
+    public enum SUBTYPE {NUMBER, INTEGER, thSTRING, NUMBER_ARRAY, STRING_ARRAY, INTEGER_ARRAY}
 
     String name;
-    int subType;
+    SUBTYPE subType;
 
     /*
      * If the variable is in the symbol table these values are
@@ -56,7 +51,7 @@ public class Variable extends Token
     @Override
     double numValue()
     {
-        if (subType == INTEGER)
+        if (subType == SUBTYPE.INTEGER)
             return (int)super.nValue;
         return super.nValue;
     }
@@ -70,15 +65,15 @@ public class Variable extends Token
         type = VARIABLE;
         if (someName.endsWith("$"))
         {
-            subType = STRING_ARRAY;
+            subType = SUBTYPE.STRING_ARRAY;
         }
         else if (someName.endsWith("%"))
         {
-            subType = INTEGER_ARRAY;
+            subType = SUBTYPE.INTEGER_ARRAY;
         }
         else
         {
-            subType = NUMBER_ARRAY;
+            subType = SUBTYPE.NUMBER_ARRAY;
         }
         name = someName;
         expns = ee;
@@ -92,15 +87,15 @@ public class Variable extends Token
         type = VARIABLE;
         if (someName.endsWith("$"))
         {
-            subType = thSTRING;
+            subType = SUBTYPE.thSTRING;
         }
         else if (someName.endsWith("%"))
         {
-            subType = INTEGER;
+            subType = SUBTYPE.INTEGER;
         }
         else
         {
-            subType = NUMBER;
+            subType = SUBTYPE.NUMBER;
         }
         name = someName;
     }
@@ -125,17 +120,17 @@ public class Variable extends Token
         if (name.endsWith("$"))
         {
             sArrayValues = new String[offset];
-            subType = STRING_ARRAY;
+            subType = SUBTYPE.STRING_ARRAY;
         }
         else if (name.endsWith("%"))
         {
             nArrayValues = new double[offset];
-            subType = INTEGER_ARRAY;
+            subType = SUBTYPE.INTEGER_ARRAY;
         }
         else
         {
             nArrayValues = new double[offset];
-            subType = NUMBER_ARRAY;
+            subType = SUBTYPE.NUMBER_ARRAY;
         }
     }
 
@@ -240,7 +235,7 @@ public class Variable extends Token
      */
     String stringValue(int ii[]) throws BASICRuntimeError
     {
-        if (subType == NUMBER_ARRAY || subType == INTEGER_ARRAY)
+        if (subType == SUBTYPE.NUMBER_ARRAY || subType == SUBTYPE.INTEGER_ARRAY)
         {
             return "" + nArrayValues[computeIndex(ii)];
         }
@@ -254,7 +249,7 @@ public class Variable extends Token
     @Override
     String stringValue()
     {
-        if (subType == INTEGER || subType == NUMBER)
+        if (subType == SUBTYPE.INTEGER || subType == SUBTYPE.NUMBER)
         {
             return "" + nValue;
         }
@@ -307,7 +302,9 @@ public class Variable extends Token
 
     boolean isArray()
     {
-        return (subType == NUMBER_ARRAY) || (subType == STRING_ARRAY) || (subType == INTEGER_ARRAY);
+        return (subType == SUBTYPE.NUMBER_ARRAY) || 
+                (subType == SUBTYPE.STRING_ARRAY) || 
+                (subType == SUBTYPE.INTEGER_ARRAY);
     }
 
     int numExpn()

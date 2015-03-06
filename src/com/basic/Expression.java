@@ -34,7 +34,7 @@ import java.io.PrintStream;
  *
  * See the class ParseExpression for the grammar and precidence rules.
  */
-class Expression implements Ser
+public class Expression implements Ser
 {
     /**
      * These are the valid operator types.
