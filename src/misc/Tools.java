@@ -30,8 +30,9 @@ public class Tools
 {
     /**
      * Load a buffered image from disk
+     *
      * @param parent
-     * @return 
+     * @return
      */
     public static BufferedImage loadImage(Frame parent)
     {
@@ -63,13 +64,13 @@ public class Tools
         File f = new File(fd.getDirectory() + fd.getFile());
         try
         {
-            ImageIO.write(img, "png",f);
+            ImageIO.write(img, "png", f);
         }
         catch (IOException ex)
         {
         }
     }
-    
+
     public static double readDouble(JTextField jf, double defaultvalue)
     {
         double res;
@@ -105,7 +106,7 @@ public class Tools
         for (String s : sa)
         {
             DebugOut.get().out.println(s);
-            DebugOut.get().out.println (s.length());
+            DebugOut.get().out.println(s.length());
             DebugOut.get().out.println("----------------");
         }
     }
@@ -177,21 +178,20 @@ public class Tools
         return ret;
     }
 
-    public static void toClipBoard (final String s)
+    public static void toClipBoard(final String s)
     {
         StringSelection selection = new StringSelection(s);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, selection);
     }
-  
-    public static String removeHTML (String s)
+
+    public static String removeHTML(String s)
     {
-        s = s.replace ("<br>", "\n");
-        s = s.replaceAll("\\<.*?>","");
+        s = s.replace("<br>", "\n");
+        s = s.replaceAll("\\<.*?>", "");
         return s;
-    }        
-        
-    
+    }
+
     /**
      * Get a list of all saves
      *
@@ -210,4 +210,5 @@ public class Tools
         }
         return result;
     }
+
 }
