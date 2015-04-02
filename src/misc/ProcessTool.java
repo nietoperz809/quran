@@ -1,8 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ * Run external process 
+*/
 package misc;
 
 import java.io.IOException;
@@ -39,9 +37,41 @@ public class ProcessTool
         new Thread(r).start();
     }
 
+    ProcessTool(String cmd, int wait)
+    {
+        this (cmd);
+        try
+        {
+            Thread.sleep (wait);
+        }
+        catch (InterruptedException ex)
+        {
+        }
+    }
+    
     public synchronized void kill()
     {
         pc.destroyForcibly();
+        pc = null;
+    }
+    
+    public void writeln (String s) 
+    {
+        write (s+"\r\n");
+    }
+
+    public String ww (String s)
+    {
+        writeln (s);
+        try
+        {
+            while (in.available() <= 0);
+        }
+        catch (IOException ex)
+        {
+            return null;
+        }
+        return read();
     }
     
     public synchronized void write(String s)
@@ -92,15 +122,12 @@ public class ProcessTool
     // test
     public static void main(String[] args) throws InterruptedException
     {
-        ProcessTool cmd = new ProcessTool("diskpart");
+        ProcessTool cmd = new ProcessTool("diskpart", 1000);
 
-        Thread.sleep(1000);
         String s = cmd.read();
         System.out.println(s);
 
-        cmd.write("help\r\n");
-        Thread.sleep(1000);
-        s = cmd.read();
+        s = cmd.ww("help");
         System.out.println(s);
     }
 }
