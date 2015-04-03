@@ -1,6 +1,6 @@
 /*
  * Run external process 
-*/
+ */
 package misc;
 
 import java.io.IOException;
@@ -16,8 +16,9 @@ public class ProcessTool
     private Process pc;
     private InputStream in;
     private OutputStream out;
+    private Thread thr;
 
-    ProcessTool(String cmd)
+    public ProcessTool(String cmd)
     {
         ProcessBuilder pb = new ProcessBuilder(cmd);
         pb.redirectErrorStream(true);
@@ -29,40 +30,47 @@ public class ProcessTool
                 in = pc.getInputStream();
                 out = pc.getOutputStream();
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
+                System.out.println (ex);
                 pc = null;
             }
         };
-        new Thread(r).start();
+        thr = new Thread(r);
+        thr.start();
     }
 
-    ProcessTool(String cmd, int wait)
+    public InputStream getInput()
     {
-        this (cmd);
+        return in;
+    }
+    
+    public ProcessTool(String cmd, int wait)
+    {
+        this(cmd);
         try
         {
-            Thread.sleep (wait);
+            Thread.sleep(wait);
         }
         catch (InterruptedException ex)
         {
         }
     }
-    
-    public synchronized void kill()
+
+    public void kill()
     {
         pc.destroyForcibly();
         pc = null;
     }
-    
-    public void writeln (String s) 
+
+    public void writeln(String s)
     {
-        write (s+"\r\n");
+        write(s + "\r\n");
     }
 
-    public String ww (String s)
+    public String ww(String s)
     {
-        writeln (s);
+        writeln(s);
         try
         {
             while (in.available() <= 0);
@@ -73,8 +81,8 @@ public class ProcessTool
         }
         return read();
     }
-    
-    public synchronized void write(String s)
+
+    public void write(String s)
     {
         if (pc == null)
         {
@@ -90,7 +98,31 @@ public class ProcessTool
         }
     }
 
-    public synchronized String read()
+    public void clear()
+    {
+        try
+        {
+            out.flush();
+            while (in.available() > 0)
+                in.read();
+        }
+        catch (IOException ex)
+        {
+            
+        }
+    }
+    
+    public String read()
+    {
+        return read(500);
+    }
+
+    public String readtrim()
+    {
+        return read().trim().replace("\r\n\r\n", "\r\n");
+    }
+
+    public String read(int wait)
     {
         if (pc == null)
         {
@@ -98,18 +130,21 @@ public class ProcessTool
         }
         try
         {
+            byte[] b = new byte[1];
             StringBuilder sb = new StringBuilder();
-            out: while (true)
+            out:
+            while (true)
             {
-                long t1 = System.currentTimeMillis()+100;
+                long t1 = System.currentTimeMillis() + wait;
                 while (in.available() <= 0)
                 {
                     if (t1 < System.currentTimeMillis())
+                    {
                         break out;
+                    }
                 }
-                byte[] b = new byte[256];
-                in.read(b);
-                sb.append (new String(b));
+                in.read (b);
+                sb.append ((char)b[0]);
             }
             return sb.toString();
         }
