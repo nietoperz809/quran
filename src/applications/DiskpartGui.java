@@ -5,10 +5,7 @@
  */
 package applications;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import misc.PittiFrame;
 import misc.ProcessTool;
 
@@ -20,14 +17,15 @@ public class DiskpartGui extends PittiFrame
 {
     ProcessTool proc = new ProcessTool("diskpart", 1000);
     InputStream inp = proc.getInput();
-
+    Thread reader;
+    
     /**
      * Creates new form DiskpartGui
      */
     public DiskpartGui()
     {
         initComponents();
-        Runnable reader = () ->
+        Runnable r = () ->
         {
             while (true)
             {
@@ -39,14 +37,17 @@ public class DiskpartGui extends PittiFrame
                         outField.append(""+c);
                         outField.setCaretPosition(outField.getDocument().getLength());
                     }
+                    Thread.sleep(100);
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
+                    System.out.println("bye");
                     return;
                 }
             }
         };
-        new Thread (reader).start();
+        reader = new Thread (r);
+        reader.start();
     }
 
     /**
@@ -268,14 +269,7 @@ public class DiskpartGui extends PittiFrame
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        try
-        {
-            inp.close();
-        }
-        catch (IOException ex)
-        {
-            
-        }
+        reader.interrupt();
         proc.kill();
     }//GEN-LAST:event_formInternalFrameClosed
 
