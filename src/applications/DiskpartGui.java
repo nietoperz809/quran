@@ -77,6 +77,7 @@ public class DiskpartGui extends PittiFrame
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -111,15 +112,12 @@ public class DiskpartGui extends PittiFrame
             {
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         outField.setColumns(20);
         outField.setFont(new java.awt.Font("Lucida Console", 0, 10)); // NOI18N
         outField.setRows(5);
         outField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(outField);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 288));
 
         jButton1.setText("help");
         jButton1.addActionListener(new java.awt.event.ActionListener()
@@ -129,7 +127,6 @@ public class DiskpartGui extends PittiFrame
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
         jButton2.setText("listVolume");
         jButton2.addActionListener(new java.awt.event.ActionListener()
@@ -139,7 +136,6 @@ public class DiskpartGui extends PittiFrame
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, -1, -1));
 
         jButton3.setText("listDisk");
         jButton3.addActionListener(new java.awt.event.ActionListener()
@@ -149,7 +145,6 @@ public class DiskpartGui extends PittiFrame
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, -1, -1));
 
         jButton4.setText("listPartition");
         jButton4.addActionListener(new java.awt.event.ActionListener()
@@ -159,7 +154,6 @@ public class DiskpartGui extends PittiFrame
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, -1, -1));
 
         jButton5.setText("selDisk");
         jButton5.addActionListener(new java.awt.event.ActionListener()
@@ -169,10 +163,8 @@ public class DiskpartGui extends PittiFrame
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, -1));
 
         numberField.setText("0");
-        getContentPane().add(numberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 30, -1));
 
         jButton6.setText("selPartition");
         jButton6.addActionListener(new java.awt.event.ActionListener()
@@ -182,7 +174,6 @@ public class DiskpartGui extends PittiFrame
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
         jButton7.setText("selVolume");
         jButton7.addActionListener(new java.awt.event.ActionListener()
@@ -192,7 +183,6 @@ public class DiskpartGui extends PittiFrame
                 jButton7ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, -1, -1));
 
         directText.setText("?");
         directText.addActionListener(new java.awt.event.ActionListener()
@@ -202,7 +192,6 @@ public class DiskpartGui extends PittiFrame
                 directTextActionPerformed(evt);
             }
         });
-        getContentPane().add(directText, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 260, 190, -1));
 
         jButton8.setText("detDisk");
         jButton8.addActionListener(new java.awt.event.ActionListener()
@@ -212,7 +201,6 @@ public class DiskpartGui extends PittiFrame
                 jButton8ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, -1, -1));
 
         jButton9.setText("detPart");
         jButton9.addActionListener(new java.awt.event.ActionListener()
@@ -222,7 +210,6 @@ public class DiskpartGui extends PittiFrame
                 jButton9ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, -1, -1));
 
         jButton10.setText("detVolume");
         jButton10.addActionListener(new java.awt.event.ActionListener()
@@ -232,7 +219,6 @@ public class DiskpartGui extends PittiFrame
                 jButton10ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, -1, -1));
 
         jButton11.setText("fileSys");
         jButton11.addActionListener(new java.awt.event.ActionListener()
@@ -242,7 +228,6 @@ public class DiskpartGui extends PittiFrame
                 jButton11ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, -1, -1));
 
         jButton12.setText("attrVolume");
         jButton12.addActionListener(new java.awt.event.ActionListener()
@@ -252,7 +237,6 @@ public class DiskpartGui extends PittiFrame
                 jButton12ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, -1, -1));
 
         jButton13.setText("attrDisk");
         jButton13.addActionListener(new java.awt.event.ActionListener()
@@ -262,7 +246,112 @@ public class DiskpartGui extends PittiFrame
                 jButton13ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, -1, -1));
+
+        jButton14.setText("clr");
+        jButton14.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jButton12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addComponent(jButton7))
+                            .addComponent(jButton5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(jButton13))
+                            .addComponent(jButton3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addComponent(jButton2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(jButton6))
+                            .addComponent(jButton8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(jButton9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(140, 140, 140)
+                                .addComponent(jButton10))
+                            .addComponent(jButton11))
+                        .addGap(9, 9, 9)
+                        .addComponent(numberField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(directText, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton14))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton13))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton8))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(numberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
+                .addGap(175, 175, 175)
+                .addComponent(directText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -348,6 +437,11 @@ public class DiskpartGui extends PittiFrame
         proc.writeln("attributes volume");
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton14ActionPerformed
+    {//GEN-HEADEREND:event_jButton14ActionPerformed
+        outField.setText("");
+    }//GEN-LAST:event_jButton14ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField directText;
@@ -356,6 +450,7 @@ public class DiskpartGui extends PittiFrame
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
