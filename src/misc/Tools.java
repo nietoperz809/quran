@@ -201,6 +201,8 @@ public class Tools
     {
         List<String> result = new ArrayList<>();
         File[] files = new File(m_path).listFiles();
+        if (files == null)
+            return result;
         for (File file : files)
         {
             if (file.isFile())
