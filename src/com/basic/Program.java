@@ -19,6 +19,7 @@ package com.basic;
 
 import com.basic.streameditor.StreamingTextArea;
 import com.basic.util.RedBlackTree;
+import com.sun.speech.freetts.Voice;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -55,6 +56,8 @@ public class Program implements Runnable, Serializable
 {
     public static final long serialVersionUID = 1L;
 
+    Voice voice;  // Speech synth
+    
     public StreamingTextArea area;
     public boolean basic_prg_running = true;  // Program basic_prg_running
     public boolean thread_running = true; // Thread basic_prg_running 
@@ -76,9 +79,10 @@ public class Program implements Runnable, Serializable
     boolean traceState = false;
     PrintStream traceFile = null;
 
-    public Program(StreamingTextArea ta)
+    public Program (StreamingTextArea ta, Voice v)
     {
         area = ta;
+        voice = v;
     }
 
     void trace(boolean a)
@@ -129,7 +133,7 @@ public class Program implements Runnable, Serializable
      * @throws java.io.IOException
      * @throws com.basic.BASICSyntaxError
      */
-    public static Program load(InputStream source, PrintStream out, StreamingTextArea ar) throws IOException, BASICSyntaxError
+    public static Program load(InputStream source, PrintStream out, StreamingTextArea ar, Voice v) throws IOException, BASICSyntaxError
     {
         DataInputStream dis = null;
         dis = new DataInputStream(new BufferedInputStream(source));
@@ -138,7 +142,7 @@ public class Program implements Runnable, Serializable
         String lineData;
         Statement s;
         Token t;
-        Program result = new Program(ar);
+        Program result = new Program(ar, v);
 
         while (true)
         {
@@ -183,18 +187,22 @@ public class Program implements Runnable, Serializable
     /**
      * Load the specified file and parse the basic statements it contains.
      *
+     * @param source
+     * @param out
+     * @param ar
+     * @return 
      * @throws IOException when the filename cannot be located or opened.
      * @throws BASICSyntaxError when the file does not contain a properly formed
      * BASIC program.
      */
-    public static Program load(String source, PrintStream out, StreamingTextArea ar) throws IOException, BASICSyntaxError
+    public static Program load(String source, PrintStream out, StreamingTextArea ar, Voice v) throws IOException, BASICSyntaxError
     {
         // XXX this needs to use the SourceManager class //
         FileInputStream fis = new FileInputStream(source);
         Program r = null;
         try
         {
-            r = load(fis, out, ar);
+            r = load(fis, out, ar, v);
         }
         catch (BASICSyntaxError e)
         {
@@ -504,7 +512,9 @@ public class Program implements Runnable, Serializable
         {
             return;
         }
+        
         MidiSynthSystem.get().deleteAllTracks(); // Run MidiSynthSystem
+        
         if (out instanceof PrintStream)
         {
             pout = (PrintStream) out;

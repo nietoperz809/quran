@@ -23,7 +23,6 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     transient private Thread thread;
     CommandInterpreter ci;
 
-    
     {
         initComponents();
     }
@@ -156,7 +155,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
      */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        ci.pgm.thread_running = false;  // Force thread to end if pg runs
+        ci.basicProgram.thread_running = false;  // Force thread to end if pg runs
         StreamingTextArea st = (StreamingTextArea) area;
         st.fakeIn("bye\n");  // Force thread to end if no pg runs
     }//GEN-LAST:event_formInternalFrameClosed
@@ -181,7 +180,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        ci.pgm.basic_prg_running = false;
+        ci.basicProgram.basic_prg_running = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -204,7 +203,11 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         thread.start();
     }
 
-    private int basic()
+    /**
+     * runs the command line interpreter
+     * @return 1 if GUI closed. otherwise 0
+     */
+    private int runCLI()
     {
         if (ci == null)
         {
@@ -227,8 +230,11 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         DebugOut.get().out.println("BasicThread start");
-        if (basic() == 1)
+        if (runCLI() == 1)
+        {
+            ci.dispose();
             dispose();
+        }
         DebugOut.get().out.println("BasicThread end");
     }
 }

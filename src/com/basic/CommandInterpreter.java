@@ -18,6 +18,8 @@
 package com.basic;
 
 import com.basic.streameditor.StreamingTextArea;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,12 +39,14 @@ import misc.DebugOut;
 public class CommandInterpreter implements Serializable
 {
     public static final long serialVersionUID = 1L;
-    LexicalTokenizer lt;
-    public Program pgm;
+    LexicalTokenizer tokenizer;
+    public Program basicProgram;
 
     transient private DataInputStream inStream;
     transient private PrintStream outStream;
 
+    transient private Voice voice;
+    
     final static String commands[] =
     {
         "new", "run", "list", "cat", "del", "resume",
@@ -69,6 +73,9 @@ public class CommandInterpreter implements Serializable
      */
     public CommandInterpreter ()
     {
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        voice = voiceManager.getVoice("kevin16");
+        voice.allocate();
     }
 
     /**
@@ -190,7 +197,7 @@ public class CommandInterpreter implements Serializable
                 }
                 try
                 {
-                    pgm = Program.load(t.stringValue(), outStream, pgm.area);
+                    pgm = Program.load(t.stringValue(), outStream, pgm.area, voice);
                     outStream.println("File loaded.");
                 }
                 catch (IOException e)
@@ -309,6 +316,11 @@ public class CommandInterpreter implements Serializable
         return buff.toString();
     }
 
+    public void dispose()
+    {
+        voice.deallocate();
+    }
+    
     /**
      * Starts the interactive session. When running the user should see the
      * "Ready." prompt. The session ends when the user types the
@@ -321,13 +333,13 @@ public class CommandInterpreter implements Serializable
         inStream = new DataInputStream(area.getInputStream());
         outStream = new PrintStream(area.getOutputStream());
 
-        if (lt == null)
+        if (tokenizer == null)
         {
-            lt = new LexicalTokenizer(data);
+            tokenizer = new LexicalTokenizer(data);
         }
-        if (pgm == null)
+        if (basicProgram == null)
         {
-            pgm = new Program(area);
+            basicProgram = new Program(area, voice);
         }
 
         DataInputStream dis = inStream;
@@ -362,15 +374,15 @@ public class CommandInterpreter implements Serializable
                 continue;
             }
 
-            lt.reset(lineData);
+            tokenizer.reset(lineData);
 
-            if (!lt.hasMoreTokens())
+            if (!tokenizer.hasMoreTokens())
             {
                 DebugOut.get().out.println("no more tokens");
                 continue;
             }
 
-            Token t = lt.nextToken();
+            Token t = tokenizer.nextToken();
             switch (t.typeNum())
             {
                 /*
@@ -384,13 +396,13 @@ public class CommandInterpreter implements Serializable
                     }
                     else if (t.numValue() == CMD_NEW)
                     {
-                        pgm = new Program(area);
+                        basicProgram = new Program(area, voice);
                         System.gc();
                         break;
                     }
                     else
                     {
-                        pgm = processCommand(pgm, lt, t);
+                        basicProgram = processCommand(basicProgram, tokenizer, t);
                     }
                     outStream.println("Ready.");
                     break;
@@ -400,27 +412,27 @@ public class CommandInterpreter implements Serializable
                  * or it may be an implicit delete command.
                  */
                 case Token.CONSTANT:
-                    Token peek = lt.nextToken();
+                    Token peek = tokenizer.nextToken();
                     if (peek.typeNum() == Token.EOL)
                     {
-                        pgm.del((int) t.numValue());
+                        basicProgram.del((int) t.numValue());
                         break;
                     }
                     else
                     {
-                        lt.unGetToken();
+                        tokenizer.unGetToken();
                     }
                     try
                     {
-                        Statement s = ParseStatement.statement(lt);
+                        Statement s = ParseStatement.statement(tokenizer);
                         s.addText(lineData);
                         s.addLine((int) t.numValue());
-                        pgm.add((int) t.numValue(), s);
+                        basicProgram.add((int) t.numValue(), s);
                     }
                     catch (BASICSyntaxError e)
                     {
                         outStream.println("Syntax Error : " + e.getMsg());
-                        outStream.println(lt.showError());
+                        outStream.println(tokenizer.showError());
                         continue;
                     }
                     break;
@@ -432,13 +444,13 @@ public class CommandInterpreter implements Serializable
                 case Token.VARIABLE:
                 case Token.KEYWORD: // immediate mode
                 case Token.SYMBOL:
-                    lt.unGetToken();
+                    tokenizer.unGetToken();
                     try
                     {
-                        Statement s = ParseStatement.statement(lt);
+                        Statement s = ParseStatement.statement(tokenizer);
                         do
                         {
-                            s = s.execute(pgm, inStream, outStream);
+                            s = s.execute(basicProgram, inStream, outStream);
                         }
                         while (s != null);
 
@@ -446,7 +458,7 @@ public class CommandInterpreter implements Serializable
                     catch (BASICSyntaxError e)
                     {
                         outStream.println("Syntax Error : " + e.getMsg());
-                        outStream.println(lt.showError());
+                        outStream.println(tokenizer.showError());
                     }
                     catch (BASICRuntimeError er)
                     {

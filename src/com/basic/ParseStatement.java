@@ -15,40 +15,45 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 
-class ParseStatement extends Statement {
+class ParseStatement extends Statement
+{
 
-    private ParseStatement(int x) {
+    private ParseStatement(int x)
+    {
         super(x);
     }
 
     final static String extraError = "extra input beyond statement end";
 
     /**
-     * Here we implement the abstract methods of Statement, they all generate errors
-     * since ParseStatement isn't a "real" statement.
+     * Here we implement the abstract methods of Statement, they all generate
+     * errors since ParseStatement isn't a "real" statement.
      */
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         throw new BASICRuntimeError("Attempt to execute a statement parser object.");
     }
 
-    String unparse() {
+    String unparse()
+    {
         return "THE PARSESTATEMENT OBJECT, NOT A STATEMENT.";
     }
 
-    void trace(Program pgm, PrintStream ps) {
+    void trace(Program pgm, PrintStream ps)
+    {
         ps.println("ParseStatement");
     }
 
     /**
      * Given a 'full' tokenizer buffer, return us a parsed statement.
      */
-    static Statement statement(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Statement statement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Statement s = doParse(lt);
         // DebugOut.get().out.println("UNPARSE = '"+s.unparse()+"'");
         return s;
@@ -58,20 +63,26 @@ class ParseStatement extends Statement {
      * This method returns a parsed statemnet, it throws an exception if an
      * error occurred.
      */
-    static Statement doParse(LexicalTokenizer lt) throws BASICSyntaxError {
+    static Statement doParse(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Statement s;
-        Token   t;
+        Token t;
 
         t = lt.nextToken();
-        if (t.typeNum() == Token.SYMBOL) {
-            switch ((int) t.numValue()) {
+        if (t.typeNum() == Token.SYMBOL)
+        {
+            switch ((int) t.numValue())
+            {
                 case '?':
                     s = new PRINTStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
+                    }
 
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -79,37 +90,48 @@ class ParseStatement extends Statement {
                 case '\'':
                     s = new REMStatement(lt);
                     return s;
-                default :
+                default:
                     throw new BASICSyntaxError("Illegal statement symbol start?");
             }
         }
 
-        if (t.typeNum() == Token.KEYWORD) {
-            switch ((int) t.numValue()) {
+        if (t.typeNum() == Token.KEYWORD)
+        {
+            switch ((int) t.numValue())
+            {
                 case TRON:
                     s = new TRONStatement(lt);
                     t = lt.nextToken();
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
-                    } else if (t.typeNum() != Token.EOL)
+                    }
+                    else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
                 case TROFF:
                     s = new TROFFStatement(lt);
                     t = lt.nextToken();
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
-                    } else if (t.typeNum() != Token.EOL)
+                    }
+                    else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
                 case END:
                     s = new ENDStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL) {
+                    if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
                     }
                     return s;
@@ -118,88 +140,117 @@ class ParseStatement extends Statement {
                     s = new RANDOMIZEStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case STOP:
                     s = new STOPStatement(lt);
                     t = lt.nextToken();
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
-                    } else if (t.typeNum() != Token.EOL)
+                    }
+                    else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
-
 
                 case DIM:
                     s = new DIMStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case GOTO:
                     s = new GOTOStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case SSPEED:
                     s = new SSPEEDStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
-                    
+
                 case SLEEP:
                     s = new SLEEPStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
-                    
+
                 case GOSUB:
                     s = new GOSUBStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case NOTES:
                     s = new NOTESStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case CLS:
                     s = new CLSStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case SPLAY:
                     s = new SPLAYStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
-                    
+
                 case SCLR:
                     s = new SCLRStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
@@ -207,7 +258,9 @@ class ParseStatement extends Statement {
                     s = new RETURNStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
@@ -215,9 +268,12 @@ class ParseStatement extends Statement {
                     s = new PRINTStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
+                    }
 
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -227,9 +283,27 @@ class ParseStatement extends Statement {
                     s = new TWEETStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
+                    }
 
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
+                case SPEAK:
+                    s = new SPEAKStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
+                        return s;
+                    }
+
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -239,16 +313,21 @@ class ParseStatement extends Statement {
                     s = new IFStatement(lt);
                     t = lt.nextToken();
                     if ((t != null) && (t.typeNum() != Token.EOL))
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case DATA:
                     s = new DATAStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
+                    }
 
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -258,9 +337,12 @@ class ParseStatement extends Statement {
                     s = new SEQStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
+                    }
 
-                    if (t.isSymbol(':')) {
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -270,9 +352,13 @@ class ParseStatement extends Statement {
                     s = new RESTOREStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
@@ -280,8 +366,11 @@ class ParseStatement extends Statement {
                     s = new READStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
-                    else if (t.isSymbol(':')) {
+                    }
+                    else if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -291,9 +380,13 @@ class ParseStatement extends Statement {
                     s = new ONStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
@@ -305,9 +398,13 @@ class ParseStatement extends Statement {
                     s = new FORStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
 
                     return s;
 
@@ -315,30 +412,42 @@ class ParseStatement extends Statement {
                     s = new NEXTStatement(lt);
                     t = lt.nextToken();
                     if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
+                    }
                     else if (t.typeNum() != Token.EOL)
+                    {
                         throw new BASICSyntaxError(extraError);
+                    }
                     return s;
 
                 case LET:
                     s = new LETStatement(lt);
                     t = lt.nextToken();
                     if (t.typeNum() == Token.EOL)
+                    {
                         return s;
-                    else if (t.isSymbol(':')) {
+                    }
+                    else if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
-                    } else if (t.isSymbol(')')) {
+                    }
+                    else if (t.isSymbol(')'))
+                    {
                         throw new BASICSyntaxError("Mismatched parenthesis in LET statement.");
                     }
                     throw new BASICSyntaxError("Unexpected text following LET statement.");
 
-                case INPUT :
+                case INPUT:
                     s = new INPUTStatement(lt);
                     t = lt.nextToken();
                     if ((t == null) || (t.typeNum() == Token.EOL))
+                    {
                         return s;
-                    if (t.isSymbol(':')) {
+                    }
+                    if (t.isSymbol(':'))
+                    {
                         s.nxt = statement(lt);
                         return s;
                     }
@@ -347,13 +456,18 @@ class ParseStatement extends Statement {
                 default:
                     throw new BASICSyntaxError("Invalid keyword");
             }
-        } else if (t.typeNum() == Token.VARIABLE) {
+        }
+        else if (t.typeNum() == Token.VARIABLE)
+        {
             lt.unGetToken();
             s = new LETStatement(lt);
             t = lt.nextToken();
-            if ((t == null) || (t.typeNum() == Token.EOL)) {
+            if ((t == null) || (t.typeNum() == Token.EOL))
+            {
                 return s;
-            } else if (t.isSymbol(':')) {
+            }
+            else if (t.isSymbol(':'))
+            {
                 s.nxt = statement(lt);
                 return s;
             }
