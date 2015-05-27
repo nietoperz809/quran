@@ -25,9 +25,11 @@ public class SingleTweet extends javax.swing.JPanel
     public SingleTweet (Status st)
     {
         this();
-        mainTxt.setText(st.getText());
+        String txt = st.getText();
+        mainTxt.setText(txt);
         timeTxt.setText(st.getCreatedAt().toString());
-        userTxt.setText(st.getUser().getName());
+        userTxt.setText(st.getUser().getName()+"/"+st.getUser().getLocation());
+        miscTxt.setText (st.getSource()+" ("+txt.length()+")");
     }
     
     /**
@@ -44,6 +46,7 @@ public class SingleTweet extends javax.swing.JPanel
         mainTxt = new javax.swing.JTextArea();
         timeTxt = new javax.swing.JTextField();
         userTxt = new javax.swing.JTextField();
+        miscTxt = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 153, 0));
 
@@ -59,17 +62,20 @@ public class SingleTweet extends javax.swing.JPanel
 
         userTxt.setEditable(false);
 
+        miscTxt.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(timeTxt)
                     .addComponent(userTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(miscTxt)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +86,9 @@ public class SingleTweet extends javax.swing.JPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(miscTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -88,6 +96,7 @@ public class SingleTweet extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea mainTxt;
+    private javax.swing.JTextField miscTxt;
     private javax.swing.JTextField timeTxt;
     private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables

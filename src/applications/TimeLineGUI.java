@@ -165,11 +165,6 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
         //Tools.toClipBoard(Tools.removeHTML(view.getText()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void print(String s)
-    {
-        //view.setText ("<html>"+s+"<br></html>");
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JPanel itemPanel;
