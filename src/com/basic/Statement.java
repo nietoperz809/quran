@@ -26,7 +26,7 @@ public abstract class Statement implements Ser
         "on", "rem", "for", "to", "next", "step", "gosub",
         "goto", "let", "input", "stop", "dim", "randomize",
         "tron", "troff", "timer", "cls", "sleep", "tweet",
-        "seq", "sclr", "splay", "sspeed", "notes", "speak"
+        "seq", "sclr", "splay", "sspeed", "notes", "say"
     };
 
     /**
