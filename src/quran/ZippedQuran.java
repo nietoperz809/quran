@@ -27,7 +27,8 @@ public class ZippedQuran extends Quran
         m_zip = new ZipFile(QuranZipFile);
     }
 
-    private String[] getZipEntries()
+    @Override
+    public String[] getFileNames()
     {
         final Enumeration<? extends ZipEntry> entries = m_zip.entries();
         final ArrayList<String> names = new ArrayList<>();
@@ -38,12 +39,6 @@ public class ZippedQuran extends Quran
             names.add(entry.getName());
         }
         return names.toArray(new String[names.size()]);
-    }
-
-    @Override
-    public String[] getFileNames()
-    {
-        return getZipEntries();
     }
 
     @Override
