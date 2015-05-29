@@ -7,6 +7,7 @@ package quran;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -113,7 +114,11 @@ public class QuranMetadata implements PathNames
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        m_document = builder.parse(new File(MetaDataPath));
+
+        final String resourcesPath = "qurandata/quran-data.xml";
+        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcesPath);        
+        
+        m_document = builder.parse(stream);
         Node n = m_document.getFirstChild();
         traverseXML (n);
     }

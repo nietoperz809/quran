@@ -15,7 +15,7 @@ public interface PathNames
     /**
      * Path if qurans are accessed as single files
      */
-    public final String QuranSinglePath = "c:\\quran\\";
+    //public final String QuranSinglePath = "c:\\quran\\";
     /**
      * Path if quran recitation are used as single files
      */
@@ -23,7 +23,7 @@ public interface PathNames
     /**
      * Zip that holds the qurans
      */
-    public final String QuranZipFile = "c:\\quran\\quran.zip";
+    //public final String QuranZipFile = "c:\\quran\\quran.zip";
     /**
      * Zip that holds quran recitations
      */
@@ -31,7 +31,7 @@ public interface PathNames
     /**
      * File with quran meta data
      */
-    public final String MetaDataPath = "c:\\quran\\quran-data.xml";
+    //public final String MetaDataPath = "c:\\quran\\quran-data.xml";
     /**
      * Hadith collection
      */

@@ -17,11 +17,11 @@ import misc.DebugOut;
 import misc.HashmapSeeker;
 import misc.PittiFrame;
 import misc.Tools;
+import quran.PackageQuran;
 import quran.Quran;
 import quran.QuranMetadata;
 import quran.SeekResultGui;
 import quran.VerbalQuran;
-import quran.ZippedQuran;
 import quran.ZippedVerbalQuran;
 import twitter.TwitTools;
 
@@ -40,7 +40,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     {
         try
         {
-            m_quran = new ZippedQuran(0);
+            m_quran = new PackageQuran(0);
             m_speaker = new ZippedVerbalQuran();
         }
         catch (IOException ex)
@@ -71,7 +71,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     
     // Initializer
     {
-        m_quran = new ZippedQuran(0);
+        m_quran = new PackageQuran(0);
         m_speaker = new ZippedVerbalQuran();
         initComponents();
         fillCB();
@@ -388,10 +388,9 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
 
     private void comboboxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboboxActionPerformed
     {//GEN-HEADEREND:event_comboboxActionPerformed
-        String item = (String) combobox.getSelectedItem();
         try
         {
-            m_quran = new Quran(item);
+            m_quran = new PackageQuran(combobox.getSelectedIndex());
         }
         catch (IOException ex)
         {
