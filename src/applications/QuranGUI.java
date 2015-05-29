@@ -22,7 +22,6 @@ import quran.Quran;
 import quran.QuranMetadata;
 import quran.SeekResultGui;
 import quran.VerbalQuran;
-import quran.ZippedVerbalQuran;
 import twitter.TwitTools;
 
 /**
@@ -41,7 +40,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         try
         {
             m_quran = new PackageQuran(0);
-            m_speaker = new ZippedVerbalQuran();
+            m_speaker = new VerbalQuran();
         }
         catch (IOException ex)
         {
@@ -72,7 +71,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     // Initializer
     {
         m_quran = new PackageQuran(0);
-        m_speaker = new ZippedVerbalQuran();
+        m_speaker = new VerbalQuran();
         initComponents();
         fillCB();
         showText();
