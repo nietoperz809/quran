@@ -25,22 +25,9 @@ import misc.PathNames;
 public class VerbalQuran implements Runnable, PathNames
 {
     private ThreadParam param;
-    private final ZipFile m_zipFile;
 
-    public VerbalQuran() throws IOException
+    public VerbalQuran()
     {
-        final String resourcesPath = "quranvoice/000_versebyverse-1.zip";
-        URL url = Thread.currentThread().getContextClassLoader().getResource(resourcesPath);
-        File f;
-        try
-        {
-            f = new File(url.toURI());
-        }
-        catch (URISyntaxException e)
-        {
-            f = new File(url.getPath());
-        }
-        m_zipFile = new ZipFile(f);
     }
 
     class ThreadParam
@@ -72,7 +59,7 @@ public class VerbalQuran implements Runnable, PathNames
     public InputStream load(int sura, int aya) throws Exception
     {
         String pathToMp3 = String.format("%03d%03d%s", sura, aya, ".mp3");
-        return m_zipFile.getInputStream(new ZipEntry(pathToMp3));
+        return ClassLoader.getSystemResourceAsStream(pathToMp3);
     }
 
     public Player loadAya(int sura, int aya)

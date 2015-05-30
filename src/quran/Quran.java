@@ -5,7 +5,6 @@
  */
 package quran;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import misc.PathNames;
 public abstract class Quran implements PathNames
 {
     protected final HashMap<String, String> m_map = new HashMap<>();
-    //protected final String m_path = "c:\\quran\\";
     protected final Charset ENCODING = StandardCharsets.UTF_8;
     
     static final String[] m_files =
@@ -50,7 +48,7 @@ public abstract class Quran implements PathNames
         "ar.muyassar.txt",
     };
 
-    public Quran(int idx) throws IOException
+    public Quran(int idx)
     {
         readFile (m_files[idx]);
     }
@@ -82,7 +80,7 @@ public abstract class Quran implements PathNames
         }
     }
     
-    protected abstract void readFile (String filename) throws IOException;
+    protected abstract void readFile (String filename);
 //    {
 //        Scanner scanner = new Scanner (new File(QuranSinglePath + filename), ENCODING.name());
 //        scan (scanner);

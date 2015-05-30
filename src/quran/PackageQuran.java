@@ -25,8 +25,12 @@ public class PackageQuran extends Quran
 //        readFile (item);
 //    }
     
+    /**
+     *
+     * @param filename
+     */
     @Override
-    protected void readFile (String filename) throws IOException
+    protected void readFile (String filename) 
     {
         InputStream in = ClassLoader.getSystemResourceAsStream(filename);        
 
