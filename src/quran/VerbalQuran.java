@@ -5,9 +5,14 @@
  */
 package quran;
 
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import misc.DebugOut;
@@ -20,6 +25,23 @@ import misc.PathNames;
 public class VerbalQuran implements Runnable, PathNames
 {
     private ThreadParam param;
+    private final ZipFile m_zipFile;
+
+    public VerbalQuran() throws IOException
+    {
+        final String resourcesPath = "quranvoice/000_versebyverse-1.zip";
+        URL url = Thread.currentThread().getContextClassLoader().getResource(resourcesPath);
+        File f;
+        try
+        {
+            f = new File(url.toURI());
+        }
+        catch (URISyntaxException e)
+        {
+            f = new File(url.getPath());
+        }
+        m_zipFile = new ZipFile(f);
+    }
 
     class ThreadParam
     {
@@ -33,7 +55,7 @@ public class VerbalQuran implements Runnable, PathNames
         }
     }
 
-    protected Player getPlayer(InputStream i) throws JavaLayerException
+    public Player getPlayer(InputStream i) throws JavaLayerException
     {
         Player p = new Player(i);
         p.play(1);
@@ -49,20 +71,20 @@ public class VerbalQuran implements Runnable, PathNames
      */
     public InputStream load(int sura, int aya) throws Exception
     {
-        String pathToMp3 = String.format("%s%03d%03d%s", QuranSpeakerPath, sura, aya, ".mp3");
-        return new FileInputStream(pathToMp3);
+        String pathToMp3 = String.format("%03d%03d%s", sura, aya, ".mp3");
+        return m_zipFile.getInputStream(new ZipEntry(pathToMp3));
     }
 
-    protected Player loadAya(int sura, int aya)
+    public Player loadAya(int sura, int aya)
     {
         try
         {
-            InputStream f = load (sura, aya);
+            InputStream f = load(sura, aya);
             return getPlayer(f);
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println (ex);
+            DebugOut.get().out.println(ex);
         }
         return null;
     }

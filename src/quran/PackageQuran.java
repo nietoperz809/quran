@@ -28,11 +28,9 @@ public class PackageQuran extends Quran
     @Override
     protected void readFile (String filename) throws IOException
     {
-        final String resourcesPath = "qurandata/"+filename;
-        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcesPath);        
-        //System.out.println(stream);
+        InputStream in = ClassLoader.getSystemResourceAsStream(filename);        
 
-        Scanner scanner = new Scanner (stream, ENCODING.name());
+        Scanner scanner = new Scanner (in, ENCODING.name());
         scan (scanner);
     }
     
