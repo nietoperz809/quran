@@ -17,7 +17,6 @@ import misc.DebugOut;
 import misc.HashmapSeeker;
 import misc.PittiFrame;
 import misc.Tools;
-import quran.PackageQuran;
 import quran.Quran;
 import quran.QuranMetadata;
 import quran.SeekResultGui;
@@ -37,17 +36,10 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     @Override
     public void initAfterDeserialization()
     {
-        try
-        {
-            m_quran = new PackageQuran(0);
-            m_speaker = new VerbalQuran();
-        }
-        catch (IOException ex)
-        {
-            DebugOut.get().out.println (ex);
-        }
+        m_quran = new Quran(0);
+        m_speaker = new VerbalQuran();
     }
-    
+
     class Verse
     {
         public int sura;
@@ -64,13 +56,14 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
 
     private void setSelectedVerse(int sura, int aya)
     {
-        tf_sura.setText(""+sura);
-        tf_aya.setText(""+aya);
+        tf_sura.setText("" + sura);
+        tf_aya.setText("" + aya);
     }
-    
+
     // Initializer
+    
     {
-        m_quran = new PackageQuran(0);
+        m_quran = new Quran(0);
         m_speaker = new VerbalQuran();
         initComponents();
         fillCB();
@@ -81,9 +74,10 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     {
         ComboBoxTools.pollute(combobox, m_quran.getFileNames());
     }
-    
+
     /**
      * Creates new form NewJInternalFrame
+     *
      * @throws java.io.IOException
      */
     public QuranGUI() throws IOException
@@ -91,39 +85,41 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         ComboBoxTools.pollute(combobox, m_quran.getFileNames());
     }
 
-    private String getSuraHeader (int sura)
+    private String getSuraHeader(int sura)
     {
         try
         {
             QuranMetadata dat = QuranMetadata.get();
             if (sura == - 1)
+            {
                 sura = getSelectedVerse().sura;
+            }
             QuranMetadata.SuraInfo info = dat.getSuraInfo(sura);
-            return "I:"+info.index + "|O:" + info.order + "|" + "S:" + info.ayas + "|" + 
-                    info.ename + "|" + info.name + "|" + info.tname + "|" + info.type;
+            return "I:" + info.index + "|O:" + info.order + "|" + "S:" + info.ayas + "|"
+                    + info.ename + "|" + info.name + "|" + info.tname + "|" + info.type;
         }
         catch (Exception ex)
         {
             return null;
         }
     }
-    
+
     private String loadText() throws Exception
     {
         Verse v = getSelectedVerse();
-        infoText.setText (getSuraHeader(v.sura));
+        infoText.setText(getSuraHeader(v.sura));
         return m_quran.getAya(v.sura, v.aya);
     }
 
-    public void display (String sa)
+    public void display(String sa)
     {
         String[] sp = sa.split(Pattern.quote("|"));
         int s = Integer.parseInt(sp[0]);
         int a = Integer.parseInt(sp[1]);
-        setSelectedVerse (s,a);
+        setSelectedVerse(s, a);
         showText();
     }
-    
+
     private void showText()
     {
         try
@@ -387,14 +383,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
 
     private void comboboxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboboxActionPerformed
     {//GEN-HEADEREND:event_comboboxActionPerformed
-        try
-        {
-            m_quran = new PackageQuran(combobox.getSelectedIndex());
-        }
-        catch (IOException ex)
-        {
-            return;
-        }
+        m_quran = new Quran(combobox.getSelectedIndex());
         showText();
     }//GEN-LAST:event_comboboxActionPerformed
 
@@ -449,7 +438,8 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
 
     /**
      * Tweet the current verse
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
@@ -461,13 +451,14 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println (ex);
+            DebugOut.get().out.println(ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     /**
      * Put verse into clipboard
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
@@ -482,10 +473,11 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     /**
      * Next Sura
-     * @param evt 
+     *
+     * @param evt
      */
     private void upButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_upButton1ActionPerformed
     {//GEN-HEADEREND:event_upButton1ActionPerformed
@@ -501,10 +493,11 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         tf_sura.setText("" + (v.sura + 1));
         showText();
     }//GEN-LAST:event_upButton1ActionPerformed
-    
+
     /**
      * Previous Sura
-     * @param evt 
+     *
+     * @param evt
      */
     private void downButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_downButton1ActionPerformed
     {//GEN-HEADEREND:event_downButton1ActionPerformed
@@ -529,15 +522,17 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     {//GEN-HEADEREND:event_seekButtonActionPerformed
         String text = seekText.getText();
         if (text.length() < 3)
+        {
             return;
+        }
         HashMap<String, String> map = this.m_quran.getMap();
-        HashmapSeeker seeker = new HashmapSeeker (map);
-        
-        String[] res = seeker.seek (text);
+        HashmapSeeker seeker = new HashmapSeeker(map);
 
-        SeekResultGui sr = new SeekResultGui (this, text, res);
+        String[] res = seeker.seek(text);
+
+        SeekResultGui sr = new SeekResultGui(this, text, res);
         seekResults.add(sr);
-        this.getDesktopPane().add (sr);
+        this.getDesktopPane().add(sr);
         sr.moveToFront();
     }//GEN-LAST:event_seekButtonActionPerformed
 
@@ -553,7 +548,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
     {//GEN-HEADEREND:event_jButton4ActionPerformed
         try
         {
-            Tools.serialize (saveName.getText(), this);
+            Tools.serialize(saveName.getText(), this);
         }
         catch (Exception ex)
         {

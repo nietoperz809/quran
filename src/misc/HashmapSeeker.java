@@ -24,13 +24,15 @@ public class HashmapSeeker
     
     public String[] seek (String what)
     {
+        final String low = what.toLowerCase();
         Vector<String> result = new Vector<>();
 
         m_map.entrySet().stream().forEach((entry) -> 
         {
             String key = entry.getKey();
-            String value = entry.getValue();
-            if (value.contains(what))
+            //System.out.println(entry.getKey()+"---"+entry.getValue());
+            String value = entry.getValue().toLowerCase();
+            if (value.contains(low))
                 result.add(key);
         });
         

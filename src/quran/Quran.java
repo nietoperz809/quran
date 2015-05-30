@@ -5,6 +5,7 @@
  */
 package quran;
 
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import misc.PathNames;
  *
  * @author Administrator
  */
-public abstract class Quran implements PathNames
+public class Quran implements PathNames
 {
     protected final HashMap<String, String> m_map = new HashMap<>();
     protected final Charset ENCODING = StandardCharsets.UTF_8;
@@ -80,12 +81,14 @@ public abstract class Quran implements PathNames
         }
     }
     
-    protected abstract void readFile (String filename);
-//    {
-//        Scanner scanner = new Scanner (new File(QuranSinglePath + filename), ENCODING.name());
-//        scan (scanner);
-//    }
+    public void readFile (String filename)
+    {
+        InputStream in = ClassLoader.getSystemResourceAsStream(filename);        
 
+        Scanner scanner = new Scanner (in, ENCODING.name());
+        scan (scanner);
+    }
+    
     public String getAya(String key) throws Exception
     {
         String v = m_map.get(key); 
