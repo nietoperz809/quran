@@ -85,7 +85,7 @@ public class Token implements Serializable
     /**
      * Token contains a numeric variable name (string value)
      */
-    final static int NUMERIC_VARIABLE = 9;
+    //final static int NUMERIC_VARIABLE = 9;
 
     /**
      * Token contains a boolean operator

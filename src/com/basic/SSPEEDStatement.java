@@ -6,8 +6,6 @@ package com.basic;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.midi.InvalidMidiDataException;
 import midisystem.MidiSynthSystem;
 

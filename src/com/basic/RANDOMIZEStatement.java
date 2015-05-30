@@ -27,11 +27,13 @@ import java.io.PrintStream;
  * The RANDOMIZE statement seeds the random number generator. Syntax is:
  *      RANDOMIZE
  */
-class RANDOMIZEStatement extends Statement {
+class RANDOMIZEStatement extends Statement 
+{
     Expression nExpn;
     boolean useTimeOfDay = false;
 
-    RANDOMIZEStatement(LexicalTokenizer lt) throws BASICSyntaxError {
+    RANDOMIZEStatement(LexicalTokenizer lt) throws BASICSyntaxError 
+    {
         super(RANDOMIZE);
         Token t = lt.nextToken();
         switch (t.typeNum()) {

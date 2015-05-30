@@ -185,6 +185,15 @@ class ParseStatement extends Statement
                     }
                     return s;
 
+                case PITCH:
+                    s = new PITCHStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                    {
+                        throw new BASICSyntaxError(extraError);
+                    }
+                    return s;
+                    
                 case SSPEED:
                     s = new SSPEEDStatement(lt);
                     t = lt.nextToken();

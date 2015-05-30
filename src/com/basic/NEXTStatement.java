@@ -128,7 +128,8 @@ class NEXTStatement extends Statement {
          * Do NEXT statements *require* a variable? In many BASIC implementations
          * the variable is optional.
          */
-        if (t.typeNum() != Token.VARIABLE) {
+        if (t.typeNum() != Token.VARIABLE) 
+        {
             lt.unGetToken();
             return;
 //          throw new BASICSyntaxError("NEXT requires a variable");
