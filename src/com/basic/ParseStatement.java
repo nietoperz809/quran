@@ -193,6 +193,16 @@ class ParseStatement extends Statement
                         throw new BASICSyntaxError(extraError);
                     }
                     return s;
+
+                case RATE:
+                    s = new RATEStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != Token.EOL)
+                    {
+                        throw new BASICSyntaxError(extraError);
+                    }
+                    return s;
+                    
                     
                 case SSPEED:
                     s = new SSPEEDStatement(lt);

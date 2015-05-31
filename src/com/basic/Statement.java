@@ -27,7 +27,7 @@ public abstract class Statement implements Ser
         "goto", "let", "input", "stop", "dim", "randomize",
         "tron", "troff", "timer", "cls", "sleep", "tweet",
         "seq", "sclr", "splay", "sspeed", "notes", "say",
-        "pitch"
+        "pitch", "rate"
     };
 
     /**
@@ -70,6 +70,7 @@ public abstract class Statement implements Ser
     final static int NOTES = 34;
     final static int SPEAK = 35;
     final static int PITCH = 36;
+    final static int RATE = 37;
     
     protected int keyword; // type of statement
     // type of statement
