@@ -5,6 +5,7 @@
  */
 package misc;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
@@ -22,9 +23,10 @@ public class HashmapSeeker
         m_map = m;
     }
     
-    public String[] seek (String what)
+    public String[] seek (String what) throws UnsupportedEncodingException
     {
-        final String low = what.toLowerCase();
+        byte[] bytes = what.toLowerCase().getBytes();
+        final String low = new String (bytes, "UTF-8");
         Vector<String> result = new Vector<>();
 
         m_map.entrySet().stream().forEach((entry) -> 
