@@ -11,7 +11,7 @@ package com.basic;
  */
 public enum KeyWords
 {
-    NONE("ONE"),
+    NONE("*NONE*"),
     GOTO("goto"),
     GOSUB("gosub"),
     RETURN("return"),

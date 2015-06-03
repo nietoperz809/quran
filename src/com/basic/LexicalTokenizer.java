@@ -524,6 +524,7 @@ public class LexicalTokenizer implements Serializable
             q.append(buffer[currentPos++]);
         }
         String t = q.toString();
+        //
         /* Is it a function name ? */
         for (int i = 0; i < FunctionExpression.functions.length; i++)
         {
@@ -533,11 +534,11 @@ public class LexicalTokenizer implements Serializable
             }
         }
         /* Is it a BASIC keyword ? */
-        for (int i = 0; i < Statement.keywords.length; i++)
+        for (int i = 0; i < KeyWords.values().length; i++)
         {
-            if (t.compareTo(Statement.keywords[i]) == 0)
+            if (t.compareTo(KeyWords.values()[i].toString()) == 0)
             {
-                return new Token(Token.KEYWORD, Statement.keywords[i], i);
+                return new Token(Token.KEYWORD, KeyWords.values()[i].toString(), i);
             }
         }
         /* Is it a command ? */
