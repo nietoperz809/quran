@@ -8,8 +8,11 @@ package applications;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
@@ -528,7 +531,16 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         HashMap<String, String> map = this.m_quran.getMap();
         HashmapSeeker seeker = new HashmapSeeker(map);
 
-        String[] res = seeker.seek(text);
+        String[] res;
+        try
+        {
+            res = seeker.seek(text);
+        }
+        catch (UnsupportedEncodingException ex)
+        {
+            Logger.getLogger(QuranGUI.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
 
         SeekResultGui sr = new SeekResultGui(this, text, res);
         seekResults.add(sr);
