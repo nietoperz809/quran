@@ -123,6 +123,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -289,6 +290,16 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
         fileMenu.add(jMenuItem16);
+
+        jMenuItem17.setText("Webserver");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem17);
 
         menuBar.add(fileMenu);
 
@@ -460,6 +471,11 @@ public class MainWindow extends javax.swing.JFrame
         createMDIChild (applications.DiskpartGui.class);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem17ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem17ActionPerformed
+        createMDIChild (applications.WebServerGUI.class);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -490,6 +506,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

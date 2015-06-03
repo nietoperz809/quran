@@ -5,31 +5,66 @@
  */
 package webserver;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Administrator
  */
-public class Sockserver 
+public class Sockserver implements Runnable
 {
-    private static void startServer(int port) throws Exception
+    int port;
+    String basePath;
+    ServerSocket server;
+    
+    public Sockserver (int p, String s)
     {
-        ServerSocket serverSocket = new ServerSocket(port);
-        
-        while (true)
+        port = p;
+        basePath = s;
+    }
+    
+    public void halt()
+    {
+        try
         {
-            Socket sock = serverSocket.accept();
-            new Client (sock, "F:\\");
+            server.close();
+            server = null;
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Sockserver.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public static void main(String[] args) throws Exception
     {
-        //pTest();
-        startServer(80);
+        Sockserver s = new Sockserver (80, "F:\\"); 
+        Thread t = new Thread(s);
+        t.start();
+        Thread.sleep(3000);
+        s.halt();
+    }
+
+    @Override
+    public void run()
+    {
+        try
+        {
+            server = new ServerSocket(port);
+            
+            while (true)
+            {
+                Socket sock = server.accept();
+                new Client (sock, basePath);
+            }
+        }
+        catch (IOException ex)
+        {
+            System.err.println("bye (socket closed)");
+        }
     }
 }
