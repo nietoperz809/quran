@@ -44,7 +44,7 @@ class TWEETStatement extends Statement
 
     TWEETStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(TWEET);
+        super(KeyWords.TWEET);
         parse(this, lt);
     }
 

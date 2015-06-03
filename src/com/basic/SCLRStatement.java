@@ -22,7 +22,7 @@ class SCLRStatement extends Statement
      */
     SCLRStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(SCLR);
+        super(KeyWords.SCLR);
     }
 
     @Override

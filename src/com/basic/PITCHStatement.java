@@ -18,7 +18,7 @@ public class PITCHStatement extends Statement
 
     PITCHStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(PITCH);
+        super(KeyWords.PITCH);
         Token t = lt.nextToken();
         switch (t.typeNum())
         {

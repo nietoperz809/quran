@@ -37,7 +37,7 @@ import java.io.PrintStream;
 class STOPStatement extends Statement {
 
     STOPStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(STOP);
+        super(KeyWords.STOP);
     }
 
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {

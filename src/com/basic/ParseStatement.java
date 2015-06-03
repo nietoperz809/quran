@@ -23,7 +23,7 @@ import java.io.PrintStream;
 class ParseStatement extends Statement
 {
 
-    private ParseStatement(int x)
+    private ParseStatement(KeyWords x)
     {
         super(x);
     }
@@ -97,7 +97,7 @@ class ParseStatement extends Statement
 
         if (t.typeNum() == Token.KEYWORD)
         {
-            switch ((int) t.numValue())
+            switch (KeyWords.values()[(int)t.numValue()])       //((int) t.numValue())
             {
                 case TRON:
                     s = new TRONStatement(lt);

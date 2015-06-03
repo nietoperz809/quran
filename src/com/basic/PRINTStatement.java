@@ -43,7 +43,7 @@ class PRINTStatement extends Statement
 
     PRINTStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(PRINT);
+        super(KeyWords.PRINT);
         parse(this, lt);
     }
 

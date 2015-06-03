@@ -24,7 +24,7 @@ class SPLAYStatement extends Statement
      */
     SPLAYStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(SPLAY);
+        super(KeyWords.SPLAY);
         Token t = lt.nextToken();
         if (t.type == Token.EOL)
             return;

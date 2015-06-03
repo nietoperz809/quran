@@ -42,7 +42,7 @@ class NEXTStatement extends Statement {
     Variable myVar;
 
     NEXTStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(NEXT);
+        super(KeyWords.NEXT);
 
         parse(this, lt);
     }

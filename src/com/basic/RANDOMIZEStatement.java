@@ -34,7 +34,7 @@ class RANDOMIZEStatement extends Statement
 
     RANDOMIZEStatement(LexicalTokenizer lt) throws BASICSyntaxError 
     {
-        super(RANDOMIZE);
+        super(KeyWords.RANDOMIZE);
         Token t = lt.nextToken();
         switch (t.typeNum()) {
             case Token.OPERATOR:
@@ -43,7 +43,7 @@ class RANDOMIZEStatement extends Statement
                 lt.unGetToken();
                 nExpn = ParseExpression.expression(lt);
             case Token.KEYWORD:
-                if (t.numValue() != TIMER)
+                if (t.numValue() != KeyWords.TIMER.ordinal())
                     throw new BASICSyntaxError("Badly formed randomize statement.");
                 useTimeOfDay = true;
             default:

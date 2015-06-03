@@ -528,7 +528,7 @@ public class Program implements Runnable, Serializable
         while (e.hasMoreElements())
         {
             s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
-            if (s.keyword == Statement.DATA)
+            if (s.keyword == KeyWords.DATA)
             {
                 s.execute(this, in, pout);
             }
@@ -549,7 +549,7 @@ public class Program implements Runnable, Serializable
         }
         do
         {
-            Thread.yield();   // Let others run
+            //Thread.yield();   // Let others run
             if (!basic_prg_running)
             {
                 basic_prg_running = true;
@@ -562,7 +562,7 @@ public class Program implements Runnable, Serializable
                 thread_running = true;
                 throw new Exception("Basic Thread forced to stop");
             }
-            if (s.keyword != Statement.DATA)
+            if (s.keyword != KeyWords.DATA)
             {
                 if (traceState)
                 {
@@ -655,7 +655,7 @@ public class Program implements Runnable, Serializable
         Statement s;
 
         s = pop();
-        if ((s == null) || (s.keyword != Statement.STOP))
+        if ((s == null) || (s.keyword != KeyWords.STOP))
         {
             throw new BASICRuntimeError("This program was not previously stopped.");
         }
@@ -697,7 +697,7 @@ public class Program implements Runnable, Serializable
                 push(s);
                 break;
             }
-            if (s.keyword != Statement.DATA)
+            if (s.keyword != KeyWords.DATA)
             {
                 if (traceState)
                 {

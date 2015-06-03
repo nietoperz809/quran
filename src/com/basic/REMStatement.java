@@ -23,25 +23,28 @@ import java.io.PrintStream;
 /**
  * The REM Statement
  *
- * The REMark statement is used to insert comments into the source code.
- * All text after the REM keyword, up to the end of line, is ignored by
- * the interpreter. The syntax for the statement is:
- *      REM comment text
+ * The REMark statement is used to insert comments into the source code. All
+ * text after the REM keyword, up to the end of line, is ignored by the
+ * interpreter. The syntax for the statement is: REM comment text
  */
-class REMStatement extends Statement {
+class REMStatement extends Statement
+{
     String comment;
 
-    REMStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(REM);
+    REMStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
+        super(KeyWords.REM);
 
         comment = lt.asString();
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
-        return " REM "+comment;
+    String unparse()
+    {
+        return " REM " + comment;
     }
 }

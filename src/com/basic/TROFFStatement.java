@@ -30,7 +30,7 @@ import java.io.PrintStream;
 class TROFFStatement extends Statement {
 
     TROFFStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(TROFF);
+        super(KeyWords.TROFF);
     }
 
     Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {

@@ -35,7 +35,7 @@ class TRONStatement extends Statement {
     Expression traceFile;
 
     TRONStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(TRON);
+        super(KeyWords.TRON);
 
         parse(this, lt);
     }

@@ -39,7 +39,7 @@ class DATAStatement extends Statement
 
     DATAStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(DATA);
+        super(KeyWords.DATA);
 
         parse(this, lt);
     }

@@ -18,7 +18,7 @@ class SSPEEDStatement extends Statement
 
     SSPEEDStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(SSPEED);
+        super(KeyWords.SSPEED);
 
         parse(this, lt);
     }

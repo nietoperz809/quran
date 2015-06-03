@@ -43,7 +43,7 @@ class LETStatement extends Statement {
     Expression nExp;
 
     LETStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(LET);
+        super(KeyWords.LET);
 
         parse(this, lt);
     }

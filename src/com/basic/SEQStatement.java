@@ -16,7 +16,7 @@ class SEQStatement extends Statement
     
     SEQStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(SEQ);
+        super(KeyWords.SEQ);
 
         parse(this, lt);
     }

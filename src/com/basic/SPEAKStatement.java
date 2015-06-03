@@ -42,7 +42,7 @@ class SPEAKStatement extends Statement
 
     SPEAKStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(SPEAK);
+        super(KeyWords.SPEAK);
         parse(this, lt);
     }
 

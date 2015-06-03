@@ -21,7 +21,7 @@ class CLSStatement extends Statement
      */
     CLSStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(CLS);
+        super(KeyWords.CLS);
     }
 
     @Override

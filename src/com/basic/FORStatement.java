@@ -52,7 +52,7 @@ class FORStatement extends Statement
 
     FORStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(FOR);
+        super(KeyWords.FOR);
 
         parse(this, lt);
     }
@@ -128,14 +128,14 @@ class FORStatement extends Statement
         s.nExp = ParseExpression.expression(lt);
         noBool(s.nExp);
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != TO))
+        if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != KeyWords.TO.ordinal()))
         {
             throw new BASICSyntaxError("Missing TO in FOR statement.");
         }
         s.eExp = ParseExpression.expression(lt);
         noBool(s.eExp);
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != STEP))
+        if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != KeyWords.STEP.ordinal()))
         {
             lt.unGetToken();
             s.sExp = new ConstantExpression(1.0);

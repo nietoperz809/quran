@@ -16,7 +16,7 @@ class SLEEPStatement extends Statement
 
     SLEEPStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(SLEEP);
+        super(KeyWords.SLEEP);
         parse(this, lt);
     }
 

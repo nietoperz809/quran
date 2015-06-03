@@ -38,7 +38,7 @@ class RETURNStatement extends Statement
 
     RETURNStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(RETURN);
+        super(KeyWords.RETURN);
     }
 
     @Override
@@ -50,7 +50,7 @@ class RETURNStatement extends Statement
             do
             {
                 s = pgm.pop();
-                if ((s.keyword == GOSUB) || (s.keyword == ON_GOSUB))
+                if ((s.keyword == KeyWords.GOSUB) || (s.keyword == KeyWords.ON_GOSUB))
                 {
                     break;
                 }

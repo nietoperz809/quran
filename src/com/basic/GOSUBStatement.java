@@ -45,7 +45,7 @@ class GOSUBStatement extends Statement {
     int lineTarget;
 
     GOSUBStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(GOSUB);
+        super(KeyWords.GOSUB);
 
         parse(this, lt);
     }

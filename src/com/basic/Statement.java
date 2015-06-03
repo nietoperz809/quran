@@ -30,49 +30,49 @@ public abstract class Statement implements Ser
         "pitch", "rate"
     };
 
-    /**
-     * This constants should match the indexes of the above keywords.
-     */
-    final static int NONE = 0; // invalid statement
-    final static int GOTO = 1;
-    final static int GOSUB = 2;
-    final static int RETURN = 3;
-    final static int PRINT = 4;
-    final static int IF = 5;
-    final static int THEN = 6;
-    final static int END = 7;
-    final static int DATA = 8;
-    final static int RESTORE = 9;
-    final static int READ = 10;
-    final static int ON = 11;
-    final static int REM = 12;
-    final static int FOR = 13;
-    final static int TO = 14;
-    final static int NEXT = 15;
-    final static int STEP = 16;
-    final static int ON_GOSUB = 17;
-    final static int ON_GOTO = 18;
-    final static int LET = 19;
-    final static int INPUT = 20;
-    final static int STOP = 21;
-    final static int DIM = 22;
-    final static int RANDOMIZE = 23;
-    final static int TRON = 24;
-    final static int TROFF = 25;
-    final static int TIMER = 26; // not a real statement
-    final static int CLS = 27;
-    final static int SLEEP = 28;
-    final static int TWEET = 29;
-    final static int SEQ = 30;
-    final static int SCLR = 31;
-    final static int SPLAY = 32;
-    final static int SSPEED = 33;
-    final static int NOTES = 34;
-    final static int SPEAK = 35;
-    final static int PITCH = 36;
-    final static int RATE = 37;
-    
-    protected int keyword; // type of statement
+//    /**
+//     * This constants should match the indexes of the above keywords.
+//     */
+//    final static int NONE = 0; // invalid statement
+//    final static int GOTO = 1;
+//    final static int GOSUB = 2;
+//    final static int RETURN = 3;
+//    final static int PRINT = 4;
+//    final static int IF = 5;
+//    final static int THEN = 6;
+//    final static int END = 7;
+//    final static int DATA = 8;
+//    final static int RESTORE = 9;
+//    final static int READ = 10;
+//    final static int ON = 11;
+//    final static int REM = 12;
+//    final static int FOR = 13;
+//    final static int TO = 14;
+//    final static int NEXT = 15;
+//    final static int STEP = 16;
+//    final static int ON_GOSUB = 17;
+//    final static int ON_GOTO = 18;
+//    final static int LET = 19;
+//    final static int INPUT = 20;
+//    final static int STOP = 21;
+//    final static int DIM = 22;
+//    final static int RANDOMIZE = 23;
+//    final static int TRON = 24;
+//    final static int TROFF = 25;
+//    final static int TIMER = 26; // not a real statement
+//    final static int CLS = 27;
+//    final static int SLEEP = 28;
+//    final static int TWEET = 29;
+//    final static int SEQ = 30;
+//    final static int SCLR = 31;
+//    final static int SPLAY = 32;
+//    final static int SSPEED = 33;
+//    final static int NOTES = 34;
+//    final static int SPEAK = 35;
+//    final static int PITCH = 36;
+//    final static int RATE = 37;
+//    
+    protected KeyWords keyword; // type of statement
     // type of statement
     protected int line;
     private String orig; // original string that was parsed into this statement.
@@ -84,8 +84,9 @@ public abstract class Statement implements Ser
 
     /**
      * Construct a new statement object with a valid key.
+     * @param key
      */
-    protected Statement(int key)
+    protected Statement(KeyWords key)
     {
         keyword = key;
     }

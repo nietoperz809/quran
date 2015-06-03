@@ -55,7 +55,7 @@ class INPUTStatement extends Statement {
      * Construct a new INPUT statement object.
      */
     INPUTStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(INPUT);
+        super(KeyWords.INPUT);
         parse(this, lt);
     }
 

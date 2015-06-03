@@ -5,7 +5,6 @@
  */
 package com.basic;
 
-import static com.basic.Statement.RATE;
 import java.io.InputStream;
 import java.io.PrintStream;
 
@@ -19,7 +18,7 @@ public class RATEStatement extends Statement
 
     RATEStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(RATE);
+        super(KeyWords.RATE);
         Token t = lt.nextToken();
         switch (t.typeNum())
         {

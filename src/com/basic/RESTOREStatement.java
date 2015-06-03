@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.InputStream;
@@ -24,33 +23,33 @@ import java.io.PrintStream;
 /**
  * The RESTORE statement.
  *
- * The RESTORE statement resets the data cache to the beginning. Normally
- * READ statements read declared data values in sequence until there are
- * no more values to be read, however executing a RESTORE statement will
- * reset the 'data values read' pointer back to the first declared data
- * value.
+ * The RESTORE statement resets the data cache to the beginning. Normally READ
+ * statements read declared data values in sequence until there are no more
+ * values to be read, however executing a RESTORE statement will reset the 'data
+ * values read' pointer back to the first declared data value.
  *
- * Syntax:
- *      RESTORE
+ * Syntax: RESTORE
  *
- * Syntax Errors:
- *      Extra stuff past the end of the statement.
+ * Syntax Errors: Extra stuff past the end of the statement.
  *
- * Runtime Errors:
- *      None.
+ * Runtime Errors: None.
  */
-class RESTOREStatement extends Statement {
+class RESTOREStatement extends Statement
+{
 
-    RESTOREStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(RESTORE);
+    RESTOREStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
+        super(KeyWords.RESTORE);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         pgm.resetData();
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
+    String unparse()
+    {
         return "RESTORE";
     }
 

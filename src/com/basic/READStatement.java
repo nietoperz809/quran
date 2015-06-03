@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.InputStream;
@@ -25,56 +24,70 @@ import java.util.Vector;
 /**
  * The READ Statement
  *
- * The READ statement fills variables with preloaded values. These
- * values are preloaded into a FIFO queue using DATA statements.
- * The syntax of the READ statement is :
- *      READ var1, var2, ... varN
+ * The READ statement fills variables with preloaded values. These values are
+ * preloaded into a FIFO queue using DATA statements. The syntax of the READ
+ * statement is : READ var1, var2, ... varN
  *
- * Syntax Errors:
- *      Malformed READ statement.
+ * Syntax Errors: Malformed READ statement.
  *
- * Runtime Errors:
- *      Out of data.
- *      Type mismatch on read data.
+ * Runtime Errors: Out of data. Type mismatch on read data.
  */
-class READStatement extends Statement {
+class READStatement extends Statement
+{
 
     Vector args;
 
-    READStatement(LexicalTokenizer lt) throws BASICSyntaxError {
-        super(READ);
+    READStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
+        super(KeyWords.READ);
 
         parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
-        for (int i = 0; i < args.size(); i++) {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
+        for (int i = 0; i < args.size(); i++)
+        {
             Variable vi;
             Token q = pgm.popData();
             if (q == null)
+            {
                 throw new BASICRuntimeError("READ statement is out of data.");
+            }
             vi = (Variable) args.elementAt(i);
-            if (! vi.isString()) {
+            if (!vi.isString())
+            {
                 if (q.typeNum() != Token.CONSTANT)
-                    throw new BASICRuntimeError("Type mismatch reading variable "+vi);
+                {
+                    throw new BASICRuntimeError("Type mismatch reading variable " + vi);
+                }
                 pgm.setVariable(vi, q.numValue());
-            } else {
+            }
+            else
+            {
                 if (q.typeNum() != Token.STRING)
-                    throw new BASICRuntimeError("Type mismatch reading variable "+vi);
+                {
+                    throw new BASICRuntimeError("Type mismatch reading variable " + vi);
+                }
                 pgm.setVariable(vi, q.stringValue());
             }
         }
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
+    String unparse()
+    {
         StringBuffer sb = new StringBuffer();
         sb.append("READ ");
-        for (int i = 0; i < args.size(); i++) {
+        for (int i = 0; i < args.size(); i++)
+        {
             Variable vi = (Variable) args.elementAt(i);
-            if (i < (args.size()-1)) {
-                sb.append(vi.unparse()+", ");
-            } else {
+            if (i < (args.size() - 1))
+            {
+                sb.append(vi.unparse() + ", ");
+            }
+            else
+            {
                 sb.append(vi.unparse());
             }
         }
@@ -84,28 +97,36 @@ class READStatement extends Statement {
     /**
      * Parse READ Statement.
      */
-    private static void parse(READStatement s, LexicalTokenizer lt) throws BASICSyntaxError {
+    private static void parse(READStatement s, LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Token t;
         s.args = new Vector();
         boolean needComma = false;
 
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            if (t.typeNum() == Token.EOL) {
+            if (t.typeNum() == Token.EOL)
+            {
                 return;
             }
 
-            if (needComma) {
-                if (! t.isSymbol(',')) {
+            if (needComma)
+            {
+                if (!t.isSymbol(','))
+                {
                     lt.unGetToken();
                     return;
                 }
                 needComma = false;
                 continue;
             }
-            if (t.typeNum() == Token.VARIABLE) {
+            if (t.typeNum() == Token.VARIABLE)
+            {
                 s.args.addElement(t);
-            } else {
+            }
+            else
+            {
                 throw new BASICSyntaxError("malformed READ statement.");
             }
             needComma = true;

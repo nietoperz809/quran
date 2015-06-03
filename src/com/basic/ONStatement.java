@@ -48,7 +48,7 @@ class ONStatement extends Statement
 
     ONStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(ON_GOTO);
+        super(KeyWords.ON_GOTO);
 
         parse(this, lt);
     }
@@ -67,9 +67,9 @@ class ONStatement extends Statement
         s = pgm.getStatement((int) z.numValue());
         if (s == null)
         {
-            throw new BASICRuntimeError("ON " + keywords[keyword] + " has illegal line target.");
+            throw new BASICRuntimeError("ON " + keyword + " has illegal line target.");
         }
-        if (keyword == ON_GOSUB)
+        if (keyword == KeyWords.ON_GOSUB)
         {
             pgm.push(this);
         }
@@ -82,7 +82,7 @@ class ONStatement extends Statement
         StringBuffer sb = new StringBuffer();
         sb.append("ON ");
         sb.append(nExp.unparse() + " ");
-        sb.append(keywords[keyword].toUpperCase() + " ");
+        sb.append(keyword.toString().toUpperCase() + " ");
         for (int i = 0; i < args.size(); i++)
         {
             Token t = (Token) (args.elementAt(i));
@@ -120,15 +120,15 @@ class ONStatement extends Statement
         }
         t = lt.nextToken();
         if ((t.typeNum() != Token.KEYWORD)
-                || ((t.numValue() != GOTO) && (t.numValue() != GOSUB)))
+                || ((t.numValue() != KeyWords.GOTO.ordinal()) && (t.numValue() != KeyWords.GOSUB.ordinal())))
         {
             throw new BASICSyntaxError("On statement needs GOTO or GOSUB.");
         }
 
         // Check our assumption about the GOTOness of the statement.
-        if (t.numValue() == GOSUB)
+        if (t.numValue() == KeyWords.GOSUB.ordinal())
         {
-            s.keyword = ON_GOSUB;
+            s.keyword = KeyWords.ON_GOSUB;
         }
 
         s.args = new Vector();

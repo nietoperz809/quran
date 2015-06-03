@@ -39,7 +39,7 @@ class GOTOStatement extends Statement
 
     GOTOStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(GOTO);
+        super(KeyWords.GOTO);
 
         parse(this, lt);
     }

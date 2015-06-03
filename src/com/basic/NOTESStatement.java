@@ -22,7 +22,7 @@ class NOTESStatement extends Statement
      */
     NOTESStatement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        super(NOTES);
+        super(KeyWords.NOTES);
     }
 
     @Override
