@@ -20,11 +20,18 @@ public class Sockserver implements Runnable
     int port;
     String basePath;
     ServerSocket server;
-    
-    public Sockserver (int p, String s)
+
+    public Sockserver(int p, String s)
     {
-        port = p;
         basePath = s;
+        port = p;
+        Thread t = new Thread(this);
+        t.start();
+    }
+
+    public boolean isRunning()
+    {
+        return server != null;
     }
     
     public void halt()
@@ -39,27 +46,19 @@ public class Sockserver implements Runnable
             Logger.getLogger(Sockserver.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void main(String[] args) throws Exception
-    {
-        Sockserver s = new Sockserver (80, "F:\\"); 
-        Thread t = new Thread(s);
-        t.start();
-        Thread.sleep(3000);
-        s.halt();
-    }
 
     @Override
     public void run()
     {
+        System.err.println("started: "+port);
         try
         {
             server = new ServerSocket(port);
-            
+
             while (true)
             {
                 Socket sock = server.accept();
-                new Client (sock, basePath);
+                new Client(sock, basePath);
             }
         }
         catch (IOException ex)
