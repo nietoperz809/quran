@@ -47,26 +47,6 @@ public class CommandInterpreter implements Serializable
 
     transient private Voice voice;
     
-    final static String commands[] =
-    {
-        "new", "run", "list", "cat", "del", "resume",
-        "bye", "save", "load", "dump", "cont", "instrlist",
-        "dir"
-    };
-
-    static final int CMD_NEW = 0;
-    static final int CMD_RUN = 1;
-    static final int CMD_LIST = 2;
-    static final int CMD_CAT = 3;
-    static final int CMD_DEL = 4;
-    static final int CMD_RESUME = 5;
-    static final int CMD_BYE = 6;
-    static final int CMD_SAVE = 7;
-    static final int CMD_LOAD = 8;
-    static final int CMD_DUMP = 9;
-    static final int CMD_CONT = 10;
-    static final int CMD_INSTRLIST = 11;
-    static final int CMD_DIR = 12;
 
     /**
      * Create a new command interpreter attached to the passed in streams.
@@ -86,7 +66,7 @@ public class CommandInterpreter implements Serializable
         Token t;
         Statement s = null;
 
-        switch ((int) x.numValue())
+        switch (KeyWords.values()[(int)x.numValue()]) 
         {
             case CMD_RESUME:
                 try
@@ -389,12 +369,12 @@ public class CommandInterpreter implements Serializable
                  * Process one of the command interpreter's commands.
                  */
                 case Token.COMMAND:
-                    if (t.numValue() == CMD_BYE)
+                    if (KeyWords.values()[(int)t.numValue()] == KeyWords.CMD_BYE)
                     {
                         //System.exit(0);
                         return 1;
                     }
-                    else if (t.numValue() == CMD_NEW)
+                    else if (KeyWords.values()[(int)t.numValue()] == KeyWords.CMD_NEW)
                     {
                         basicProgram = new Program(area, voice);
                         System.gc();

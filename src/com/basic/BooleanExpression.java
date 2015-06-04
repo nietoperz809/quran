@@ -23,12 +23,12 @@ package com.basic;
  */
 class BooleanExpression extends Expression
 {
-    BooleanExpression(int t, Expression a, Expression b) throws BASICSyntaxError
+    BooleanExpression(KeyWords t, Expression a, Expression b) throws BASICSyntaxError
     {
         super(t, a, b);
     }
 
-    BooleanExpression(int t, Expression a) throws BASICSyntaxError
+    BooleanExpression(KeyWords t, Expression a) throws BASICSyntaxError
     {
         super(t, a);
     }

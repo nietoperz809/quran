@@ -210,9 +210,9 @@ public class Token implements Serializable
         return isSymbol(this, c);
     }
 
-    boolean isOp(int op)
+    boolean isOp(KeyWords op)
     {
-        return ((type == OPERATOR) && ((int) nValue == op));
+        return ((type == OPERATOR) && KeyWords.values()[(int)nValue] == op); //((int) nValue == op));
     }
 
     void negate()

@@ -5,13 +5,14 @@
  */
 package com.basic;
 
+import java.util.EnumSet;
+
 /**
  *
  * @author Administrator
  */
-public enum KeyWords
+enum KeyWords
 {
-    NONE("*NONE*"),
     GOTO("goto"),
     GOSUB("gosub"),
     RETURN("return"),
@@ -48,8 +49,76 @@ public enum KeyWords
     NOTES("notes"),
     SPEAK("say"),
     PITCH("pitch"),
-    RATE("rate");
+    RATE("rate"),
 
+    CMD_NEW("new"),
+    CMD_RUN("run"),
+    CMD_LIST("list"),
+    CMD_CAT("cat"),
+    CMD_DEL("del"),
+    CMD_RESUME("resume"),
+    CMD_BYE( "bye"),
+    CMD_SAVE("save"),
+    CMD_LOAD("load"),
+    CMD_DUMP("dump"),
+    CMD_CONT("cont"),
+    CMD_INSTRLIST("instrlist"),
+    CMD_DIR("dir"),
+    
+    RND("rnd"),
+    INT("int"),
+    SIN("sin"),
+    COS("cos"),
+    TAN("tan"),
+    ATN("atn"),
+    SQR("sqr"),
+    MAX("max"),
+    MIN("min"),
+    ABS("abs"),
+    LEFT("left$"),
+    RIGHT("right$"),
+    MID("mid$"),
+    CHR("chr$"),
+    LEN("len"),
+    VAL("val"),
+    SPC("spc$"),
+    LOG("log"),
+    FRE("fre"), // doesn't really do anything here.
+    SGN("sgn"),
+    TAB("tab"),
+    STR("str$"),
+    INKEYS("inkey$"),
+    TIME("time"),
+    
+    OP_ADD("+"),   // Addition '+'
+    OP_SUB("-"),   // Subtraction '-'
+    OP_MUL("*"),   // Multiplication '*'
+    OP_DIV("/"),   // Division '/'
+    OP_EXP("**"),   // Exponentiation '**'
+    OP_AND("&"),   // Bitwise AND '&'
+    OP_IOR("|"),   // Bitwise inclusive OR '|'
+    OP_XOR("^"),   // Bitwise exclusive OR '^'
+    OP_NOT("!"),   // Unary negation '!'
+    OP_EQ("="),  // Equality '='
+    OP_NE("<>"),  // Inequality '<>'
+    OP_LT("<"),  // Less than '<'
+    OP_LE("<="),  // Less than or equal '<='
+    OP_GT(">"),  // Greater than '>'
+    OP_GE(">="),  // Greater than or equal '>='
+    OP_BAND("AND"),  // Boolean AND '.AND.'
+    OP_BIOR("OR"),  // Boolean inclusive or '.OR.'
+    OP_BXOR("XOR"),  // Boolean exclusive or '.XOR.'
+    OP_BNOT("NOT"),  // Boolean negation '.NOT.'
+    OP_NEG("-"),  // Unary minus
+    
+    
+    ENDLIST("");
+
+    final public static EnumSet<KeyWords> keywords = EnumSet.range(KeyWords.GOTO, KeyWords.RATE);
+    final public static EnumSet<KeyWords> commands = EnumSet.range(KeyWords.CMD_NEW, KeyWords.CMD_DIR);
+    final public static EnumSet<KeyWords> functions = EnumSet.range(KeyWords.RND, KeyWords.TIME);
+    final public static EnumSet<KeyWords> operators = EnumSet.range(KeyWords.OP_ADD, KeyWords.OP_NEG);
+    
     private final String text;
 
     /**

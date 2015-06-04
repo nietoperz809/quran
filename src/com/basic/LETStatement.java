@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import com.basic.util.RedBlackTree;
@@ -25,39 +24,42 @@ import java.io.PrintStream;
 /**
  * The LET statement.
  *
- * The LET statement is the standard assignment statement in BASIC.
- * Technically its syntax is:
- *      LET var = expression
- * However we allow you to omit the LET or simply use
- *      var = expression.
+ * The LET statement is the standard assignment statement in BASIC. Technically
+ * its syntax is: LET var = expression However we allow you to omit the LET or
+ * simply use var = expression.
  *
- * Syntax errors :
- *      missing = in assignment statement.
- *      string assignment needs string expression.
- *      Boolean expression not allowed in LET.
- *      unmatched parenthesis in LET statement.
+ * Syntax errors : missing = in assignment statement. string assignment needs
+ * string expression. Boolean expression not allowed in LET. unmatched
+ * parenthesis in LET statement.
  */
-class LETStatement extends Statement {
+class LETStatement extends Statement
+{
 
     Variable myVar;
     Expression nExp;
 
-    LETStatement(LexicalTokenizer lt) throws BASICSyntaxError {
+    LETStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         super(KeyWords.LET);
 
         parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
-        if (myVar.isString()) {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
+        if (myVar.isString())
+        {
             pgm.setVariable(myVar, nExp.stringValue(pgm));
-        } else {
+        }
+        else
+        {
             pgm.setVariable(myVar, nExp.value(pgm));
         }
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
+    String unparse()
+    {
         StringBuffer sb = new StringBuffer();
         sb.append("LET ");
         sb.append(myVar.unparse());
@@ -69,41 +71,51 @@ class LETStatement extends Statement {
     /**
      * Generate a trace record for the LET statement.
      */
-    RedBlackTree getVars() {
+    RedBlackTree getVars()
+    {
         RedBlackTree vv = new RedBlackTree();
         nExp.trace(vv);
         return (vv);
     }
 
-
     /**
      * Parse LET Statement.
      */
-    private static void parse(LETStatement s, LexicalTokenizer lt) throws BASICSyntaxError 
+    private static void parse(LETStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
         //Variable vi;
 
         if (t.typeNum() != Token.VARIABLE)
+        {
             throw new BASICSyntaxError("variable expected for LET statement.");
+        }
 
         //vi = (Variable)t;
         s.myVar = (Variable) t;
         t = lt.nextToken();
-        if (! t.isOp(Expression.OP_EQ))
+        if (!t.isOp(KeyWords.OP_EQ))
+        {
             throw new BASICSyntaxError("missing = in assignment statement.");
+        }
         s.nExp = ParseExpression.expression(lt);
-        if (s.myVar.isString() && ! s.nExp.isString()) {
+        if (s.myVar.isString() && !s.nExp.isString())
+        {
             throw new BASICSyntaxError("String assignment needs string expression.");
         }
-        if (s.nExp instanceof BooleanExpression) {
+        if (s.nExp instanceof BooleanExpression)
+        {
             throw new BASICSyntaxError("Boolean expression not allowed in LET.");
         }
         t = lt.nextToken();
         if (t.isSymbol(')'))
+        {
             throw new BASICSyntaxError("unmatched parenthesis in LET statement.");
+        }
         else
+        {
             lt.unGetToken();
+        }
         return;
     }
 }

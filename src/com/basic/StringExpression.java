@@ -20,7 +20,7 @@ package com.basic;
 
 class StringExpression extends Expression {
 
-    StringExpression(int op, Expression a, Expression b) throws BASICSyntaxError {
+    StringExpression(KeyWords op, Expression a, Expression b) throws BASICSyntaxError {
         super(op, a, b);
     }
 

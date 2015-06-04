@@ -121,7 +121,7 @@ class FORStatement extends Statement
         }
 
         t = lt.nextToken();
-        if (!t.isOp(Expression.OP_EQ))
+        if (!t.isOp(KeyWords.OP_EQ))
         {
             throw new BASICSyntaxError("Missing = in FOR statement");
         }

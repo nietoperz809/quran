@@ -77,7 +77,7 @@ class ParseExpression extends Expression
         }
         else if (t.typeNum() == Token.FUNCTION)
         {
-            result = FunctionExpression.parse((int) t.numValue(), lt);
+            result = FunctionExpression.parse(KeyWords.values()[(int)t.numValue()], lt);
         }
         else
         {
@@ -92,17 +92,17 @@ class ParseExpression extends Expression
     {
         Token t = lt.nextToken();
 
-        if (t.isOp(OP_NOT))
+        if (t.isOp(KeyWords.OP_NOT))
         {
-            return new Expression(OP_NOT, primary(lt));
+            return new Expression(KeyWords.OP_NOT, primary(lt));
         }
-        else if (t.isOp(OP_SUB))
+        else if (t.isOp(KeyWords.OP_SUB))
         {
-            return new Expression(OP_NEG, primary(lt));
+            return new Expression(KeyWords.OP_NEG, primary(lt));
         }
-        else if (t.isOp(OP_BNOT))
+        else if (t.isOp(KeyWords.OP_BNOT))
         {
-            return new BooleanExpression(OP_BNOT, primary(lt));
+            return new BooleanExpression(KeyWords.OP_BNOT, primary(lt));
         }
         lt.unGetToken();
         return element(lt);
@@ -120,9 +120,9 @@ class ParseExpression extends Expression
         }
 
         t = lt.nextToken();
-        if (t.isOp(OP_EXP))
+        if (t.isOp(KeyWords.OP_EXP))
         {
-            return new Expression(OP_EXP, result, factor(lt));
+            return new Expression(KeyWords.OP_EXP, result, factor(lt));
         }
         lt.unGetToken();
         return result;
@@ -142,13 +142,13 @@ class ParseExpression extends Expression
         while (true)
         {
             t = lt.nextToken();
-            if (t.isOp(OP_MUL))
+            if (t.isOp(KeyWords.OP_MUL))
             {
-                result = new Expression(OP_MUL, result, factor(lt));
+                result = new Expression(KeyWords.OP_MUL, result, factor(lt));
             }
-            else if (t.isOp(OP_DIV))
+            else if (t.isOp(KeyWords.OP_DIV))
             {
-                result = new Expression(OP_DIV, result, factor(lt));
+                result = new Expression(KeyWords.OP_DIV, result, factor(lt));
             }
             else
             {
@@ -173,13 +173,13 @@ class ParseExpression extends Expression
         while (true)
         {
             t = lt.nextToken();
-            if (t.isOp(OP_ADD))
+            if (t.isOp(KeyWords.OP_ADD))
             {
-                result = new Expression(OP_ADD, result, term(lt));
+                result = new Expression(KeyWords.OP_ADD, result, term(lt));
             }
-            else if (t.isOp(OP_SUB))
+            else if (t.isOp(KeyWords.OP_SUB))
             {
-                result = new Expression(OP_SUB, result, term(lt));
+                result = new Expression(KeyWords.OP_SUB, result, term(lt));
             }
             else
             {
@@ -204,17 +204,17 @@ class ParseExpression extends Expression
         while (true)
         {
             t = lt.nextToken();
-            if (t.isOp(OP_AND))
+            if (t.isOp(KeyWords.OP_AND))
             {
-                result = new Expression(OP_AND, result, sum(lt));
+                result = new Expression(KeyWords.OP_AND, result, sum(lt));
             }
-            else if (t.isOp(OP_XOR))
+            else if (t.isOp(KeyWords.OP_XOR))
             {
-                result = new Expression(OP_XOR, result, sum(lt));
+                result = new Expression(KeyWords.OP_XOR, result, sum(lt));
             }
-            else if (t.isOp(OP_IOR))
+            else if (t.isOp(KeyWords.OP_IOR))
             {
-                result = new Expression(OP_IOR, result, sum(lt));
+                result = new Expression(KeyWords.OP_IOR, result, sum(lt));
             }
             else
             {
@@ -239,7 +239,7 @@ class ParseExpression extends Expression
         {
             Expression arg2;
             t = lt.nextToken();
-            if (!t.isOp(OP_ADD))
+            if (!t.isOp(KeyWords.OP_ADD))
             {
                 lt.unGetToken();
                 return result;
@@ -249,7 +249,7 @@ class ParseExpression extends Expression
             {
                 throw new BASICSyntaxError("Only add is allowed in string expressions.");
             }
-            result = new StringExpression(OP_ADD, result, arg2);
+            result = new StringExpression(KeyWords.OP_ADD, result, arg2);
         }
     }
 
@@ -265,25 +265,25 @@ class ParseExpression extends Expression
             lt.unGetToken();
             return result;
         }
-        switch ((int) t.numValue())
+        switch (KeyWords.values()[(int)t.numValue()])
         {
             case OP_EQ:
-                result = new BooleanExpression(OP_EQ, result, string(lt));
+                result = new BooleanExpression(KeyWords.OP_EQ, result, string(lt));
                 break;
             case OP_NE:
-                result = new BooleanExpression(OP_NE, result, string(lt));
+                result = new BooleanExpression(KeyWords.OP_NE, result, string(lt));
                 break;
             case OP_LT:
-                result = new BooleanExpression(OP_LT, result, string(lt));
+                result = new BooleanExpression(KeyWords.OP_LT, result, string(lt));
                 break;
             case OP_LE:
-                result = new BooleanExpression(OP_LE, result, string(lt));
+                result = new BooleanExpression(KeyWords.OP_LE, result, string(lt));
                 break;
             case OP_GT:
-                result = new BooleanExpression(OP_GT, result, string(lt));
+                result = new BooleanExpression(KeyWords.OP_GT, result, string(lt));
                 break;
             case OP_GE:
-                result = new BooleanExpression(OP_GE, result, string(lt));
+                result = new BooleanExpression(KeyWords.OP_GE, result, string(lt));
                 break;
         }
         lt.unGetToken();
@@ -299,17 +299,17 @@ class ParseExpression extends Expression
         while (true)
         {
             t = lt.nextToken();
-            if (t.isOp(OP_BAND))
+            if (t.isOp(KeyWords.OP_BAND))
             {
-                result = new BooleanExpression(OP_BAND, result, relation(lt));
+                result = new BooleanExpression(KeyWords.OP_BAND, result, relation(lt));
             }
-            else if (t.isOp(OP_BIOR))
+            else if (t.isOp(KeyWords.OP_BIOR))
             {
-                result = new BooleanExpression(OP_BIOR, result, relation(lt));
+                result = new BooleanExpression(KeyWords.OP_BIOR, result, relation(lt));
             }
-            else if (t.isOp(OP_BXOR))
+            else if (t.isOp(KeyWords.OP_BXOR))
             {
-                result = new BooleanExpression(OP_BXOR, result, relation(lt));
+                result = new BooleanExpression(KeyWords.OP_BXOR, result, relation(lt));
             }
             else
             {

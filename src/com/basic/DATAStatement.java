@@ -91,7 +91,7 @@ class DATAStatement extends Statement
             {
                 s.args.addElement(t);
             }
-            else if (t.isOp(Expression.OP_SUB))
+            else if (t.isOp(KeyWords.OP_SUB))
             {
                 t = lt.nextToken();
                 if (t.typeNum() != Token.CONSTANT)
