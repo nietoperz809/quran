@@ -49,7 +49,7 @@ class SSPEEDStatement extends Statement
     private static void parse(SSPEEDStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        if (t.typeNum() != Token.CONSTANT)
+        if (t.typeNum() != KeyWords.CONSTANT)
         {
             throw new BASICSyntaxError("number required after SSPEED.");
         }

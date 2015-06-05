@@ -47,7 +47,7 @@ class SLEEPStatement extends Statement
     private static void parse(SLEEPStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        if (t.typeNum() != Token.CONSTANT)
+        if (t.typeNum() != KeyWords.CONSTANT)
         {
             throw new BASICSyntaxError("Line number required after SLEEP.");
         }

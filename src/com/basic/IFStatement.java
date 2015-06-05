@@ -138,12 +138,12 @@ class IFStatement extends Statement
         {
             throw new BASICSyntaxError("Mismatched parenthesis.");
         }
-        else if ((t.typeNum() != Token.KEYWORD) || (t.kwValue != KeyWords.THEN))
+        else if ((t.typeNum() != KeyWords.KEYWORD) || (t.kwValue != KeyWords.THEN))
         {
             throw new BASICSyntaxError("Missing THEN keyword in IF statement.");
         }
         t = lt.nextToken();
-        if (t.typeNum() == Token.CONSTANT)
+        if (t.typeNum() == KeyWords.CONSTANT)
         {
             int li = (int) t.numValue();
             if (li <= 0)

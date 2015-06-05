@@ -91,7 +91,7 @@ class DIMStatement extends Statement
         {
             /* Get the variable name */
             t = lt.nextToken();
-            if (t.typeNum() != Token.VARIABLE)
+            if (t.typeNum() != KeyWords.VARIABLE)
             {
                 if (s.args.size() == 0)
                 {

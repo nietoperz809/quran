@@ -62,7 +62,7 @@ public class Variable extends Token
      */
     Variable(String someName, Expression ee[])
     {
-        type = VARIABLE;
+        type = KeyWords.VARIABLE;
         if (someName.endsWith("$"))
         {
             subType = SUBTYPE.STRING_ARRAY;
@@ -84,7 +84,7 @@ public class Variable extends Token
      */
     Variable(String someName)
     {
-        type = VARIABLE;
+        type = KeyWords.VARIABLE;
         if (someName.endsWith("$"))
         {
             subType = SUBTYPE.thSTRING;
@@ -116,7 +116,7 @@ public class Variable extends Token
             offset *= ii[i];
         }
         name = someName;
-        type = VARIABLE;
+        type = KeyWords.VARIABLE;
         if (name.endsWith("$"))
         {
             sArrayValues = new String[offset];

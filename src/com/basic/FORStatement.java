@@ -109,7 +109,7 @@ class FORStatement extends Statement
     {
         Token t = lt.nextToken();
 
-        if (t.typeNum() != Token.VARIABLE)
+        if (t.typeNum() != KeyWords.VARIABLE)
         {
             throw new BASICSyntaxError("Missing variable in FOR statement");
         }
@@ -128,14 +128,14 @@ class FORStatement extends Statement
         s.nExp = ParseExpression.expression(lt);
         noBool(s.nExp);
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD) || (t.kwValue != KeyWords.TO))
+        if ((t.typeNum() != KeyWords.KEYWORD) || (t.kwValue != KeyWords.TO))
         {
             throw new BASICSyntaxError("Missing TO in FOR statement.");
         }
         s.eExp = ParseExpression.expression(lt);
         noBool(s.eExp);
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD) || (t.kwValue != KeyWords.STEP))
+        if ((t.typeNum() != KeyWords.KEYWORD) || (t.kwValue != KeyWords.STEP))
         {
             lt.unGetToken();
             s.sExp = new ConstantExpression(1.0);

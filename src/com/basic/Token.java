@@ -32,85 +32,31 @@ public class Token implements Serializable
 
     final static String names[] =
     {
-        "symbol", "command", "constant", "function", "keyword",
-        "eol", "string", "error", "string variable",
-        "numeric variable", "boolean operator", "operator",
+        "symbol", "command", "constant", "function", "keyword", "eol", "string", "error", "string variable","numeric variable", "boolean operator", "operator",
     };
 
-    /**
-     * Token is a special symbol (numeric value)
-     */
     final static int SYMBOL = 0;
-
-    /**
-     * Token is a command (number and string)
-     */
     final static int COMMAND = 1;
-
-    /**
-     * Token is a numeric constant (numeric value)
-     */
     final static int CONSTANT = 2;
-
-    /**
-     * Token is a function reference (number and string)
-     */
     final static int FUNCTION = 3;
-
-    /**
-     * Token is a BASIC keyword (number and string)
-     */
     final static int KEYWORD = 4;
-
-    /**
-     * Token indicates the end of an input line
-     */
     final static int EOL = 5;
-
-    /**
-     * Token has a string value
-     */
     final static int STRING = 6;
-
-    /**
-     * Token indicates an error (unknown token) (string value)
-     */
     final static int ERROR = 7;
-
-    /**
-     * Token contains a string variable name (string value)
-     */
     final static int STRING_VARIABLE = 8;
-
-    /**
-     * Token contains a numeric variable name (string value)
-     */
-    //final static int NUMERIC_VARIABLE = 9;
-
-    /**
-     * Token contains a boolean operator
-     */
     final static int BOOLEAN_OPERATOR = 10;
-
-    /**
-     * Token is an operator in an expression.
-     */
     final static int OPERATOR = 11;
-
-    /**
-     * Token is a variable
-     */
     final static int VARIABLE = 12;
 
     static boolean isSymbol(Token t, char s)
     {
-        return ((t != null) && (t.typeNum() == SYMBOL) && (t.numValue() == s));
+        return ((t != null) && (t.typeNum() == KeyWords.SYMBOL) && (t.numValue() == s));
     }
 
     /**
      *
      */
-    protected int type;     // this token's type
+    protected KeyWords type;     // this token's type
 
     /**
      *
@@ -134,7 +80,7 @@ public class Token implements Serializable
     /**
      * Create a token with a numeric value.
      */
-    Token(int t, double nv)
+    Token (KeyWords t, double nv)
     {
         type = t;
         nValue = nv;
@@ -143,7 +89,7 @@ public class Token implements Serializable
     /**
      * Create a token with a string value.
      */
-    Token(int t, String sv)
+    Token (KeyWords t, String sv)
     {
         type = t;
         sValue = sv;
@@ -152,7 +98,7 @@ public class Token implements Serializable
     /**
      * For operators, create token with numeric value.
      */
-    Token(int t, int v)
+    Token (KeyWords t, int v)
     {
         type = t;
         nValue = v;
@@ -161,14 +107,14 @@ public class Token implements Serializable
     /**
      * Create a token with both a string and a numeric value.
      */
-    Token(int t, String sv, int iv)
+    Token (KeyWords t, String sv, int iv)
     {
         type = t;
         sValue = sv;
         nValue = iv;
     }
 
-    Token (int t, KeyWords kw)
+    Token (KeyWords t, KeyWords kw)
     {
         type = t;
         kwValue = kw;
@@ -186,14 +132,14 @@ public class Token implements Serializable
         return sValue;
     }
 
-    int typeNum()
+    KeyWords typeNum()
     {
         return type;
     }
 
     String typeString()
     {
-        return names[type];
+        return type.toString();
     }
 
     String unparse()
@@ -205,14 +151,14 @@ public class Token implements Serializable
             case CONSTANT:
                 return "" + nValue;
             default:
-                return "Token (" + names[type] + ")";
+                return "Token (" + type.toString() + ")";
         }
     }
 
     @Override
     public String toString()
     {
-        return ("TOKEN: Type=" + names[type] + ", Numeric Value = " + nValue + ", String Value = '" + sValue + "'");
+        return ("TOKEN: Type=" + type.toString() + ", Numeric Value = " + nValue + ", String Value = '" + sValue + "'");
     }
 
     boolean isSymbol(char c)
@@ -222,12 +168,12 @@ public class Token implements Serializable
 
     boolean isOp(KeyWords op)
     {
-        return ((type == OPERATOR) && kwValue == op); //((int) nValue == op));
+        return ((type == KeyWords.OPERATOR) && kwValue == op); //((int) nValue == op));
     }
 
     void negate()
     {
-        if (type != CONSTANT)
+        if (type != KeyWords.CONSTANT)
         {
             return;
         }

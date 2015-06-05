@@ -63,19 +63,19 @@ class ParseExpression extends Expression
                 throw new BASICSyntaxError("mismatched parenthesis in expression");
             }
         }
-        else if (t.typeNum() == Token.CONSTANT)
+        else if (t.typeNum() == KeyWords.CONSTANT)
         {
             result = new ConstantExpression(t.numValue());
         }
-        else if (t.typeNum() == Token.STRING)
+        else if (t.typeNum() == KeyWords.STRING)
         {
             result = new ConstantExpression(t.stringValue());
         }
-        else if (t.typeNum() == Token.VARIABLE)
+        else if (t.typeNum() == KeyWords.VARIABLE)
         {
             result = new VariableExpression((Variable) t);
         }
-        else if (t.typeNum() == Token.FUNCTION)
+        else if (t.typeNum() == KeyWords.FUNCTION)
         {
             result = FunctionExpression.parse(KeyWords.values()[(int)t.numValue()], lt);
         }
@@ -260,7 +260,7 @@ class ParseExpression extends Expression
 
         result = string(lt);
         t = lt.nextToken();
-        if (t.typeNum() != Token.OPERATOR)
+        if (t.typeNum() != KeyWords.OPERATOR)
         {
             lt.unGetToken();
             return result;

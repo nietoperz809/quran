@@ -63,7 +63,7 @@ public class LexicalTokenizer implements Serializable
     int markPos = 0;
     char buffer[];
     // we just keep this around 'cuz we return it a lot.
-    Token EOLToken = new Token(Token.EOL, 0);
+    Token EOLToken = new Token(KeyWords.EOL, 0);
 
     public LexicalTokenizer(char data[])
     {
@@ -225,7 +225,7 @@ public class LexicalTokenizer implements Serializable
             {
                 if (x.equalsIgnoreCase(k.toString()))
                 {
-                    r = new Token(Token.OPERATOR, k);
+                    r = new Token(KeyWords.OPERATOR, k);
                     break;
                 }
             }
@@ -294,7 +294,7 @@ public class LexicalTokenizer implements Serializable
         // so it was a number, perhaps we are done with it.
         if ((buffer[currentPos] != 'E') && (buffer[currentPos] != 'e'))
         {
-            return new Token(Token.CONSTANT, m); // no exponent return value.
+            return new Token(KeyWords.CONSTANT, m); // no exponent return value.
         }
         currentPos++; // skip over the 'e'
 
@@ -324,14 +324,14 @@ public class LexicalTokenizer implements Serializable
         }
         catch (ArithmeticException zzz)
         {
-            return new Token(Token.ERROR, "Illegal numeric constant.");
+            return new Token(KeyWords.ERROR, "Illegal numeric constant.");
         }
 
         if (wasNeg)
         {
             e = 1 / e;
         }
-        return new Token(Token.CONSTANT, (m + f) * e);
+        return new Token(KeyWords.CONSTANT, (m + f) * e);
     }
 
     /**
@@ -370,62 +370,62 @@ public class LexicalTokenizer implements Serializable
             // Various lexical symbols that have meaning.
             case '+':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_ADD);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_ADD);
             case '-':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_SUB);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_SUB);
             case '*':
                 if (buffer[currentPos + 1] == '*')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, KeyWords.OP_EXP);
+                    return new Token(KeyWords.OPERATOR, KeyWords.OP_EXP);
                 }
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_MUL);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_MUL);
             case '/':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_DIV);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_DIV);
             case '^':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_XOR);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_XOR);
             case '&':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_AND);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_AND);
             case '|':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_IOR);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_IOR);
             case '!':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_NOT);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_NOT);
             case '=':
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_EQ);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_EQ);
             case '<':
                 if (buffer[currentPos + 1] == '=')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, KeyWords.OP_LE);
+                    return new Token(KeyWords.OPERATOR, KeyWords.OP_LE);
                 }
                 else if (buffer[currentPos + 1] == '>')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, KeyWords.OP_NE);
+                    return new Token(KeyWords.OPERATOR, KeyWords.OP_NE);
                 }
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_LT);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_LT);
             case '>':
                 if (buffer[currentPos + 1] == '=')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, KeyWords.OP_GE);
+                    return new Token(KeyWords.OPERATOR, KeyWords.OP_GE);
                 }
                 else if (buffer[currentPos + 1] == '<')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, KeyWords.OP_NE);
+                    return new Token(KeyWords.OPERATOR, KeyWords.OP_NE);
                 }
                 currentPos++;
-                return new Token(Token.OPERATOR, KeyWords.OP_GT);
+                return new Token(KeyWords.OPERATOR, KeyWords.OP_GT);
             case '(':
             case '\'':
             case '?':
@@ -433,7 +433,7 @@ public class LexicalTokenizer implements Serializable
             case ':':
             case ';':
             case ',':
-                return new Token(Token.SYMBOL, buffer[currentPos++]);
+                return new Token(KeyWords.SYMBOL, buffer[currentPos++]);
             /* Else we fall through to the next CASE (numeric constant) */
             case '0':
             case '1':
@@ -450,7 +450,7 @@ public class LexicalTokenizer implements Serializable
                 {
                     return r;
                 }
-                return new Token(Token.SYMBOL, buffer[currentPos++]);
+                return new Token(KeyWords.SYMBOL, buffer[currentPos++]);
             // process EOL characters. (dump <CR><LF> as just EOL)
             case '\r':
             case '\n':
@@ -468,7 +468,7 @@ public class LexicalTokenizer implements Serializable
                     switch (buffer[currentPos])
                     {
                         case '\n':
-                            return new Token(Token.ERROR, "Missing end quote.");
+                            return new Token(KeyWords.ERROR, "Missing end quote.");
                         case '"':
                             if (buffer[currentPos + 1] == '"')
                             {
@@ -478,7 +478,7 @@ public class LexicalTokenizer implements Serializable
                             else
                             {
                                 currentPos++;
-                                return new Token(Token.STRING, sb.toString());
+                                return new Token(KeyWords.STRING, sb.toString());
                             }
                             break;
                         default:
@@ -487,7 +487,7 @@ public class LexicalTokenizer implements Serializable
                     currentPos++;
                     if (currentPos >= buffer.length)
                     {
-                        return new Token(Token.ERROR, "Missing end quote.");
+                        return new Token(KeyWords.ERROR, "Missing end quote.");
                     }
                 }
             default:
@@ -500,7 +500,7 @@ public class LexicalTokenizer implements Serializable
         }
         if (!isLetter(buffer[currentPos]))
         {
-            return new Token(Token.ERROR, "Unrecognized input.");
+            return new Token(KeyWords.ERROR, "Unrecognized input.");
         }
         /* compose an identifier */
         StringBuilder q = new StringBuilder();
@@ -519,7 +519,7 @@ public class LexicalTokenizer implements Serializable
         {
             if (t.compareTo(k.toString()) == 0)
             {
-                return new Token(Token.FUNCTION, k);
+                return new Token(KeyWords.FUNCTION, k);
             }
         }
 
@@ -528,7 +528,7 @@ public class LexicalTokenizer implements Serializable
         {
             if (t.compareTo(k.toString()) == 0)
             {
-                return new Token(Token.KEYWORD, k);
+                return new Token(KeyWords.KEYWORD, k);
             }
         }
 
@@ -537,7 +537,7 @@ public class LexicalTokenizer implements Serializable
         {
             if (t.compareTo(k.toString()) == 0)
             {
-                return new Token(Token.COMMAND, k);
+                return new Token(KeyWords.COMMAND, k);
             }
         }
         /*
@@ -563,7 +563,7 @@ public class LexicalTokenizer implements Serializable
                 }
                 catch (BASICSyntaxError bse)
                 {
-                    return new Token(Token.ERROR, "Error parsing array index.");
+                    return new Token(KeyWords.ERROR, "Error parsing array index.");
                 }
                 expVec.addElement(thisE);
                 if (buffer[currentPos] == ')')
@@ -579,7 +579,7 @@ public class LexicalTokenizer implements Serializable
                 }
                 if (buffer[currentPos] != ',')
                 {
-                    return new Token(Token.ERROR, "Missing comma in array index.");
+                    return new Token(KeyWords.ERROR, "Missing comma in array index.");
                 }
                 currentPos++;
             }

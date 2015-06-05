@@ -69,14 +69,14 @@ class ParseStatement extends Statement
         Token t;
 
         t = lt.nextToken();
-        if (t.typeNum() == Token.SYMBOL)
+        if (t.typeNum() == KeyWords.SYMBOL)
         {
             switch ((int) t.numValue())
             {
                 case '?':
                     s = new PRINTStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -95,7 +95,7 @@ class ParseStatement extends Statement
             }
         }
 
-        if (t.typeNum() == Token.KEYWORD)
+        if (t.typeNum() == KeyWords.KEYWORD)
         {
             switch (KeyWords.values()[(int)t.numValue()])       //((int) t.numValue())
             {
@@ -106,7 +106,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -120,7 +120,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -130,7 +130,7 @@ class ParseStatement extends Statement
                 case END:
                     s = new ENDStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -143,7 +143,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -156,7 +156,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -170,7 +170,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -179,7 +179,7 @@ class ParseStatement extends Statement
                 case GOTO:
                     s = new GOTOStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -188,7 +188,7 @@ class ParseStatement extends Statement
                 case PITCH:
                     s = new PITCHStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -197,7 +197,7 @@ class ParseStatement extends Statement
                 case RATE:
                     s = new RATEStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -207,7 +207,7 @@ class ParseStatement extends Statement
                 case SSPEED:
                     s = new SSPEEDStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -216,7 +216,7 @@ class ParseStatement extends Statement
                 case SLEEP:
                     s = new SLEEPStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -229,7 +229,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -238,7 +238,7 @@ class ParseStatement extends Statement
                 case NOTES:
                     s = new NOTESStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -247,7 +247,7 @@ class ParseStatement extends Statement
                 case CLS:
                     s = new CLSStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -256,7 +256,7 @@ class ParseStatement extends Statement
                 case SPLAY:
                     s = new SPLAYStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -266,7 +266,7 @@ class ParseStatement extends Statement
                 case SCLR:
                     s = new SCLRStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -276,7 +276,7 @@ class ParseStatement extends Statement
                 case RETURN:
                     s = new RETURNStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() != Token.EOL)
+                    if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -286,7 +286,7 @@ class ParseStatement extends Statement
                 case PRINT:
                     s = new PRINTStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -301,7 +301,7 @@ class ParseStatement extends Statement
                 case TWEET:
                     s = new TWEETStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -316,7 +316,7 @@ class ParseStatement extends Statement
                 case SPEAK:
                     s = new SPEAKStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -331,7 +331,7 @@ class ParseStatement extends Statement
                 case IF:
                     s = new IFStatement(lt);
                     t = lt.nextToken();
-                    if ((t != null) && (t.typeNum() != Token.EOL))
+                    if ((t != null) && (t.typeNum() != KeyWords.EOL))
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -340,7 +340,7 @@ class ParseStatement extends Statement
                 case DATA:
                     s = new DATAStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -355,7 +355,7 @@ class ParseStatement extends Statement
                 case SEQ:
                     s = new SEQStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -374,7 +374,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -384,7 +384,7 @@ class ParseStatement extends Statement
                 case READ:
                     s = new READStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -402,7 +402,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -420,7 +420,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -434,7 +434,7 @@ class ParseStatement extends Statement
                     {
                         s.nxt = statement(lt);
                     }
-                    else if (t.typeNum() != Token.EOL)
+                    else if (t.typeNum() != KeyWords.EOL)
                     {
                         throw new BASICSyntaxError(extraError);
                     }
@@ -443,7 +443,7 @@ class ParseStatement extends Statement
                 case LET:
                     s = new LETStatement(lt);
                     t = lt.nextToken();
-                    if (t.typeNum() == Token.EOL)
+                    if (t.typeNum() == KeyWords.EOL)
                     {
                         return s;
                     }
@@ -461,7 +461,7 @@ class ParseStatement extends Statement
                 case INPUT:
                     s = new INPUTStatement(lt);
                     t = lt.nextToken();
-                    if ((t == null) || (t.typeNum() == Token.EOL))
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
                     {
                         return s;
                     }
@@ -476,12 +476,12 @@ class ParseStatement extends Statement
                     throw new BASICSyntaxError("Invalid keyword");
             }
         }
-        else if (t.typeNum() == Token.VARIABLE)
+        else if (t.typeNum() == KeyWords.VARIABLE)
         {
             lt.unGetToken();
             s = new LETStatement(lt);
             t = lt.nextToken();
-            if ((t == null) || (t.typeNum() == Token.EOL))
+            if ((t == null) || (t.typeNum() == KeyWords.EOL))
             {
                 return s;
             }

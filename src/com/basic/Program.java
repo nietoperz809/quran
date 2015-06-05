@@ -163,7 +163,7 @@ public class Program implements Runnable, Serializable
 
             lt.reset(lineData);
             t = lt.nextToken();
-            if (t.typeNum() != Token.CONSTANT)
+            if (t.typeNum() != KeyWords.CONSTANT)
             {
                 throw new BASICSyntaxError("Line failed to start with a line number.");
             }

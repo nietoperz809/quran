@@ -50,23 +50,23 @@ class SEQStatement extends Statement
     private static void parse(SEQStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        if (t.typeNum() != Token.CONSTANT)
+        if (t.typeNum() != KeyWords.CONSTANT)
         {
             throw new BASICSyntaxError("Channel number missing.");
         }
         s.channel = (int) t.numValue();
         t = lt.nextToken();
-        if (t.typeNum() != Token.SYMBOL || t.nValue != ',')
+        if (t.typeNum() != KeyWords.SYMBOL || t.nValue != ',')
         {
             throw new BASICSyntaxError("Comma expected.");
         }
         t = lt.nextToken();
-        if (t.typeNum() == Token.STRING)
+        if (t.typeNum() == KeyWords.STRING)
         {
             s.arg = t.stringValue();
             return;
         }
-        else if (t.typeNum() == Token.VARIABLE)
+        else if (t.typeNum() == KeyWords.VARIABLE)
         {
             s.ve = new VariableExpression((Variable)t);
             return;

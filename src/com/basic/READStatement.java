@@ -57,7 +57,7 @@ class READStatement extends Statement
             vi = (Variable) args.elementAt(i);
             if (!vi.isString())
             {
-                if (q.typeNum() != Token.CONSTANT)
+                if (q.typeNum() != KeyWords.CONSTANT)
                 {
                     throw new BASICRuntimeError("Type mismatch reading variable " + vi);
                 }
@@ -65,7 +65,7 @@ class READStatement extends Statement
             }
             else
             {
-                if (q.typeNum() != Token.STRING)
+                if (q.typeNum() != KeyWords.STRING)
                 {
                     throw new BASICRuntimeError("Type mismatch reading variable " + vi);
                 }
@@ -106,7 +106,7 @@ class READStatement extends Statement
         while (true)
         {
             t = lt.nextToken();
-            if (t.typeNum() == Token.EOL)
+            if (t.typeNum() == KeyWords.EOL)
             {
                 return;
             }
@@ -121,7 +121,7 @@ class READStatement extends Statement
                 needComma = false;
                 continue;
             }
-            if (t.typeNum() == Token.VARIABLE)
+            if (t.typeNum() == KeyWords.VARIABLE)
             {
                 s.args.addElement(t);
             }

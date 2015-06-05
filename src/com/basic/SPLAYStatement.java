@@ -26,9 +26,9 @@ class SPLAYStatement extends Statement
     {
         super(KeyWords.SPLAY);
         Token t = lt.nextToken();
-        if (t.type == Token.EOL)
+        if (t.type == KeyWords.EOL)
             return;
-        if (t.type == Token.CONSTANT)
+        if (t.type == KeyWords.CONSTANT)
             repeats = (int)t.nValue - 1;
         DebugOut.get().out.println (t);
     }

@@ -110,13 +110,27 @@ enum KeyWords
     OP_BXOR("XOR"),  // Boolean exclusive or '.XOR.'
     OP_BNOT("NOT"),  // Boolean negation '.NOT.'
     OP_NEG("-"),  // Unary minus
+
+    SYMBOL("symbol"),
+    COMMAND("command"),
+    CONSTANT("constant"),
+    FUNCTION("function"),
+    KEYWORD("keyword"),
+    EOL("eol"),
+    STRING("string"),
+    ERROR("error"),
+    STRING_VARIABLE("string variable"),
+    BOOLEAN_OPERATOR("numeric variable"),
+    OPERATOR("boolean operator"),
+    VARIABLE("operator"),
     
     ENDLIST("");
 
-    final public static EnumSet<KeyWords> keywords = EnumSet.range(KeyWords.GOTO, KeyWords.RATE);
-    final public static EnumSet<KeyWords> commands = EnumSet.range(KeyWords.CMD_NEW, KeyWords.CMD_DIR);
-    final public static EnumSet<KeyWords> functions = EnumSet.range(KeyWords.RND, KeyWords.TIME);
-    final public static EnumSet<KeyWords> operators = EnumSet.range(KeyWords.OP_ADD, KeyWords.OP_NEG);
+    final public static EnumSet<KeyWords> keywords = EnumSet.range (GOTO, RATE);
+    final public static EnumSet<KeyWords> commands = EnumSet.range (CMD_NEW, CMD_DIR);
+    final public static EnumSet<KeyWords> functions = EnumSet.range (RND, TIME);
+    final public static EnumSet<KeyWords> operators = EnumSet.range (OP_ADD, OP_NEG);
+    final public static EnumSet<KeyWords> tokentype = EnumSet.range (SYMBOL, VARIABLE);
     
     private final String text;
 

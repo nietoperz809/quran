@@ -93,11 +93,11 @@ public class CommandInterpreter implements Serializable
             case CMD_RUN:
                 t = lt.nextToken();
                 int startline = 0;
-                if (t.typeNum() == Token.EOL)
+                if (t.typeNum() == KeyWords.EOL)
                 {
                     startline = 0;
                 }
-                else if (t.typeNum() == Token.CONSTANT)
+                else if (t.typeNum() == KeyWords.CONSTANT)
                 {
                     startline = (int) t.numValue();
                 }
@@ -126,7 +126,7 @@ public class CommandInterpreter implements Serializable
 
             case CMD_DEL:
                 t = lt.nextToken();
-                if (t.typeNum() != Token.STRING)
+                if (t.typeNum() != KeyWords.STRING)
                 {
                     outStream.println("File name expected for DEL Command.");
                     return pgm;
@@ -136,7 +136,7 @@ public class CommandInterpreter implements Serializable
             
             case CMD_SAVE:
                 t = lt.nextToken();
-                if (t.typeNum() != Token.STRING)
+                if (t.typeNum() != KeyWords.STRING)
                 {
                     outStream.println("File name expected for SAVE Command.");
                     return pgm;
@@ -171,7 +171,7 @@ public class CommandInterpreter implements Serializable
 
             case CMD_LOAD:
                 t = lt.nextToken();
-                if (t.typeNum() != Token.STRING)
+                if (t.typeNum() != KeyWords.STRING)
                 {
                     outStream.println("File name expected for LOAD command.");
                 }
@@ -207,7 +207,7 @@ public class CommandInterpreter implements Serializable
             case CMD_DUMP:
                 PrintStream zzz = outStream;
                 t = lt.nextToken();
-                if (t.typeNum() == Token.STRING)
+                if (t.typeNum() == KeyWords.STRING)
                 {
                     try
                     {
@@ -226,22 +226,22 @@ public class CommandInterpreter implements Serializable
 
             case CMD_LIST:
                 t = lt.nextToken();
-                if (t.typeNum() == Token.EOL)
+                if (t.typeNum() == KeyWords.EOL)
                 {
                     pgm.list(outStream);
                 }
-                else if (t.typeNum() == Token.CONSTANT)
+                else if (t.typeNum() == KeyWords.CONSTANT)
                 {
                     int strt = (int) t.numValue();
                     t = lt.nextToken();
-                    if (t.typeNum() == Token.EOL)
+                    if (t.typeNum() == KeyWords.EOL)
                     {
                         pgm.list(strt, outStream);
                     }
                     else if (t.isSymbol(','))
                     {
                         t = lt.nextToken();
-                        if (t.typeNum() != Token.CONSTANT)
+                        if (t.typeNum() != KeyWords.CONSTANT)
                         {
                             outStream.println("Illegal parameter to LIST command.");
                             outStream.println(lt.showError());
@@ -368,7 +368,7 @@ public class CommandInterpreter implements Serializable
                 /*
                  * Process one of the command interpreter's commands.
                  */
-                case Token.COMMAND:
+                case COMMAND:
                     if (t.kwValue  == KeyWords.CMD_BYE)
                     {
                         //System.exit(0);
@@ -391,9 +391,9 @@ public class CommandInterpreter implements Serializable
                  * Process an initial number, it can be a new statement line
                  * or it may be an implicit delete command.
                  */
-                case Token.CONSTANT:
+                case CONSTANT:
                     Token peek = tokenizer.nextToken();
-                    if (peek.typeNum() == Token.EOL)
+                    if (peek.typeNum() == KeyWords.EOL)
                     {
                         basicProgram.del((int) t.numValue());
                         break;
@@ -421,9 +421,9 @@ public class CommandInterpreter implements Serializable
                  * If initially it is a variable or a statement keyword then it
                  * must be an 'immediate' line.
                  */
-                case Token.VARIABLE:
-                case Token.KEYWORD: // immediate mode
-                case Token.SYMBOL:
+                case VARIABLE:
+                case KEYWORD: // immediate mode
+                case SYMBOL:
                     tokenizer.unGetToken();
                     try
                     {
@@ -450,7 +450,7 @@ public class CommandInterpreter implements Serializable
                 /*
                  * Blank lines are ignored.
                  */
-                case Token.EOL:
+                case EOL:
                     break;
 
                 /*

@@ -68,7 +68,7 @@ class GOTOStatement extends Statement
     private static void parse(GOTOStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
-        if (t.typeNum() != Token.CONSTANT)
+        if (t.typeNum() != KeyWords.CONSTANT)
         {
             throw new BASICSyntaxError("Line number required after GOTO.");
         }

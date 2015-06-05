@@ -37,12 +37,12 @@ class RANDOMIZEStatement extends Statement
         super(KeyWords.RANDOMIZE);
         Token t = lt.nextToken();
         switch (t.typeNum()) {
-            case Token.OPERATOR:
-            case Token.CONSTANT:
-            case Token.VARIABLE:
+            case OPERATOR:
+            case CONSTANT:
+            case VARIABLE:
                 lt.unGetToken();
                 nExpn = ParseExpression.expression(lt);
-            case Token.KEYWORD:
+            case KEYWORD:
                 if (t.kwValue != KeyWords.TIMER)
                     throw new BASICSyntaxError("Badly formed randomize statement.");
                 useTimeOfDay = true;

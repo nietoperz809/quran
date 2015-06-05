@@ -56,7 +56,7 @@ class TRONStatement extends Statement {
      */
     private static void parse(TRONStatement s, LexicalTokenizer lt) throws BASICSyntaxError {
         Token t = lt.nextToken();
-        if ((t.typeNum() == Token.EOL) || (t.isSymbol(':'))) {
+        if ((t.typeNum() == KeyWords.EOL) || (t.isSymbol(':'))) {
             lt.unGetToken();
             return;
         }

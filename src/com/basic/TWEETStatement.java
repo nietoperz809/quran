@@ -91,15 +91,15 @@ class TWEETStatement extends Statement
             t = lt.nextToken();
             switch (t.typeNum())
             {
-                case Token.CONSTANT:
-                case Token.FUNCTION:
-                case Token.VARIABLE:
-                case Token.STRING:
-                case Token.OPERATOR:
+                case CONSTANT:
+                case FUNCTION:
+                case VARIABLE:
+                case STRING:
+                case OPERATOR:
                     lt.unGetToken();
                     result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
                     break;
-                case Token.SYMBOL:
+                case SYMBOL:
                     switch ((int) t.numValue())
                     {
                         case '(':
@@ -117,7 +117,7 @@ class TWEETStatement extends Statement
                             return result;
                     }
                     break;
-                case Token.EOL:
+                case EOL:
                     return result;
                 default:
                     lt.unGetToken();

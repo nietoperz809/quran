@@ -22,9 +22,9 @@ public class RATEStatement extends Statement
         Token t = lt.nextToken();
         switch (t.typeNum())
         {
-            case Token.OPERATOR:
-            case Token.CONSTANT:
-            case Token.VARIABLE:
+            case OPERATOR:
+            case CONSTANT:
+            case VARIABLE:
                 lt.unGetToken();
                 nExpn = ParseExpression.expression(lt);
             default:

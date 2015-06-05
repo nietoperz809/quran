@@ -86,7 +86,7 @@ class LETStatement extends Statement
         Token t = lt.nextToken();
         //Variable vi;
 
-        if (t.typeNum() != Token.VARIABLE)
+        if (t.typeNum() != KeyWords.VARIABLE)
         {
             throw new BASICSyntaxError("variable expected for LET statement.");
         }

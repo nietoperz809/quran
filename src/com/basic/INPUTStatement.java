@@ -15,7 +15,6 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-
 package com.basic;
 
 import java.io.DataInputStream;
@@ -27,34 +26,37 @@ import java.util.Vector;
 /**
  * This is the INPUT statement.
  *
- * The syntax of the INPUT statement is :
- *      INPUT [ "prompt"; ] var1, var2, ... varN
+ * The syntax of the INPUT statement is : INPUT [ "prompt"; ] var1, var2, ...
+ * varN
  *
- * The variables can be string variables or numeric variables but they
- * cannot be expressions. When reading into a string variable all characters
- * up to the first comma are stored into the string variable, unless the
- * string is quoted with " characters.
+ * The variables can be string variables or numeric variables but they cannot be
+ * expressions. When reading into a string variable all characters up to the
+ * first comma are stored into the string variable, unless the string is quoted
+ * with " characters.
  *
  * If insufficient input is provided, the prompt is re-iterated for more data.
- * Syntax errors:
- *      Semi-colon expected after the prompt string.
- *      Malformed INPUT statement.
- * Runtime errors:
- *      Type mismatch.
+ * Syntax errors: Semi-colon expected after the prompt string. Malformed INPUT
+ * statement. Runtime errors: Type mismatch.
  *
  */
-class INPUTStatement extends Statement {
+class INPUTStatement extends Statement
+{
 
-    /** The prompt is displayed prior to requesting input. */
+    /**
+     * The prompt is displayed prior to requesting input.
+     */
     String prompt;
 
-    /** This vector holds a list of variables to fill */
+    /**
+     * This vector holds a list of variables to fill
+     */
     Vector args;
 
     /**
      * Construct a new INPUT statement object.
      */
-    INPUTStatement(LexicalTokenizer lt) throws BASICSyntaxError {
+    INPUTStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    {
         super(KeyWords.INPUT);
         parse(this, lt);
     }
@@ -62,7 +64,8 @@ class INPUTStatement extends Statement {
     /**
      * Execute the INPUT statement. Most of the work is done in fillArgs.
      */
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
         DataInputStream dis = new DataInputStream(in);
         getMoreData(dis, out, prompt);
         fillArgs(in, out, prompt, pgm, args);
@@ -72,17 +75,23 @@ class INPUTStatement extends Statement {
     /**
      * Reconstruct this statement from its parsed data.
      */
-    String unparse() {
+    String unparse()
+    {
         StringBuffer sb = new StringBuffer();
         sb.append("INPUT ");
-        if (prompt != null) {
-            sb.append("\""+prompt+"\"; ");
+        if (prompt != null)
+        {
+            sb.append("\"" + prompt + "\"; ");
         }
-        for (int i = 0; i < args.size(); i++) {
+        for (int i = 0; i < args.size(); i++)
+        {
             Variable va = (Variable) args.elementAt(i);
-            if (i < (args.size() - 1)) {
-                sb.append(va.unparse()+", ");
-            } else {
+            if (i < (args.size() - 1))
+            {
+                sb.append(va.unparse() + ", ");
+            }
+            else
+            {
                 sb.append(va.unparse());
             }
         }
@@ -92,28 +101,38 @@ class INPUTStatement extends Statement {
     /**
      * This is our buffer for processing INPUT statement requests.
      */
-    private int currentPos= 500;
+    private int currentPos = 500;
     private char buffer[] = new char[256];
 
-    void getMoreData(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError {
+    void getMoreData(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError
+    {
         String x = null;
 
-        if (prompt != null) {
+        if (prompt != null)
+        {
             out.print(prompt);
-        } else {
+        }
+        else
+        {
             out.print("?");
         }
         out.print(" ");
         out.flush();
 
-        try {
+        try
+        {
             x = in.readLine();
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe)
+        {
             throw new BASICRuntimeError(this, "I/O error on input.");
         }
         if (x == null)
+        {
             throw new BASICRuntimeError(this, "Out of data for INPUT.");
-        for (int i = 0; i < buffer.length; i++) {
+        }
+        for (int i = 0; i < buffer.length; i++)
+        {
             buffer[i] = (x.length() > i) ? x.charAt(i) : 0;
         }
         buffer[x.length()] = '\n';
@@ -123,48 +142,63 @@ class INPUTStatement extends Statement {
     /*
      * Read a floating point number from the character buffer array.
      */
-    double getNumber(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError {
+    double getNumber(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError
+    {
         double m = 0;   // Mantissa
         double f = 0;   // Fractional component
         int oldPos = currentPos; // save our place.
         boolean wasNeg = false;
 
         if (currentPos >= buffer.length)
+        {
             getMoreData(in, out, prompt);
+        }
 
-        while (Character.isSpace(buffer[currentPos])) {
-            if (buffer[currentPos] == '\n') {
+        while (Character.isSpace(buffer[currentPos]))
+        {
+            if (buffer[currentPos] == '\n')
+            {
                 getMoreData(in, out, prompt);
             }
             currentPos++;
             if (currentPos >= buffer.length)
+            {
                 getMoreData(in, out, prompt);
+            }
         }
 
-        if (buffer[currentPos] == '-') {
+        if (buffer[currentPos] == '-')
+        {
             wasNeg = true;
             currentPos++;
         }
 
         // Look for the integral part.
-        while (Character.isDigit(buffer[currentPos])) {
-            m = (m*10.0) + (buffer[currentPos++] - '0');
+        while (Character.isDigit(buffer[currentPos]))
+        {
+            m = (m * 10.0) + (buffer[currentPos++] - '0');
         }
 
         // Now look for the fractional part.
-        if (buffer[currentPos] == '.') {
+        if (buffer[currentPos] == '.')
+        {
             currentPos++;
             double t = .1;
-            while (Character.isDigit(buffer[currentPos])) {
+            while (Character.isDigit(buffer[currentPos]))
+            {
                 f = f + (t * (buffer[currentPos++] - '0'));
-                t = t/10.0;
+                t = t / 10.0;
             }
-        } else if (currentPos == oldPos) // no number found
+        }
+        else if (currentPos == oldPos) // no number found
+        {
             throw new BASICRuntimeError(this, "Number expected.");
+        }
 
         m = (m + f) * ((wasNeg) ? -1 : 1);
         // so it was a number, perhaps we are done with it.
-        if ((buffer[currentPos] != 'E') && (buffer[currentPos] != 'e')) {
+        if ((buffer[currentPos] != 'E') && (buffer[currentPos] != 'e'))
+        {
             return m;
         }
 
@@ -175,109 +209,152 @@ class INPUTStatement extends Statement {
         wasNeg = false;
 
         // check for negative exponent.
-        if (buffer[currentPos] == '-') {
+        if (buffer[currentPos] == '-')
+        {
             wasNeg = true;
             currentPos++;
-        } else if (buffer[currentPos] == '+') {
+        }
+        else if (buffer[currentPos] == '+')
+        {
             currentPos++;
         }
 
-        while (Character.isDigit(buffer[currentPos])) {
+        while (Character.isDigit(buffer[currentPos]))
+        {
             p = (p * 10) + (buffer[currentPos++] - '0');
         }
 
-        try {
-            e = Math.pow(10, (double)p);
-        } catch (ArithmeticException zzz) {
+        try
+        {
+            e = Math.pow(10, (double) p);
+        }
+        catch (ArithmeticException zzz)
+        {
             throw new BASICRuntimeError(this, "Illegal numeric constant.");
         }
 
         if (wasNeg)
-            e = 1/e;
+        {
+            e = 1 / e;
+        }
         return m * e;
     }
 
-    String getString(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError {
+    String getString(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError
+    {
         int oldPos = currentPos;
         int sIndex, eIndex;
         StringBuffer sb = new StringBuffer();
 
         if (currentPos >= buffer.length)
+        {
             getMoreData(in, out, prompt);
+        }
 
-        while (Character.isSpace(buffer[currentPos])) {
-            if (buffer[currentPos] == '\n') {
+        while (Character.isSpace(buffer[currentPos]))
+        {
+            if (buffer[currentPos] == '\n')
+            {
                 getMoreData(in, out, prompt);
             }
             currentPos++;
             if (currentPos >= buffer.length)
+            {
                 getMoreData(in, out, prompt);
+            }
         }
 
         boolean inQuote = false;
-        while (true) {
-            switch((int) buffer[currentPos]) {
+        while (true)
+        {
+            switch ((int) buffer[currentPos])
+            {
                 case '\n':
                     return (sb.toString()).trim();
-                case '"' :
-                    if (buffer[currentPos+1] == '"') {
+                case '"':
+                    if (buffer[currentPos + 1] == '"')
+                    {
                         currentPos++;
                         sb.append('"');
-                    } else if (inQuote) {
+                    }
+                    else if (inQuote)
+                    {
                         currentPos++;
                         return sb.toString();
-                    } else {
+                    }
+                    else
+                    {
                         inQuote = true;
                     }
                     break;
-                case ',' :
-                    if (inQuote) {
+                case ',':
+                    if (inQuote)
+                    {
                         sb.append(',');
-                    } else {
+                    }
+                    else
+                    {
                         return (sb.toString()).trim();
                     }
                     break;
-                default :
+                default:
                     sb.append(buffer[currentPos]);
             }
             currentPos++;
             if (currentPos >= buffer.length)
+            {
                 return sb.toString();
+            }
         }
     }
 
-    void fillArgs(InputStream in, PrintStream out, String prompt, Program pgm, Vector v) throws BASICRuntimeError {
+    void fillArgs(InputStream in, PrintStream out, String prompt, Program pgm, Vector v) throws BASICRuntimeError
+    {
         DataInputStream d;
 
         if (in instanceof DataInputStream)
+        {
             d = (DataInputStream) in;
+        }
         else
+        {
             d = new DataInputStream(in);
+        }
 
-        for (int i = 0; i < v.size(); i++) {
+        for (int i = 0; i < v.size(); i++)
+        {
             Variable vi = (Variable) v.elementAt(i);
             if (buffer[currentPos] == '\n')
-                getMoreData(d, out, "(more)"+((prompt == null) ? "?" : prompt));
-            if (!vi.isString()) {
+            {
+                getMoreData(d, out, "(more)" + ((prompt == null) ? "?" : prompt));
+            }
+            if (!vi.isString())
+            {
                 pgm.setVariable(vi, getNumber(d, out, prompt));
-            } else {
+            }
+            else
+            {
                 pgm.setVariable(vi, getString(d, out, prompt));
             }
-            while (true) {
-                if (buffer[currentPos] == ',') {
+            while (true)
+            {
+                if (buffer[currentPos] == ',')
+                {
                     currentPos++;
                     break;
                 }
 
-                if (buffer[currentPos] == '\n') {
+                if (buffer[currentPos] == '\n')
+                {
                     break;
                 }
 
-                if (Character.isSpace(buffer[currentPos])) {
+                if (Character.isSpace(buffer[currentPos]))
+                {
                     currentPos++;
                     continue;
                 }
-                throw new BASICRuntimeError(this, "Comma expected, got '"+buffer[currentPos]+"'.");
+                throw new BASICRuntimeError(this, "Comma expected, got '" + buffer[currentPos] + "'.");
             }
         }
     }
@@ -285,38 +362,51 @@ class INPUTStatement extends Statement {
     /**
      * Parse INPUT Statement.
      */
-    private static void parse(INPUTStatement s, LexicalTokenizer lt) throws BASICSyntaxError {
+    private static void parse(INPUTStatement s, LexicalTokenizer lt) throws BASICSyntaxError
+    {
         Token t;
         boolean needComma = false;
         s.args = new Vector();
 
         // get optional prompt string.
         t = lt.nextToken();
-        if (t.typeNum() == Token.STRING) {
+        if (t.typeNum() == KeyWords.STRING)
+        {
             s.prompt = t.stringValue();
             t = lt.nextToken();
-            if (! t.isSymbol(';'))
+            if (!t.isSymbol(';'))
+            {
                 throw new BASICSyntaxError("semi-colon expected after prompt string.");
-        } else {
+            }
+        }
+        else
+        {
             lt.unGetToken();
         }
-        while (true) {
+        while (true)
+        {
             t = lt.nextToken();
-            if (t.typeNum() == Token.EOL) {
+            if (t.typeNum() == KeyWords.EOL)
+            {
                 return;
             }
 
-            if (needComma) {
-                if (! t.isSymbol(',')) {
+            if (needComma)
+            {
+                if (!t.isSymbol(','))
+                {
                     lt.unGetToken();
                     return;
                 }
                 needComma = false;
                 continue;
             }
-            if (t.typeNum() == Token.VARIABLE) {
+            if (t.typeNum() == KeyWords.VARIABLE)
+            {
                 s.args.addElement(t);
-            } else {
+            }
+            else
+            {
                 throw new BASICSyntaxError("malformed INPUT statement.");
             }
             needComma = true;

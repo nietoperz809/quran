@@ -119,7 +119,7 @@ class ONStatement extends Statement
             throw new BASICSyntaxError("Numeric expression required here.");
         }
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD)
+        if ((t.typeNum() != KeyWords.KEYWORD)
                 || ((t.kwValue != KeyWords.GOTO) && (t.kwValue != KeyWords.GOSUB)))
         {
             throw new BASICSyntaxError("On statement needs GOTO or GOSUB.");
@@ -135,13 +135,13 @@ class ONStatement extends Statement
         while (true)
         {
             t = lt.nextToken();
-            if (t.typeNum() != Token.CONSTANT)
+            if (t.typeNum() != KeyWords.CONSTANT)
             {
                 break;
             }
             s.args.addElement(t);
             t = lt.nextToken();
-            if (t.typeNum() == Token.EOL)
+            if (t.typeNum() == KeyWords.EOL)
             {
                 break;
             }

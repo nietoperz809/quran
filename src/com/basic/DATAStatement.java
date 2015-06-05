@@ -83,18 +83,18 @@ class DATAStatement extends Statement
         while (true)
         {
             t = lt.nextToken();
-            if (t.typeNum() == Token.CONSTANT)
+            if (t.typeNum() == KeyWords.CONSTANT)
             {
                 s.args.addElement(t);
             }
-            else if (t.typeNum() == Token.STRING)
+            else if (t.typeNum() == KeyWords.STRING)
             {
                 s.args.addElement(t);
             }
             else if (t.isOp(KeyWords.OP_SUB))
             {
                 t = lt.nextToken();
-                if (t.typeNum() != Token.CONSTANT)
+                if (t.typeNum() != KeyWords.CONSTANT)
                 {
                     throw new BASICSyntaxError("Bogus value in DATA statement.");
                 }
@@ -107,7 +107,7 @@ class DATAStatement extends Statement
                 return;
             }
             t = lt.nextToken();
-            if (t.typeNum() == Token.EOL)
+            if (t.typeNum() == KeyWords.EOL)
             {
                 return;
             }
