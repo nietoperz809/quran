@@ -30,9 +30,9 @@ public class LexicalTokenizer implements Serializable
 {
     public static final long serialVersionUID = 1L;
     // multiple expressions can be chained with these operators
-    
-    final public static EnumSet<KeyWords> boolTokens = 
-            EnumSet.of(KeyWords.OP_BAND, KeyWords.OP_BIOR, KeyWords.OP_BXOR, KeyWords.OP_BNOT);    
+
+    final public static EnumSet<KeyWords> boolTokens
+            = EnumSet.of(KeyWords.OP_BAND, KeyWords.OP_BIOR, KeyWords.OP_BXOR, KeyWords.OP_BNOT);
 
     /**
      * return true if char is between a-z or A=Z
@@ -161,7 +161,6 @@ public class LexicalTokenizer implements Serializable
         }
     }
 
-
     /**
      * Check the input stream to see if it is one of the boolean operations.
      */
@@ -226,7 +225,7 @@ public class LexicalTokenizer implements Serializable
             {
                 if (x.equalsIgnoreCase(k.toString()))
                 {
-                    r = new Token(Token.OPERATOR, k.toString(), k.ordinal());
+                    r = new Token(Token.OPERATOR, k);
                     break;
                 }
             }
@@ -346,19 +345,19 @@ public class LexicalTokenizer implements Serializable
         // if we recurse then we need to know what the position was
         int savePos = currentPos;
         /*
-        * Always return a token, even if it is just EOL
-        */
+         * Always return a token, even if it is just EOL
+         */
         if (currentPos >= buffer.length)
         {
             return EOLToken;
         }
         /*
-        * Save our previous position for unGetToken() to work.
-        */
+         * Save our previous position for unGetToken() to work.
+         */
         previousPos = currentPos;
         /*
-        * eat white space.
-        */
+         * eat white space.
+         */
         while (isSpace(buffer[currentPos]))
         {
             currentPos++;
@@ -371,102 +370,96 @@ public class LexicalTokenizer implements Serializable
             // Various lexical symbols that have meaning.
             case '+':
                 currentPos++;
-                return new Token(Token.OPERATOR, "+", KeyWords.OP_ADD.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_ADD);
             case '-':
                 currentPos++;
-                return new Token(Token.OPERATOR, "-", KeyWords.OP_SUB.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_SUB);
             case '*':
                 if (buffer[currentPos + 1] == '*')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, "**", KeyWords.OP_EXP.ordinal());
+                    return new Token(Token.OPERATOR, KeyWords.OP_EXP);
                 }
                 currentPos++;
-                return new Token(Token.OPERATOR, "*", KeyWords.OP_MUL.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_MUL);
             case '/':
                 currentPos++;
-                return new Token(Token.OPERATOR, "/", KeyWords.OP_DIV.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_DIV);
             case '^':
                 currentPos++;
-                return new Token(Token.OPERATOR, "^", KeyWords.OP_XOR.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_XOR);
             case '&':
                 currentPos++;
-                return new Token(Token.OPERATOR, "&", KeyWords.OP_AND.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_AND);
             case '|':
                 currentPos++;
-                return new Token(Token.OPERATOR, "|", KeyWords.OP_IOR.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_IOR);
             case '!':
                 currentPos++;
-                return new Token(Token.OPERATOR, "!", KeyWords.OP_NOT.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_NOT);
             case '=':
                 currentPos++;
-                return new Token(Token.OPERATOR, "=", KeyWords.OP_EQ.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_EQ);
             case '<':
                 if (buffer[currentPos + 1] == '=')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, "<=", KeyWords.OP_LE.ordinal());
+                    return new Token(Token.OPERATOR, KeyWords.OP_LE);
                 }
                 else if (buffer[currentPos + 1] == '>')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, "<>", KeyWords.OP_NE.ordinal());
+                    return new Token(Token.OPERATOR, KeyWords.OP_NE);
                 }
                 currentPos++;
-                return new Token(Token.OPERATOR, "<", KeyWords.OP_LT.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_LT);
             case '>':
                 if (buffer[currentPos + 1] == '=')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, ">=", KeyWords.OP_GE.ordinal());
+                    return new Token(Token.OPERATOR, KeyWords.OP_GE);
                 }
                 else if (buffer[currentPos + 1] == '<')
                 {
                     currentPos += 2;
-                    return new Token(Token.OPERATOR, "<>", KeyWords.OP_NE.ordinal());
+                    return new Token(Token.OPERATOR, KeyWords.OP_NE);
                 }
                 currentPos++;
-                return new Token(Token.OPERATOR, ">", KeyWords.OP_GT.ordinal());
+                return new Token(Token.OPERATOR, KeyWords.OP_GT);
             case '(':
             case '\'':
             case '?':
             case ')':
-        case ':':
-        case ';':
+            case ':':
+            case ';':
             case ',':
                 return new Token(Token.SYMBOL, buffer[currentPos++]);
-                //            case '.':
-//                r = parseBooleanOp();
-//                if (r != null)
-//                {
-//                    return r;
-//                }
-                /* Else we fall through to the next CASE (numeric constant) */
+            /* Else we fall through to the next CASE (numeric constant) */
             case '0':
             case '1':
             case '2':
             case '3':
             case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-            r = parseNumericConstant();
-            if (r != null)
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                r = parseNumericConstant();
+                if (r != null)
                 {
                     return r;
                 }
-            return new Token(Token.SYMBOL, buffer[currentPos++]);
+                return new Token(Token.SYMBOL, buffer[currentPos++]);
             // process EOL characters. (dump <CR><LF> as just EOL)
-        case '\r':
-        case '\n':
-            while (currentPos < buffer.length)
-            {
-                currentPos++;
+            case '\r':
+            case '\n':
+                while (currentPos < buffer.length)
+                {
+                    currentPos++;
                 }
                 return EOLToken;
-        // text enclosed in "quotes" is a string constant.
+            // text enclosed in "quotes" is a string constant.
             case '"':
                 StringBuilder sb = new StringBuilder();
                 currentPos++;
@@ -522,47 +515,38 @@ public class LexicalTokenizer implements Serializable
         }
         String t = q.toString();
         //
-        /* Is it a function name ? */
-//        for (int i = 0; i < FunctionExpression.functions.length; i++)
-//        {
-//            if (t.compareTo(FunctionExpression.functions[i]) == 0)
-//            {
-//                return new Token(Token.FUNCTION, FunctionExpression.functions[i], i);
-//            }
-//        }
         for (KeyWords k : KeyWords.functions)
         {
             if (t.compareTo(k.toString()) == 0)
             {
-                return new Token(Token.FUNCTION, k.toString(), k.ordinal());
+                return new Token(Token.FUNCTION, k);
             }
         }
-        
-        
+
         /* Is it a BASIC keyword ? */
         for (KeyWords k : KeyWords.keywords)
         {
             if (t.compareTo(k.toString()) == 0)
             {
-                return new Token(Token.KEYWORD, k.toString(), k.ordinal());
+                return new Token(Token.KEYWORD, k);
             }
         }
-        
+
         /* Is it a command ? */
         for (KeyWords k : KeyWords.commands)
         {
             if (t.compareTo(k.toString()) == 0)
             {
-                return new Token(Token.COMMAND, k.toString(), k.ordinal());
+                return new Token(Token.COMMAND, k);
             }
         }
         /*
-        * It must be a variable.
-        *
-        * If this is an array reference, the variable name
-        * will be followed by '(' index ',' index ',' index ')'
-        * (one to four indices)
-        */
+         * It must be a variable.
+         *
+         * If this is an array reference, the variable name
+         * will be followed by '(' index ',' index ',' index ')'
+         * (one to four indices)
+         */
         if (buffer[currentPos] == '(')
         {
             currentPos++;
@@ -604,8 +588,8 @@ public class LexicalTokenizer implements Serializable
     }
 
     /*
-    * Return the buffer from the current position to the end as a string.
-    */
+     * Return the buffer from the current position to the end as a string.
+     */
     String asString()
     {
         int ndx = currentPos;

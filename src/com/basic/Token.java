@@ -122,6 +122,8 @@ public class Token implements Serializable
      */
     protected String sValue;     // Its string value (if it has one)
 
+    protected KeyWords kwValue;
+    
     /**
      *
      */
@@ -166,6 +168,14 @@ public class Token implements Serializable
         nValue = iv;
     }
 
+    Token (int t, KeyWords kw)
+    {
+        type = t;
+        kwValue = kw;
+        sValue = kw.toString();
+        nValue = kw.ordinal();
+    }
+    
     double numValue()
     {
         return nValue;
@@ -212,7 +222,7 @@ public class Token implements Serializable
 
     boolean isOp(KeyWords op)
     {
-        return ((type == OPERATOR) && KeyWords.values()[(int)nValue] == op); //((int) nValue == op));
+        return ((type == OPERATOR) && kwValue == op); //((int) nValue == op));
     }
 
     void negate()

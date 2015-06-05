@@ -138,7 +138,7 @@ class IFStatement extends Statement
         {
             throw new BASICSyntaxError("Mismatched parenthesis.");
         }
-        else if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != KeyWords.THEN.ordinal()))
+        else if ((t.typeNum() != Token.KEYWORD) || (t.kwValue != KeyWords.THEN))
         {
             throw new BASICSyntaxError("Missing THEN keyword in IF statement.");
         }

@@ -128,14 +128,14 @@ class FORStatement extends Statement
         s.nExp = ParseExpression.expression(lt);
         noBool(s.nExp);
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != KeyWords.TO.ordinal()))
+        if ((t.typeNum() != Token.KEYWORD) || (t.kwValue != KeyWords.TO))
         {
             throw new BASICSyntaxError("Missing TO in FOR statement.");
         }
         s.eExp = ParseExpression.expression(lt);
         noBool(s.eExp);
         t = lt.nextToken();
-        if ((t.typeNum() != Token.KEYWORD) || (t.numValue() != KeyWords.STEP.ordinal()))
+        if ((t.typeNum() != Token.KEYWORD) || (t.kwValue != KeyWords.STEP))
         {
             lt.unGetToken();
             s.sExp = new ConstantExpression(1.0);

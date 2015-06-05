@@ -66,7 +66,7 @@ public class CommandInterpreter implements Serializable
         Token t;
         Statement s = null;
 
-        switch (KeyWords.values()[(int)x.numValue()]) 
+        switch (x.kwValue) 
         {
             case CMD_RESUME:
                 try
@@ -369,12 +369,12 @@ public class CommandInterpreter implements Serializable
                  * Process one of the command interpreter's commands.
                  */
                 case Token.COMMAND:
-                    if (KeyWords.values()[(int)t.numValue()] == KeyWords.CMD_BYE)
+                    if (t.kwValue  == KeyWords.CMD_BYE)
                     {
                         //System.exit(0);
                         return 1;
                     }
-                    else if (KeyWords.values()[(int)t.numValue()] == KeyWords.CMD_NEW)
+                    else if (t.kwValue == KeyWords.CMD_NEW)
                     {
                         basicProgram = new Program(area, voice);
                         System.gc();

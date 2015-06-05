@@ -120,13 +120,13 @@ class ONStatement extends Statement
         }
         t = lt.nextToken();
         if ((t.typeNum() != Token.KEYWORD)
-                || ((t.numValue() != KeyWords.GOTO.ordinal()) && (t.numValue() != KeyWords.GOSUB.ordinal())))
+                || ((t.kwValue != KeyWords.GOTO) && (t.kwValue != KeyWords.GOSUB)))
         {
             throw new BASICSyntaxError("On statement needs GOTO or GOSUB.");
         }
 
         // Check our assumption about the GOTOness of the statement.
-        if (t.numValue() == KeyWords.GOSUB.ordinal())
+        if (t.kwValue == KeyWords.GOSUB)
         {
             s.keyword = KeyWords.ON_GOSUB;
         }

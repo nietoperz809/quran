@@ -43,7 +43,7 @@ class RANDOMIZEStatement extends Statement
                 lt.unGetToken();
                 nExpn = ParseExpression.expression(lt);
             case Token.KEYWORD:
-                if (t.numValue() != KeyWords.TIMER.ordinal())
+                if (t.kwValue != KeyWords.TIMER)
                     throw new BASICSyntaxError("Badly formed randomize statement.");
                 useTimeOfDay = true;
             default:

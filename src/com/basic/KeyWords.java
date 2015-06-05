@@ -111,7 +111,6 @@ enum KeyWords
     OP_BNOT("NOT"),  // Boolean negation '.NOT.'
     OP_NEG("-"),  // Unary minus
     
-    
     ENDLIST("");
 
     final public static EnumSet<KeyWords> keywords = EnumSet.range(KeyWords.GOTO, KeyWords.RATE);
