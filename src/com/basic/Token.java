@@ -29,25 +29,6 @@ public class Token implements Serializable
      */
     public static final long serialVersionUID = 1L;
     
-
-    final static String names[] =
-    {
-        "symbol", "command", "constant", "function", "keyword", "eol", "string", "error", "string variable","numeric variable", "boolean operator", "operator",
-    };
-
-    final static int SYMBOL = 0;
-    final static int COMMAND = 1;
-    final static int CONSTANT = 2;
-    final static int FUNCTION = 3;
-    final static int KEYWORD = 4;
-    final static int EOL = 5;
-    final static int STRING = 6;
-    final static int ERROR = 7;
-    final static int STRING_VARIABLE = 8;
-    final static int BOOLEAN_OPERATOR = 10;
-    final static int OPERATOR = 11;
-    final static int VARIABLE = 12;
-
     static boolean isSymbol(Token t, char s)
     {
         return ((t != null) && (t.typeNum() == KeyWords.SYMBOL) && (t.numValue() == s));
