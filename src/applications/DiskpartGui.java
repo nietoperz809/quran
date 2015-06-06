@@ -5,6 +5,7 @@
  */
 package applications;
 
+import java.io.IOException;
 import java.io.InputStream;
 import misc.PittiFrame;
 import misc.ProcessTool;
@@ -39,7 +40,7 @@ public class DiskpartGui extends PittiFrame
                     }
                     Thread.sleep(100);
                 }
-                catch (Exception ex)
+                catch (IOException | InterruptedException ex)
                 {
                     System.out.println("bye");
                     return;

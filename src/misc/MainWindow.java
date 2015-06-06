@@ -124,6 +124,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -301,6 +302,16 @@ public class MainWindow extends javax.swing.JFrame
         });
         fileMenu.add(jMenuItem17);
 
+        jMenuItem18.setText("Magnifier");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem18);
+
         menuBar.add(fileMenu);
 
         savesMenu.setText("Saves");
@@ -476,6 +487,11 @@ public class MainWindow extends javax.swing.JFrame
         createMDIChild (applications.WebServerGUI.class);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem18ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem18ActionPerformed
+        createMDIChild (applications.MagnifyGUI.class);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -507,6 +523,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

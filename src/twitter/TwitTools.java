@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import misc.DebugOut;
 import misc.StringDivider;
@@ -115,6 +117,22 @@ public class TwitTools implements TwitterKeys
         sendFile(f, label);
     }
 
+    public void sendAsync (final BufferedImage img, final String label)
+    {
+        Runnable r = () ->
+        {
+            try
+            {
+                send (img, label);
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(TwitTools.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
+        new Thread(r).start();
+    }
+    
     public void send(InputStream in, String label) throws Exception
     {
         if (m_twit == null)
@@ -156,7 +174,7 @@ public class TwitTools implements TwitterKeys
         }
     }
 
-    public static void sendLongStringAsync(String str)
+    public static void sendLongStringAsync (final String str)
     {
         Runnable r = () ->
         {
