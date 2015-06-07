@@ -5,8 +5,19 @@
  */
 package applications;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
 import magnify.MagnifyPanel;
 
 /**
@@ -22,6 +33,80 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
     public MagnifyGUI()
     {
         initComponents();
+        spinX.setUI(new NewSpinUI(spinX));
+        spinY.setUI(new NewSpinUI(spinY));
+    }
+
+    class NewSpinUI extends javax.swing.plaf.basic.BasicSpinnerUI
+    {
+        JSpinner target;
+
+        public NewSpinUI(JSpinner tg)
+        {
+            super();
+            target = tg;
+        }
+
+        private void doIt()
+        {
+            Rectangle r = MagnifyGUI.this.getBounds();
+            if (target == spinX)
+            {
+                r.width = (Integer) MagnifyGUI.this.spinX.getValue();
+            }
+            else
+            {
+                r.height = (Integer) MagnifyGUI.this.spinY.getValue();
+            }
+            MagnifyGUI.this.setBounds(r);
+        }
+
+        @Override
+        protected JComponent createEditor()
+        {
+            JSpinner.DefaultEditor comp = (JSpinner.DefaultEditor) super.createEditor();
+            JFormattedTextField tf = comp.getTextField();
+            tf.addKeyListener(new KeyAdapter()
+            {
+                @Override
+                public void keyPressed(final KeyEvent e)
+                {
+                    try
+                    {
+                        target.commitEdit();
+                    }
+                    catch (ParseException ex)
+                    {
+                        Logger.getLogger(MagnifyGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    doIt();
+                    //System.out.println("enter pressed");
+                }
+            });
+            return comp;
+        }
+
+        @Override
+        protected Component createNextButton()
+        {
+            JButton btnUp = (JButton) super.createNextButton();
+            btnUp.addActionListener((ActionEvent ae) ->
+            {
+                doIt();
+            });
+            return btnUp;
+        }
+
+        @Override
+        protected Component createPreviousButton()
+        {
+            JButton btnDown = (JButton) super.createPreviousButton();
+            btnDown.addActionListener((ActionEvent ae) ->
+            {
+                doIt();
+            });
+            return btnDown;
+        }
     }
 
     /**
@@ -77,22 +162,6 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
             }
         });
 
-        spinX.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-                spinXStateChanged(evt);
-            }
-        });
-
-        spinY.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-                spinYStateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -140,49 +209,19 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        ((MagnifyPanel)magnifyPanel).toClipboard(); // TODO add your handling code here:
+        ((MagnifyPanel) magnifyPanel).toClipboard(); // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        ((MagnifyPanel)magnifyPanel).tweet();
+        ((MagnifyPanel) magnifyPanel).tweet();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void spinXStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_spinXStateChanged
-    {//GEN-HEADEREND:event_spinXStateChanged
-//        if (spinX.isEnabled())
-//        {
-//            Rectangle r = this.getBounds();
-//            r.width = (Integer)spinX.getValue();
-//            this.setBounds(r);
-//        }
-//        else
-//        {
-//        }
-    }//GEN-LAST:event_spinXStateChanged
-
-    private void spinYStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_spinYStateChanged
-    {//GEN-HEADEREND:event_spinYStateChanged
-//        if (spinY.isEnabled())
-//        {
-//            Rectangle r = this.getBounds();
-//            r.height = (Integer)spinY.getValue();
-//            this.setBounds(r);
-//        }
-//        else
-//        {
-//        }
-    }//GEN-LAST:event_spinYStateChanged
 
     private void formComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentResized
     {//GEN-HEADEREND:event_formComponentResized
-//        Dimension d = evt.getComponent().getSize();
-//        spinX.setEnabled(false);
-//        spinY.setEnabled(false);
-//        spinX.setValue(d.width);
-//        spinY.setValue(d.height);
-//        spinX.setEnabled(true);
-//        spinY.setEnabled(true);
+        Dimension d = evt.getComponent().getSize();
+        spinX.setValue(d.width);
+        spinY.setValue(d.height);
     }//GEN-LAST:event_formComponentResized
 
 

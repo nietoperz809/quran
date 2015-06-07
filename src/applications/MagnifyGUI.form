@@ -95,14 +95,8 @@
           </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinX">
-          <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinXStateChanged"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinY">
-          <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spinYStateChanged"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
