@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import misc.ClipboardImage;
+import misc.MainWindow;
+import misc.Tools;
 import twitter.TwitTools;
 
 /**
@@ -62,6 +64,17 @@ public class MagnifyPanel extends javax.swing.JPanel
                 formMouseDragged(evt);
             }
         });
+        addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                formMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -82,12 +95,26 @@ public class MagnifyPanel extends javax.swing.JPanel
 
         re.width = getWidth();
         re.height = getHeight();
-        re.x = pt.x - re.width;
-        re.y = pt.y - re.height;
+        re.x = pt.x - re.width/2;
+        re.y = pt.y - re.height/2;
 
         img = robot.createScreenCapture(re);
         repaint();
     }//GEN-LAST:event_formMouseDragged
+
+    Rectangle bSave;
+    
+    private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
+    {//GEN-HEADEREND:event_formMousePressed
+        System.out.println("pressed");
+        bSave = MainWindow.instance.getBounds();
+        MainWindow.instance.setBounds(10000, 10000, 1, 1);
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
+    {//GEN-HEADEREND:event_formMouseReleased
+        MainWindow.instance.setBounds(bSave);
+    }//GEN-LAST:event_formMouseReleased
 
     @Override
     public void paintComponent(Graphics g)
@@ -95,13 +122,20 @@ public class MagnifyPanel extends javax.swing.JPanel
         g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
     }
 
+    private BufferedImage toNewSize()
+    {
+        if (img == null)
+            return null;
+        return Tools.resizeImage(img, getWidth(), getHeight());
+    }
+    
     public boolean toClipboard()
     {
         if (img == null)
         {
             return false;
         }
-        new ClipboardImage(img);
+        new ClipboardImage(toNewSize());
         return true;
     }
 
@@ -111,7 +145,7 @@ public class MagnifyPanel extends javax.swing.JPanel
         {
             return false;
         }
-        TwitTools.get().sendAsync(img, TOOL_TIP_TEXT_KEY);
+        TwitTools.get().sendAsync(toNewSize(), TOOL_TIP_TEXT_KEY);
         return true;
     }
 

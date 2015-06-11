@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import misc.Tools;
 
 /**
  *
@@ -172,7 +173,7 @@ public class Client implements Runnable
         PrintWriter w = new PrintWriter(out);
         try
         {
-            byte[] b = ImageTools.reduceImg(f, 0.2f);
+            byte[] b = Tools.reduceImg(f, 0.2f);
             imgHead(w, b.length);
             out.write(b);
             w.flush();
