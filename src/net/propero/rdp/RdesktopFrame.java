@@ -31,7 +31,7 @@ package net.propero.rdp;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 import org.apache.log4j.Logger;
 import net.propero.rdp.keymapping.KeyCode_FileBased;
@@ -39,7 +39,7 @@ import net.propero.rdp.menu.RdpMenu;
 import net.propero.rdp.rdp5.cliprdr.ClipChannel;
 
 //import javax.swing.Box;
-public abstract class RdesktopFrame extends JFrame
+public abstract class RdesktopFrame extends JInternalFrame
 {
 
     static Logger logger = Logger.getLogger(RdesktopFrame.class);
@@ -116,7 +116,7 @@ public abstract class RdesktopFrame extends JFrame
 
         if (!menuVisible && Options.enable_menu)
         {
-            this.setMenuBar(menu);
+            //this.setMenuBar(menu);
         }
         canvas.repaint();
         menuVisible = true;
@@ -189,7 +189,7 @@ public abstract class RdesktopFrame extends JFrame
         }
         // Linux Java 1.3 needs pack() before setResizeable
 
-        addWindowListener(new RdesktopWindowAdapter());
+        //addWindowListener(new RdesktopWindowAdapter());
         canvas.addFocusListener(new RdesktopFocusListener());
         if (Constants.OS == Constants.WINDOWS)
         {
@@ -258,7 +258,7 @@ public abstract class RdesktopFrame extends JFrame
         public void windowClosing(WindowEvent e)
         {
             hide();
-            Rdesktop.exit(0, rdp, (RdesktopFrame) e.getWindow(), true);
+            Rdesktop.exit(0, rdp, null, true);
         }
 
         public void windowLostFocus(WindowEvent e)
@@ -415,10 +415,11 @@ public abstract class RdesktopFrame extends JFrame
      */
     public boolean showYesNoErrorDialog(String[] msg)
     {
-
-        YesNoDialog d = new YesNoDialog(this, "properJavaRDP error", msg);
-        d.show();
-        return d.retry;
+        return false;
+//
+//        YesNoDialog d = new YesNoDialog(this, "properJavaRDP error", msg);
+//        d.show();
+//        return d.retry;
     }
 
     /**
@@ -428,8 +429,8 @@ public abstract class RdesktopFrame extends JFrame
      */
     public void showErrorDialog(String[] msg)
     {
-        Dialog d = new OKDialog(this, "properJavaRDP error", msg);
-        d.show();
+//        Dialog d = new OKDialog(this, "properJavaRDP error", msg);
+//        d.show();
     }
 
     /**
@@ -468,7 +469,7 @@ public abstract class RdesktopFrame extends JFrame
      */
     public void centreWindow()
     {
-        centreWindow(this);
+        //centreWindow(this);
     }
 
 }

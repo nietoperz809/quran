@@ -112,8 +112,6 @@ public class JRdpLoader {
         
 		}
 		catch(IOException ioe){ System.err.println("Launch file could not be read: " + ioe.getMessage()); System.exit(-1); } 
-		catch (OrderException e) { e.printStackTrace(); System.exit(-1); } 
-		catch (RdesktopException e) { e.printStackTrace(); System.exit(-1);	}
 		catch(Exception e){ e.printStackTrace(); System.exit(-1); }
 	}
 	

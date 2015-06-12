@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
@@ -19,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
+import net.propero.rdp.Rdesktop;
 import quran.QuranMetadata;
 
 /**
@@ -125,6 +128,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -312,6 +316,16 @@ public class MainWindow extends javax.swing.JFrame
         });
         fileMenu.add(jMenuItem18);
 
+        jMenuItem19.setText("Rdesktop");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem19);
+
         menuBar.add(fileMenu);
 
         savesMenu.setText("Saves");
@@ -492,6 +506,21 @@ public class MainWindow extends javax.swing.JFrame
         createMDIChild (applications.MagnifyGUI.class);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem19ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem19ActionPerformed
+        try
+        {
+            Rdesktop.main(null);
+            
+            JInternalFrame f = Rdesktop.rd.getFrame();
+            addChild(f);
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -524,6 +553,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

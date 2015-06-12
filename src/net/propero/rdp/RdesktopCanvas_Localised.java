@@ -38,7 +38,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
 // Created on 03-Sep-2003
 public class RdesktopCanvas_Localised extends RdesktopCanvas
 {
@@ -116,16 +115,20 @@ public class RdesktopCanvas_Localised extends RdesktopCanvas
     @Override
     public void update(Graphics g)
     {
-
-        Rectangle r = g.getClipBounds();
-        g.drawImage(backstore.getSubimage(r.x, r.y, r.width, r.height), r.x, r.y, null);
-
-        if (Options.save_graphics)
+        try
         {
-            RdesktopCanvas_Localised.saveToFile(backstore.getSubimage(r.x, r.y, r.width, r.height));
-        }
+            Rectangle r = g.getClipBounds();
+            g.drawImage(backstore.getSubimage(r.x, r.y, r.width, r.height), r.x, r.y, null);
 
-        //}
+            if (Options.save_graphics)
+            {
+                RdesktopCanvas_Localised.saveToFile(backstore.getSubimage(r.x, r.y, r.width, r.height));
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println("huh?");
+        }
     }
 
 }
