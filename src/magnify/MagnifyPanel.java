@@ -25,10 +25,11 @@ import twitter.TwitTools;
 public class MagnifyPanel extends javax.swing.JPanel
 {
     Robot robot;
-    Rectangle re;
-    BufferedImage img;
-    Point pt;
-
+    BufferedImage _image;
+    Rectangle _rect = new Rectangle();
+    Point _point;
+    Rectangle _saveRect;
+    
     /**
      * Creates new form magnifyPanel
      */
@@ -37,7 +38,6 @@ public class MagnifyPanel extends javax.swing.JPanel
         try
         {
             robot = new Robot();
-            re = new Rectangle();
             initComponents();
         }
         catch (AWTException ex)
@@ -90,48 +90,48 @@ public class MagnifyPanel extends javax.swing.JPanel
 
     private void formMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseDragged
     {//GEN-HEADEREND:event_formMouseDragged
-        pt = evt.getPoint();
-        javax.swing.SwingUtilities.convertPointToScreen(pt, this);
-
-        re.width = getWidth();
-        re.height = getHeight();
-        re.x = pt.x - re.width/2;
-        re.y = pt.y - re.height/2;
-
-        img = robot.createScreenCapture(re);
-        repaint();
+        _point = evt.getPoint();
+        //System.out.println(pt);
     }//GEN-LAST:event_formMouseDragged
-
-    Rectangle bSave;
     
     private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
     {//GEN-HEADEREND:event_formMousePressed
-        System.out.println("pressed");
-        bSave = MainWindow.instance.getBounds();
+        _saveRect = MainWindow.instance.getBounds();
         MainWindow.instance.setBounds(10000, 10000, 1, 1);
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
     {//GEN-HEADEREND:event_formMouseReleased
-        MainWindow.instance.setBounds(bSave);
+        javax.swing.SwingUtilities.convertPointToScreen(_point, this);
+        
+        _rect.width = getWidth();
+        _rect.height = getHeight();
+        _rect.x = _point.x - _rect.width/2;
+        _rect.y = _point.y - _rect.height/2;
+
+        if (_rect.width < 0 || _rect.height < 0)
+            return;
+        
+        _image = robot.createScreenCapture(_rect);
+        MainWindow.instance.setBounds(_saveRect);
     }//GEN-LAST:event_formMouseReleased
 
     @Override
     public void paintComponent(Graphics g)
     {
-        g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(_image, 0, 0, getWidth(), getHeight(), null);
     }
 
     private BufferedImage toNewSize()
     {
-        if (img == null)
+        if (_image == null)
             return null;
-        return Tools.resizeImage(img, getWidth(), getHeight());
+        return Tools.resizeImage(_image, getWidth(), getHeight());
     }
     
     public boolean toClipboard()
     {
-        if (img == null)
+        if (_image == null)
         {
             return false;
         }
@@ -141,7 +141,7 @@ public class MagnifyPanel extends javax.swing.JPanel
 
     public boolean tweet()
     {
-        if (img == null)
+        if (_image == null)
         {
             return false;
         }

@@ -127,8 +127,6 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
         magnifyPanel = new magnify.MagnifyPanel();
 
         setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Magnifier");
         setName(""); // NOI18N
