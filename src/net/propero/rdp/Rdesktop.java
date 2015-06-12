@@ -239,7 +239,7 @@ public class Rdesktop
 
     public static volatile Rdesktop rd = null;
 
-    public static void main(String... args) throws Exception 
+    public static void main(String[] args) throws Exception 
     {
         if (rd != null)
             return;

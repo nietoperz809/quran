@@ -41,8 +41,8 @@ public class RdesktopFrame_Localised extends RdesktopFrame
 
     protected void fullscreen()
     {
-        setUndecorated(true);
-        setExtendedState(Frame.MAXIMIZED_BOTH);
+        //setUndecorated(true);
+        //setExtendedState(Frame.MAXIMIZED_BOTH);
     }
 
     public void goFullScreen()
@@ -60,7 +60,7 @@ public class RdesktopFrame_Localised extends RdesktopFrame
         }
         this.setVisible(false);
         this.setLocation(0, 0);
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
         this.setVisible(true);
 		//setExtendedState (Frame.MAXIMIZED_BOTH);
         //GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -92,7 +92,7 @@ public class RdesktopFrame_Localised extends RdesktopFrame
         }
 
         this.setLocation(10, 10);
-        this.setUndecorated(false);
+        //this.setUndecorated(false);
         this.setVisible(true);
         //setExtendedState (Frame.NORMAL);
         this.pack();
