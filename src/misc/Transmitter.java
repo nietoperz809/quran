@@ -1,0 +1,81 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package misc;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+ *
+ * @author Administrator
+ */
+public class Transmitter
+{
+    private final InputStream _in;
+    private final OutputStream _out;
+    private int _blocksize = 0x10000;
+    
+    /**
+     * Constructor
+     * @param i Source
+     * @param o Sink
+     */
+    public Transmitter (InputStream i, OutputStream o)
+    {
+        _in = i;
+        _out = o;
+    }
+    
+    /**
+     * Constructor with Block Size
+     * @param i Source
+     * @param o Sink
+     * @param bl Block Size
+     */
+    public Transmitter (InputStream i, OutputStream o, int bl)
+    {
+        _blocksize = bl;
+        _in = i;
+        _out = o;
+    }
+
+    /**
+     * Constructor using sys.in as source
+     * @param o Sink
+     */
+    public Transmitter (OutputStream o)
+    {
+        _in = System.in;
+        _out = o;
+    }
+
+    /**
+     * Constructor using sys.out as sink
+     * @param i Source
+     */
+    public Transmitter (InputStream i)
+    {
+        _in = i;
+        _out = System.out;
+    }
+    
+    public void doTransmission() throws IOException
+    {
+        byte b[] = new byte[_blocksize];
+        for(;;)
+        {
+            int r = _in.read(b);
+            if (r == -1)
+            {
+                _out.flush();
+                break;
+            }
+            _out.write(b, 0, r);
+            Thread.yield();
+        }
+    }
+}

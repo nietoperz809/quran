@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import misc.Tools;
+import misc.Transmitter;
 
 /**
  *
@@ -33,6 +34,12 @@ public class Client implements Runnable
         m_sock = s;
         m_thread = new Thread(this);
         m_thread.start();
+    }
+
+    private boolean isMP4(String in)
+    {
+        in = in.toLowerCase();
+        return in.endsWith(".mp4");
     }
 
     private boolean isJpeg(String in)
@@ -100,13 +107,12 @@ public class Client implements Runnable
         for (File fil : fils)
         {
             String name = fil.getName();
-            String low = name.toLowerCase();
             Path p = Paths.get(path, name);
             if (fil.isDirectory())
             {
                 dirs.add(p);
             }
-            else if (isJpeg(low))
+            else if (isJpeg(name))
             {
                 sb.append("<a href=\"");
                 sb.append("*IMG*");
@@ -115,7 +121,7 @@ public class Client implements Runnable
                 sb.append(URLEncoder.encode(p.toString()));
                 sb.append("\"></a>\r\n");
             }
-            else if (isText(low) || isZip(low))
+            else if (isText(name) || isZip(name) || isMP4(name))
             {
                 txtfiles.add(p);
             }
@@ -136,6 +142,22 @@ public class Client implements Runnable
     }
 
     private void zipHead(PrintWriter w, int len, String filename)
+    {
+        w.println("HTTP/1.1 200 OK");
+        w.println("Pragma: public");
+        w.println("Expires: 0");
+        w.println("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        w.println("Cache-Control: public");
+        w.println("Content-Description: File Transfer");
+        w.println("Content-type: application/octet-stream");
+        w.println("Content-Disposition: attachment; filename=\"" + filename + "\"");
+        w.println("Content-Transfer-Encoding: binary");
+        w.println("Content-Length: " + len);
+        w.println();
+    }
+    
+    // currently same as zip header
+    private void mp4Head(PrintWriter w, long len, String filename)
     {
         w.println("HTTP/1.1 200 OK");
         w.println("Pragma: public");
@@ -209,6 +231,25 @@ public class Client implements Runnable
         }
     }
 
+    // not tested
+    private void sendMP4 (OutputStream out, String fname)
+    {
+        File f = new File(fname);
+        PrintWriter w = new PrintWriter(out);
+
+        try
+        {
+            InputStream input = new FileInputStream(f);
+            mp4Head (w, f.length(), fname);
+            Transmitter t = new Transmitter (input, out);
+            t.doTransmission();
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void sendZip(OutputStream out, String fname)
     {
         File f = new File(fname);
@@ -216,12 +257,9 @@ public class Client implements Runnable
         try
         {
             InputStream input = new FileInputStream(f);
-            byte[] b = new byte[(int) f.length()];
-            input.read(b);
-            zipHead (w, b.length, fname);
-            out.write(b);
-            w.flush();
-            out.flush();
+            mp4Head (w, f.length(), fname);
+            Transmitter t = new Transmitter (input, out);
+            t.doTransmission();
         }
         catch (Exception ex)
         {
@@ -322,6 +360,10 @@ public class Client implements Runnable
             else if (isZip(path))
             {
                 sendZip(m_sock.getOutputStream(), path);
+            }
+            else if (isMP4(path))
+            {
+                sendMP4(m_sock.getOutputStream(), path);
             }
             else if (isText(path))
             {
