@@ -2,6 +2,7 @@ quran
 =====
 
 monster app mainly quran and twitter related
+now with rdp client
 
 // New BASIC commands //
 
