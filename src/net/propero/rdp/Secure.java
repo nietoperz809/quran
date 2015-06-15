@@ -165,13 +165,13 @@ public class Secure
      */
     public void connect(InetAddress host, int port) throws UnknownHostException, IOException, RdesktopException, SocketException, CryptoException, OrderException
     {
-        if (Options.hostname == "")
+        if ("".equals(Options.hostname))
         {
             InetAddress localhost = InetAddress.getLocalHost();
             String name = localhost.getHostName();
             StringTokenizer tok = new StringTokenizer(name, ".");
             Options.hostname = tok.nextToken();
-            Options.hostname.trim();
+            //Options.hostname.trim();
         }
 
         RdpPacket_Localised mcs_data = this.sendMcsData();
@@ -332,7 +332,7 @@ public class Secure
     public void processMcsData(RdpPacket_Localised mcs_data) throws RdesktopException, CryptoException
     {
         logger.debug("Secure.processMcsData");
-        int tag = 0, len = 0, length = 0, nexttag = 0;
+        int tag, len, length, nexttag;
 
         mcs_data.incrementPosition(21); // header (T.124 stuff, probably)
         len = mcs_data.get8();
@@ -409,7 +409,7 @@ public class Secure
 
     public void processCryptInfo(RdpPacket_Localised data) throws RdesktopException, CryptoException
     {
-        int rc4_key_size = 0;
+        int rc4_key_size;
 
         rc4_key_size = this.parseCryptInfo(data);
         if (rc4_key_size == 0)
@@ -458,7 +458,7 @@ public class Secure
      */
     public RdpPacket_Localised init(int flags, int length) throws RdesktopException
     {
-        int headerlength = 0;
+        int headerlength;
         RdpPacket_Localised buffer;
 
         if (!this.licenceIssued)
@@ -520,7 +520,7 @@ public class Secure
             flags &= ~SEC_ENCRYPT;
             datalength = sec_data.getEnd() - sec_data.getPosition() - 8;
             data = new byte[datalength];
-            buffer = null;
+            //buffer = null;
             sec_data.copyToByteArray(data, 0, sec_data.getPosition() + 8, datalength);
             signature = this.sign(this.sec_sign_key, 8, this.keylength, data, datalength);
 
@@ -547,8 +547,8 @@ public class Secure
      */
     public byte[] sign(byte[] session_key, int length, int keylen, byte[] data, int datalength) throws CryptoException
     {
-        byte[] shasig = new byte[20];
-        byte[] md5sig = new byte[16];
+        byte[] shasig;
+        byte[] md5sig;
         byte[] lenhdr = new byte[4];
         byte[] signature = new byte[length];
 
@@ -583,7 +583,7 @@ public class Secure
      */
     public byte[] encrypt(byte[] data, int length) throws CryptoException
     {
-        byte[] buffer = null;
+        byte[] buffer;
         if (this.enc_count == 4096)
         {
             sec_encrypt_key = this.update(this.sec_encrypt_key, this.sec_encrypt_update_key);
@@ -608,7 +608,7 @@ public class Secure
      */
     public byte[] encrypt(byte[] data) throws CryptoException
     {
-        byte[] buffer = null;
+        byte[] buffer;
         if (this.enc_count == 4096)
         {
             sec_encrypt_key = this.update(this.sec_encrypt_key, this.sec_encrypt_update_key);
@@ -635,7 +635,7 @@ public class Secure
      */
     public byte[] decrypt(byte[] data, int length) throws CryptoException
     {
-        byte[] buffer = null;
+        byte[] buffer;
         if (this.dec_count == 4096)
         {
             sec_decrypt_key = this.update(this.sec_decrypt_key, this.sec_decrypt_update_key);
@@ -660,7 +660,7 @@ public class Secure
      */
     public byte[] decrypt(byte[] data) throws CryptoException
     {
-        byte[] buffer = null;
+        byte[] buffer;
         if (this.dec_count == 4096)
         {
             sec_decrypt_key = this.update(this.sec_decrypt_key, this.sec_decrypt_update_key);
@@ -688,10 +688,10 @@ public class Secure
     public int parseCryptInfo(RdpPacket_Localised data) throws RdesktopException
     {
         logger.debug("Secure.parseCryptInfo");
-        int encryption_level = 0, random_length = 0, RSA_info_length = 0;
-        int tag = 0, length = 0;
-        int next_tag = 0, end = 0;
-        int rc4_key_size = 0;
+        int encryption_level, random_length, RSA_info_length;
+        int tag, length;
+        int next_tag, end;
+        int rc4_key_size;
 
         rc4_key_size = data.getLittleEndian32(); // 1 = 40-Bit 2 = 128 Bit
         encryption_level = data.getLittleEndian32(); // 1 = low, 2 = medium, 3 = high
@@ -820,9 +820,9 @@ public class Secure
     {
         byte[] inr = new byte[length];
         //int outlength = 0;
-        BigInteger mod = null;
-        BigInteger exp = null;
-        BigInteger x = null;
+        BigInteger mod;
+        BigInteger exp;
+        BigInteger x;
 
         this.reverse(this.exponent);
         this.reverse(this.modulus);
@@ -928,14 +928,7 @@ public class Secure
         data.incrementPosition(SEC_MODULUS_SIZE);
         data.incrementPosition(SEC_PADDING_SIZE);
 
-        if (data.getPosition() <= data.getEnd())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return data.getPosition() <= data.getEnd();
     }
 
     /**
@@ -945,8 +938,8 @@ public class Secure
      */
     public void reverse(byte[] data)
     {
-        int i = 0, j = 0;
-        byte temp = 0;
+        int i, j;
+        byte temp;
 
         for (i = 0, j = data.length - 1; i < j; i++, j--)
         {
@@ -958,8 +951,8 @@ public class Secure
 
     public void reverse(byte[] data, int length)
     {
-        int i = 0, j = 0;
-        byte temp = 0;
+        int i, j;
+        byte temp;
 
         for (i = 0, j = length - 1; i < j; i++, j--)
         {
@@ -971,10 +964,10 @@ public class Secure
 
     public byte[] hash48(byte[] in, byte[] salt1, byte[] salt2, int salt) throws CryptoException
     {
-        byte[] shasig = new byte[20];
+        byte[] shasig;
         byte[] pad = new byte[4];
         byte[] out = new byte[48];
-        int i = 0;
+        int i;
 
         for (i = 0; i < 3; i++)
         {
@@ -1026,9 +1019,9 @@ public class Secure
      */
     public byte[] update(byte[] key, byte[] update_key) throws CryptoException
     {
-        byte[] shasig = new byte[20];
+        byte[] shasig;
         byte[] update = new byte[this.keylength]; // changed from 8 - rdesktop 1.2.0
-        byte[] thekey = new byte[key.length];
+        byte[] thekey;
 
         sha1.reset(); //engineReset();
         sha1.update(update_key, 0, keylength); //engineUpdate(update_key, 0, keylength);
