@@ -32,6 +32,7 @@ package net.propero.rdp;
 
 import java.awt.*;
 import java.awt.image.*;
+import javax.swing.JPanel;
 
 import net.propero.rdp.keymapping.KeyCode;
 import net.propero.rdp.keymapping.KeyCode_FileBased;
@@ -39,16 +40,24 @@ import net.propero.rdp.orders.*;
 import org.apache.log4j.Logger;
 
 // import org.apache.log4j.NDC;
-public abstract class RdesktopCanvas extends Canvas
+public abstract class RdesktopCanvas extends JPanel //Canvas
 {
-    static Logger logger = Logger.getLogger(RdesktopCanvas.class);
+    private static final long serialVersionUID = 1L;
+    
+    @Override
+    public boolean isFocusTraversable()  // Trick to get focus
+    {
+        return true;
+    }
+    
+    protected static final Logger logger = Logger.getLogger(RdesktopCanvas.class);
 
     private RasterOp rop = null;
 
-    WrappedImage backstore;
+    protected WrappedImage backstore;
 
     // Graphics backstore_graphics;
-    private Cursor previous_cursor = null; // for setBusyCursor and
+    //private final Cursor previous_cursor = null; // for setBusyCursor and
     // unsetBusyCursor
 
     private Input input = null;
@@ -71,15 +80,15 @@ public abstract class RdesktopCanvas extends Canvas
 
     private static final int TEXT2_IMPLICIT_X = 0x20;
 
-    public KeyCode keys = null;
+    protected KeyCode keys = null;
 
-    public KeyCode_FileBased fbKeys = null;
+    protected KeyCode_FileBased fbKeys = null;
 
-    public String sKeys = null;
+    protected String sKeys = null;
 
-    public int width = 0;
+    protected int width = 0;
 
-    public int height = 0;
+    protected int height = 0;
 
     // private int[] colors = null; // needed for integer backstore
     protected IndexColorModel colormap = null;

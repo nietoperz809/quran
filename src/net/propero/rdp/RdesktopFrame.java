@@ -1,32 +1,3 @@
-/* RdesktopFrame.java
- * Component: ProperJavaRDP
- * 
- * Revision: $Revision: 1.7 $
- * Author: $Author: telliott $
- * Date: $Date: 2005/09/27 14:15:39 $
- *
- * Copyright (c) 2005 Propero Limited
- *
- * Purpose: Window for RDP session
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
- * USA
- * 
- * (See gpl.txt for details of the GNU General Public License.)
- * 
- */
 package net.propero.rdp;
 
 import java.awt.*;
@@ -60,47 +31,48 @@ public abstract class RdesktopFrame extends JInternalFrame
         canvas.addFocusListener(c);
     }
 
-    public boolean action(Event event, Object arg)
-    {
-        if (menu != null)
-        {
-            return menu.action(event, arg);
-        }
-        return false;
-    }
+//    @Override
+//    public boolean action(Event event, Object arg)
+//    {
+//        if (menu != null)
+//        {
+//            return menu.action(event, arg);
+//        }
+//        return false;
+//    }
 
     protected boolean inFullscreen = false;
 
-    /**
-     * Switch to fullscreen mode
-     */
-    public void goFullScreen()
-    {
-        inFullscreen = true;
-    }
-
-    /**
-     * Exit fullscreen mode
-     */
-    public void leaveFullScreen()
-    {
-        inFullscreen = false;
-    }
-
-    /**
-     * Switch in/out of fullscreen mode
-     */
-    public void toggleFullScreen()
-    {
-        if (inFullscreen)
-        {
-            leaveFullScreen();
-        }
-        else
-        {
-            goFullScreen();
-        }
-    }
+//    /**
+//     * Switch to fullscreen mode
+//     */
+//    public void goFullScreen()
+//    {
+//        inFullscreen = true;
+//    }
+//
+//    /**
+//     * Exit fullscreen mode
+//     */
+//    public void leaveFullScreen()
+//    {
+//        inFullscreen = false;
+//    }
+//
+//    /**
+//     * Switch in/out of fullscreen mode
+//     */
+//    public void toggleFullScreen()
+//    {
+//        if (inFullscreen)
+//        {
+//            leaveFullScreen();
+//        }
+//        else
+//        {
+//            goFullScreen();
+//        }
+//    }
 
     private boolean menuVisible = true;
 
@@ -173,7 +145,7 @@ public abstract class RdesktopFrame extends JInternalFrame
 
         if (Options.fullscreen)
         {
-            goFullScreen();
+            //goFullScreen();
             pack();
             setLocation(0, 0);
         }
@@ -198,6 +170,9 @@ public abstract class RdesktopFrame extends JInternalFrame
         }
 
         canvas.requestFocus();
+        this.setResizable(true);
+        //this.pack();
+        this.setSize (Options.width, Options.height);
     }
 
     /**

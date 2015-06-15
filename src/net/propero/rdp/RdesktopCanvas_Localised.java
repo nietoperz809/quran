@@ -115,19 +115,19 @@ public class RdesktopCanvas_Localised extends RdesktopCanvas
     @Override
     public void update(Graphics g)
     {
+        Rectangle r = g.getClipBounds();
         try
         {
-            Rectangle r = g.getClipBounds();
+            if (r.width > width)
+                r.width = width;
+            if (r.height > height)
+                r.height = height;
+                    
             g.drawImage(backstore.getSubimage(r.x, r.y, r.width, r.height), r.x, r.y, null);
-
-            if (Options.save_graphics)
-            {
-                RdesktopCanvas_Localised.saveToFile(backstore.getSubimage(r.x, r.y, r.width, r.height));
-            }
         }
         catch (Exception ex)
         {
-            System.out.println("huh?");
+            System.out.println("huh?" + r);
         }
     }
 

@@ -491,7 +491,7 @@ public abstract class Input
             case KeyEvent.VK_ENTER:
                 sendScancode(time, RDP_KEYRELEASE, 0x38);
                 altDown = false;
-                ((RdesktopFrame_Localised) canvas.getParent()).toggleFullScreen();
+                //((RdesktopFrame_Localised) canvas.getParent()).toggleFullScreen();
                 break;
 
             /*

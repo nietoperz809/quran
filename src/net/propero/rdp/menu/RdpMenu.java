@@ -117,13 +117,13 @@ public class RdpMenu extends MenuBar
 
         if (arg == "Fullscreen Mode")
         {
-            parent.goFullScreen();
+            //parent.goFullScreen();
             ((MenuItem) event.target).setLabel("Windowed Mode");
         }
 
         if (arg == "Windowed Mode")
         {
-            parent.leaveFullScreen();
+            //parent.leaveFullScreen();
             ((MenuItem) event.target).setLabel("Fullscreen Mode");
         }
         return false;
