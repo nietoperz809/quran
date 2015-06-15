@@ -291,10 +291,10 @@ public class Rdesktop
 
         if (Chooser.RunNativeRDPClient(args))
         {
-            if (!Common.underApplet)
-            {
-                System.exit(0);
-            }
+//            if (!Common.underApplet)
+//            {
+//                System.exit(0);
+//            }
         }
 
         // Failed to run native client, drop back to Java client instead.
@@ -871,10 +871,10 @@ public class Rdesktop
 
         if (sysexit && Constants.SystemExit)
         {
-            if (!Common.underApplet)
-            {
-                System.exit(n);
-            }
+//            if (!Common.underApplet)
+//            {
+//                System.exit(n);
+//            }
         }
     }
 

@@ -31,7 +31,7 @@ public class ClipboardImage implements ClipboardOwner
         catch (AWTException x)
         {
             x.printStackTrace();
-            System.exit(1);
+            //System.exit(1);
         }
     }
 

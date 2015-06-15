@@ -15,7 +15,7 @@ import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
-import static java.lang.System.exit;
+//import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -748,7 +748,8 @@ public class Turtle extends JPanel
         }
         catch (Exception ex)
         {
-            exit(-1);
+            System.err.println(ex);
+            //exit(-1);
         }
     }
 

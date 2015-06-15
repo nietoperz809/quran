@@ -136,10 +136,10 @@ public abstract class Input
         catch (KeyMapException kmEx)
         {
             System.err.println(kmEx.getMessage());
-            if (!Common.underApplet)
-            {
-                System.exit(-1);
-            }
+//            if (!Common.underApplet)
+//            {
+//                System.exit(-1);
+//            }
         }
 
         canvas = c;
