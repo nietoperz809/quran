@@ -21,6 +21,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -58,22 +60,28 @@ public class Tools
         return null;
     }
 
-    public static void saveImage(Frame parent, BufferedImage img)
+    public static boolean saveImage (Frame parent, BufferedImage img) 
     {
         FileDialog fd = new FileDialog(parent, "Save", FileDialog.SAVE);
         fd.show();
         if (fd.getFile() == null)
         {
-            return;
+            return false;
         }
-        File f = new File(fd.getDirectory() + fd.getFile());
+        String name = fd.getDirectory() + fd.getFile();
+        if (!name.endsWith(".png"))
+            name = name + ".png";
+        File f = new File(name);
         try
         {
             ImageIO.write(img, "png", f);
         }
         catch (IOException ex)
         {
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
     
     /**
@@ -106,7 +114,7 @@ public class Tools
         BufferedImage image = ImageIO.read(path);
         image = resizeImage(image, 100, 100);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageWriter writer = (ImageWriter) ImageIO.getImageWritersByFormatName("jpeg").next();
+        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
 
         ImageWriteParam param = writer.getDefaultWriteParam();
         param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);

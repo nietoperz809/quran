@@ -129,6 +129,15 @@ public class MagnifyPanel extends javax.swing.JPanel
         return Tools.resizeImage(_image, getWidth(), getHeight());
     }
     
+    public boolean save()
+    {
+        if (_image == null)
+        {
+            return false;
+        }
+        return Tools.saveImage (null, _image);
+    }
+    
     public boolean toClipboard()
     {
         if (_image == null)
