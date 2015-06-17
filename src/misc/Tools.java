@@ -19,8 +19,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.IIOImage;
@@ -268,4 +274,48 @@ public class Tools
         return result;
     }
 
+    /**
+     * Get all file names of a package
+     * @param path package (as "hello/world/uh" instead of hello.world.uh)
+     * @return String array with all names
+     * @throws Exception 
+     */
+    public static String[] listPackage(String path)
+    {
+        try
+        {
+            int pathLen = path.length();
+            URL url1 = ClassLoader.getSystemResource(path);
+            
+            String jarFileName;
+            JarFile jf;
+            Enumeration<JarEntry> jarEntries;
+            String entryName;
+            ArrayList<String> list = new ArrayList<>();
+            
+            jarFileName = URLDecoder.decode(url1.getFile(), "UTF-8");
+            jarFileName = jarFileName.substring(5, jarFileName.indexOf("!"));
+            jf = new JarFile(jarFileName);
+            jarEntries = jf.entries();
+            while (jarEntries.hasMoreElements())
+            {
+                entryName = jarEntries.nextElement().getName();
+                if (entryName.startsWith(path))
+                {
+                    entryName = entryName.substring(pathLen);
+                    if (!entryName.isEmpty())
+                        list.add(entryName);
+                }
+            }
+            String[] arr = new String[list.size()];
+            list.toArray(arr);
+            return arr;
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
 }

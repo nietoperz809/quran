@@ -1,7 +1,14 @@
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.security.CodeSource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -16,33 +23,40 @@ import java.util.zip.ZipInputStream;
  */
 public class ListJar
 {
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws Exception
     {
-        //ListJar lj = new ListJar();
+        String[] test = listPackage ("quran/quranfiles/");
+        System.out.println(Arrays.toString(test));
+    }
+    
+    public static String[] listPackage(String path) throws Exception
+    {
+        int pathLen = path.length();
+        URL url1 = ClassLoader.getSystemResource(path);
 
-        CodeSource src = ListJar.class.getProtectionDomain().getCodeSource();
-        System.out.println(src.getLocation());
-//        if (src != null)
-//        {
-//            URL jar = src.getLocation();
-//            ZipInputStream zip = new ZipInputStream(jar.openStream());
-//            while (true)
-//            {
-//                ZipEntry e = zip.getNextEntry();
-//                if (e == null)
-//                {
-//                    break;
-//                }
-//                String name = e.getName();
-//
-//                if (name.startsWith("path/to/your/dir/"))
-//                {
-//                }
-//            }
-//        }
-//        else
-//        {
-//
-//        }
+        String jarFileName;
+        JarFile jf;
+        Enumeration<JarEntry> jarEntries;
+        String entryName;
+        ArrayList<String> list = new ArrayList<>();
+        
+        // build jar file name, then loop through zipped entries
+        jarFileName = URLDecoder.decode(url1.getFile(), "UTF-8");
+        jarFileName = jarFileName.substring(5, jarFileName.indexOf("!"));
+        jf = new JarFile(jarFileName);
+        jarEntries = jf.entries();
+        while (jarEntries.hasMoreElements())
+        {
+            entryName = jarEntries.nextElement().getName();
+            if (entryName.startsWith(path))
+            {
+                entryName = entryName.substring(pathLen);
+                if (!entryName.isEmpty())
+                    list.add(entryName);
+            }
+        }
+        String[] arr = new String[list.size()];
+        list.toArray(arr);
+        return arr;
     }
 }

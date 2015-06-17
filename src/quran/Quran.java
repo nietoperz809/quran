@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import misc.DebugOut;
 import misc.PathNames;
+import misc.Tools;
 
 /**
  *
@@ -22,32 +23,7 @@ public class Quran implements PathNames
     protected final HashMap<String, String> m_map = new HashMap<>();
     protected final Charset ENCODING = StandardCharsets.UTF_8;
     
-    static final String[] m_files =
-    {
-        "en.wahiduddin.txt",
-        "en.ahmedali.txt",
-        "en.ahmedraza.txt",
-        "en.arberry.txt",
-        "en.daryabadi.txt",
-        "en.hilali.txt",
-        "en.itani.txt",
-        "en.maududi.txt",
-        "en.pickthall.txt",
-        "en.qarai.txt",
-        "en.qaribullah.txt",
-        "en.sahih.txt",
-        "en.sarwar.txt",
-        "en.shakir.txt",
-        "en.transliteration.txt",
-        "en.wahiduddin.txt",
-        "en.yusufali.txt",
-        "de.aburida.txt",
-        "de.bubenheim.txt",
-        "de.khoury.txt",
-        "de.zaidan.txt",
-        "ar.jalalayn.txt",
-        "ar.muyassar.txt",
-    };
+    static final String[] m_files = Tools.listPackage("quran/quranfiles/");
 
     public Quran(int idx)
     {
@@ -83,7 +59,7 @@ public class Quran implements PathNames
     
     public void readFile (String filename)
     {
-        InputStream in = ClassLoader.getSystemResourceAsStream(filename);        
+        InputStream in = ClassLoader.getSystemResourceAsStream("quran/quranfiles/"+filename);        
 
         Scanner scanner = new Scanner (in, ENCODING.name());
         scan (scanner);

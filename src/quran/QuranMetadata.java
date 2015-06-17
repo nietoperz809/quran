@@ -114,7 +114,7 @@ public class QuranMetadata implements PathNames
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
 
-        InputStream in = ClassLoader.getSystemResourceAsStream("quran-data.xml");        
+        InputStream in = ClassLoader.getSystemResourceAsStream("quran/qurandata/quran-data.xml");        
         m_document = builder.parse(in);
         Node n = m_document.getFirstChild();
         traverseXML (n);
