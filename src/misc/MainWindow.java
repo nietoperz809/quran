@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
@@ -22,7 +20,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import net.propero.rdp.RdStarter;
-import net.propero.rdp.Rdesktop;
 import quran.QuranMetadata;
 
 /**
@@ -66,6 +63,7 @@ public class MainWindow extends javax.swing.JFrame
     {
         instance = this;
         initComponents();
+        this.setTitle(Tools.getBuildNumber());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         initSavesMenu();
     }
@@ -136,7 +134,6 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("The Holy Qur'an");
 
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
 

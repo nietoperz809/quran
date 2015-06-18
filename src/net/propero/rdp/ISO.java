@@ -40,7 +40,7 @@ public abstract class ISO
 {
     static Logger logger = Logger.getLogger(ISO.class);
 
-    private HexDump dump = null;
+    //private HexDump dump = null;
 
     protected Socket rdpsock = null;
     private DataInputStream in = null;
@@ -60,7 +60,7 @@ public abstract class ISO
      */
     public ISO()
     {
-        dump = new HexDump();
+        //dump = new HexDump();
     }
 
     /**
@@ -190,7 +190,7 @@ public abstract class ISO
             buffer.copyToByteArray(packet, 0, 0, buffer.getEnd());
             if (Options.debug_hexdump)
             {
-                dump.encode(packet, "SEND"/*System.out*/);
+                //dump.encode(packet, "SEND"/*System.out*/);
             }
             out.write(packet);
             out.flush();
@@ -246,7 +246,7 @@ public abstract class ISO
         // catch(IOException e){ logger.warn("IOException: " + e.getMessage()); return null;	}
         if (Options.debug_hexdump)
         {
-            dump.encode(packet, "RECEIVE" /*System.out*/);
+            //dump.encode(packet, "RECEIVE" /*System.out*/);
         }
 
         if (p == null)

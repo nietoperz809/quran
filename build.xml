@@ -10,6 +10,18 @@
 <project name="TwitTools" default="default" basedir=".">
     <description>Builds, tests, and runs the project TwitTools.</description>
     <import file="nbproject/build-impl.xml"/>
+
+<tstamp>
+   <format property="NOW" pattern="yyyy-MM-dd HH:mm:ss z" />
+</tstamp>
+ 
+<target name="-pre-compile" description="Sets the buildversion for the current build">
+   <propertyfile file="${src.dir}/version.properties">
+      <entry key="BUILDNUMBER" value="1" type="int" operation="+" />
+      <entry key="BUILDDATE" value="${NOW}" />
+   </propertyfile>
+</target>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 

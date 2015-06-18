@@ -25,6 +25,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.logging.Level;
@@ -66,7 +68,7 @@ public class Tools
         return null;
     }
 
-    public static boolean saveImage (Frame parent, BufferedImage img) 
+    public static boolean saveImage(Frame parent, BufferedImage img)
     {
         FileDialog fd = new FileDialog(parent, "Save", FileDialog.SAVE);
         fd.show();
@@ -76,7 +78,9 @@ public class Tools
         }
         String name = fd.getDirectory() + fd.getFile();
         if (!name.endsWith(".png"))
+        {
             name = name + ".png";
+        }
         File f = new File(name);
         try
         {
@@ -89,7 +93,7 @@ public class Tools
         }
         return true;
     }
-    
+
     /**
      * Creates Image copy of new size
      *
@@ -107,13 +111,14 @@ public class Tools
         g.dispose();
         return resizedImage;
     }
-    
+
     /**
-     * Reduces image quality 
+     * Reduces image quality
+     *
      * @param path Path of jpeg file
      * @param qual Quality 0.0 ... 1.0
      * @return byte array of jpeg data
-     * @throws Exception 
+     * @throws Exception
      */
     public static byte[] reduceImg(File path, float qual) throws Exception
     {
@@ -131,7 +136,7 @@ public class Tools
         writer.dispose();
         return os.toByteArray();
     }
-    
+
     public static double readDouble(JTextField jf, double defaultvalue)
     {
         double res;
@@ -263,7 +268,9 @@ public class Tools
         List<String> result = new ArrayList<>();
         File[] files = new File(m_path).listFiles();
         if (files == null)
+        {
             return result;
+        }
         for (File file : files)
         {
             if (file.isFile())
@@ -276,9 +283,10 @@ public class Tools
 
     /**
      * Get all file names of a package
+     *
      * @param path package (as "hello/world/uh" instead of hello.world.uh)
      * @return String array with all names
-     * @throws Exception 
+     * @throws Exception
      */
     public static String[] listPackage(String path)
     {
@@ -286,13 +294,13 @@ public class Tools
         {
             int pathLen = path.length();
             URL url1 = ClassLoader.getSystemResource(path);
-            
+
             String jarFileName;
             JarFile jf;
             Enumeration<JarEntry> jarEntries;
             String entryName;
             ArrayList<String> list = new ArrayList<>();
-            
+
             jarFileName = URLDecoder.decode(url1.getFile(), "UTF-8");
             jarFileName = jarFileName.substring(5, jarFileName.indexOf("!"));
             jf = new JarFile(jarFileName);
@@ -304,7 +312,9 @@ public class Tools
                 {
                     entryName = entryName.substring(pathLen);
                     if (!entryName.isEmpty())
+                    {
                         list.add(entryName);
+                    }
                 }
             }
             String[] arr = new String[list.size()];
@@ -317,5 +327,12 @@ public class Tools
         }
         return null;
     }
-    
+
+    public static String getBuildNumber()
+    {
+        ResourceBundle vprops = ResourceBundle.getBundle("version", Locale.getDefault());
+        String number = vprops.getString("BUILDNUMBER");
+        String date = vprops.getString("BUILDDATE");
+        return date + "/" + number;
+    }
 }
