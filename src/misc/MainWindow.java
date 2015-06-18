@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
+import net.propero.rdp.RdStarter;
 import net.propero.rdp.Rdesktop;
 import quran.QuranMetadata;
 
@@ -505,23 +506,17 @@ public class MainWindow extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jMenuItem18ActionPerformed
         createMDIChild (applications.MagnifyGUI.class);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
-
+    
+    
+    // Start RDesktop
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem19ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem19ActionPerformed
-        try
-        {
-            Rdesktop.main(null);
-            
-            JInternalFrame f = Rdesktop.rd.getFrame();
-            addChild(f);
-        }
-        catch (Exception ex)
-        {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        RdStarter rdStart = new RdStarter();
+        rdStart.startWait();
+        addChild(rdStart.getFrame());
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
-    /**
+    /** m0xyzptlkxy0
      * @param args the command line arguments
      * @throws java.lang.Exception
      */

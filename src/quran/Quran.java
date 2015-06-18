@@ -20,8 +20,8 @@ import misc.Tools;
  */
 public class Quran implements PathNames
 {
-    protected final HashMap<String, String> m_map = new HashMap<>();
-    protected final Charset ENCODING = StandardCharsets.UTF_8;
+    private final HashMap<String, String> m_map = new HashMap<>();
+    private final Charset ENCODING = StandardCharsets.UTF_8;
     
     static final String[] m_files = Tools.listPackage("quran/quranfiles/");
 
@@ -39,7 +39,11 @@ public class Quran implements PathNames
         return m_files;
     }
     
-    protected void scan (Scanner scanner)
+    /**
+     * Constructs map from quran file
+     * @param with quran file initialized scanner 
+     */
+    private void scan (Scanner scanner)
     {
         while (scanner.hasNextLine())
         {
@@ -57,7 +61,11 @@ public class Quran implements PathNames
         }
     }
     
-    public void readFile (String filename)
+    /**
+     * Reads whole Quran
+     * @param filename name of the quran file
+     */
+    private void readFile (String filename)
     {
         InputStream in = ClassLoader.getSystemResourceAsStream("quran/quranfiles/"+filename);        
 

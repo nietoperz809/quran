@@ -5,14 +5,8 @@
  */
 package quran;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import misc.DebugOut;

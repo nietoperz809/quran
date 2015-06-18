@@ -130,7 +130,7 @@ public class JRdpLoader
                 //String[] finArgs = outArgs.split(" ");
                 String[] finArgs = Utilities_Localised.split(outArgs, " ");
 
-                Rdesktop.main(finArgs);
+                //Rdesktop.main(finArgs);
                 in.close();
             }
             else

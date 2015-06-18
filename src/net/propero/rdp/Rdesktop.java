@@ -42,7 +42,7 @@ import org.apache.log4j.*;
 
 public class Rdesktop
 {
-    RdesktopFrame window;
+    private RdesktopFrame window;
     
     public RdesktopFrame getFrame()
     {
@@ -237,32 +237,32 @@ public class Rdesktop
         Rdesktop.exit(0, null, null, true);
     }
 
-    public static volatile Rdesktop rd = null;
-
-    public static void main(String[] args) throws Exception 
-    {
-        if (rd != null)
-            return;
-        
-        rd = new Rdesktop();
-        new Thread(() ->
-        {
-            try
-            {
-                rd.startup(null);
-            }
-            catch (OrderException | RdesktopException ex)
-            {
-                java.util.logging.Logger.getLogger(Rdesktop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-        }).start();
-        
-        while (rd.getFrame() == null)
-        {
-            System.out.println(".");
-            Thread.sleep(100);
-        }
-    }
+//    public static volatile Rdesktop rd = null;
+//
+//    public static void main(String[] args) throws Exception 
+//    {
+//        if (rd != null)
+//            return;
+//        
+//        rd = new Rdesktop();
+//        new Thread(() ->
+//        {
+//            try
+//            {
+//                rd.startup(null);
+//            }
+//            catch (OrderException | RdesktopException ex)
+//            {
+//                java.util.logging.Logger.getLogger(Rdesktop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            }
+//        }).start();
+//        
+//        while (rd.getFrame() == null)
+//        {
+//            System.out.println(".");
+//            Thread.sleep(100);
+//        }
+//    }
 
     /**
      *
@@ -627,7 +627,7 @@ public class Rdesktop
             {
                 (kmEx.getClass() + ": " + kmEx.getMessage())
             };
-            window.showErrorDialog(msg);
+            //window.showErrorDialog(msg);
             kmEx.printStackTrace();
             Rdesktop.exit(0, null, null, true);
         }
@@ -714,7 +714,7 @@ public class Rdesktop
                                 {
                                     "Connection terminated", reason
                                 };
-                                window.showErrorDialog(msg);
+                                //window.showErrorDialog(msg);
                                 logger.warn("Connection terminated: " + reason);
                                 Rdesktop.exit(0, RdpLayer, window, true);
                             }
@@ -734,7 +734,7 @@ public class Rdesktop
                             };
                             logger.warn(msg1);
                             logger.warn(msg2);
-                            window.showErrorDialog(msg);
+                            //window.showErrorDialog(msg);
                         }
                     } // closing bracket to if(running)
 
@@ -752,7 +752,7 @@ public class Rdesktop
                     {
                         "Connection Exception", e.getMessage()
                     };
-                    window.showErrorDialog(msg);
+                    //window.showErrorDialog(msg);
                     Rdesktop.exit(0, RdpLayer, window, true);
                 }
                 catch (UnknownHostException e)
@@ -787,7 +787,7 @@ public class Rdesktop
                             "Possible cause: terminal server could not connect to licence server.",
                             "Retry?"
                         };
-                        boolean retry = window.showYesNoErrorDialog(msg);
+                        boolean retry = false; //window.showYesNoErrorDialog(msg);
                         if (!retry)
                         {
                             logger.info("Selected not to retry.");
@@ -812,7 +812,7 @@ public class Rdesktop
                         {
                             e.getMessage()
                         };
-                        window.showErrorDialog(msg);
+                        //window.showErrorDialog(msg);
                         Rdesktop.exit(0, RdpLayer, window, true);
                     }
                 }
@@ -897,7 +897,7 @@ public class Rdesktop
         {
             emsg
         };
-        window.showErrorDialog(msg);
+        //window.showErrorDialog(msg);
         Rdesktop.exit(0, RdpLayer, window, true);
     }
 
@@ -927,7 +927,7 @@ public class Rdesktop
             {
                 msg1, msg2
             };
-            window.showErrorDialog(msg);
+            //window.showErrorDialog(msg);
 
             //e.printStackTrace(System.err);
         }
