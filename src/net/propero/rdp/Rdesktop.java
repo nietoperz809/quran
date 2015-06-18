@@ -594,7 +594,7 @@ public class Rdesktop
 
         Rdp5 RdpLayer = null;
         Common.rdp = RdpLayer;
-        window = new RdesktopFrame_Localised();
+        window = new RdesktopFrame();
         window.setClip(clipChannel);
 //        window.showMenu();
 
@@ -869,13 +869,6 @@ public class Rdesktop
 
         System.gc();
 
-        if (sysexit && Constants.SystemExit)
-        {
-//            if (!Common.underApplet)
-//            {
-//                System.exit(n);
-//            }
-        }
     }
 
     /**
