@@ -31,15 +31,15 @@ package net.propero.rdp;
 
 import java.io.*;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.propero.rdp.crypto.CryptoException;
 
-import org.apache.log4j.Logger;
-
 public abstract class ISO
 {
-    static Logger logger = Logger.getLogger(ISO.class);
-
+    static Logger logger = Logger.getLogger("ISO");
+    
     //private HexDump dump = null;
 
     protected Socket rdpsock = null;
@@ -60,7 +60,7 @@ public abstract class ISO
      */
     public ISO()
     {
-        //dump = new HexDump();
+        logger.setLevel(Level.SEVERE);
     }
 
     /**
@@ -235,7 +235,7 @@ public abstract class ISO
      */
     private RdpPacket_Localised tcp_recv(RdpPacket_Localised p, int length) throws IOException
     {
-        logger.debug("ISO.tcp_recv");
+        logger.info("ISO.tcp_recv");
         RdpPacket_Localised buffer = null;
 
         byte[] packet = new byte[length];
@@ -281,14 +281,14 @@ public abstract class ISO
      */
     private RdpPacket_Localised receiveMessage(int[] type) throws IOException, RdesktopException, OrderException, CryptoException
     {
-        logger.debug("ISO.receiveMessage");
+        logger.info("ISO.receiveMessage");
         RdpPacket_Localised s = null;
         int length, version;
 
         next_packet:
         while (true)
         {
-            logger.debug("next_packet");
+            logger.info("next_packet");
             s = tcp_recv(null, 4);
             if (s == null)
             {
@@ -319,7 +319,7 @@ public abstract class ISO
             }
             if ((version & 3) == 0)
             {
-                logger.debug("Processing rdp5 packet");
+                logger.info("Processing rdp5 packet");
                 Common.rdp.rdp5_process(s, (version & 0x80) != 0);
                 continue next_packet;
             }
@@ -334,7 +334,7 @@ public abstract class ISO
 
         if (type[0] == DATA_TRANSFER)
         {
-            logger.debug("Data Transfer Packet");
+            logger.info("Data Transfer Packet");
             s.incrementPosition(1); // eot
             return s;
         }
@@ -407,7 +407,7 @@ public abstract class ISO
         buffer.set8(0); //service class 
         if (Options.username.length() > 0)
         {
-            logger.debug("Including username");
+            logger.info("Including username");
             buffer.out_uint8p("Cookie: mstshash=", "Cookie: mstshash=".length());
             buffer.out_uint8p(uname, uname.length());
 

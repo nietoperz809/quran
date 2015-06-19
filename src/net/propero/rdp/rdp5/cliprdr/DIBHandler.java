@@ -32,22 +32,19 @@ package net.propero.rdp.rdp5.cliprdr;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
-import net.propero.rdp.Common;
-import net.propero.rdp.Input;
 import net.propero.rdp.RdpPacket;
 import net.propero.rdp.Utilities_Localised;
 
 public class DIBHandler extends TypeHandler implements ImageObserver
 {
 
-    protected static Logger logger = Logger.getLogger(Input.class);
+    protected static Logger logger = Logger.getLogger("Input");
 
     public boolean formatValid(int format)
     {

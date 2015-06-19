@@ -32,13 +32,13 @@ package net.propero.rdp;
 
 import java.awt.Cursor;
 import java.awt.image.IndexColorModel;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 
 public class Cache
 {
 
-    protected static Logger logger = Logger.getLogger(Rdp.class);
+    protected static Logger logger = Logger.getLogger("Rdp");
 
     private static final int RDPCACHE_COLOURMAPSIZE = 0x06; // unified patch
 

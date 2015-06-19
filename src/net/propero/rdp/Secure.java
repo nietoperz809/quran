@@ -36,7 +36,8 @@ import java.math.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+import static net.propero.rdp.ISO.logger;
 
 import net.propero.rdp.crypto.*;
 import net.propero.rdp.rdp5.VChannels;
@@ -44,7 +45,7 @@ import net.propero.rdp.rdp5.VChannels;
 public class Secure
 {
     boolean readCert = false;
-    static Logger logger = Logger.getLogger(Secure.class);
+    static Logger logger = Logger.getLogger("Secure");
     private Licence licence = new Licence(this);
     /* constants for the secure layer */
     public static final int SEC_ENCRYPT = 0x0008;
@@ -127,6 +128,7 @@ public class Secure
      */
     public Secure(VChannels channels)
     {
+        logger.setLevel(Level.SEVERE);
         this.channels = channels;
         McsLayer = new MCS(channels);
         Common.mcs = McsLayer;
@@ -214,7 +216,7 @@ public class Secure
      */
     public RdpPacket_Localised sendMcsData()
     {
-        logger.debug("Secure.sendMcsData");
+        logger.info("Secure.sendMcsData");
 
         RdpPacket_Localised buffer = new RdpPacket_Localised(512);
 
@@ -307,13 +309,13 @@ public class Secure
         }
         if (Options.use_rdp5 && (channels.num_channels() > 0))
         {
-            logger.debug(("num_channels is " + channels.num_channels()));
+            logger.info(("num_channels is " + channels.num_channels()));
             buffer.setLittleEndian16(SEC_TAG_CLI_CHANNELS); // out_uint16_le(s, SEC_TAG_CLI_CHANNELS);
             buffer.setLittleEndian16(channels.num_channels() * 12 + 8); // out_uint16_le(s, g_num_channels * 12 + 8);	// length 
             buffer.setLittleEndian32(channels.num_channels()); // out_uint32_le(s, g_num_channels);	// number of virtual channels 
             for (int i = 0; i < channels.num_channels(); i++)
             {
-                logger.debug(("Requesting channel " + channels.channel(i).name()));
+                logger.info(("Requesting channel " + channels.channel(i).name()));
                 buffer.out_uint8p(channels.channel(i).name(), 8); // out_uint8a(s, g_channels[i].name, 8);
                 buffer.setBigEndian32(channels.channel(i).flags()); // out_uint32_be(s, g_channels[i].flags);
             }
@@ -331,7 +333,7 @@ public class Secure
      */
     public void processMcsData(RdpPacket_Localised mcs_data) throws RdesktopException, CryptoException
     {
-        logger.debug("Secure.processMcsData");
+        logger.info("Secure.processMcsData");
         int tag, len, length, nexttag;
 
         mcs_data.incrementPosition(21); // header (T.124 stuff, probably)
@@ -384,7 +386,7 @@ public class Secure
     private void processSrvInfo(RdpPacket_Localised mcs_data)
     {
         Options.server_rdp_version = mcs_data.getLittleEndian16(); // in_uint16_le(s, g_server_rdp_version);
-        logger.debug(("Server RDP version is " + Options.server_rdp_version));
+        logger.info(("Server RDP version is " + Options.server_rdp_version));
         if (1 == Options.server_rdp_version)
         {
             Options.use_rdp5 = false;
@@ -418,7 +420,7 @@ public class Secure
         }
 
         //this.client_random = this.generateRandom(SEC_RANDOM_SIZE);
-        logger.debug("readCert = " + readCert);
+        logger.info("readCert = " + readCert);
         if (readCert)
         {			/* Which means we should use 
              RDP5-style encryption */
@@ -590,7 +592,7 @@ public class Secure
             byte[] key = new byte[this.keylength];
             System.arraycopy(this.sec_encrypt_key, 0, key, 0, this.keylength);
             this.rc4_enc.engineInitEncrypt(key);
-//		logger.debug("Packet enc_count="+enc_count);
+//		logger.info("Packet enc_count="+enc_count);
             this.enc_count = 0;
         }
         //this.rc4.engineInitEncrypt(this.rc4_encrypt_key);
@@ -615,7 +617,7 @@ public class Secure
             byte[] key = new byte[this.keylength];
             System.arraycopy(this.sec_encrypt_key, 0, key, 0, this.keylength);
             this.rc4_enc.engineInitEncrypt(key);
-            //	logger.debug("Packet enc_count="+enc_count);
+            //	logger.info("Packet enc_count="+enc_count);
             this.enc_count = 0;
         }
 //	this.rc4.engineInitEncrypt(this.rc4_encrypt_key);
@@ -642,7 +644,7 @@ public class Secure
             byte[] key = new byte[this.keylength];
             System.arraycopy(this.sec_decrypt_key, 0, key, 0, this.keylength);
             this.rc4_dec.engineInitDecrypt(key);
-//		logger.debug("Packet dec_count="+dec_count);
+//		logger.info("Packet dec_count="+dec_count);
             this.dec_count = 0;
         }
         //this.rc4.engineInitDecrypt(this.rc4_decrypt_key);
@@ -667,7 +669,7 @@ public class Secure
             byte[] key = new byte[this.keylength];
             System.arraycopy(this.sec_decrypt_key, 0, key, 0, this.keylength);
             this.rc4_dec.engineInitDecrypt(key);
-//		logger.debug("Packet dec_count="+dec_count);
+//		logger.info("Packet dec_count="+dec_count);
             this.dec_count = 0;
         }
         //this.rc4.engineInitDecrypt(this.rc4_decrypt_key);
@@ -687,7 +689,7 @@ public class Secure
      */
     public int parseCryptInfo(RdpPacket_Localised data) throws RdesktopException
     {
-        logger.debug("Secure.parseCryptInfo");
+        logger.info("Secure.parseCryptInfo");
         int encryption_level, random_length, RSA_info_length;
         int tag, length;
         int next_tag, end;
@@ -714,16 +716,16 @@ public class Secure
 
         if (end > data.getEnd())
         {
-            logger.debug("Reached end of crypt info prematurely ");
+            logger.info("Reached end of crypt info prematurely ");
             return 0;
         }
 
         //data.incrementPosition(12); // unknown bytes
         int flags = data.getLittleEndian32(); // in_uint32_le(s, flags);	// 1 = RDP4-style, 0x80000002 = X.509
-        logger.debug("Flags = 0x" + Integer.toHexString(flags));
+        logger.info("Flags = 0x" + Integer.toHexString(flags));
         if ((flags & 1) != 0)
         {
-            logger.debug(("We're going for the RDP4-style encryption"));
+            logger.info(("We're going for the RDP4-style encryption"));
             data.incrementPosition(8); //in_uint8s(s, 8);	// unknown
 
             while (data.getPosition() < data.getEnd())
@@ -760,7 +762,7 @@ public class Secure
             }
             else
             {
-                logger.warn("End not reached!");
+                logger.info("End not reached!");
                 return 0;
             }
 
@@ -813,7 +815,7 @@ public class Secure
         /*try{
          SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
          random.nextBytes(this.client_random);
-         } catch(NoSuchAlgorithmException e){logger.warn("No Such Random Algorithm");}*/
+         } catch(NoSuchAlgorithmException e){logger.info("No Such Random Algorithm");}*/
     }
 
     public void RSAEncrypt(int length) throws RdesktopException
@@ -873,7 +875,7 @@ public class Secure
 
         if (this.sec_crypted_random.length > SEC_MODULUS_SIZE)
         {
-            logger.warn("sec_crypted_random too big!"); /* FIXME */
+            logger.info("sec_crypted_random too big!"); /* FIXME */
 
         }
         this.reverse(this.sec_crypted_random);

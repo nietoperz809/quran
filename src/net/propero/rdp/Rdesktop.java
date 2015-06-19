@@ -31,6 +31,9 @@ package net.propero.rdp;
 
 import java.io.InputStream;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static net.propero.rdp.ISO.logger;
 
 import net.propero.rdp.keymapping.KeyCode_FileBased;
 import net.propero.rdp.rdp5.Rdp5;
@@ -38,21 +41,20 @@ import net.propero.rdp.rdp5.VChannels;
 import net.propero.rdp.rdp5.cliprdr.ClipChannel;
 import net.propero.rdp.tools.SendEvent;
 
-import org.apache.log4j.*;
-
 public class Rdesktop
 {
     private RdesktopFrame window;
-    
+
     public RdesktopFrame getFrame()
     {
         return window;
     }
-    
+
     private String server;
-    
-    public Rdesktop (String srv) throws OrderException, RdesktopException
+
+    public Rdesktop(String srv) throws OrderException, RdesktopException
     {
+        logger.setLevel(Level.SEVERE);
         server = srv;
     }
 
@@ -240,7 +242,6 @@ public class Rdesktop
         Rdesktop.exit(0, null, null, true);
     }
 
-
     /**
      *
      * @param args
@@ -260,7 +261,7 @@ public class Rdesktop
         keyMapLocation = "";
         toolFrame = null;
 
-        BasicConfigurator.configure();
+        //BasicConfigurator.configure();
         logger.setLevel(Level.INFO);
 
         // Attempt to run a native RDP Client
@@ -348,12 +349,12 @@ public class Rdesktop
             // logger.info("istr = " + istr);
             if (istr == null)
             {
-                logger.debug("Loading keymap from filename");
+                logger.info("Loading keymap from filename");
                 keyMap = new KeyCode_FileBased_Localised(keyMapPath + mapFile);
             }
             else
             {
-                logger.debug("Loading keymap from InputStream");
+                logger.info("Loading keymap from InputStream");
                 keyMap = new KeyCode_FileBased_Localised(istr);
             }
             if (istr != null)
@@ -373,7 +374,7 @@ public class Rdesktop
             Rdesktop.exit(0, null, null, true);
         }
 
-        logger.debug("Registering keyboard...");
+        logger.info("Registering keyboard...");
         if (keyMap != null)
         {
             window.registerKeyboard(keyMap);
@@ -382,15 +383,15 @@ public class Rdesktop
         boolean[] deactivated = new boolean[1];
         int[] ext_disc_reason = new int[1];
 
-        logger.debug("keep_running = " + keep_running);
+        logger.info("keep_running = " + keep_running);
         while (keep_running)
         {
-            logger.debug("Initialising RDP layer...");
+            logger.info("Initialising RDP layer...");
             RdpLayer = new Rdp5(channels);
             Common.rdp = RdpLayer;
-            logger.debug("Registering drawing surface...");
+            logger.info("Registering drawing surface...");
             RdpLayer.registerDrawingSurface(window);
-            logger.debug("Registering comms layer...");
+            logger.info("Registering comms layer...");
             window.registerCommLayer(RdpLayer);
             loggedon = false;
             readytosend = false;
@@ -456,7 +457,7 @@ public class Rdesktop
                                     "Connection terminated", reason
                                 };
                                 //window.showErrorDialog(msg);
-                                logger.warn("Connection terminated: " + reason);
+                                logger.info("Connection terminated: " + reason);
                                 Rdesktop.exit(0, RdpLayer, window, true);
                             }
 
@@ -473,8 +474,8 @@ public class Rdesktop
                             {
                                 msg1, msg2
                             };
-                            logger.warn(msg1);
-                            logger.warn(msg2);
+                            logger.info(msg1);
+                            logger.info(msg2);
                             //window.showErrorDialog(msg);
                         }
                     } // closing bracket to if(running)
@@ -504,7 +505,7 @@ public class Rdesktop
                 {
                     if (RdpLayer.isConnected())
                     {
-                        logger.fatal(s.getClass().getName() + " " + s.getMessage());
+                        logger.info(s.getClass().getName() + " " + s.getMessage());
                         //s.printStackTrace();
                         error(s, RdpLayer, window, true);
                         Rdesktop.exit(0, RdpLayer, window, true);
@@ -514,7 +515,7 @@ public class Rdesktop
                 {
                     String msg1 = e.getClass().getName();
                     String msg2 = e.getMessage();
-                    logger.fatal(msg1 + ": " + msg2);
+                    logger.info(msg1 + ": " + msg2);
 
                     e.printStackTrace(System.err);
 
@@ -559,15 +560,14 @@ public class Rdesktop
                 }
                 catch (Exception e)
                 {
-                    logger.warn(e.getClass().getName() + " " + e.getMessage());
+                    logger.info(e.getClass().getName() + " " + e.getMessage());
                     e.printStackTrace();
                     error(e, RdpLayer, window, true);
                 }
             }
             else
             { // closing bracket to if(!rdp==null)
-                logger
-                        .fatal("The communications layer could not be initiated!");
+                logger.info("The communications layer could not be initiated!");
             }
         }
         Rdesktop.exit(0, RdpLayer, window, true);
@@ -626,7 +626,7 @@ public class Rdesktop
     public static void customError(String emsg, Rdp RdpLayer,
             RdesktopFrame window, boolean sysexit)
     {
-        logger.fatal(emsg);
+        logger.info(emsg);
         String[] msg =
         {
             emsg
@@ -655,7 +655,7 @@ public class Rdesktop
             String msg1 = e.getClass().getName();
             String msg2 = e.getMessage();
 
-            logger.fatal(msg1 + ": " + msg2);
+            logger.info(msg1 + ": " + msg2);
 
             String[] msg =
             {
@@ -667,7 +667,7 @@ public class Rdesktop
         }
         catch (Exception ex)
         {
-            logger.warn("Exception in Rdesktop.error: " + ex.getClass().getName() + ": " + ex.getMessage());
+            logger.info("Exception in Rdesktop.error: " + ex.getClass().getName() + ": " + ex.getMessage());
         }
 
         Rdesktop.exit(0, RdpLayer, window, sysexit);

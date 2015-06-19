@@ -34,16 +34,16 @@ import net.propero.rdp.keymapping.KeyCode;
 import net.propero.rdp.keymapping.KeyCode_FileBased;
 import net.propero.rdp.keymapping.KeyMapException;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.Level;
 import java.awt.event.*;
-import java.io.InputStream;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static net.propero.rdp.ISO.logger;
 
 public abstract class Input
 {
 
-    protected static Logger logger = Logger.getLogger(Input.class);
+    protected static Logger logger = Logger.getLogger("Input");
 
     KeyCode_FileBased newKeyMapper = null;
 
@@ -109,12 +109,13 @@ public abstract class Input
      */
     public Input(RdesktopCanvas c, Rdp r, KeyCode_FileBased k)
     {
+        logger.setLevel(Level.SEVERE);
         newKeyMapper = k;
         canvas = c;
         rdp = r;
         if (Options.debug_keyboard)
         {
-            logger.setLevel(Level.DEBUG);
+            logger.setLevel(Level.INFO);
         }
         addInputListeners();
         pressedKeys = new Vector();
@@ -146,7 +147,7 @@ public abstract class Input
         rdp = r;
         if (Options.debug_keyboard)
         {
-            logger.setLevel(Level.DEBUG);
+            logger.setLevel(Level.INFO);
         }
         addInputListeners();
         pressedKeys = new Vector();
@@ -214,7 +215,7 @@ public abstract class Input
 
             if (pressSequence.length() > 0)
             {
-                logger.debug(debugString);
+                logger.info(debugString);
             }
         }
         catch (Exception ex)
@@ -384,7 +385,7 @@ public abstract class Input
             // here we add the key so we can later check if it happened
             pressedKeys.addElement(new Integer(e.getKeyCode()));
 
-            logger.debug("PRESSED keychar='" + e.getKeyChar() + "' keycode=0x"
+            logger.info("PRESSED keychar='" + e.getKeyChar() + "' keycode=0x"
                     + Integer.toHexString(e.getKeyCode()) + " char='"
                     + ((char) e.getKeyCode()) + "'");
 
@@ -412,7 +413,7 @@ public abstract class Input
             // here we add the key so we can later check if it happened
             pressedKeys.addElement(new Integer(e.getKeyCode()));
 
-            logger.debug("TYPED keychar='" + e.getKeyChar() + "' keycode=0x"
+            logger.info("TYPED keychar='" + e.getKeyChar() + "' keycode=0x"
                     + Integer.toHexString(e.getKeyCode()) + " char='"
                     + ((char) e.getKeyCode()) + "'");
 
@@ -447,7 +448,7 @@ public abstract class Input
             modifiersValid = true;
             long time = getTime();
 
-            logger.debug("RELEASED keychar='" + e.getKeyChar() + "' keycode=0x"
+            logger.info("RELEASED keychar='" + e.getKeyChar() + "' keycode=0x"
                     + Integer.toHexString(e.getKeyCode()) + " char='"
                     + ((char) e.getKeyCode()) + "'");
             if (rdp != null)
@@ -515,14 +516,14 @@ public abstract class Input
 
                 if (pressed)
                 {
-                    logger.debug("Alt + Tab pressed, ignoring, releasing tab");
+                    logger.info("Alt + Tab pressed, ignoring, releasing tab");
                 }
                 break;
             case KeyEvent.VK_PAGE_UP: // Alt + PgUp = Alt-Tab
                 sendScancode(time, pressed ? RDP_KEYPRESS : RDP_KEYRELEASE, 0x0f); // TAB
                 if (pressed)
                 {
-                    logger.debug("shortcut pressed: sent ALT+TAB");
+                    logger.info("shortcut pressed: sent ALT+TAB");
                 }
                 break;
             case KeyEvent.VK_PAGE_DOWN: // Alt + PgDown = Alt-Shift-Tab
@@ -530,7 +531,7 @@ public abstract class Input
                 {
                     sendScancode(time, RDP_KEYPRESS, 0x2a); // Shift
                     sendScancode(time, RDP_KEYPRESS, 0x0f); // TAB
-                    logger.debug("shortcut pressed: sent ALT+SHIFT+TAB");
+                    logger.info("shortcut pressed: sent ALT+SHIFT+TAB");
                 }
                 else
                 {
@@ -543,7 +544,7 @@ public abstract class Input
                 sendScancode(time, pressed ? RDP_KEYPRESS : RDP_KEYRELEASE, 0x01); // ESC
                 if (pressed)
                 {
-                    logger.debug("shortcut pressed: sent ALT+ESC");
+                    logger.info("shortcut pressed: sent ALT+ESC");
                 }
                 break;
             case KeyEvent.VK_HOME: // Alt + Home = Ctrl + Esc (Start)
@@ -552,7 +553,7 @@ public abstract class Input
                     sendScancode(time, RDP_KEYRELEASE, 0x38); // ALT
                     sendScancode(time, RDP_KEYPRESS, 0x1d); // left Ctrl
                     sendScancode(time, RDP_KEYPRESS, 0x01); // Esc
-                    logger.debug("shortcut pressed: sent CTRL+ESC (Start)");
+                    logger.info("shortcut pressed: sent CTRL+ESC (Start)");
 
                 }
                 else
@@ -570,7 +571,7 @@ public abstract class Input
                             0x53 | KeyCode.SCANCODE_EXTENDED); // DEL
                     if (pressed)
                     {
-                        logger.debug("shortcut pressed: sent CTRL+ALT+DEL");
+                        logger.info("shortcut pressed: sent CTRL+ALT+DEL");
                     }
                 }
                 break;
@@ -584,7 +585,7 @@ public abstract class Input
                     sendScancode(time, RDP_KEYRELEASE, 0x38); // ALT
                     sendScancode(time, RDP_KEYPRESS,
                             0x5d | KeyCode.SCANCODE_EXTENDED); // Menu
-                    logger.debug("shortcut pressed: sent MENU");
+                    logger.info("shortcut pressed: sent MENU");
                 }
                 else
                 {
@@ -602,7 +603,7 @@ public abstract class Input
                         sendScancode(time, RDP_KEYRELEASE, 0x1d); // Ctrl
                         sendScancode(time, RDP_KEYPRESS,
                                 0x37 | KeyCode.SCANCODE_EXTENDED); // PrtSc
-                        logger.debug("shortcut pressed: sent ALT+PRTSC");
+                        logger.info("shortcut pressed: sent ALT+PRTSC");
                     }
                     else
                     {
@@ -622,7 +623,7 @@ public abstract class Input
                         sendScancode(time, RDP_KEYRELEASE, 0x1d); // Ctrl
                         sendScancode(time, RDP_KEYPRESS,
                                 0x37 | KeyCode.SCANCODE_EXTENDED); // PrtSc
-                        logger.debug("shortcut pressed: sent PRTSC");
+                        logger.info("shortcut pressed: sent PRTSC");
                     }
                     else
                     {
@@ -716,7 +717,7 @@ public abstract class Input
 
 		// Removed, as java on MacOS send the option key as VK_META
 		/*
-             * case KeyEvent.VK_META: // Windows key logger.debug("Windows key
+             * case KeyEvent.VK_META: // Windows key logger.info("Windows key
              * received"); if(pressed){ sendScancode(time, RDP_KEYPRESS, 0x1d); //
              * left ctrl sendScancode(time, RDP_KEYPRESS, 0x01); // escape } else{
              * sendScancode(time, RDP_KEYRELEASE, 0x01); // escape
@@ -763,11 +764,11 @@ public abstract class Input
         /*
          * if (Options.paste_hack && ctrlDown){ try{ canvas.setBusyCursor();
          * }catch (RdesktopException ex){ logger.warn(ex.getMessage()); } if
-         * (capsLockOn){ logger.debug("Turning caps lock off for paste"); //
+         * (capsLockOn){ logger.info("Turning caps lock off for paste"); //
          * turn caps lock off sendScancode(getTime(), RDP_KEYPRESS, 0x3a); //
          * caps lock sendScancode(getTime(), RDP_KEYRELEASE, 0x3a); // caps lock }
          * paste(); if (capsLockOn){ // turn caps lock back on
-         * logger.debug("Turning caps lock back on after paste");
+         * logger.info("Turning caps lock back on after paste");
          * sendScancode(getTime(), RDP_KEYPRESS, 0x3a); // caps lock
          * sendScancode(getTime(), RDP_KEYRELEASE, 0x3a); // caps lock }
          * canvas.unsetBusyCursor(); } else
@@ -810,19 +811,19 @@ public abstract class Input
             {
                 if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK)
                 {
-                    logger.debug("Mouse Button 1 Pressed.");
+                    logger.info("Mouse Button 1 Pressed.");
                     rdp.sendInput(time, RDP_INPUT_MOUSE, MOUSE_FLAG_BUTTON1
                             | MOUSE_FLAG_DOWN, e.getX(), e.getY());
                 }
                 else if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)
                 {
-                    logger.debug("Mouse Button 3 Pressed.");
+                    logger.info("Mouse Button 3 Pressed.");
                     rdp.sendInput(time, RDP_INPUT_MOUSE, MOUSE_FLAG_BUTTON2
                             | MOUSE_FLAG_DOWN, e.getX(), e.getY());
                 }
                 else if ((e.getModifiers() & InputEvent.BUTTON2_MASK) == InputEvent.BUTTON2_MASK)
                 {
-                    logger.debug("Middle Mouse Button Pressed.");
+                    logger.info("Middle Mouse Button Pressed.");
                     middleButtonPressed(e);
                 }
             }

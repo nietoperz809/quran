@@ -32,14 +32,14 @@ package net.propero.rdp.rdp5.cliprdr;
 import java.awt.*;
 import java.io.*;
 import java.awt.image.*;
+import java.util.logging.Logger;
 
 import net.propero.rdp.Input;
 
-import org.apache.log4j.Logger;
 
 public class ClipBMP extends Component {
 
-	protected static Logger logger = Logger.getLogger(Input.class);
+	protected static Logger logger = Logger.getLogger("Input");
 
 	//--- Private constants
 	private final static int BITMAPFILEHEADER_SIZE = 14;
@@ -576,7 +576,7 @@ public class ClipBMP extends Component {
 			//image = null;
 			image = Toolkit.getDefaultToolkit().createImage(new MemoryImageSource(nwidth, nheight, ndata8, 0,nwidth));
 		}else {
-				logger.warn("Not a 24-bit or 8-bit Windows Bitmap, aborting...");
+				logger.info("Not a 24-bit or 8-bit Windows Bitmap, aborting...");
 				image = (Image) null;
 			}
 

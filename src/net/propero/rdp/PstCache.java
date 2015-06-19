@@ -34,11 +34,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public class PstCache {
 
-    protected static Logger logger = Logger.getLogger(Rdp.class);
+    protected static Logger logger = Logger.getLogger("Rdp");
     
     public static final int MAX_CELL_SIZE = 0x1000;  /* pixels */
 
@@ -107,7 +107,7 @@ public class PstCache {
         //rd_read_file(fd, celldata, cellhdr.length);
         celldata = new byte[c.length];
         fd.read(celldata);
-        logger.debug("Loading bitmap from disk (" + cache_id + ":" + cache_idx + ")\n");
+        logger.info("Loading bitmap from disk (" + cache_id + ":" + cache_idx + ")\n");
 
         bitmap = new Bitmap(celldata,c.width,c.height,0,0,Options.Bpp);
         //bitmap = ui_create_bitmap(cellhdr.width, cellhdr.height, celldata);
@@ -160,7 +160,7 @@ public class PstCache {
     if (g_pstcache_enumerated)
         return 0;
 
-    logger.debug("pstcache enumeration... ");
+    logger.info("pstcache enumeration... ");
     for (n = 0; n < Rdp.BMPCACHE2_NUM_PSTCELLS; n++)
     {
         fd = new FileInputStream(g_pstcache_fd[cache_id]);
@@ -223,11 +223,11 @@ public class PstCache {
 
     g_pstcache_Bpp = Options.Bpp;
     filename = "./cache/pstcache_" + cache_id + "_" + g_pstcache_Bpp;
-    logger.debug("persistent bitmap cache file: " + filename);
+    logger.info("persistent bitmap cache file: " + filename);
     
     File cacheDir = new File("./cache/");
     if(!cacheDir.exists() && !cacheDir.mkdir()){
-        logger.warn("failed to get/make cache directory");
+        logger.info("failed to get/make cache directory");
         return false;
     }
     
@@ -235,7 +235,7 @@ public class PstCache {
     
     try {
         if(!f.exists() && !f.createNewFile()){
-            logger.warn("Could not create cache file");
+            logger.info("Could not create cache file");
             return false;
         }
     } catch (IOException e) {
@@ -244,7 +244,7 @@ public class PstCache {
 
    /* if (!rd_lock_file(fd, 0, 0))
     {
-        logger.warn("Persistent bitmap caching is disabled. (The file is already in use)\n");
+        logger.info("Persistent bitmap caching is disabled. (The file is already in use)\n");
         rd_close_file(fd);
         return false;
     }*/

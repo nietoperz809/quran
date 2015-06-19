@@ -107,7 +107,7 @@ public class RdesktopCanvas_Localised extends RdesktopCanvas
             }
             catch (AWTException e)
             {
-                logger.warn("Pointer movement not allowed");
+                logger.info("Pointer movement not allowed");
             }
         }
     }

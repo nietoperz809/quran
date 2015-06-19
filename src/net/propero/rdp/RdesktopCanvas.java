@@ -32,25 +32,25 @@ package net.propero.rdp;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 import net.propero.rdp.keymapping.KeyCode;
 import net.propero.rdp.keymapping.KeyCode_FileBased;
 import net.propero.rdp.orders.*;
-import org.apache.log4j.Logger;
 
 // import org.apache.log4j.NDC;
 public abstract class RdesktopCanvas extends JPanel //Canvas
 {
     private static final long serialVersionUID = 1L;
-    
+
     @Override
     public boolean isFocusTraversable()  // Trick to get focus
     {
         return true;
     }
-    
-    protected static final Logger logger = Logger.getLogger(RdesktopCanvas.class);
+
+    protected static final Logger logger = Logger.getLogger("RdesktopCanvas");
 
     private RasterOp rop = null;
 
@@ -59,7 +59,6 @@ public abstract class RdesktopCanvas extends JPanel //Canvas
     // Graphics backstore_graphics;
     //private final Cursor previous_cursor = null; // for setBusyCursor and
     // unsetBusyCursor
-
     private Input input = null;
 
     public static final int ROP2_COPY = 0xc;
@@ -770,12 +769,9 @@ public abstract class RdesktopCanvas extends JPanel //Canvas
         srcx += x - memblt.getX();
         srcy += y - memblt.getY();
 
-        if (logger.isInfoEnabled())
-        {
-            logger.info("MEMBLT x=" + x + " y=" + y + " cx=" + cx + " cy=" + cy
-                    + " srcx=" + srcx + " srcy=" + srcy + " opcode="
-                    + memblt.getOpcode());
-        }
+        logger.info("MEMBLT x=" + x + " y=" + y + " cx=" + cx + " cy=" + cy
+                + " srcx=" + srcx + " srcy=" + srcy + " opcode="
+                + memblt.getOpcode());
         try
         {
             Bitmap bitmap = cache.getBitmap(memblt.getCacheID(), memblt
@@ -891,7 +887,7 @@ public abstract class RdesktopCanvas extends JPanel //Canvas
                 this.repaint(x, y, cx, cy);
                 break;
             default:
-                logger.warn("Unsupported brush style " + brush.getStyle());
+                logger.info("Unsupported brush style " + brush.getStyle());
         }
     }
 
@@ -993,8 +989,7 @@ public abstract class RdesktopCanvas extends JPanel //Canvas
                     break;
 
                 default:
-                    logger
-                            .warn("Unimplemented Triblt opcode:"
+                    logger.info("Unimplemented Triblt opcode:"
                                     + triblt.getOpcode());
                     rop.do_array(ROP2_COPY, backstore, this.width, x, y, cx, cy,
                             bitmap.getBitmapData(), bitmap.getWidth(), srcx, srcy);
@@ -1075,6 +1070,7 @@ public abstract class RdesktopCanvas extends JPanel //Canvas
             if ((flags & 0xc0) == 0)
             {
                 flags |= 0xc0; /* none = both */
+
             }
 
             if ((flags & 0x40) != 0)

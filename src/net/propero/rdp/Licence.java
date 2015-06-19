@@ -32,7 +32,7 @@
 
 package net.propero.rdp;
 import java.io.*;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import net.propero.rdp.crypto.*;
 
 public class Licence {
@@ -47,8 +47,7 @@ public class Licence {
 	private byte[] licence_key = null;
    private byte[] licence_sign_key = null;
    private byte[] in_token = null, in_sig = null;
-   
-   static Logger logger = Logger.getLogger(Licence.class);
+      static Logger logger = Logger.getLogger("Licence");
 	/* constants for the licence negotiation */
 	private static final int LICENCE_TOKEN_SIZE = 10;
 	private static final int LICENCE_HWID_SIZE = 20;
@@ -118,14 +117,14 @@ public class Licence {
 		   break;
 	
 	   case (LICENCE_TAG_REISSUE):
-	   		logger.debug("Presented licence was accepted!");
+	   		logger.info("Presented licence was accepted!");
 		   break;
 	 
 	   case (LICENCE_TAG_RESULT):
 		   break;
 	    
 	   default:
-		  logger.warn("got licence tag: " + tag);
+		  logger.info("got licence tag: " + tag);
 	   }
 	
 	
@@ -155,7 +154,7 @@ public class Licence {
 	   if(!Options.built_in_licence && Options.load_licence){
 		   byte[] licence_data = load_licence();
 		   if ((licence_data != null) && (licence_data.length > 0)){
-			   logger.debug("licence_data.length = "+licence_data.length);
+			   logger.info("licence_data.length = "+licence_data.length);
 			   /* Generate a signature for the HWID buffer */
 			   byte[] hwid = generate_hwid();
 			   byte[] signature =  secure.sign(this.licence_sign_key, 16, 16, hwid, hwid.length);
@@ -169,7 +168,7 @@ public class Licence {
 			   rc4_licence.crypt(hwid, 0, LICENCE_HWID_SIZE, crypt_hwid, 0);		
 	
 			   present(null_data, null_data, licence_data, licence_data.length, crypt_hwid, signature);
-			   logger.debug("Presented stored licence to server!");
+			   logger.info("Presented stored licence to server!");
 			   return;
 		   } 
 	   }
@@ -394,7 +393,7 @@ public class Licence {
 		}*/
 		
 		secure.licenceIssued = true;
-		logger.debug("Server issued Licence");
+		logger.info("Server issued Licence");
 		if(Options.save_licence) save_licence(data,length-2);
 		}
     
@@ -423,11 +422,11 @@ public class Licence {
 		buffer.setLittleEndian32(1);
 		
 		if(Options.built_in_licence && (!Options.load_licence) && (!Options.save_licence)){
-			logger.debug("Using built-in Windows Licence");
+			logger.info("Using built-in Windows Licence");
 			buffer.setLittleEndian32(0x03010000); 
 		}
 		else{
-			 logger.debug("Requesting licence");
+			 logger.info("Requesting licence");
 			 buffer.setLittleEndian32(0xff010000);
 		}
 		buffer.copyFromByteArray(client_random, 0, buffer.getPosition(), Secure.SEC_RANDOM_SIZE);
@@ -468,7 +467,7 @@ public class Licence {
      * @return Raw byte data for stored licence
 	 */
 	byte[] load_licence(){
-		logger.debug("load_licence");
+		logger.info("load_licence");
 		//String home = "/root"; // getenv("HOME");
                
 		return (new LicenceStore_Localised()).load_licence();
@@ -480,7 +479,7 @@ public class Licence {
      * @param length Length of licence
      */
 void save_licence(RdpPacket_Localised data, int length){
-	logger.debug("save_licence");
+	logger.info("save_licence");
 	int len;
 	int startpos = data.getPosition();
 	data.incrementPosition(2); // Skip first two bytes
@@ -492,14 +491,14 @@ void save_licence(RdpPacket_Localised data, int length){
 		 * reading the next length value
 		 */
 		if (data.getPosition() + 4 - startpos > length){
-			logger.warn("Error in parsing licence key.");
+			logger.info("Error in parsing licence key.");
 			return;
 		}
 	}
 	len = data.getLittleEndian32();
-	logger.debug("save_licence: len="+len);
+	logger.info("save_licence: len="+len);
 	if (data.getPosition() + len - startpos > length){
-		logger.warn("Error in parsing licence key.");
+		logger.severe("Error in parsing licence key.");
 		return;
 	}
 

@@ -29,19 +29,19 @@
  */
 package net.propero.rdp;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.Level;
 import java.io.*;
 import gnu.getopt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RDPClientChooser {
-	static Logger logger = Logger.getLogger(RDPClientChooser.class);
+	static Logger logger = Logger.getLogger("RDPClientChooser");
     
     /**
      * Initialise a client chooser, set logging level to DEBUG
      */
 	public RDPClientChooser() {
-    	logger.setLevel(Level.DEBUG);
+    	logger.setLevel(Level.INFO);
 		logger.info("RDPClientChooser");
     }
 
@@ -162,7 +162,7 @@ public class RDPClientChooser {
 			}
 		}
 		else {
-			logger.warn("Server name required");
+			logger.info("Server name required");
 			return false;
 		}
 			
@@ -175,7 +175,7 @@ public class RDPClientChooser {
 			new File(rdproot).mkdir();
 		} 
 		catch (Exception e) {
-			logger.warn("Failed to create directory "+rdproot);
+			logger.info("Failed to create directory "+rdproot);
 			return false;
 		}
 		
@@ -245,25 +245,25 @@ public class RDPClientChooser {
 			Process p = Runtime.getRuntime().exec(appcopycmd);
 		}
 		catch (IOException e) {
-			logger.warn("Unable to copy application to temporary directory");
+			logger.info("Unable to copy application to temporary directory");
 			return false;
 		}
 		
 		try {		
 			Process p = Runtime.getRuntime().exec(appcopycmd);
-			logger.warn("RDP Client copied to "+rdproot);
+			logger.info("RDP Client copied to "+rdproot);
 			try 
 			{
 				p.waitFor(); // Wait for the command to complete
 			}
 			catch (InterruptedException e)
 			{
-				logger.warn("Unable to wait for application to copy");
+				logger.info("Unable to wait for application to copy");
 				return false;
 			}
 		} 
 		catch (IOException e) {
-			logger.warn("Unable to copy application to temporary directory");
+			logger.info("Unable to copy application to temporary directory");
 			return false;
 		}
 
@@ -280,12 +280,12 @@ public class RDPClientChooser {
 			}
 			catch (InterruptedException e)
 			{
-				logger.warn("Unable to wait for application to run");
+				logger.info("Unable to wait for application to run");
 				return false;
 			}
 		} 
 		catch (IOException e) {
-			logger.warn("Unable to move application");
+			logger.info("Unable to move application");
 			return false;
 		}
 		
@@ -302,12 +302,12 @@ public class RDPClientChooser {
 			}
 			catch (InterruptedException e)
 			{
-				logger.warn("Unable to wait for application to run");
+				logger.info("Unable to wait for application to run");
 				return false;
 			}
 		} 
 		catch (IOException e) {
-			logger.warn("Unable to open (run) application");
+			logger.info("Unable to open (run) application");
 			return false;
 		}
 		
@@ -329,11 +329,11 @@ public class RDPClientChooser {
 			Process p = Runtime.getRuntime().exec(rmcmd);
 		} 
 		catch (IOException e) {
-			logger.warn("Unable to remove temporary directory "+rdproot);
+			logger.info("Unable to remove temporary directory "+rdproot);
 			return true;
 		}
 		
-		logger.warn("RDP Client Completed");		
+		logger.info("RDP Client Completed");		
 		return true;
 	}
 }

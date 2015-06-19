@@ -37,9 +37,10 @@ import net.propero.rdp.rdp5.VChannels;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static net.propero.rdp.ISO.logger;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.NDC;
 
 public class Rdp
 {
@@ -61,7 +62,7 @@ public class Rdp
      * blinking
      */
 
-    protected static Logger logger = Logger.getLogger(Rdp.class);
+    protected static Logger logger = Logger.getLogger("Rdp");
 
     /* constants for RDP Layer */
     public static final int RDP_LOGON_NORMAL = 0x33;
@@ -350,7 +351,7 @@ public class Rdp
         width = data.getLittleEndian16(); // in_uint16_le(s, width);
         height = data.getLittleEndian16(); // in_uint16_le(s, height);
 
-        logger.debug("setting desktop size and bpp to: " + width + "x" + height
+        logger.info("setting desktop size and bpp to: " + width + "x" + height
                 + "x" + bpp);
 
         /*
@@ -359,13 +360,13 @@ public class Rdp
          */
         if (Options.server_bpp != bpp)
         {
-            logger.warn("colour depth changed from " + Options.server_bpp
+            logger.info("colour depth changed from " + Options.server_bpp
                     + " to " + bpp);
             Options.server_bpp = bpp;
         }
         if (Options.width != width || Options.height != height)
         {
-            logger.warn("screen size changed from " + Options.width + "x"
+            logger.info("screen size changed from " + Options.width + "x"
                     + Options.height + " to " + width + "x" + height);
             Options.width = width;
             Options.height = height;
@@ -427,7 +428,7 @@ public class Rdp
      */
     protected int processDisconnectPdu(RdpPacket_Localised data)
     {
-        logger.debug("Received disconnect PDU");
+        logger.info("Received disconnect PDU");
         return data.getLittleEndian32();
     }
 
@@ -438,6 +439,7 @@ public class Rdp
      */
     public Rdp(VChannels channels)
     {
+        logger.setLevel(Level.SEVERE);
         this.SecureLayer = new Secure(channels);
         Common.secure = SecureLayer;
         this.orders = new Orders();
@@ -535,7 +537,7 @@ public class Rdp
         /* 32k packets are really 8, keepalive fix - rdesktop 1.2.0 */
         if (length == 0x8000)
         {
-            logger.warn("32k packet keepalive fix");
+            logger.info("32k packet keepalive fix");
             next_packet += 8;
             type[0] = 0;
             return stream;
@@ -678,17 +680,17 @@ public class Rdp
             {
 
                 case (Rdp.RDP_PDU_DEMAND_ACTIVE):
-                    logger.debug("Rdp.RDP_PDU_DEMAND_ACTIVE");
+                    logger.info("Rdp.RDP_PDU_DEMAND_ACTIVE");
                 // get this after licence negotiation, just before the 1st
                     // order...
-                    NDC.push("processDemandActive");
+                    //NDC.push("processDemandActive");
                     this.processDemandActive(data);
                 // can use this to trigger things that have to be done before
                     // 1st order
-                    logger.debug("ready to send (got past licence negotiation)");
+                    logger.info("ready to send (got past licence negotiation)");
                     Rdesktop.readytosend = true;
                     frame.triggerReadyToSend();
-                    NDC.pop();
+                    //NDC.pop();
                     deactivated[0] = false;
                     break;
 
@@ -699,12 +701,12 @@ public class Rdp
                     break;
 
                 case (Rdp.RDP_PDU_DATA):
-                    logger.debug("Rdp.RDP_PDU_DATA");
+                    logger.info("Rdp.RDP_PDU_DATA");
                     // all the others should be this
-                    NDC.push("processData");
+                    //NDC.push("processData");
 
                     disc = this.processData(data, ext_disc_reason);
-                    NDC.pop();
+                    //NDC.pop();
                     break;
 
                 case 0:
@@ -757,7 +759,7 @@ public class Rdp
 
         if (!Options.use_rdp5 || 1 == Options.server_rdp_version)
         {
-            logger.debug("Sending RDP4-style Logon packet");
+            logger.info("Sending RDP4-style Logon packet");
 
             data = SecureLayer.init(sec_flags, 18 + domainlen + userlen
                     + passlen + commandlen + dirlen + 10);
@@ -779,7 +781,7 @@ public class Rdp
         else
         {
             flags |= RDP_LOGON_BLOB;
-            logger.debug("Sending RDP5-style Logon packet");
+            logger.info("Sending RDP5-style Logon packet");
             packetlen = 4
                     + // Unknown uint32
                     4
@@ -820,7 +822,7 @@ public class Rdp
             data = SecureLayer.init(sec_flags, packetlen); // s =
             // sec_init(sec_flags,
             // packetlen);
-            // logger.debug("Called sec_init with packetlen " + packetlen);
+            // logger.info("Called sec_init with packetlen " + packetlen);
 
             data.setLittleEndian32(0); // out_uint32(s, 0); // Unknown
             data.setLittleEndian32(flags); // out_uint32_le(s, flags);
@@ -999,29 +1001,29 @@ public class Rdp
         {
 
             case (Rdp.RDP_DATA_PDU_UPDATE):
-                logger.debug("Rdp.RDP_DATA_PDU_UPDATE");
+                logger.info("Rdp.RDP_DATA_PDU_UPDATE");
                 this.processUpdate(data);
                 break;
 
             case RDP_DATA_PDU_CONTROL:
-                logger.debug(("Received Control PDU\n"));
+                logger.info(("Received Control PDU\n"));
                 break;
 
             case RDP_DATA_PDU_SYNCHRONISE:
-                logger.debug(("Received Sync PDU\n"));
+                logger.info(("Received Sync PDU\n"));
                 break;
 
             case (Rdp.RDP_DATA_PDU_POINTER):
-                logger.debug("Received pointer PDU");
+                logger.info("Received pointer PDU");
                 this.processPointer(data);
                 break;
             case (Rdp.RDP_DATA_PDU_BELL):
-                logger.debug("Received bell PDU");
+                logger.info("Received bell PDU");
                 Toolkit tx = Toolkit.getDefaultToolkit();
                 tx.beep();
                 break;
             case (Rdp.RDP_DATA_PDU_LOGON):
-                logger.debug("User logged on");
+                logger.info("User logged on");
                 Rdesktop.loggedon = true;
                 break;
             case RDP_DATA_PDU_DISCONNECT:
@@ -1030,11 +1032,11 @@ public class Rdp
                  * console session on Windows XP and 2003 Server
                  */
                 ext_disc_reason[0] = processDisconnectPdu(data);
-                logger.debug(("Received disconnect PDU\n"));
+                logger.info(("Received disconnect PDU\n"));
                 return true;
 
             default:
-                logger.warn("Unimplemented Data PDU type " + data_type);
+                logger.info("Unimplemented Data PDU type " + data_type);
 
         }
         return false;
@@ -1065,7 +1067,7 @@ public class Rdp
             case (Rdp.RDP_UPDATE_SYNCHRONIZE):
                 break;
             default:
-                logger.warn("Unimplemented Update type " + update_type);
+                logger.info("Unimplemented Update type " + update_type);
         }
     }
 
@@ -1141,7 +1143,7 @@ public class Rdp
         // glyph cache? */
 
         data.markEnd();
-        logger.debug("confirm active");
+        logger.info("confirm active");
         // this.send(data, RDP_PDU_CONFIRM_ACTIVE);
         Common.secure.send(data, sec_flags);
     }
@@ -1439,7 +1441,7 @@ public class Rdp
         data.setLittleEndian16(1002);
 
         data.markEnd();
-        logger.debug("sync");
+        logger.info("sync");
         this.sendData(data, RDP_DATA_PDU_SYNCHRONISE);
     }
 
@@ -1454,7 +1456,7 @@ public class Rdp
         data.setLittleEndian32(0); // control id
 
         data.markEnd();
-        logger.debug("control");
+        logger.info("control");
         this.sendData(data, RDP_DATA_PDU_CONTROL);
     }
 
@@ -1530,7 +1532,7 @@ public class Rdp
         data.setLittleEndian16(0x32); /* entry size */
 
         data.markEnd();
-        logger.debug("fonts");
+        logger.info("fonts");
         this.sendData(data, RDP_DATA_PDU_FONT2);
     }
 
@@ -1546,7 +1548,7 @@ public class Rdp
         {
 
             case (Rdp.RDP_POINTER_MOVE):
-                logger.debug("Rdp.RDP_POINTER_MOVE");
+                logger.info("Rdp.RDP_POINTER_MOVE");
                 x = data.getLittleEndian16();
                 y = data.getLittleEndian16();
 
@@ -1582,12 +1584,12 @@ public class Rdp
         switch (system_pointer_type)
         {
             case RDP_NULL_POINTER:
-                logger.debug("RDP_NULL_POINTER");
+                logger.info("RDP_NULL_POINTER");
                 surface.setCursor(null);
                 break;
 
             default:
-                logger.warn("Unimplemented system pointer message 0x"
+                logger.info("Unimplemented system pointer message 0x"
                         + Integer.toHexString(system_pointer_type));
             // unimpl("System pointer message 0x%x\n", system_pointer_type);
         }
@@ -1647,7 +1649,7 @@ public class Rdp
             /* Server may limit bpp - this is how we find out */
             if (Options.server_bpp != bitsperpixel)
             {
-                logger.warn("Server limited colour depth to " + bitsperpixel
+                logger.info("Server limited colour depth to " + bitsperpixel
                         + " bits");
                 Options.set_bpp(bitsperpixel);
             }
@@ -1693,7 +1695,7 @@ public class Rdp
                 }
                 else
                 {
-                    logger.warn("Could not decompress bitmap");
+                    logger.info("Could not decompress bitmap");
                 }
             }
             else
@@ -1710,7 +1712,7 @@ public class Rdp
                     }
                     else
                     {
-                        logger.warn("Could not decompress bitmap");
+                        logger.info("Could not decompress bitmap");
                     }
                 }
                 else if (Options.bitmap_decompression_store == Options.BUFFEREDIMAGE_BITMAP_DECOMPRESSION)
@@ -1723,7 +1725,7 @@ public class Rdp
                     }
                     else
                     {
-                        logger.warn("Could not decompress bitmap");
+                        logger.info("Could not decompress bitmap");
                     }
                 }
                 else
@@ -1787,7 +1789,7 @@ public class Rdp
     protected void process_colour_pointer_pdu(RdpPacket_Localised data)
             throws RdesktopException
     {
-        logger.debug("Rdp.RDP_POINTER_COLOR");
+        logger.info("Rdp.RDP_POINTER_COLOR");
         int x = 0, y = 0, width = 0, height = 0, cache_idx = 0, masklen = 0, datalen = 0;
         byte[] mask = null, pixel = null;
         Cursor cursor = null;
@@ -1815,7 +1817,7 @@ public class Rdp
     protected void process_cached_pointer_pdu(RdpPacket_Localised data)
             throws RdesktopException
     {
-        logger.debug("Rdp.RDP_POINTER_CACHED");
+        logger.info("Rdp.RDP_POINTER_CACHED");
         int cache_idx = data.getLittleEndian16();
         // logger.info("Setting cursor "+cache_idx);
         surface.setCursor(cache.getCursor(cache_idx));

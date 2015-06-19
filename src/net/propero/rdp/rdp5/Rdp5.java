@@ -80,7 +80,7 @@ public class Rdp5 extends Rdp {
     public void rdp5_process(RdpPacket_Localised s, boolean encryption,
             boolean shortform) throws RdesktopException, OrderException,
             CryptoException {
-        logger.debug("Processing RDP 5 order");
+        logger.info("Processing RDP 5 order");
 
         int length, count;
         int type;
@@ -100,7 +100,7 @@ public class Rdp5 extends Rdp {
             type = s.get8();
             length = s.getLittleEndian16();
             /* next_packet = */next = s.getPosition() + length;
-            logger.debug("RDP5: type = " + type);
+            logger.info("RDP5: type = " + type);
             switch (type) {
             case 0: /* orders */
                 count = s.getLittleEndian16();
@@ -128,7 +128,7 @@ public class Rdp5 extends Rdp {
                 process_cached_pointer_pdu(s);
                 break;
             default:
-                logger.warn("Unimplemented RDP5 opcode " + type);
+                logger.info("Unimplemented RDP5 opcode " + type);
             }
 
             s.setPosition(next);

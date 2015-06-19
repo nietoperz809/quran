@@ -32,18 +32,14 @@
 package net.propero.rdp;
 
 import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 
 public class WrappedImage
 {
-    static Logger logger = Logger.getLogger(RdesktopCanvas.class);
+    static Logger logger = Logger.getLogger("RdesktopCanvas");
     IndexColorModel cm = null;
     BufferedImage bi = null;
 

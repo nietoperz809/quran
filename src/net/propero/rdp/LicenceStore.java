@@ -34,13 +34,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 public abstract class LicenceStore
 {
 
-    static Logger logger = Logger.getLogger(Licence.class);
+    static Logger logger = Logger.getLogger("Licence");
 
     /**
      * Load a licence from a file
@@ -59,11 +58,11 @@ public abstract class LicenceStore
         }
         catch (FileNotFoundException e)
         {
-            logger.warn("Licence file not found!");
+            logger.info("Licence file not found!");
         }
         catch (IOException e)
         {
-            logger.warn("IOException in load_licence");
+            logger.info("IOException in load_licence");
         }
         return data;
     }
@@ -93,11 +92,11 @@ public abstract class LicenceStore
         }
         catch (FileNotFoundException e)
         {
-            logger.warn("save_licence: file path not valid!");
+            logger.info("save_licence: file path not valid!");
         }
         catch (IOException e)
         {
-            logger.warn("IOException in save_licence");
+            logger.info("IOException in save_licence");
         }
     }
 

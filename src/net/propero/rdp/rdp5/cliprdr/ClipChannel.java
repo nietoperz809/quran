@@ -38,8 +38,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import net.propero.rdp.CommunicationMonitor;
 import net.propero.rdp.Constants;
@@ -79,7 +80,7 @@ public class ClipChannel extends VChannel implements ClipInterface, ClipboardOwn
         "CF_MAX"
     };
 
-    protected static Logger logger = Logger.getLogger(Input.class);
+    protected static Logger logger = Logger.getLogger("Input");
 
     // Message types
     public static final int CLIPRDR_CONNECT = 1;
@@ -409,7 +410,7 @@ public class ClipChannel extends VChannel implements ClipInterface, ClipboardOwn
      */
     public void lostOwnership(Clipboard arg0, Transferable arg1)
     {
-        logger.debug("Lost clipboard ownership");
+        logger.info("Lost clipboard ownership");
     }
 
     public void copyToClipboard(Transferable t)

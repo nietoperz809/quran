@@ -33,8 +33,8 @@ package net.propero.rdp;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 
 public class Bitmap
 {
@@ -51,7 +51,7 @@ public class Bitmap
 
     private int y = 0;
 
-    protected static Logger logger = Logger.getLogger(Rdp.class);
+    protected static Logger logger = Logger.getLogger("Rdp");
 
     public static int convertTo24(int colour)
     {

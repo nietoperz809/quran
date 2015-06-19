@@ -30,13 +30,12 @@
 // Created on 01-Jul-2003
 package net.propero.rdp;
 
-import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 
 public class RasterOp
 {
-    static Logger logger = Logger.getLogger(RdesktopCanvas.class);
+    static Logger logger = Logger.getLogger("RdesktopCanvas");
 
     private void ropInvert(WrappedImage biDst, int[] dest, int width, int x, int y, int cx, int cy,
             int Bpp)
@@ -193,7 +192,7 @@ public class RasterOp
                 ropSet(biDst, dstwidth, x, y, cx, cy, Bpp);
                 break;
             default:
-                logger.warn("do_array unsupported opcode: " + opcode);
+                logger.info("do_array unsupported opcode: " + opcode);
             // rop_array(opcode,dst,dstwidth,x,y,cx,cy,src,srcwidth,srcx,srcy);
         }
     }
@@ -267,7 +266,7 @@ public class RasterOp
                 dst.setRGB(x, y, mask);
                 break;
             default:
-                logger.warn("do_byte unsupported opcode: " + opcode);
+                logger.info("do_byte unsupported opcode: " + opcode);
         }
     }
 

@@ -33,6 +33,8 @@ package net.propero.rdp;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Collections;
+import java.util.logging.Level;
+import static net.propero.rdp.ISO.logger;
 
 import net.propero.rdp.keymapping.KeyCode;
 import net.propero.rdp.keymapping.KeyCode_FileBased;
@@ -42,6 +44,7 @@ public class Input_Localised extends Input
     public Input_Localised(RdesktopCanvas c, Rdp r, KeyCode_FileBased k)
     {
         super(c, r, k);
+        logger.setLevel(Level.SEVERE);
         KeyboardFocusManager.getCurrentKeyboardFocusManager().setDefaultFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
         KeyboardFocusManager.getCurrentKeyboardFocusManager().setDefaultFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
     }
@@ -49,6 +52,7 @@ public class Input_Localised extends Input
     public Input_Localised(RdesktopCanvas c, Rdp r, String k)
     {
         super(c, r, k);
+        logger.setLevel(Level.SEVERE);
         KeyboardFocusManager.getCurrentKeyboardFocusManager().setDefaultFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
         KeyboardFocusManager.getCurrentKeyboardFocusManager().setDefaultFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
     }
@@ -91,7 +95,7 @@ public class Input_Localised extends Input
         {
             return; // unsupported operation for mac
         }
-        logger.debug("doLockKeys");
+        logger.info("doLockKeys");
 
         try
         {
@@ -99,7 +103,7 @@ public class Input_Localised extends Input
             if (tk.getLockingKeyState(KeyEvent.VK_CAPS_LOCK) != capsLockOn)
             {
                 capsLockOn = !capsLockOn;
-                logger.debug("CAPS LOCK toggle");
+                logger.info("CAPS LOCK toggle");
                 sendScancode(getTime(), RDP_KEYPRESS, 0x3a);
                 sendScancode(getTime(), RDP_KEYRELEASE, 0x3a);
 
@@ -107,7 +111,7 @@ public class Input_Localised extends Input
             if (tk.getLockingKeyState(KeyEvent.VK_NUM_LOCK) != numLockOn)
             {
                 numLockOn = !numLockOn;
-                logger.debug("NUM LOCK toggle");
+                logger.info("NUM LOCK toggle");
                 sendScancode(getTime(), RDP_KEYPRESS, 0x45);
                 sendScancode(getTime(), RDP_KEYRELEASE, 0x45);
 
@@ -115,7 +119,7 @@ public class Input_Localised extends Input
             if (tk.getLockingKeyState(KeyEvent.VK_SCROLL_LOCK) != scrollLockOn)
             {
                 scrollLockOn = !scrollLockOn;
-                logger.debug("SCROLL LOCK toggle");
+                logger.info("SCROLL LOCK toggle");
                 sendScancode(getTime(), RDP_KEYPRESS, 0x46);
                 sendScancode(getTime(), RDP_KEYRELEASE, 0x46);
             }
@@ -152,7 +156,7 @@ public class Input_Localised extends Input
                     {
                         sendScancode(time, RDP_KEYRELEASE, 0x1d); // Ctrl
                         sendScancode(time, RDP_KEYPRESS, 0x37 | KeyCode.SCANCODE_EXTENDED); // PrtSc
-                        logger.debug("shortcut pressed: sent ALT+PRTSC");
+                        logger.info("shortcut pressed: sent ALT+PRTSC");
                     }
                     else
                     {

@@ -30,8 +30,8 @@
 package net.propero.rdp.rdp5;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 
 import net.propero.rdp.Constants;
 import net.propero.rdp.Input;
@@ -45,7 +45,7 @@ import net.propero.rdp.crypto.CryptoException;
 
 public abstract class VChannel {
 
-	protected static Logger logger = Logger.getLogger(Input.class);
+	protected static Logger logger = Logger.getLogger("Input");
 	
 	private int mcs_id = 0;
 	
