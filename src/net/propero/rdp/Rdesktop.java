@@ -49,8 +49,11 @@ public class Rdesktop
         return window;
     }
     
-    public Rdesktop() throws OrderException, RdesktopException
+    private String server;
+    
+    public Rdesktop (String srv) throws OrderException, RdesktopException
     {
+        server = srv;
     }
 
     /**
@@ -205,7 +208,7 @@ public class Rdesktop
      */
     public static void usage()
     {
-        System.err.println("properJavaRDP version " + Version.version);
+        //System.err.println("properJavaRDP version " + Version.version);
         System.err.println("Usage: java net.propero.rdp.Rdesktop [options] server[:port]");
         System.err.println("	-b 							bandwidth saving (good for 56k modem, but higher latency");
         System.err.println("	-c DIR						working directory");
@@ -237,32 +240,6 @@ public class Rdesktop
         Rdesktop.exit(0, null, null, true);
     }
 
-//    public static volatile Rdesktop rd = null;
-//
-//    public static void main(String[] args) throws Exception 
-//    {
-//        if (rd != null)
-//            return;
-//        
-//        rd = new Rdesktop();
-//        new Thread(() ->
-//        {
-//            try
-//            {
-//                rd.startup(null);
-//            }
-//            catch (OrderException | RdesktopException ex)
-//            {
-//                java.util.logging.Logger.getLogger(Rdesktop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//            }
-//        }).start();
-//        
-//        while (rd.getFrame() == null)
-//        {
-//            System.out.println(".");
-//            Thread.sleep(100);
-//        }
-//    }
 
     /**
      *
@@ -303,244 +280,12 @@ public class Rdesktop
 
         boolean fKdeHack = false;
         StringBuffer sb = new StringBuffer();
-//        LongOpt[] alo = new LongOpt[15];
-//        alo[0] = new LongOpt("debug_key", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[1] = new LongOpt("debug_hex", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[2] = new LongOpt("no_paste_hack", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[3] = new LongOpt("log4j_config", LongOpt.REQUIRED_ARGUMENT, sb, 0);
-//        alo[4] = new LongOpt("packet_tools", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[5] = new LongOpt("quiet_alt", LongOpt.NO_ARGUMENT, sb, 0);
-//        alo[6] = new LongOpt("no_remap_hash", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[7] = new LongOpt("no_encryption", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[8] = new LongOpt("use_rdp4", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[9] = new LongOpt("use_ssl", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[10] = new LongOpt("enable_menu", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[11] = new LongOpt("console", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[12] = new LongOpt("load_licence", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[13] = new LongOpt("save_licence", LongOpt.NO_ARGUMENT, null, 0);
-//        alo[14] = new LongOpt("persistent_caching", LongOpt.NO_ARGUMENT, null, 0);
-//
-//        String progname = "properJavaRDP";
-//
-//        Getopt g = new Getopt("properJavaRDP", args,
-//                "bc:d:f::g:k:l:m:n:p:s:t:T:u:o:r:", alo);
         ClipChannel clipChannel = new ClipChannel();
 
-//        while ((c = g.getopt()) != -1)
-//        {
-//            switch (c)
-//            {
-//
-//                case 0:
-//                    switch (g.getLongind())
-//                    {
-//                        case 0:
-//                            Options.debug_keyboard = true;
-//                            break;
-//                        case 1:
-//                            Options.debug_hexdump = true;
-//                            break;
-//                        case 2:
-//                            break;
-//                        case 3:
-//                            arg = g.getOptarg();
-//                            PropertyConfigurator.configure(arg);
-//                            logger.info("Log4j using config file " + arg);
-//                            break;
-//                        case 4:
-//                            showTools = true;
-//                            break;
-//                        case 5:
-//                            Options.altkey_quiet = true;
-//                            break;
-//                        case 6:
-//                            Options.remap_hash = false;
-//                            break;
-//                        case 7:
-//                            Options.packet_encryption = false;
-//                            break;
-//                        case 8:
-//                            Options.use_rdp5 = false;
-//                            //Options.server_bpp = 8;
-//                            Options.set_bpp(8);
-//                            break;
-//                        case 9:
-//                            Options.use_ssl = true;
-//                            break;
-//                        case 10:
-//                            Options.enable_menu = true;
-//                            break;
-//                        case 11:
-//                            Options.console_session = true;
-//                            break;
-//                        case 12:
-//                            Options.load_licence = true;
-//                            break;
-//                        case 13:
-//                            Options.save_licence = true;
-//                            break;
-//                        case 14:
-//                            Options.persistent_bitmap_caching = true;
-//                            break;
-//                        default:
-//                            usage();
-//                    }
-//                    break;
-//
-//                case 'o':
-//                    Options.set_bpp(Integer.parseInt(g.getOptarg()));
-//                    break;
-//                case 'b':
-//                    Options.low_latency = false;
-//                    break;
-//                case 'm':
-//                    mapFile = g.getOptarg();
-//                    break;
-//                case 'c':
-//                    Options.directory = g.getOptarg();
-//                    break;
-//                case 'd':
-//                    Options.domain = g.getOptarg();
-//                    break;
-//                case 'f':
-//                    Dimension screen_size = Toolkit.getDefaultToolkit()
-//                            .getScreenSize();
-//                    // ensure width a multiple of 4
-//                    Options.width = screen_size.width & ~3;
-//                    Options.height = screen_size.height;
-//                    Options.fullscreen = true;
-//                    arg = g.getOptarg();
-//                    if (arg != null)
-//                    {
-//                        if (arg.charAt(0) == 'l')
-//                        {
-//                            fKdeHack = true;
-//                        }
-//                        else
-//                        {
-//                            System.err.println(progname
-//                                    + ": Invalid fullscreen option '" + arg + "'");
-//                            usage();
-//                        }
-//                    }
-//                    break;
-//                case 'g':
-//                    arg = g.getOptarg();
-//                    int cut = arg.indexOf("x", 0);
-//                    if (cut == -1)
-//                    {
-//                        System.err.println(progname + ": Invalid geometry: " + arg);
-//                        usage();
-//                    }
-//                    Options.width = Integer.parseInt(arg.substring(0, cut)) & ~3;
-//                    Options.height = Integer.parseInt(arg.substring(cut + 1));
-//                    break;
-//                case 'k':
-//                    arg = g.getOptarg();
-//                    //Options.keylayout = KeyLayout.strToCode(arg);
-//                    if (Options.keylayout == -1)
-//                    {
-//                        System.err.println(progname + ": Invalid key layout: "
-//                                + arg);
-//                        usage();
-//                    }
-//                    break;
-//                case 'l':
-//                    arg = g.getOptarg();
-//                    switch (arg.charAt(0))
-//                    {
-//                        case 'd':
-//                        case 'D':
-//                            logger.setLevel(Level.DEBUG);
-//                            break;
-//                        case 'i':
-//                        case 'I':
-//                            logger.setLevel(Level.INFO);
-//                            break;
-//                        case 'w':
-//                        case 'W':
-//                            logger.setLevel(Level.WARN);
-//                            break;
-//                        case 'e':
-//                        case 'E':
-//                            logger.setLevel(Level.ERROR);
-//                            break;
-//                        case 'f':
-//                        case 'F':
-//                            logger.setLevel(Level.FATAL);
-//                            break;
-//                        default:
-//                            System.err.println(progname + ": Invalid debug level: "
-//                                    + arg.charAt(0));
-//                            usage();
-//                    }
-//                    break;
-//                case 'n':
-//                    Options.hostname = g.getOptarg();
-//                    break;
-//                case 'p':
-//                    Options.password = g.getOptarg();
-//                    logonflags |= Rdp.RDP_LOGON_AUTO;
-//                    break;
-//                case 's':
-//                    Options.command = g.getOptarg();
-//                    break;
-//                case 'u':
-//                    Options.username = g.getOptarg();
-//                    break;
-//                case 't':
-//                    arg = g.getOptarg();
-//                    try
-//                    {
-//                        Options.port = Integer.parseInt(arg);
-//                    }
-//                    catch (NumberFormatException nex)
-//                    {
-//                        System.err.println(progname + ": Invalid port number: "
-//                                + arg);
-//                        usage();
-//                    }
-//                    break;
-//                case 'T':
-//                    Options.windowTitle = g.getOptarg().replace('_', ' ');
-//                    break;
-//                case 'r':
-//                    Options.licence_path = g.getOptarg();
-//                    break;
-//
-//                case '?':
-//                default:
-//                    usage();
-//                    break;
-//
-//            }
-//        }
         if (fKdeHack)
         {
             Options.height -= 46;
         }
-
-        String server = "dummy"; /*peter*/
-
-//        if (g.getOptind() < args.length)
-//        {
-//            int colonat = args[args.length - 1].indexOf(":", 0);
-//            if (colonat == -1)
-//            {
-//                server = args[args.length - 1];
-//            }
-//            else
-//            {
-//                server = args[args.length - 1].substring(0, colonat);
-//                Options.port = Integer.parseInt(args[args.length - 1]
-//                        .substring(colonat + 1));
-//            }
-//        }
-//        else
-//        {
-//            System.err.println(progname + ": A server name is required!");
-//            usage();
-//        }
 
         VChannels channels = new VChannels();
 
@@ -555,12 +300,8 @@ public class Rdesktop
         }
 
         // Now do the startup...
-        logger.info("properJavaRDP version " + Version.version);
+        logger.info("properJavaRDP startup");
 
-//        if (args.length == 0)
-//        {
-//            usage();
-//        }
         String java = System.getProperty("java.specification.version");
         logger.info("Java version is " + java);
 

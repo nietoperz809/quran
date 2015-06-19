@@ -15,7 +15,13 @@ import java.util.logging.Logger;
 public class RdStarter
 {
     private Rdesktop _rd;
-
+    private String _host;
+    
+    public RdStarter (String host)
+    {
+        _host = host;
+    }
+    
     public RdesktopFrame getFrame()
     {
         if (_rd == null)
@@ -43,7 +49,7 @@ public class RdStarter
     {
         try
         {
-            _rd = new Rdesktop();
+            _rd = new Rdesktop(_host);
             new Thread(() ->
             {
                 try

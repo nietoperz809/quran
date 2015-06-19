@@ -20,6 +20,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import net.propero.rdp.RdStarter;
+import net.propero.rdp.RdpParamDialog;
 import quran.QuranMetadata;
 
 /**
@@ -508,7 +509,11 @@ public class MainWindow extends javax.swing.JFrame
     // Start RDesktop
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem19ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem19ActionPerformed
-        RdStarter rdStart = new RdStarter();
+        RdpParamDialog rp = new RdpParamDialog (this, true);
+        rp.setVisible(true);
+        rp.setVisible(false);
+        //System.out.println(rp.getHost());
+        RdStarter rdStart = new RdStarter(rp.getHost());
         rdStart.startWait();
         addChild(rdStart.getFrame());
     }//GEN-LAST:event_jMenuItem19ActionPerformed
