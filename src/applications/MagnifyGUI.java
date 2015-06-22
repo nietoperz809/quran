@@ -19,7 +19,6 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import magnify.MagnifyPanel;
-import misc.Tools;
 
 /**
  *
@@ -40,7 +39,7 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
 
     class NewSpinUI extends javax.swing.plaf.basic.BasicSpinnerUI
     {
-        JSpinner target;
+        private final JSpinner target;
 
         public NewSpinUI(JSpinner tg)
         {
@@ -126,7 +125,8 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
         spinX = new javax.swing.JSpinner();
         spinY = new javax.swing.JSpinner();
         jButton3 = new javax.swing.JButton();
-        magnifyPanel = new magnify.MagnifyPanel();
+        checkHide = new javax.swing.JCheckBox();
+        magnifyPanel = new magnify.MagnifyPanel(this);
 
         setClosable(true);
         setResizable(true);
@@ -174,6 +174,8 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
             }
         });
 
+        checkHide.setText("Hide all");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -190,20 +192,24 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(checkHide)))
                 .addContainerGap(341, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(checkHide))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -248,8 +254,13 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
         ((MagnifyPanel) magnifyPanel).save();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public boolean getHideMode()
+    {
+        return checkHide.isSelected();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkHide;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

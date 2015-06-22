@@ -5,6 +5,7 @@
  */
 package magnify;
 
+import applications.MagnifyGUI;
 import java.awt.AWTException;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -24,17 +25,21 @@ import twitter.TwitTools;
  */
 public class MagnifyPanel extends javax.swing.JPanel
 {
-    Robot robot;
-    BufferedImage _image;
-    Rectangle _rect = new Rectangle();
-    Point _point;
-    Rectangle _saveRect;
+    private static final long serialVersionUID = 1L;
+    private Robot robot;
+    private BufferedImage _image;
+    private Rectangle _rect = new Rectangle();
+    private Point _point;
+    private Rectangle _saveRect;
+    private MagnifyGUI _gui;
     
     /**
      * Creates new form magnifyPanel
+     * @param gui JInternalFrame holding this Panel
      */
-    public MagnifyPanel()
+    public MagnifyPanel (MagnifyGUI gui)
     {
+        _gui = gui;
         try
         {
             robot = new Robot();
@@ -96,8 +101,15 @@ public class MagnifyPanel extends javax.swing.JPanel
     
     private void formMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMousePressed
     {//GEN-HEADEREND:event_formMousePressed
-        _saveRect = MainWindow.instance.getBounds();
-        MainWindow.instance.setBounds(10000, 10000, 1, 1);
+        if (_gui.getHideMode())
+        {
+            _saveRect = MainWindow.instance.getBounds();
+            MainWindow.instance.setBounds(10000, 10000, 1, 1);
+        }
+        else
+        {
+            _gui.setVisible(false);
+        }
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
@@ -113,7 +125,15 @@ public class MagnifyPanel extends javax.swing.JPanel
             return;
         
         _image = robot.createScreenCapture(_rect);
-        MainWindow.instance.setBounds(_saveRect);
+        if (_gui.getHideMode())
+        {
+            MainWindow.instance.setBounds(_saveRect);
+        }
+        else
+        {
+            _gui.setVisible(true);
+            repaint();
+        }
     }//GEN-LAST:event_formMouseReleased
 
     @Override
