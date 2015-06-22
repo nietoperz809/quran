@@ -5,8 +5,10 @@
  */
 package misc;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -376,6 +378,7 @@ public class MainWindow extends javax.swing.JFrame
     public void addChild(JInternalFrame c)
     {
         desktopPane.add(c);
+        Tools.centerComponent(c, desktopPane);
         c.moveToFront();
     }
 

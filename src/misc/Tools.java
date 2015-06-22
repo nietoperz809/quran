@@ -5,9 +5,12 @@
  */
 package misc;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -334,5 +337,22 @@ public class Tools
         String number = vprops.getString("BUILDNUMBER");
         String date = vprops.getString("BUILDDATE");
         return date + "/" + number;
+    }
+    
+    /**
+     * Centers Component
+     * @param a Component to center
+     * @param b Parent component
+     */
+    public static void centerComponent (Component a, Component b)
+    {
+        Dimension db = b.getSize();
+        Dimension da = a.getSize();
+        Point pt = new Point ((db.width-da.width)/2, (db.height-da.height)/2);
+        if (pt.x < 0)
+            pt.x = 0;
+        if (pt.y < 0)
+            pt.y = 0;
+        a.setLocation(pt);
     }
 }
