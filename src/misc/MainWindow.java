@@ -131,6 +131,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -327,6 +328,16 @@ public class MainWindow extends javax.swing.JFrame
         });
         fileMenu.add(jMenuItem19);
 
+        jMenuItem20.setText("Transformer");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem20);
+
         menuBar.add(fileMenu);
 
         savesMenu.setText("Saves");
@@ -521,6 +532,11 @@ public class MainWindow extends javax.swing.JFrame
         addChild(rdStart.getFrame());
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem20ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem20ActionPerformed
+       createMDIChild (applications.Transformer.class);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
     /** m0xyzptlkxy0
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -555,6 +571,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
