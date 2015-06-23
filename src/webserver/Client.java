@@ -198,7 +198,6 @@ public class Client implements Runnable
         try
         {
             byte[] b = Tools.reduceImg(f, 0.2f);            
-            //InputStream input = new FileInputStream(f);
             imgHead(w, b.length);
             Transmitter t = new Transmitter(b, out);
             t.doTransmission();

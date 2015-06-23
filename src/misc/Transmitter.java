@@ -22,9 +22,9 @@ public class Transmitter
     private int _blocksize = 0x10000;
     private final static AtomicLong counter = new AtomicLong();
  
-    public static long getCounter()
+    public static String getCounter()
     {
-        return counter.longValue();
+        return Tools.humanReadableByteCount (counter.longValue(), true);
     }
     
     /**

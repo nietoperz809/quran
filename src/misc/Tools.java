@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Tools of all kind
  */
 package misc;
 
@@ -22,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -46,6 +43,18 @@ import javax.swing.JTextField;
  */
 public class Tools
 {
+    public static String humanReadableByteCount (long bytes, boolean si)
+    {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit)
+        {
+            return bytes + " B";
+        }
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
     /**
      * Load a buffered image from disk
      *
@@ -338,21 +347,26 @@ public class Tools
         String date = vprops.getString("BUILDDATE");
         return date + "/" + number;
     }
-    
+
     /**
      * Centers Component
+     *
      * @param a Component to center
      * @param b Parent component
      */
-    public static void centerComponent (Component a, Component b)
+    public static void centerComponent(Component a, Component b)
     {
         Dimension db = b.getSize();
         Dimension da = a.getSize();
-        Point pt = new Point ((db.width-da.width)/2, (db.height-da.height)/2);
+        Point pt = new Point((db.width - da.width) / 2, (db.height - da.height) / 2);
         if (pt.x < 0)
+        {
             pt.x = 0;
+        }
         if (pt.y < 0)
+        {
             pt.y = 0;
+        }
         a.setLocation(pt);
     }
 }

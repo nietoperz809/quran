@@ -157,7 +157,7 @@ public class WebServerGUI extends JInternalFrame
 
     public void showBytesTransmitted ()
     {
-        transmitted.setText(Long.toString(Transmitter.getCounter()));
+        transmitted.setText(Transmitter.getCounter());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
