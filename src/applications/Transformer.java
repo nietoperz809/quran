@@ -228,6 +228,7 @@ public class Transformer extends PittiFrame
             }
         });
 
+        buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("URL Enc");
         jRadioButton4.addActionListener(new java.awt.event.ActionListener()
         {

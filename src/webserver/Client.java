@@ -1,5 +1,6 @@
 package webserver;
 
+import applications.WebServerGUI;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 import misc.Tools;
 import misc.Transmitter;
 
@@ -24,16 +26,23 @@ import misc.Transmitter;
  */
 public class Client implements Runnable
 {
-    Socket m_sock;
-    Thread m_thread;
-    String rootPath;
-    
-    public Client (Socket s, String rp)
+    private final Socket m_sock;
+    private final Thread m_thread;
+    private final String rootPath;
+    private WebServerGUI _gui;
+
+    public Client(Socket s, String rp)
     {
         rootPath = rp;
         m_sock = s;
         m_thread = new Thread(this);
         m_thread.start();
+    }
+
+    public Client(Socket s, String rp, WebServerGUI g)
+    {
+        this(s, rp);
+        _gui = g;
     }
 
     private boolean isMP4(String in)
@@ -71,12 +80,6 @@ public class Client implements Runnable
         out.println();
     }
 
-//    protected void html(PrintWriter out, String txt)
-//    {
-//        txt = "<html>" + txt + "</html>";
-//        sendHeader(out, txt, "text/html");
-//        out.print(txt);
-//    }
     /**
      * Build HTML page for directory
      *
@@ -141,21 +144,20 @@ public class Client implements Runnable
         return sb2.toString();
     }
 
-    private void zipHead(PrintWriter w, int len, String filename)
-    {
-        w.println("HTTP/1.1 200 OK");
-        w.println("Pragma: public");
-        w.println("Expires: 0");
-        w.println("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        w.println("Cache-Control: public");
-        w.println("Content-Description: File Transfer");
-        w.println("Content-type: application/octet-stream");
-        w.println("Content-Disposition: attachment; filename=\"" + filename + "\"");
-        w.println("Content-Transfer-Encoding: binary");
-        w.println("Content-Length: " + len);
-        w.println();
-    }
-    
+//    private void zipHead(PrintWriter w, int len, String filename)
+//    {
+//        w.println("HTTP/1.1 200 OK");
+//        w.println("Pragma: public");
+//        w.println("Expires: 0");
+//        w.println("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+//        w.println("Cache-Control: public");
+//        w.println("Content-Description: File Transfer");
+//        w.println("Content-type: application/octet-stream");
+//        w.println("Content-Disposition: attachment; filename=\"" + filename + "\"");
+//        w.println("Content-Transfer-Encoding: binary");
+//        w.println("Content-Length: " + len);
+//        w.println();
+//    }
     // currently same as zip header
     private void mp4Head(PrintWriter w, long len, String filename)
     {
@@ -195,11 +197,11 @@ public class Client implements Runnable
         PrintWriter w = new PrintWriter(out);
         try
         {
-            byte[] b = Tools.reduceImg(f, 0.2f);
+            byte[] b = Tools.reduceImg(f, 0.2f);            
+            //InputStream input = new FileInputStream(f);
             imgHead(w, b.length);
-            out.write(b);
-            w.flush();
-            out.flush();
+            Transmitter t = new Transmitter(b, out);
+            t.doTransmission();
         }
         catch (Exception ex)
         {
@@ -217,12 +219,9 @@ public class Client implements Runnable
         try
         {
             InputStream input = new FileInputStream(f);
-            byte[] b = new byte[(int) f.length()];
-            input.read(b);
-            imgHead(w, b.length);
-            out.write(b);
-            w.flush();
-            out.flush();
+            imgHead(w, (int) f.length());
+            Transmitter t = new Transmitter(input, out);
+            t.doTransmission();
         }
         catch (Exception ex)
         {
@@ -232,7 +231,7 @@ public class Client implements Runnable
     }
 
     // not tested
-    private void sendMP4 (OutputStream out, String fname)
+    private void sendMP4(OutputStream out, String fname)
     {
         File f = new File(fname);
         PrintWriter w = new PrintWriter(out);
@@ -240,8 +239,8 @@ public class Client implements Runnable
         try
         {
             InputStream input = new FileInputStream(f);
-            mp4Head (w, f.length(), fname);
-            Transmitter t = new Transmitter (input, out);
+            mp4Head(w, f.length(), fname);
+            Transmitter t = new Transmitter(input, out);
             t.doTransmission();
         }
         catch (Exception ex)
@@ -249,7 +248,7 @@ public class Client implements Runnable
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void sendZip(OutputStream out, String fname)
     {
         File f = new File(fname);
@@ -257,8 +256,8 @@ public class Client implements Runnable
         try
         {
             InputStream input = new FileInputStream(f);
-            mp4Head (w, f.length(), fname);
-            Transmitter t = new Transmitter (input, out);
+            mp4Head(w, f.length(), fname);
+            Transmitter t = new Transmitter(input, out);
             t.doTransmission();
         }
         catch (Exception ex)
@@ -323,12 +322,11 @@ public class Client implements Runnable
         return null;
     }
 
-    private void naked(PrintWriter out, String txt)
-    {
-        sendHeader(out, txt, "text/text");
-        out.print(txt);
-    }
-
+//    private void naked(PrintWriter out, String txt)
+//    {
+//        sendHeader(out, txt, "text/text");
+//        out.print(txt);
+//    }
     private void perform() throws Exception
     {
         //System.gc ();
@@ -388,6 +386,13 @@ public class Client implements Runnable
         {
             perform();
             m_sock.close();
+            if (_gui != null)
+            {
+                SwingUtilities.invokeLater(() ->
+                {
+                    _gui.showBytesTransmitted();
+                });
+            }
         }
         catch (Exception ex)
         {

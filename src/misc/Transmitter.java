@@ -5,9 +5,11 @@
  */
 package misc;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *
@@ -18,6 +20,12 @@ public class Transmitter
     private final InputStream _in;
     private final OutputStream _out;
     private int _blocksize = 0x10000;
+    private final static AtomicLong counter = new AtomicLong();
+ 
+    public static long getCounter()
+    {
+        return counter.longValue();
+    }
     
     /**
      * Constructor
@@ -27,6 +35,12 @@ public class Transmitter
     public Transmitter (InputStream i, OutputStream o)
     {
         _in = i;
+        _out = o;
+    }
+    
+    public Transmitter (byte[] ba, OutputStream o)
+    {
+        _in = new ByteArrayInputStream(ba);
         _out = o;
     }
     
@@ -63,6 +77,10 @@ public class Transmitter
         _out = System.out;
     }
     
+    /**
+     * Does the transmission
+     * @throws IOException 
+     */
     public void doTransmission() throws IOException
     {
         byte b[] = new byte[_blocksize];
@@ -75,6 +93,7 @@ public class Transmitter
                 break;
             }
             _out.write(b, 0, r);
+            counter.getAndAdd(r);
             Thread.yield();
         }
     }

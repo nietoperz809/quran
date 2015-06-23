@@ -44,7 +44,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="portTxt" min="-2" pref="51" max="-2" attributes="0"/>
-                      <EmptySpace pref="226" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="transmitted" min="-2" pref="111" max="-2" attributes="0"/>
+                      <EmptySpace pref="77" max="32767" attributes="0"/>
                       <Component id="button" min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
                   <Component id="pathTxt" max="32767" attributes="0"/>
@@ -65,6 +67,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="portTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="transmitted" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -98,6 +101,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="transmitted">
     </Component>
   </SubComponents>
 </Form>

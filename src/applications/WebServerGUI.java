@@ -6,6 +6,7 @@
 package applications;
 
 import javax.swing.JInternalFrame;
+import misc.Transmitter;
 import webserver.Sockserver;
 
 /**
@@ -14,6 +15,7 @@ import webserver.Sockserver;
  */
 public class WebServerGUI extends JInternalFrame
 {
+    private static final long serialVersionUID = 1L;
     private Sockserver sockserver;
     
     /**
@@ -39,6 +41,7 @@ public class WebServerGUI extends JInternalFrame
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         button = new javax.swing.JToggleButton();
+        transmitted = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -104,7 +107,9 @@ public class WebServerGUI extends JInternalFrame
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                            .addGap(38, 38, 38)
+                            .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                             .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(pathTxt))
                     .addContainerGap())
@@ -119,7 +124,8 @@ public class WebServerGUI extends JInternalFrame
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button)))
+                        .addComponent(button)
+                        .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
             );
 
             pack();
@@ -137,7 +143,7 @@ public class WebServerGUI extends JInternalFrame
             // start server
             String path = pathTxt.getText();
             int port = Integer.parseInt(portTxt.getText());
-            sockserver = new Sockserver (port, path);
+            sockserver = new Sockserver (port, path, this);
             button.setText("stop");
         }
         else
@@ -149,6 +155,10 @@ public class WebServerGUI extends JInternalFrame
         }
     }//GEN-LAST:event_buttonActionPerformed
 
+    public void showBytesTransmitted ()
+    {
+        transmitted.setText(Long.toString(Transmitter.getCounter()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton button;
@@ -156,6 +166,7 @@ public class WebServerGUI extends JInternalFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField pathTxt;
     private javax.swing.JTextField portTxt;
+    private javax.swing.JLabel transmitted;
     // End of variables declaration//GEN-END:variables
 
 }

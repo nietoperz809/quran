@@ -5,6 +5,7 @@
  */
 package webserver;
 
+import applications.WebServerGUI;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,6 +21,7 @@ public class Sockserver implements Runnable
     int port;
     String basePath;
     ServerSocket server;
+    WebServerGUI _gui;
 
     public Sockserver(int p, String s)
     {
@@ -29,6 +31,12 @@ public class Sockserver implements Runnable
         t.start();
     }
 
+    public Sockserver (int p, String s, WebServerGUI gui)
+    {
+        this(p,s);
+        _gui = gui;
+    }
+    
     public boolean isRunning()
     {
         return server != null;
@@ -58,7 +66,7 @@ public class Sockserver implements Runnable
             while (true)
             {
                 Socket sock = server.accept();
-                new Client(sock, basePath);
+                new Client(sock, basePath, _gui);
             }
         }
         catch (IOException ex)
