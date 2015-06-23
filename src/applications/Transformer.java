@@ -8,12 +8,14 @@ package applications;
 import misc.PittiFrame;
 import transform.Base64;
 import transform.CRC16CCITT;
+import transform.GrayCode;
 import transform.MD4;
 import transform.MD5;
 import transform.Rot13;
 import transform.SHA1;
 import transform.SHA256;
 import transform.Transformation;
+import transform.UrlEncode;
 
 /**
  *
@@ -50,6 +52,8 @@ public class Transformer extends PittiFrame
         encodeButt = new javax.swing.JButton();
         decodeButt = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         clearText = new javax.swing.JTextArea();
@@ -57,7 +61,7 @@ public class Transformer extends PittiFrame
         encText = new javax.swing.JTextArea();
         checkRot13 = new javax.swing.JRadioButton();
         checkSHA1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -123,21 +127,43 @@ public class Transformer extends PittiFrame
             }
         });
 
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("GrayCode");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("MD4");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(encodeButt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 386, Short.MAX_VALUE)
                 .addComponent(decodeButt)
                 .addGap(99, 99, 99))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBase64)
-                    .addComponent(jRadioButton1))
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton3)
                     .addComponent(checkCRC16)
                     .addComponent(checkMD5))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -152,23 +178,30 @@ public class Transformer extends PittiFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(checkCRC16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(encodeButt)
                     .addComponent(decodeButt)))
         );
 
-        jSplitPane1.setDividerLocation(190);
+        jSplitPane1.setDividerLocation(240);
         jSplitPane1.setDividerSize(3);
+        jSplitPane1.setToolTipText("Drag left/right");
         jSplitPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         clearText.setColumns(20);
+        clearText.setLineWrap(true);
         clearText.setRows(5);
         jScrollPane1.setViewportView(clearText);
 
         jSplitPane1.setLeftComponent(jScrollPane1);
 
         encText.setColumns(20);
+        encText.setLineWrap(true);
         encText.setRows(5);
         jScrollPane2.setViewportView(encText);
 
@@ -195,13 +228,12 @@ public class Transformer extends PittiFrame
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("MD4");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener()
+        jRadioButton4.setText("URL Enc");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jRadioButton2ActionPerformed(evt);
+                jRadioButton4ActionPerformed(evt);
             }
         });
 
@@ -215,8 +247,8 @@ public class Transformer extends PittiFrame
                 .addComponent(checkRot13)
                 .addGap(30, 30, 30)
                 .addComponent(checkSHA1)
-                .addGap(55, 55, 55)
-                .addComponent(jRadioButton2)
+                .addGap(46, 46, 46)
+                .addComponent(jRadioButton4)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -225,11 +257,11 @@ public class Transformer extends PittiFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkRot13)
                     .addComponent(checkSHA1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jRadioButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
         );
 
         pack();
@@ -289,6 +321,18 @@ public class Transformer extends PittiFrame
         trans = new MD4();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton3ActionPerformed
+    {//GEN-HEADEREND:event_jRadioButton3ActionPerformed
+        decodeButt.setEnabled(true);
+        trans = new GrayCode();
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton4ActionPerformed
+    {//GEN-HEADEREND:event_jRadioButton4ActionPerformed
+        decodeButt.setEnabled(true);
+        trans = new UrlEncode();
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -304,6 +348,8 @@ public class Transformer extends PittiFrame
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
