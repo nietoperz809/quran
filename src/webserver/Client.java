@@ -387,10 +387,7 @@ public class Client implements Runnable
             m_sock.close();
             if (_gui != null)
             {
-                SwingUtilities.invokeLater(() ->
-                {
-                    _gui.showBytesTransmitted();
-                });
+                _gui.showBytesTransmitted();
             }
         }
         catch (Exception ex)

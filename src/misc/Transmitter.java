@@ -24,7 +24,7 @@ public class Transmitter
  
     public static String getCounter()
     {
-        return Tools.humanReadableByteCount (counter.longValue(), true);
+        return "  "+Tools.humanReadableByteCount (counter.longValue());
     }
     
     /**

@@ -22,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -55,6 +56,13 @@ public class Tools
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
+    public static String humanReadableByteCount (long bytes)
+    {
+        DecimalFormat myFormatter = new DecimalFormat("000,000,000");
+        return "  "+myFormatter.format (bytes);
+    }
+    
+    
     /**
      * Load a buffered image from disk
      *

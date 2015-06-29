@@ -92,6 +92,13 @@ public class WebServerGUI extends JInternalFrame
                 }
             });
 
+            transmitted.setBackground(new java.awt.Color(0, 0, 0));
+            transmitted.setForeground(new java.awt.Color(255, 255, 51));
+            transmitted.setText("0");
+            transmitted.setToolTipText("Bytes transferred ...");
+            transmitted.setDoubleBuffered(true);
+            transmitted.setOpaque(true);
+
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
@@ -154,10 +161,14 @@ public class WebServerGUI extends JInternalFrame
             button.setText("start");
         }
     }//GEN-LAST:event_buttonActionPerformed
-
-    public void showBytesTransmitted ()
+    
+    /**
+     * Called from webserver worker threads to update counter display
+     */
+    public synchronized void showBytesTransmitted ()
     {
         transmitted.setText(Transmitter.getCounter());
+        repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
