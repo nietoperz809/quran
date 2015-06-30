@@ -132,6 +132,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -338,6 +339,16 @@ public class MainWindow extends javax.swing.JFrame
         });
         fileMenu.add(jMenuItem20);
 
+        jMenuItem21.setText("FTPServer");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem21);
+
         menuBar.add(fileMenu);
 
         savesMenu.setText("Saves");
@@ -537,6 +548,11 @@ public class MainWindow extends javax.swing.JFrame
        createMDIChild (applications.Transformer.class);
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem21ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem21ActionPerformed
+       createMDIChild (applications.FtpServerGUI.class);
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
     /** m0xyzptlkxy0
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -572,6 +588,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

@@ -5,23 +5,23 @@
  */
 package applications;
 
+import inetserver.PittiFtpServer;
 import javax.swing.JInternalFrame;
 import misc.Transmitter;
-import inetserver.Sockserver;
 
 /**
  *
  * @author Administrator
  */
-public class WebServerGUI extends JInternalFrame
+public class FtpServerGUI extends JInternalFrame
 {
     private static final long serialVersionUID = 1L;
-    private Sockserver sockserver;
-    
+    private PittiFtpServer ftp;
+
     /**
      * Creates new form WebServerGUI
      */
-    public WebServerGUI()
+    public FtpServerGUI()
     {
         initComponents();
     }
@@ -47,7 +47,7 @@ public class WebServerGUI extends JInternalFrame
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Webserver");
+        setTitle("FtpServer");
         setVisible(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener()
         {
@@ -147,25 +147,22 @@ public class WebServerGUI extends JInternalFrame
     {//GEN-HEADEREND:event_buttonActionPerformed
         if (button.isSelected())
         {
-            // start server
-            String path = pathTxt.getText();
-            int port = Integer.parseInt(portTxt.getText());
-            sockserver = new Sockserver (port, path, this);
             button.setText("stop");
+            ftp = new PittiFtpServer (pathTxt.getText(), Integer.parseInt (portTxt.getText()));
+            ftp.start();
         }
         else
         {
-            // stop server
-            sockserver.halt();
-            sockserver = null;
             button.setText("start");
+            ftp.stop();
+            ftp = null;
         }
     }//GEN-LAST:event_buttonActionPerformed
-    
+
     /**
      * Called from webserver worker threads to update counter display
      */
-    public synchronized void showBytesTransmitted ()
+    public synchronized void showBytesTransmitted()
     {
         transmitted.setText(Transmitter.getCounter());
         repaint();

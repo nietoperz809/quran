@@ -1,4 +1,4 @@
-package webserver;
+package inetserver;
 
 import applications.WebServerGUI;
 import java.io.BufferedReader;
