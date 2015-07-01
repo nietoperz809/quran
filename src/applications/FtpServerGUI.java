@@ -7,6 +7,7 @@ package applications;
 
 import inetserver.PittiFtpServer;
 import javax.swing.JInternalFrame;
+import misc.Tools;
 import misc.Transmitter;
 
 /**
@@ -75,9 +76,9 @@ public class FtpServerGUI extends JInternalFrame
             }
         });
 
-        pathTxt.setText("F:\\\\");
+        pathTxt.setText("C:\\\\");
 
-            portTxt.setText("80");
+            portTxt.setText("21");
 
             jLabel1.setText("BasePath");
 
@@ -148,7 +149,7 @@ public class FtpServerGUI extends JInternalFrame
         if (button.isSelected())
         {
             button.setText("stop");
-            ftp = new PittiFtpServer (pathTxt.getText(), Integer.parseInt (portTxt.getText()));
+            ftp = new PittiFtpServer (this, pathTxt.getText(), Integer.parseInt (portTxt.getText()));
             ftp.start();
         }
         else
@@ -161,10 +162,11 @@ public class FtpServerGUI extends JInternalFrame
 
     /**
      * Called from webserver worker threads to update counter display
+     * @param bytes
      */
-    public synchronized void showBytesTransmitted()
+    public synchronized void showBytesTransmitted(long bytes)
     {
-        transmitted.setText(Transmitter.getCounter());
+        transmitted.setText("  "+Tools.humanReadableByteCount (bytes));
         repaint();
     }
 

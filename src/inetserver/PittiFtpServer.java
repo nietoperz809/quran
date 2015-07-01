@@ -5,11 +5,21 @@
  */
 package inetserver;
 
+import applications.FtpServerGUI;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;
+import org.apache.ftpserver.ftplet.FtpReply;
+import org.apache.ftpserver.ftplet.FtpRequest;
+import org.apache.ftpserver.ftplet.FtpSession;
+import org.apache.ftpserver.ftplet.Ftplet;
+import org.apache.ftpserver.ftplet.FtpletContext;
+import org.apache.ftpserver.ftplet.FtpletResult;
 import org.apache.ftpserver.ftplet.UserManager;
 import org.apache.ftpserver.listener.ListenerFactory;
 import org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor;
@@ -22,17 +32,67 @@ import org.apache.ftpserver.usermanager.impl.BaseUser;
  */
 public class PittiFtpServer
 {
-    private FtpServer ftpServer;
+    private final FtpServer ftpServer;
+    private FtpServerGUI _gui;
+    private FtpletContext _fc;
+    
+    private class Pittilet implements Ftplet
+    {
+        @Override
+        public void init(FtpletContext fc) throws FtpException
+        {
+            _fc = fc;
+        }
+
+        @Override
+        public void destroy()
+        {
+        }
+
+        @Override
+        public FtpletResult beforeCommand(FtpSession fs, FtpRequest fr) throws FtpException, IOException
+        {
+            return null;
+        }
+
+        @Override
+        public FtpletResult afterCommand(FtpSession fs, FtpRequest fr, FtpReply fr1) throws FtpException, IOException
+        {
+            _gui.showBytesTransmitted(_fc.getFtpStatistics().getTotalDownloadSize());
+            return null;
+        }
+
+        @Override
+        public FtpletResult onConnect(FtpSession fs) throws FtpException, IOException
+        {
+            return null;
+        }
+
+        @Override
+        public FtpletResult onDisconnect(FtpSession fs) throws FtpException, IOException
+        {
+            return null;
+        }
+    }
     
     /**
      * @param path
      * @param port
      */
-    public PittiFtpServer (String path, int port) 
+    public PittiFtpServer (FtpServerGUI gui, String path, int port) 
     {
+        _gui = gui;
         FtpServerFactory serverFactory = new FtpServerFactory();
         ListenerFactory factory = new ListenerFactory();
         factory.setPort(port);
+        
+        Ftplet ftplet = new Pittilet();
+        Map<java.lang.String,Ftplet> ftpmap = new HashMap<>();
+        ftpmap.put("testlet", ftplet);
+        serverFactory.setFtplets(ftpmap);
+        
+        //java.util.Map<java.lang.String,Ftplet> ftplets = serverFactory.getFtplets();
+        //System.out.println(ftplets);
         serverFactory.addListener("default", factory.createListener());
         PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
         userManagerFactory.setPasswordEncryptor(new ClearTextPasswordEncryptor());
@@ -49,6 +109,7 @@ public class PittiFtpServer
         catch (FtpException ex)
         {
             Logger.getLogger(PittiFtpServer.class.getName()).log(Level.SEVERE, null, ex);
+            ftpServer = null;
             return;
         }
         serverFactory.setUserManager(um);
