@@ -141,7 +141,8 @@ public class FtpServerGUI extends JInternalFrame
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        System.out.println("closed");
+        if (ftp != null)
+            ftp.stop();
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonActionPerformed

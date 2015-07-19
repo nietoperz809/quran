@@ -5,6 +5,7 @@
  */
 package applications;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -126,6 +127,7 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
         spinY = new javax.swing.JSpinner();
         jButton3 = new javax.swing.JButton();
         checkHide = new javax.swing.JCheckBox();
+        autoSaveText = new javax.swing.JTextField();
         magnifyPanel = new magnify.MagnifyPanel(this);
 
         setClosable(true);
@@ -176,6 +178,26 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
 
         checkHide.setText("Hide all");
 
+        autoSaveText.setToolTipText("autoSavePath (empty = autoave off)");
+        autoSaveText.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                autoSaveTextFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                autoSaveTextFocusLost(evt);
+            }
+        });
+        autoSaveText.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                autoSaveTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -194,8 +216,10 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(checkHide)))
-                .addContainerGap(341, Short.MAX_VALUE))
+                        .addComponent(checkHide)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +233,8 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(checkHide))
+                    .addComponent(checkHide)
+                    .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -254,12 +279,47 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
         ((MagnifyPanel) magnifyPanel).save();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void autoSaveTextActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_autoSaveTextActionPerformed
+    {//GEN-HEADEREND:event_autoSaveTextActionPerformed
+        autoSaveChanged = true;
+        checkHide.requestFocus(); // Move Focus away
+    }//GEN-LAST:event_autoSaveTextActionPerformed
+
+    private void autoSaveTextFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_autoSaveTextFocusGained
+    {//GEN-HEADEREND:event_autoSaveTextFocusGained
+        autoSaveText.setBackground(Color.pink);
+        autoSaveText.repaint();
+    }//GEN-LAST:event_autoSaveTextFocusGained
+
+    private void autoSaveTextFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_autoSaveTextFocusLost
+    {//GEN-HEADEREND:event_autoSaveTextFocusLost
+        autoSaveText.setBackground(Color.white);
+        autoSaveText.repaint();
+    }//GEN-LAST:event_autoSaveTextFocusLost
+
+    public String getAutosavePath()
+    {
+        String txt = autoSaveText.getText();
+        if (txt.isEmpty())
+            return null;
+        return txt;
+    }
+    
+    public boolean isAutoSaveChanged()
+    {
+        boolean b = autoSaveChanged;
+        autoSaveChanged = false;
+        return b;
+    }
+    
     public boolean getHideMode()
     {
         return checkHide.isSelected();
     }
 
+    private boolean autoSaveChanged;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField autoSaveText;
     private javax.swing.JCheckBox checkHide;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

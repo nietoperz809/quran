@@ -12,6 +12,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import misc.ClipboardImage;
@@ -114,17 +115,20 @@ public class MagnifyPanel extends javax.swing.JPanel
 
     private void formMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_formMouseReleased
     {//GEN-HEADEREND:event_formMouseReleased
-        javax.swing.SwingUtilities.convertPointToScreen(_point, this);
-        
-        _rect.width = getWidth();
-        _rect.height = getHeight();
-        _rect.x = _point.x - _rect.width/2;
-        _rect.y = _point.y - _rect.height/2;
+        if (_point != null)
+        {
+            javax.swing.SwingUtilities.convertPointToScreen(_point, this);
 
-        if (_rect.width < 0 || _rect.height < 0)
-            return;
-        
-        _image = robot.createScreenCapture(_rect);
+            _rect.width = getWidth();
+            _rect.height = getHeight();
+            _rect.x = _point.x - _rect.width/2;
+            _rect.y = _point.y - _rect.height/2;
+
+            if (_rect.width < 0 || _rect.height < 0)
+                return;
+
+            _image = robot.createScreenCapture(_rect);
+        }
         if (_gui.getHideMode())
         {
             MainWindow.instance.setBounds(_saveRect);
@@ -134,6 +138,7 @@ public class MagnifyPanel extends javax.swing.JPanel
             _gui.setVisible(true);
             repaint();
         }
+        doAutoSave();
     }//GEN-LAST:event_formMouseReleased
 
     @Override
@@ -149,13 +154,31 @@ public class MagnifyPanel extends javax.swing.JPanel
         return Tools.resizeImage(_image, getWidth(), getHeight());
     }
     
+    private int savCtr;
+    private void doAutoSave()
+    {
+        String path = _gui.getAutosavePath();
+        if (path == null)
+            return;
+        if (_gui.isAutoSaveChanged())
+            savCtr = 0;
+        path = System.getProperty("user.home") + "\\" + path;
+        if (!path.endsWith("\\"))
+            path = path + "\\";
+        new File(path).mkdir();
+        path = path + "img" + savCtr + ".png";
+        Tools.saveImage(path, _image);
+        //System.out.println(path);
+        savCtr++;
+    }
+    
     public boolean save()
     {
         if (_image == null)
         {
             return false;
         }
-        return Tools.saveImage (null, _image);
+        return Tools.saveImage (_image);
     }
     
     public boolean toClipboard()

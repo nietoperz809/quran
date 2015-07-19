@@ -88,15 +88,8 @@ public class Tools
         return null;
     }
 
-    public static boolean saveImage(Frame parent, BufferedImage img)
+    public static boolean saveImage (String name, BufferedImage img)
     {
-        FileDialog fd = new FileDialog(parent, "Save", FileDialog.SAVE);
-        fd.show();
-        if (fd.getFile() == null)
-        {
-            return false;
-        }
-        String name = fd.getDirectory() + fd.getFile();
         if (!name.endsWith(".png"))
         {
             name = name + ".png";
@@ -112,6 +105,17 @@ public class Tools
             return false;
         }
         return true;
+    }
+    
+    public static boolean saveImage(BufferedImage img)
+    {
+        FileDialog fd = new FileDialog((Frame)null, "Save", FileDialog.SAVE);
+        fd.setVisible(true);
+        if (fd.getFile() == null)
+        {
+            return false;
+        }
+        return saveImage (fd.getDirectory() + fd.getFile(), img);
     }
 
     /**
