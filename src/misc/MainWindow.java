@@ -5,10 +5,8 @@
  */
 package misc;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +29,15 @@ import quran.QuranMetadata;
  */
 public class MainWindow extends javax.swing.JFrame
 {
-    public static MainWindow instance;
+    private static MainWindow instance;
+
+    /**
+     * @return the instance
+     */
+    public static MainWindow getInstance()
+    {
+        return instance;
+    }
 
     public final void initSavesMenu()
     {
@@ -46,7 +52,7 @@ public class MainWindow extends javax.swing.JFrame
                 {
                     PittiFrame obj = (PittiFrame)Tools.deSerialize(s);
                     obj.initAfterDeserialization();
-                    MainWindow.instance.addChild(obj);
+                    MainWindow.getInstance().addChild(obj);
                 }
                 catch (Exception ex)
                 {

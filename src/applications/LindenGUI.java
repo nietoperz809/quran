@@ -229,7 +229,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
                     Tools.readInt(sizeX, 500),
                     Tools.readInt(sizeY, 500)
             );
-            MainWindow.instance.addChild(bitmapView);
+            MainWindow.getInstance().addChild(bitmapView);
         }
     }
 
@@ -240,7 +240,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
     {
         if (bitmapView != null)
         {
-            MainWindow.instance.remove(bitmapView);
+            MainWindow.getInstance().remove(bitmapView);
             bitmapView.dispose();
             bitmapView = null;
         }
@@ -365,7 +365,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         try
         {
             Tools.serialize(saveName.getText(), this);
-            MainWindow.instance.initSavesMenu();
+            MainWindow.getInstance().initSavesMenu();
         }
         catch (Exception ex)
         {

@@ -99,6 +99,8 @@ public class TwitTools implements TwitterKeys
 
     private void sendFile(File f, String label) throws Exception
     {
+        if (label == null)
+            label = "";
         StatusUpdate st = new StatusUpdate(label);
         st.setMedia(f);
         synchronized (m_twit)

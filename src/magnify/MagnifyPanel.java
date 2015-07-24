@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import misc.ClipboardImage;
 import misc.MainWindow;
+import misc.TextInputDlg;
 import misc.Tools;
 import twitter.TwitTools;
 
@@ -104,8 +105,8 @@ public class MagnifyPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_formMousePressed
         if (_gui.getHideMode())
         {
-            _saveRect = MainWindow.instance.getBounds();
-            MainWindow.instance.setBounds(10000, 10000, 1, 1);
+            _saveRect = MainWindow.getInstance().getBounds();
+            MainWindow.getInstance().setBounds(10000, 10000, 1, 1);
         }
         else
         {
@@ -131,7 +132,7 @@ public class MagnifyPanel extends javax.swing.JPanel
         }
         if (_gui.getHideMode())
         {
-            MainWindow.instance.setBounds(_saveRect);
+            MainWindow.getInstance().setBounds(_saveRect);
         }
         else
         {
@@ -193,11 +194,14 @@ public class MagnifyPanel extends javax.swing.JPanel
 
     public boolean tweet()
     {
+        String txt = TextInputDlg.getInput (MainWindow.getFrames()[0]);
+//        System.out.println(s);
+//        return false;
         if (_image == null)
         {
             return false;
         }
-        TwitTools.get().sendAsync(toNewSize(), TOOL_TIP_TEXT_KEY);
+        TwitTools.get().sendAsync(toNewSize(), txt);
         return true;
     }
 

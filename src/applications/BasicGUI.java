@@ -170,7 +170,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         try
         {
             Tools.serialize(saveName.getText(), this);
-            MainWindow.instance.initSavesMenu();
+            MainWindow.getInstance().initSavesMenu();
         }
         catch (Exception ex)
         {

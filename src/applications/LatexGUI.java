@@ -139,7 +139,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         try
         {
             Tools.serialize(saveName.getText(), this);
-            MainWindow.instance.initSavesMenu();
+            MainWindow.getInstance().initSavesMenu();
         }
         catch (Exception ex)
         {
