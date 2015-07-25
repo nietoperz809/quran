@@ -565,6 +565,7 @@ public class MainWindow extends javax.swing.JFrame
      */
     public static void main(String args[]) throws Exception
     {
+        org.apache.log4j.BasicConfigurator.configure();
         QuranMetadata.get();
 
         /* Set the look and feel */

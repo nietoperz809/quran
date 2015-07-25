@@ -138,7 +138,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="autoSaveText">
           <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="autoSavePath (empty = autoave off)"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;u&gt;autoSaveDir (empty = autoave off)&lt;/u&gt;&lt;br&gt;only name of dir allowed&lt;br&gt;subdir will be stored in home directory&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="autoSaveTextFocusGained"/>

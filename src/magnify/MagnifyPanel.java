@@ -167,10 +167,13 @@ public class MagnifyPanel extends javax.swing.JPanel
         if (!path.endsWith("\\"))
             path = path + "\\";
         new File(path).mkdir();
-        path = path + "img" + savCtr + ".png";
-        Tools.saveImage(path, _image);
-        //System.out.println(path);
-        savCtr++;
+        String fname;
+        do
+        {
+            savCtr++;
+            fname = path + "img" + savCtr + ".png";
+        } while (new File(fname).exists());
+        Tools.saveImage(fname, _image);
     }
     
     public boolean save()

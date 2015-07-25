@@ -178,7 +178,7 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
 
         checkHide.setText("Hide all");
 
-        autoSaveText.setToolTipText("autoSavePath (empty = autoave off)");
+        autoSaveText.setToolTipText("<html><u>autoSaveDir (empty = autoave off)</u><br>only name of dir allowed<br>subdir will be stored in home directory</html>");
         autoSaveText.addFocusListener(new java.awt.event.FocusAdapter()
         {
             public void focusGained(java.awt.event.FocusEvent evt)
