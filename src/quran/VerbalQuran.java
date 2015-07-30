@@ -24,7 +24,7 @@ public class VerbalQuran implements Runnable, PathNames
     {
     }
 
-    class ThreadParam
+    private class ThreadParam
     {
         public int sura;
         public int aya;
