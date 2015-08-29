@@ -44,7 +44,7 @@ import javax.swing.JTextField;
  */
 public class Tools
 {
-    public static String humanReadableByteCount (long bytes, boolean si)
+    public static String humanReadableByteCount(long bytes, boolean si)
     {
         int unit = si ? 1000 : 1024;
         if (bytes < unit)
@@ -56,13 +56,12 @@ public class Tools
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    public static String humanReadableByteCount (long bytes)
+    public static String humanReadableByteCount(long bytes)
     {
         DecimalFormat myFormatter = new DecimalFormat("000,000,000");
-        return "  "+myFormatter.format (bytes);
+        return "  " + myFormatter.format(bytes);
     }
-    
-    
+
     /**
      * Load a buffered image from disk
      *
@@ -88,7 +87,7 @@ public class Tools
         return null;
     }
 
-    public static boolean saveImage (String name, BufferedImage img)
+    public static boolean saveImage(String name, BufferedImage img)
     {
         if (!name.endsWith(".png"))
         {
@@ -106,16 +105,20 @@ public class Tools
         }
         return true;
     }
-    
+
     public static boolean saveImage(BufferedImage img)
     {
-        FileDialog fd = new FileDialog((Frame)null, "Save", FileDialog.SAVE);
+        if (img == null)
+        {
+            return false;
+        }
+        FileDialog fd = new FileDialog((Frame) null, "Save", FileDialog.SAVE);
         fd.setVisible(true);
         if (fd.getFile() == null)
         {
             return false;
         }
-        return saveImage (fd.getDirectory() + fd.getFile(), img);
+        return saveImage(fd.getDirectory() + fd.getFile(), img);
     }
 
     /**
@@ -128,6 +131,8 @@ public class Tools
      */
     public static BufferedImage resizeImage(BufferedImage originalImage, int b, int h)
     {
+        if (originalImage == null)
+            return null;
         int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
         BufferedImage resizedImage = new BufferedImage(b, h, type);
         Graphics2D g = resizedImage.createGraphics();

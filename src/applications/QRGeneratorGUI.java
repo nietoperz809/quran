@@ -14,7 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import misc.DebugOut;
-import misc.MainWindow;
 import misc.PittiFrame;
 import misc.PixelCanvas;
 import misc.Tools;
@@ -25,6 +24,8 @@ import misc.Tools;
  */
 public class QRGeneratorGUI extends PittiFrame implements ActionListener
 {
+    private BufferedImage _img = null;
+    
     /**
      * Object initializer
      */
@@ -56,7 +57,8 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        saveName = new javax.swing.JTextField();
+        sizeField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         canvas = new misc.QuadraticPixelCanvas();
 
         setClosable(true);
@@ -89,12 +91,15 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 71, -1, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 0));
-        jButton7.setText("Save as -->");
+        jButton7.setText("Save");
         jButton7.addActionListener(this);
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 115, -1));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 80, -1));
 
-        saveName.setText("QRCode");
-        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 192, -1));
+        sizeField.setText("200");
+        jPanel1.add(sizeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 50, -1));
+
+        jLabel1.setText("---- SIZE --->");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 80, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
@@ -138,9 +143,9 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
             final int y = 800;
             QRCodeWriter w = new QRCodeWriter();
             BitMatrix m = w.encode(txt, BarcodeFormat.QR_CODE, x, y);
-            BufferedImage img = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
-            img.createGraphics();
-            Graphics2D graphics = (Graphics2D) img.getGraphics();
+            _img = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
+            _img.createGraphics();
+            Graphics2D graphics = (Graphics2D) _img.getGraphics();
             graphics.setColor(Color.WHITE);
             graphics.fillRect(0, 0, x, y);
             graphics.setColor(Color.BLACK);
@@ -155,7 +160,7 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
                     }
                 }
             }
-            ((PixelCanvas)canvas).setImage(img);
+            ((PixelCanvas)canvas).setImage(_img);
         }
         catch (NumberFormatException | WriterException exception)
         {
@@ -186,15 +191,9 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
     {//GEN-HEADEREND:event_jButton7ActionPerformed
-        try
-        {
-            Tools.serialize(saveName.getText(), this);
-            MainWindow.getInstance().initSavesMenu();
-        }
-        catch (Exception ex)
-        {
-            DebugOut.get().out.println(ex);
-        }
+        int newsize = Integer.parseInt(sizeField.getText());
+        BufferedImage img2 = Tools.resizeImage(_img, newsize, newsize);
+        Tools.saveImage(img2);
     }//GEN-LAST:event_jButton7ActionPerformed
 
 
@@ -204,10 +203,11 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton makeButton;
-    private javax.swing.JTextField saveName;
+    private javax.swing.JTextField sizeField;
     // End of variables declaration//GEN-END:variables
 
     @Override
