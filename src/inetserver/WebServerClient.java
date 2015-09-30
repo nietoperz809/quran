@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 import misc.Tools;
 import misc.Transmitter;
 
@@ -24,14 +23,14 @@ import misc.Transmitter;
  *
  * @author Administrator
  */
-public class Client implements Runnable
+public class WebServerClient implements Runnable
 {
     private final Socket m_sock;
     private final Thread m_thread;
     private final String rootPath;
     private WebServerGUI _gui;
 
-    public Client(Socket s, String rp)
+    public WebServerClient(Socket s, String rp)
     {
         rootPath = rp;
         m_sock = s;
@@ -39,7 +38,7 @@ public class Client implements Runnable
         m_thread.start();
     }
 
-    public Client(Socket s, String rp, WebServerGUI g)
+    public WebServerClient(Socket s, String rp, WebServerGUI g)
     {
         this(s, rp);
         _gui = g;
@@ -158,9 +157,20 @@ public class Client implements Runnable
 //        w.println("Content-Length: " + len);
 //        w.println();
 //    }
-    // currently same as zip header
-    private void mp4Head(PrintWriter w, long len, String filename)
+    /**
+     * Send MP4 HTTP header
+     *
+     * @param w Socket writer
+     * @param len File length
+     * @param filename name of file
+     * @return FALSE if something goes wrong
+     */
+    private boolean mp4Head(PrintWriter w, long len, String filename)
     {
+        if (len <= 0)
+        {
+            return false;
+        }
         w.println("HTTP/1.1 200 OK");
         w.println("Pragma: public");
         w.println("Expires: 0");
@@ -172,6 +182,7 @@ public class Client implements Runnable
         w.println("Content-Transfer-Encoding: binary");
         w.println("Content-Length: " + len);
         w.println();
+        return true;
     }
 
     private void imgHead(PrintWriter w, int len)
@@ -197,7 +208,7 @@ public class Client implements Runnable
         PrintWriter w = new PrintWriter(out);
         try
         {
-            byte[] b = Tools.reduceImg(f, 0.2f);            
+            byte[] b = Tools.reduceImg(f, 0.2f);
             imgHead(w, b.length);
             Transmitter t = new Transmitter(b, out);
             t.doTransmission();
@@ -205,7 +216,7 @@ public class Client implements Runnable
         catch (Exception ex)
         {
             System.out.println("catch");
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         //System.gc ();
         //System.runFinalization ();
@@ -225,7 +236,7 @@ public class Client implements Runnable
         catch (Exception ex)
         {
             System.out.println("catch");
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -238,13 +249,17 @@ public class Client implements Runnable
         try
         {
             InputStream input = new FileInputStream(f);
-            mp4Head(w, f.length(), fname);
+            if (false == mp4Head(w, f.length(), fname))
+            {
+                w.println("File too small");
+                w.close();
+            }
             Transmitter t = new Transmitter(input, out);
             t.doTransmission();
         }
         catch (Exception ex)
         {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -261,7 +276,7 @@ public class Client implements Runnable
         }
         catch (Exception ex)
         {
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -302,7 +317,7 @@ public class Client implements Runnable
         }
         catch (Exception ex)
         {
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -316,7 +331,7 @@ public class Client implements Runnable
         }
         catch (Exception ex)
         {
-            //Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -392,7 +407,7 @@ public class Client implements Runnable
         }
         catch (Exception ex)
         {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

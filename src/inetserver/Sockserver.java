@@ -66,7 +66,7 @@ public class Sockserver implements Runnable
             while (true)
             {
                 Socket sock = server.accept();
-                new Client(sock, basePath, _gui);
+                new WebServerClient(sock, basePath, _gui);
             }
         }
         catch (IOException ex)

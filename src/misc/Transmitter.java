@@ -94,7 +94,7 @@ public class Transmitter
             }
             _out.write(b, 0, r);
             counter.getAndAdd(r);
-            Thread.yield();
+            //Thread.yield();
         }
     }
 }
