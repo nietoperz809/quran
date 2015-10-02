@@ -25,8 +25,9 @@ public class HashmapSeeker
     
     public String[] seek (String what) throws UnsupportedEncodingException
     {
-        byte[] bytes = what.toLowerCase().getBytes();
-        final String low = new String (bytes, "UTF-8");
+        System.err.println("seeking for raw: "+what);
+        final String low = what.toLowerCase();
+        System.err.println("seeking for: "+low);
         Vector<String> result = new Vector<>();
 
         m_map.entrySet().stream().forEach((entry) -> 
@@ -37,6 +38,7 @@ public class HashmapSeeker
             if (value.contains(low))
                 result.add(key);
         });
+        System.err.println("Found: "+result.size());
         
         Collections.sort(result, (String s1, String s2) -> s1.compareTo(s2));        
     

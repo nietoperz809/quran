@@ -50,7 +50,7 @@ public class MainWindow extends javax.swing.JFrame
             {
                 try
                 {
-                    PittiFrame obj = (PittiFrame)Tools.deSerialize(s);
+                    MDIChild obj = (MDIChild)Tools.deSerialize(s);
                     obj.initAfterDeserialization();
                     MainWindow.getInstance().addChild(obj);
                 }
@@ -434,6 +434,7 @@ public class MainWindow extends javax.swing.JFrame
      */
     public JInternalFrame createMDIChild(Class<?> c)
     {
+        System.err.println("Starting app: "+c.getName());
         try
         {
             Constructor<?> cons = c.getConstructor();
@@ -577,7 +578,7 @@ public class MainWindow extends javax.swing.JFrame
 
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem22ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem22ActionPerformed
-        createMDIChild (applications.LoggerGUI.class);
+        createMDIChild (applications.ConsoleViewGUI.class);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     /** m0xyzptlkxy0

@@ -9,7 +9,7 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import misc.MainWindow;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.Tools;
 import turtle.RulePanel;
 import turtle.Turtle;
@@ -20,7 +20,7 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class LindenGUI extends PittiFrame implements ActionListener
+public class LindenGUI extends MDIChild implements ActionListener
 {
     private transient TurtleWindow bitmapView = null;
     

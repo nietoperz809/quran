@@ -11,13 +11,13 @@ import java.io.PrintStream;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import misc.PittiFrame;
+import misc.MDIChild;
 
 /**
  *
  * @author Administrator
  */
-public class LoggerGUI extends PittiFrame
+public class ConsoleViewGUI extends MDIChild
 {
     private class Interceptor extends PrintStream
     {
@@ -32,23 +32,24 @@ public class LoggerGUI extends PittiFrame
         @Override
         public void print (String s)
         {
-            LoggerGUI.this.strOut(s, Painter1);
+            ConsoleViewGUI.this.strOut(s, Painter1);
         }
         
         @Override
         public void println (String s)
         {
             print(s);
-            LoggerGUI.this.strOut("\r\n");
+            ConsoleViewGUI.this.strOut("\r\n");
         }
     }
 
     /**
      * Creates new form LoggerGUI
      */
-    public LoggerGUI()
+    public ConsoleViewGUI()
     {
         initComponents();
+        setSize (500, 500);
         
         PrintStream origOut = System.out;
         PrintStream origErr = System.err;

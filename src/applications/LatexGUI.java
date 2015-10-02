@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import misc.MainWindow;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.PixelCanvas;
 import misc.Tools;
 import org.scilab.forge.jlatexmath.TeXConstants;
@@ -23,7 +23,7 @@ import org.scilab.forge.jlatexmath.TeXIcon;
  *
  * @author Administrator
  */
-public class LatexGUI extends PittiFrame implements ActionListener
+public class LatexGUI extends MDIChild implements ActionListener
 {
     /**
      * Object initializer

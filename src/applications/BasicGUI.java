@@ -10,14 +10,14 @@ import com.basic.streameditor.StreamingTextArea;
 import java.awt.event.ActionListener;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.Tools;
 
 /**
  *
  * @author Administrator
  */
-public class BasicGUI extends PittiFrame implements Runnable, ActionListener, InternalFrameListener
+public class BasicGUI extends MDIChild implements Runnable, ActionListener, InternalFrameListener
 {
     transient private Thread thread;
     CommandInterpreter ci;

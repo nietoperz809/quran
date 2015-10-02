@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
 import misc.HashmapSeeker;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.Tools;
 import quran.Quran;
 import quran.QuranMetadata;
@@ -29,7 +29,7 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class QuranGUI extends PittiFrame implements ActionListener, KeyListener, InternalFrameListener
+public class QuranGUI extends MDIChild implements ActionListener, KeyListener, InternalFrameListener
 {
     transient private Quran m_quran;
     transient private VerbalQuran m_speaker;

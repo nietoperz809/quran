@@ -13,7 +13,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.PixelCanvas;
 import misc.Tools;
 
@@ -21,7 +21,7 @@ import misc.Tools;
  *
  * @author Administrator
  */
-public class QRGeneratorGUI extends PittiFrame implements ActionListener
+public class QRGeneratorGUI extends MDIChild implements ActionListener
 {
     private BufferedImage _img = null;
     

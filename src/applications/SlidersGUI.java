@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import misc.PittiFrame;
+import misc.MDIChild;
 import mixit.CapturePanel;
 import mixit.Colorbox;
 import mixit.HeadPanel;
@@ -16,7 +16,7 @@ import mixit.HeadPanel;
  * Created by IntelliJ IDEA. User: Administrator Date: 04.09.2008 Time: 00:48:36
  * To change this template use File | Settings | File Templates.
  */
-public class SlidersGUI extends PittiFrame implements Serializable, ActionListener
+public class SlidersGUI extends MDIChild implements Serializable, ActionListener
 {
     public static final long serialVersionUID = 1L;
     

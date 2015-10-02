@@ -5,7 +5,7 @@
  */
 package applications;
 
-import misc.PittiFrame;
+import misc.MDIChild;
 import transform.Base64;
 import transform.CRC16CCITT;
 import transform.GrayCode;
@@ -21,7 +21,7 @@ import transform.UrlEncode;
  *
  * @author Administrator
  */
-public class Transformer extends PittiFrame
+public class Transformer extends MDIChild
 {
     Transformation trans;
     

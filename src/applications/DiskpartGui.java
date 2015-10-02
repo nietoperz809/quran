@@ -7,14 +7,14 @@ package applications;
 
 import java.io.IOException;
 import java.io.InputStream;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.ProcessTool;
 
 /**
  *
  * @author Administrator
  */
-public class DiskpartGui extends PittiFrame
+public class DiskpartGui extends MDIChild
 {
     ProcessTool proc = new ProcessTool("diskpart", 1000);
     InputStream inp = proc.getInput();

@@ -7,7 +7,7 @@ package applications;
 
 import java.awt.event.ActionListener;
 import misc.MainWindow;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.Tools;
 import twitter.TwitTools;
 
@@ -15,7 +15,7 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class DirectTweetGUI extends PittiFrame implements ActionListener
+public class DirectTweetGUI extends MDIChild implements ActionListener
 {
     /**
      * Initializer

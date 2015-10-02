@@ -12,11 +12,18 @@ import javax.swing.JInternalFrame;
  *
  * @author Administrator
  */
-public abstract class PittiFrame extends JInternalFrame implements Serializable
+public abstract class MDIChild extends JInternalFrame implements Serializable
 {
     public static final long serialVersionUID = 1L;
     /**
      * Implement the Deserialisation "Constructor"
      */
     abstract public void initAfterDeserialization();
+    
+    @Override
+    public void dispose()
+    {
+        super.dispose(); 
+        System.err.println("Disposing "+this.getClass().getName());
+    }
 }

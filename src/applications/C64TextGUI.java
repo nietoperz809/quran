@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import misc.ClipboardImage;
 import misc.MainWindow;
-import misc.PittiFrame;
+import misc.MDIChild;
 import misc.Tools;
 import turtle.TurtleWindow;
 import twitter.TwitTools;
@@ -21,7 +21,7 @@ import twitter.TwitTools;
  *
  * @author Administrator
  */
-public class C64TextGUI extends PittiFrame implements ActionListener
+public class C64TextGUI extends MDIChild implements ActionListener
 {
     private transient TurtleWindow bitmapView = null;
     private transient Chargen chargen = new Chargen();
