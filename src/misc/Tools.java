@@ -177,7 +177,7 @@ public class Tools
         {
             res = defaultvalue;
         }
-        DebugOut.get().out.println(res);
+        System.out.println(res);
         return res;
     }
 
@@ -192,7 +192,7 @@ public class Tools
         {
             res = defaultvalue;
         }
-        DebugOut.get().out.println(res);
+        System.out.println(res);
         return res;
     }
 
@@ -200,9 +200,9 @@ public class Tools
     {
         for (String s : sa)
         {
-            DebugOut.get().out.println(s);
-            DebugOut.get().out.println(s.length());
-            DebugOut.get().out.println("----------------");
+            System.out.println(s);
+            System.out.println(s.length());
+            System.out.println("----------------");
         }
     }
 
@@ -210,8 +210,8 @@ public class Tools
     {
         for (String s : sa)
         {
-            DebugOut.get().out.println(s);
-            DebugOut.get().out.println("----------------");
+            System.out.println(s);
+            System.out.println("----------------");
         }
     }
 
@@ -245,7 +245,7 @@ public class Tools
         String message = f.exists() ? "is in use by another app" : "does not exist";
         if (!f.delete())
         {
-            DebugOut.get().out.println("Could not delete " + m_path + filename + " -- " + message);
+            System.out.println("Could not delete " + m_path + filename + " -- " + message);
         }
     }
 

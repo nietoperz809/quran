@@ -143,6 +143,8 @@ public class MainWindow extends javax.swing.JFrame
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem22 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -387,6 +389,20 @@ public class MainWindow extends javax.swing.JFrame
 
         menuBar.add(jMenu1);
 
+        jMenu2.setText("Tools");
+
+        jMenuItem22.setText("DebugOut");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem22);
+
+        menuBar.add(jMenu2);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -427,7 +443,7 @@ public class MainWindow extends javax.swing.JFrame
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
         return null;
     }
@@ -559,6 +575,11 @@ public class MainWindow extends javax.swing.JFrame
        createMDIChild (applications.FtpServerGUI.class);
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem22ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem22ActionPerformed
+        createMDIChild (applications.LoggerGUI.class);
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
     /** m0xyzptlkxy0
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -582,6 +603,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
@@ -596,6 +618,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

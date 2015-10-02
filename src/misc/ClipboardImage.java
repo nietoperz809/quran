@@ -43,7 +43,7 @@ public class ClipboardImage implements ClipboardOwner
     @Override
     public void lostOwnership(Clipboard clip, Transferable trans)
     {
-        DebugOut.get().out.println("Lost Clipboard Ownership");
+        System.out.println("Lost Clipboard Ownership");
     }
 
     private class TransferableImage implements Transferable

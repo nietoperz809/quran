@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Random;
-import misc.DebugOut;
 
 /**
  * This class implements the mathematical functions for BASIC. The tokenizer
@@ -274,7 +273,7 @@ class FunctionExpression extends Expression
                 }
                 catch (IOException ex)
                 {
-                    DebugOut.get().out.println(ex);
+                    System.out.println(ex);
                 }
             }
             

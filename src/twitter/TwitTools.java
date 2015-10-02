@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import misc.DebugOut;
 import misc.StringDivider;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -172,7 +171,7 @@ public class TwitTools implements TwitterKeys
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }
 

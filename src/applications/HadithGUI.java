@@ -6,7 +6,6 @@
 package applications;
 
 import java.io.IOException;
-import misc.DebugOut;
 import quran.HadithCollection;
 import twitter.TwitTools;
 
@@ -28,7 +27,7 @@ public class HadithGUI extends javax.swing.JInternalFrame
         }
         catch (IOException ex)
         {
-           DebugOut.get().out.println (ex);
+           System.out.println (ex);
         }
         initComponents();
     }

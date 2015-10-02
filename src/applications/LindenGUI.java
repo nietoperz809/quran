@@ -8,7 +8,6 @@ package applications;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
@@ -329,7 +328,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -352,7 +351,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -369,7 +368,7 @@ public class LindenGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 

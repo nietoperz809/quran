@@ -14,14 +14,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
-import misc.DebugOut;
 
 /**
  *
@@ -252,7 +249,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
             catch (Exception ex)
             {
-                DebugOut.get().out.println(ex + " -- " + txt);
+                System.out.println(ex + " -- " + txt);
             }
         }
     }

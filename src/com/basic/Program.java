@@ -35,7 +35,6 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.Vector;
 import midisystem.MidiSynthSystem;
-import misc.DebugOut;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
@@ -100,7 +99,7 @@ public class Program implements Runnable, Serializable
             }
             catch (IOException e)
             {
-                DebugOut.get().out.println("Couldn't open trace file.");
+                System.out.println("Couldn't open trace file.");
                 traceFile = null;
             }
         }
@@ -636,11 +635,11 @@ public class Program implements Runnable, Serializable
         }
         catch (BASICRuntimeError e)
         {
-            DebugOut.get().out.println("Error Running program: " + e.getMsg());
+            System.out.println("Error Running program: " + e.getMsg());
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }
 

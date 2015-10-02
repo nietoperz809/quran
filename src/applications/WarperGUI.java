@@ -6,8 +6,6 @@
 package applications;
 
 import java.awt.image.BufferedImage;
-import misc.DebugOut;
-import misc.InteractivePixelCanvas;
 import misc.Tools;
 import misc.WarpCanvas;
 import twitter.TwitTools;
@@ -155,7 +153,7 @@ public class WarperGUI extends javax.swing.JInternalFrame
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 

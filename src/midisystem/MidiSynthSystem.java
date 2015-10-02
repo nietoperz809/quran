@@ -7,7 +7,6 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
-import misc.DebugOut;
 
 /**
  *
@@ -168,10 +167,10 @@ public class MidiSynthSystem
             {
                 if (doWait == false)
                 {
-                    DebugOut.get().out.println("spurious");
+                    System.out.println("spurious");
                     return;
                 }
-                DebugOut.get().out.println("end of midi " + System.currentTimeMillis());
+                System.out.println("end of midi " + System.currentTimeMillis());
                 try
                 {
                     //Thread.sleep(200);
@@ -198,7 +197,7 @@ public class MidiSynthSystem
      */
     public void waitUntilEnd() throws InterruptedException
     {
-        DebugOut.get().out.println("wait for endmidi " + System.currentTimeMillis());
+        System.out.println("wait for endmidi " + System.currentTimeMillis());
         synchronized (waitObject)
         {
             doWait = true;

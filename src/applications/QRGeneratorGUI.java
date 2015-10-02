@@ -13,7 +13,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import misc.DebugOut;
 import misc.PittiFrame;
 import misc.PixelCanvas;
 import misc.Tools;
@@ -164,7 +163,7 @@ public class QRGeneratorGUI extends PittiFrame implements ActionListener
         }
         catch (NumberFormatException | WriterException exception)
         {
-            DebugOut.get().out.println(exception);
+            System.out.println(exception);
             return false;
         }    
         return true;

@@ -42,7 +42,7 @@ public class PixelCanvas extends JPanel implements Serializable
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }
     

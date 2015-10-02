@@ -8,7 +8,6 @@ package com.basic;
 import java.io.InputStream;
 import java.io.PrintStream;
 import midisystem.MidiSynthSystem;
-import misc.DebugOut;
 
 /**
  *
@@ -30,7 +29,7 @@ class SPLAYStatement extends Statement
             return;
         if (t.type == KeyWords.CONSTANT)
             repeats = (int)t.nValue - 1;
-        DebugOut.get().out.println (t);
+        System.out.println (t);
     }
 
     @Override

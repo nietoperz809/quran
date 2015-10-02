@@ -28,7 +28,6 @@ import java.io.PrintStream;
 import java.io.Serializable;
 import javax.sound.midi.Instrument;
 import midisystem.MidiSynthSystem;
-import misc.DebugOut;
 
 /**
  * This class is an "interactive" BASIC environment. You can think of it as
@@ -332,25 +331,25 @@ public class CommandInterpreter implements Serializable
             try
             {
                 lineData = processBS(dis.readLine());
-                DebugOut.get().out.println(lineData);
+                System.out.println(lineData);
             }
             catch (IOException ioe)
             {
-                DebugOut.get().out.println("Caught an IO exception reading the input stream!");
+                System.out.println("Caught an IO exception reading the input stream!");
                 return 0;
             }
 
             // exit on eof of the input stream
             if (lineData == null)
             {
-                DebugOut.get().out.println("exit on EOF");
+                System.out.println("exit on EOF");
                 return 0;
             }
 
             // ignore blank lines.
             if (lineData.length() == 0)
             {
-                DebugOut.get().out.println("ignore blank line");
+                System.out.println("ignore blank line");
                 continue;
             }
 
@@ -358,7 +357,7 @@ public class CommandInterpreter implements Serializable
 
             if (!tokenizer.hasMoreTokens())
             {
-                DebugOut.get().out.println("no more tokens");
+                System.out.println("no more tokens");
                 continue;
             }
 

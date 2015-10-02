@@ -9,7 +9,6 @@ import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
 import java.awt.event.ActionListener;
 import javax.swing.event.InternalFrameListener;
-import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
@@ -174,7 +173,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -220,7 +219,7 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
         }
         catch (Exception e)
         {
-            DebugOut.get().out.println(e);
+            System.out.println(e);
         }
         return 0;
     }
@@ -229,12 +228,12 @@ public class BasicGUI extends PittiFrame implements Runnable, ActionListener, In
     public void run()
     {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-        DebugOut.get().out.println("BasicThread start");
+        System.out.println("BasicThread start");
         if (runCLI() == 1)
         {
             ci.dispose();
             dispose();
         }
-        DebugOut.get().out.println("BasicThread end");
+        System.out.println("BasicThread end");
     }
 }

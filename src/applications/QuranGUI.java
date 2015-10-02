@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
-import misc.DebugOut;
 import misc.HashmapSeeker;
 import misc.PittiFrame;
 import misc.Tools;
@@ -454,7 +453,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -564,7 +563,7 @@ public class QuranGUI extends PittiFrame implements ActionListener, KeyListener,
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 

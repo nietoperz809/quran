@@ -11,7 +11,6 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
-import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.PixelCanvas;
@@ -143,7 +142,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -196,7 +195,7 @@ public class LatexGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println (ex);
+            System.out.println (ex);
         }
     }
     

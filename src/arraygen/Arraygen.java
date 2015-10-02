@@ -7,7 +7,6 @@ package arraygen;
 
 import java.io.File;
 import java.io.FileInputStream;
-import misc.DebugOut;
 
 /**
  *
@@ -85,7 +84,7 @@ public class Arraygen
         try
         {
             String code = makeIt ("arr", "c:\\users\\administrator\\dropbox\\jac64\\jac64_source\\roms\\chargen.c64");
-            DebugOut.get().out.println (code);
+            System.out.println (code);
         }
         catch (Exception ex)
         {

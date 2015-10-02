@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import misc.ClipboardImage;
-import misc.DebugOut;
 import misc.MainWindow;
 import misc.PittiFrame;
 import misc.Tools;
@@ -203,7 +202,7 @@ public class C64TextGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -221,7 +220,7 @@ public class C64TextGUI extends PittiFrame implements ActionListener
         }
         catch (Exception ex)
         {
-            DebugOut.get().out.println(ex);
+            System.out.println(ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
