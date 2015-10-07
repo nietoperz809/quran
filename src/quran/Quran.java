@@ -80,6 +80,18 @@ public class Quran implements PathNames
         return v;
     }
     
+    public String getAya (int sura, int first, int last) throws Exception
+    {
+        String out = getAya (sura, first);
+        while (first < last)
+        {
+            first++;
+            out += " " + getAya (sura, first);
+
+        }
+        return out;
+    }
+    
     public String getAya(int sura, int ayat) throws Exception
     {
         return getAya ("" + sura + "|" + ayat);

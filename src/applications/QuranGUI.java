@@ -175,8 +175,8 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         infoText = new javax.swing.JTextField();
         seekText = new javax.swing.JTextField();
         seekButton = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        saveName = new javax.swing.JTextField();
+        cpFromTo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         outText = new javax.swing.JLabel();
 
         setClosable(true);
@@ -237,7 +237,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         jButton3.setToolTipText("");
         jButton3.setMargin(new java.awt.Insets(2, 0, 2, 0));
         jButton3.addActionListener(this);
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 56, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 56, -1));
 
         upButton1.setText("+");
         upButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
@@ -261,13 +261,11 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         seekButton.addActionListener(this);
         jPanel1.add(seekButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 32, -1, -1));
 
-        jButton4.setText("save -->");
-        jButton4.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        jButton4.addActionListener(this);
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 60, -1));
+        cpFromTo.setText("1/1");
+        jPanel1.add(cpFromTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 60, -1));
 
-        saveName.setText("Quran");
-        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 160, -1));
+        jLabel4.setText("-->");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -324,10 +322,6 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         else if (evt.getSource() == seekButton)
         {
             QuranGUI.this.seekButtonActionPerformed(evt);
-        }
-        else if (evt.getSource() == jButton4)
-        {
-            QuranGUI.this.jButton4ActionPerformed(evt);
         }
     }
 
@@ -415,7 +409,9 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         {
             return;
         }
-        tf_aya.setText("" + (v.aya + 1));
+        int next = v.aya+1;
+        tf_aya.setText("" + next);
+        cpFromTo.setText (""+next+"/"+next);
         showText();
     }//GEN-LAST:event_upButtonActionPerformed
 
@@ -435,6 +431,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
             v.aya--;
         }
         tf_aya.setText("" + v.aya);
+        cpFromTo.setText (""+v.aya+"/"+v.aya);
         showText();
     }//GEN-LAST:event_downButtonActionPerformed
 
@@ -458,7 +455,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
-     * Put verse into clipboard
+     * Put verse onto clipboard
      *
      * @param evt
      */
@@ -466,13 +463,20 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
     {//GEN-HEADEREND:event_jButton3ActionPerformed
         try
         {
-            Verse v = getSelectedVerse();
-            String t = loadText() + " #Quran " + v.sura + ":" + v.aya;
-            Tools.toClipBoard(t);
+            String[] fromto = cpFromTo.getText().split("/");
+            int sura = Integer.parseInt(tf_sura.getText());
+            int astart = Integer.parseInt(fromto[0]);
+            int aend = Integer.parseInt(fromto[1]);
+            String s = m_quran.getAya(sura, astart, aend);
+            s = s + " #Quran " + sura + ":" + astart;
+            if (aend > astart)
+                s = s + "-" + aend;
+            Tools.toClipBoard(s);
+            outText.setText("<html>" + s + "</html>");
         }
         catch (Exception ex)
         {
-
+            System.err.println("Fail in cp to clipbrd:"+ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -555,34 +559,22 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         });
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
-    {//GEN-HEADEREND:event_jButton4ActionPerformed
-        try
-        {
-            Tools.serialize(saveName.getText(), this);
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox combobox;
+    private javax.swing.JTextField cpFromTo;
     private javax.swing.JButton downButton;
     private javax.swing.JButton downButton1;
     private javax.swing.JTextField infoText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel outText;
-    private javax.swing.JTextField saveName;
     private javax.swing.JButton seekButton;
     private javax.swing.JTextField seekText;
     private javax.swing.JTextField tf_aya;

@@ -14,8 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import misc.Tools;
 import misc.Transmitter;
 
@@ -259,7 +257,7 @@ public class WebServerClient implements Runnable
         }
         catch (Exception ex)
         {
-            Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
     }
 
@@ -407,7 +405,7 @@ public class WebServerClient implements Runnable
         }
         catch (Exception ex)
         {
-            Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
     }
 }
