@@ -177,6 +177,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         seekButton = new javax.swing.JButton();
         cpFromTo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         outText = new javax.swing.JLabel();
 
         setClosable(true);
@@ -278,7 +279,9 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         outText.setDoubleBuffered(true);
         outText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         outText.setOpaque(true);
-        getContentPane().add(outText, java.awt.BorderLayout.CENTER);
+        jScrollPane1.setViewportView(outText);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }
@@ -574,6 +577,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel outText;
     private javax.swing.JButton seekButton;
     private javax.swing.JTextField seekText;
