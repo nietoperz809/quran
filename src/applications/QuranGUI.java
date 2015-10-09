@@ -263,6 +263,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         jPanel1.add(seekButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 32, -1, -1));
 
         cpFromTo.setText("1/1");
+        cpFromTo.setToolTipText("Select Aya from/to for copy");
         jPanel1.add(cpFromTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 60, -1));
 
         jLabel4.setText("-->");

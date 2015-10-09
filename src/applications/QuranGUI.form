@@ -286,6 +286,7 @@
         <Component class="javax.swing.JTextField" name="cpFromTo">
           <Properties>
             <Property name="text" type="java.lang.String" value="1/1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Select Aya from/to for copy"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
