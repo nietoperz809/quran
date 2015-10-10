@@ -4,16 +4,20 @@ import applications.WebServerGUI;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import misc.Tools;
 import misc.Transmitter;
 
@@ -138,6 +142,7 @@ public class WebServerClient implements Runnable
         }
         sb2.append("<hr>");
         sb2.append(sb);
+        System.err.println(sb2.toString());
         return sb2.toString();
     }
 
@@ -243,7 +248,7 @@ public class WebServerClient implements Runnable
     {
         File f = new File(fname);
         PrintWriter w = new PrintWriter(out);
-
+        
         try
         {
             InputStream input = new FileInputStream(f);
@@ -283,11 +288,12 @@ public class WebServerClient implements Runnable
      *
      * @param out Print Writer
      */
-    private void imagePage(PrintWriter out, String path)
+    private void imagePage (OutputStream out, PrintWriter out2, String path) throws IOException
     {
         String txt = "<html>\r\n" + buildMainPage(path) + "</html>";
-        sendHeader(out, txt, "text/html");
-        out.print(txt);
+        byte[] bt = txt.getBytes("UTF-8");
+        sendHeader(out2, txt, "text/html");
+        out.write(bt);
     }
 
     private byte[] getTextFile(String file)
@@ -386,7 +392,7 @@ public class WebServerClient implements Runnable
                 {
                     path = rootPath;
                 }
-                imagePage(out, path);
+                imagePage(m_sock.getOutputStream(), out, path);
             }
         }
     }
