@@ -9,15 +9,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import misc.Tools;
 import misc.Transmitter;
 
@@ -32,6 +29,11 @@ public class WebServerClient implements Runnable
     private final String rootPath;
     private WebServerGUI _gui;
 
+    /**
+     * Constructor
+     * @param s communication socket
+     * @param rp web server root path
+     */
     public WebServerClient(Socket s, String rp)
     {
         rootPath = rp;
@@ -40,30 +42,55 @@ public class WebServerClient implements Runnable
         m_thread.start();
     }
 
+    /**
+     * Constructor
+     * @param s communication socket
+     * @param rp web server root path
+     * @param g GUI  
+     */
     public WebServerClient(Socket s, String rp, WebServerGUI g)
     {
         this(s, rp);
         _gui = g;
     }
 
+    /**
+     * Is File MP4
+     * @param in file name
+     * @return TRUE if file is named .mp4
+     */
     private boolean isMP4(String in)
     {
-        in = in.toLowerCase();
-        return in.endsWith(".mp4");
+        return in.toLowerCase().endsWith(".mp4");
     }
 
+    /**
+     * Is File Jpeg?
+     * @param in file name
+     * @return TRUE if file is jpeg 
+     */
     private boolean isJpeg(String in)
     {
         in = in.toLowerCase();
         return in.endsWith(".jpg") || in.endsWith(".jpeg");
     }
 
+    /**
+     * Is File Zip?
+     * @param in file name
+     * @return TRUE if file is zip
+     */
     private boolean isZip(String in)
     {
         in = in.toLowerCase();
         return in.endsWith(".zip") || in.endsWith(".rar");
     }
 
+    /**
+     * Is Text file
+     * @param in file name
+     * @return TRUE if file is text file
+     */
     private boolean isText(String in)
     {
         in = in.toLowerCase();
@@ -73,6 +100,12 @@ public class WebServerClient implements Runnable
                 || in.endsWith(".hxx") || in.endsWith(".java");
     }
 
+    /**
+     * Send HTTP response header
+     * @param out socket as printwriter
+     * @param txt content as String
+     * @param type Type parameter
+     */
     private void sendHeader(PrintWriter out, String txt, String type)
     {
         out.println("HTTP/1.1 200 OK");
@@ -188,6 +221,11 @@ public class WebServerClient implements Runnable
         return true;
     }
 
+    /**
+     * Send image HTTP response header
+     * @param w output socket as printwriter
+     * @param len size of image
+     */
     private void imgHead(PrintWriter w, int len)
     {
         w.println("HTTP/1.1 200 OK");
@@ -214,12 +252,11 @@ public class WebServerClient implements Runnable
             byte[] b = Tools.reduceImg(f, 0.2f);
             imgHead(w, b.length);
             Transmitter t = new Transmitter(b, out);
-            t.doTransmission();
+            t.doTransmission(_gui);
         }
         catch (Exception ex)
         {
-            System.out.println("catch");
-            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         //System.gc ();
         //System.runFinalization ();
@@ -234,11 +271,11 @@ public class WebServerClient implements Runnable
             InputStream input = new FileInputStream(f);
             imgHead(w, (int) f.length());
             Transmitter t = new Transmitter(input, out);
-            t.doTransmission();
+            t.doTransmission(_gui);
         }
         catch (Exception ex)
         {
-            System.out.println("catch");
+            System.out.println(ex);
             //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -258,7 +295,7 @@ public class WebServerClient implements Runnable
                 w.close();
             }
             Transmitter t = new Transmitter(input, out);
-            t.doTransmission();
+            t.doTransmission(_gui);
         }
         catch (Exception ex)
         {
@@ -275,11 +312,11 @@ public class WebServerClient implements Runnable
             InputStream input = new FileInputStream(f);
             mp4Head(w, f.length(), fname);
             Transmitter t = new Transmitter(input, out);
-            t.doTransmission();
+            t.doTransmission(_gui);
         }
         catch (Exception ex)
         {
-            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
     }
 
@@ -305,6 +342,7 @@ public class WebServerClient implements Runnable
         }
         catch (Exception ex)
         {
+            System.err.println(ex);
             return null;
         }
     }
@@ -321,7 +359,7 @@ public class WebServerClient implements Runnable
         }
         catch (Exception ex)
         {
-            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
     }
 
@@ -335,7 +373,7 @@ public class WebServerClient implements Runnable
         }
         catch (Exception ex)
         {
-            //Logger.getLogger(WebServerClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
         return null;
     }
@@ -404,10 +442,6 @@ public class WebServerClient implements Runnable
         {
             perform();
             m_sock.close();
-            if (_gui != null)
-            {
-                _gui.showBytesTransmitted();
-            }
         }
         catch (Exception ex)
         {

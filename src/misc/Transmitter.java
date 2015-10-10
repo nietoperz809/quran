@@ -5,6 +5,7 @@
  */
 package misc;
 
+import applications.WebServerGUI;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,9 +80,10 @@ public class Transmitter
     
     /**
      * Does the transmission
+     * @param gui
      * @throws IOException 
      */
-    public void doTransmission() throws IOException
+    public void doTransmission(WebServerGUI gui) throws IOException
     {
         byte b[] = new byte[_blocksize];
         for(;;)
@@ -94,6 +96,11 @@ public class Transmitter
             }
             _out.write(b, 0, r);
             counter.getAndAdd(r);
+            if (gui != null)
+            {
+                gui.showBytesTransmitted();
+            }
+
             //Thread.yield();
         }
     }
