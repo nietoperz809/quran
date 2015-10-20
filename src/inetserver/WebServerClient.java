@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -100,18 +101,32 @@ public class WebServerClient implements Runnable
                 || in.endsWith(".hxx") || in.endsWith(".java");
     }
 
+    String makeHTTPHeader (int len, String type)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("HTTP/1.1 200 OK"+"\r\n");
+        sb.append("Content-Length: ").append(len).append("\r\n");
+        sb.append("Content-Type: ").append(type).append("; charset=utf-8"+"\r\n");
+        sb.append("\r\n");
+        return sb.toString();
+    }
+    
     /**
      * Send HTTP response header
      * @param out socket as printwriter
      * @param txt content as String
      * @param type Type parameter
      */
-    private void sendHeader(PrintWriter out, String txt, String type)
+    private void sendHeader(PrintWriter out, int len, String type)
     {
-        out.println("HTTP/1.1 200 OK");
-        out.println("Content-Length: " + txt.getBytes().length);
-        out.println("Content-Type: " + type + "; charset=utf-8");
-        out.println();
+        String s = makeHTTPHeader (len, type);
+        out.print(s);
+    }
+
+    private void sendHeader(OutputStream out, int len, String type) throws Exception
+    {
+        String s = makeHTTPHeader (len, type);
+        out.write(s.getBytes());
     }
 
     /**
@@ -166,16 +181,16 @@ public class WebServerClient implements Runnable
         for (Path dir : dirs)
         {
             sb2.append("<a href=\"").append(URLEncoder.encode(dir.toString())).append("\">");
-            sb2.append(dir.getFileName().toString()).append("</a>").append("&nbsp;|&nbsp;\r\n");
+            sb2.append(dir.getFileName().toString()).append("</a>").append("</br>\r\n");
         }
         for (Path fil : txtfiles)
         {
             sb2.append("<a href=\"").append(URLEncoder.encode(fil.toString())).append("\">");
-            sb2.append(fil.getFileName().toString()).append("</a>").append("&nbsp;|&nbsp;\r\n");
+            sb2.append(fil.getFileName().toString()).append("</a>").append("</br>\r\n");
         }
         sb2.append("<hr>");
         sb2.append(sb);
-        System.err.println(sb2.toString());
+        //System.err.println(sb2.toString());
         return sb2.toString();
     }
 
@@ -325,12 +340,15 @@ public class WebServerClient implements Runnable
      *
      * @param out Print Writer
      */
-    private void imagePage (OutputStream out, PrintWriter out2, String path) throws IOException
+    private void imagePage (OutputStream out, PrintWriter out2, String path) throws Exception
     {
-        String txt = "<html>\r\n" + buildMainPage(path) + "</html>";
-        byte[] bt = txt.getBytes("UTF-8");
-        sendHeader(out2, txt, "text/html");
+        String txt = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"/></head>\r\n" 
+                + buildMainPage(path) 
+                + "\r\n</html>";
+        byte[] bt = txt.getBytes(StandardCharsets.UTF_8);//"UTF-8");
+        sendHeader(out, bt.length, "text/html");
         out.write(bt);
+        out.flush();
     }
 
     private byte[] getTextFile(String file)
@@ -347,14 +365,14 @@ public class WebServerClient implements Runnable
         }
     }
 
-    private void textFile(PrintWriter out, String path)
+    private void textFile (PrintWriter out, String path)
     {
         try
         {
             byte[] b = getTextFile(path);
             String cnt = new String(b, "ISO-8859-1");
             String txt = "<html><pre>\r\n" + cnt + "</pre></html>";
-            sendHeader(out, txt, "text/html");
+            sendHeader(out, txt.length(), "text/html");
             out.print(txt);
         }
         catch (Exception ex)
@@ -368,7 +386,7 @@ public class WebServerClient implements Runnable
         try
         {
             String[] out = in.readLine().split(" ");
-            out[1] = java.net.URLDecoder.decode(out[1], "UTF-8");
+            out[1] = java.net.URLDecoder.decode(out[1]);
             return out;
         }
         catch (Exception ex)
@@ -387,7 +405,6 @@ public class WebServerClient implements Runnable
     {
         //System.gc ();
         //System.runFinalization ();
-        System.out.println(Runtime.getRuntime().freeMemory());
         try (BufferedReader in
                 = new BufferedReader(new InputStreamReader(m_sock.getInputStream()));
                 PrintWriter out
@@ -432,6 +449,8 @@ public class WebServerClient implements Runnable
                 }
                 imagePage(m_sock.getOutputStream(), out, path);
             }
+            out.flush();
+            out.close();
         }
     }
 
@@ -441,6 +460,7 @@ public class WebServerClient implements Runnable
         try
         {
             perform();
+            //m_sock.shutdownOutput();
             m_sock.close();
         }
         catch (Exception ex)
