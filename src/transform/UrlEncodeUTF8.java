@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Administrator
  */
-public class UrlEncode implements Transformation
+public class UrlEncodeUTF8 implements Transformation
 {
 
     @Override
@@ -27,7 +27,7 @@ public class UrlEncode implements Transformation
         }
         catch (UnsupportedEncodingException ex)
         {
-            Logger.getLogger(UrlEncode.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UrlEncodeUTF8.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -41,7 +41,7 @@ public class UrlEncode implements Transformation
         }
         catch (UnsupportedEncodingException ex)
         {
-            Logger.getLogger(UrlEncode.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UrlEncodeUTF8.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

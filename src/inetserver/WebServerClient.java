@@ -4,13 +4,11 @@ import applications.WebServerGUI;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import misc.Tools;
 import misc.Transmitter;
+import transform.UrlEncodeUTF8;
 
 /**
  *
@@ -141,6 +140,7 @@ public class WebServerClient implements Runnable
         StringBuilder sb = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
         File[] fils = f.listFiles();
+        UrlEncodeUTF8 uenc = new UrlEncodeUTF8();
 
         if (fils == null)
         {
@@ -153,13 +153,15 @@ public class WebServerClient implements Runnable
         Path pp = Paths.get(path).getParent();
         if (pp != null)
         {
-            sb2.append("<a href=\"").append(URLEncoder.encode(pp.toString())).append("\">");
+            String u8 = uenc.transform(pp.toString());
+            sb2.append("<a href=\"").append(u8).append("\">");
             sb2.append("*BACK*").append("</a>").append("<hr>\r\n");
         }
         for (File fil : fils)
         {
             String name = fil.getName();
             Path p = Paths.get(path, name);
+            String u8 = uenc.transform(p.toString());
             if (fil.isDirectory())
             {
                 dirs.add(p);
@@ -168,9 +170,9 @@ public class WebServerClient implements Runnable
             {
                 sb.append("<a href=\"");
                 sb.append("*IMG*");
-                sb.append(URLEncoder.encode(p.toString()));
+                sb.append(u8);
                 sb.append("\" target=\"_blank\"><img src=\"");
-                sb.append(URLEncoder.encode(p.toString()));
+                sb.append(p.toString());
                 sb.append("\"></a>\r\n");
             }
             else if (isText(name) || isZip(name) || isMP4(name))
@@ -180,17 +182,19 @@ public class WebServerClient implements Runnable
         }
         for (Path dir : dirs)
         {
-            sb2.append("<a href=\"").append(URLEncoder.encode(dir.toString())).append("\">");
-            sb2.append(dir.getFileName().toString()).append("</a>").append("</br>\r\n");
+            String u8 = uenc.transform(dir.toString());
+            sb2.append("<a href=\"").append(u8).append("\">");
+            sb2.append(dir.getFileName().toString()).append("</a>").append("<br>\r\n");
         }
         for (Path fil : txtfiles)
         {
-            sb2.append("<a href=\"").append(URLEncoder.encode(fil.toString())).append("\">");
-            sb2.append(fil.getFileName().toString()).append("</a>").append("</br>\r\n");
+            String u8 = uenc.transform(fil.toString());
+            sb2.append("<a href=\"").append(u8).append("\">");
+            sb2.append(fil.getFileName().toString()).append("</a>").append("<br>\r\n");
         }
         sb2.append("<hr>");
         sb2.append(sb);
-        //System.err.println(sb2.toString());
+        System.err.println(sb2.toString());
         return sb2.toString();
     }
 
@@ -298,6 +302,7 @@ public class WebServerClient implements Runnable
     // not tested
     private void sendMP4(OutputStream out, String fname)
     {
+        System.err.println("Sending MP4: "+fname);
         File f = new File(fname);
         PrintWriter w = new PrintWriter(out);
         
@@ -345,7 +350,7 @@ public class WebServerClient implements Runnable
         String txt = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"/></head>\r\n" 
                 + buildMainPage(path) 
                 + "\r\n</html>";
-        byte[] bt = txt.getBytes(StandardCharsets.UTF_8);//"UTF-8");
+        byte[] bt = txt.getBytes(StandardCharsets.UTF_8);
         sendHeader(out, bt.length, "text/html");
         out.write(bt);
         out.flush();
@@ -386,7 +391,7 @@ public class WebServerClient implements Runnable
         try
         {
             String[] out = in.readLine().split(" ");
-            out[1] = java.net.URLDecoder.decode(out[1]);
+            //out[1] = java.net.URLDecoder.decode(out[1]);
             return out;
         }
         catch (Exception ex)
@@ -395,12 +400,99 @@ public class WebServerClient implements Runnable
         }
         return null;
     }
-
-//    private void naked(PrintWriter out, String txt)
-//    {
-//        sendHeader(out, txt, "text/text");
-//        out.print(txt);
-//    }
+    
+    void test2 (byte[] b)
+    {
+        String s = new String (b, StandardCharsets.ISO_8859_1);
+        System.out.println("ISO: "+s);
+        File f = new File(s);
+        try
+        {
+            System.out.println(f.canRead());
+            System.out.println("OK !!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (Exception ex)
+        {
+            System.out.println("FAIL");
+        }
+        s = new String (b, StandardCharsets.US_ASCII);
+        System.out.println("ASCII: "+s);
+        f = new File(s);
+        try
+        {
+            System.out.println(f.canRead());
+            System.out.println("OK !!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (Exception ex)
+        {
+            System.out.println("FAIL");
+        }
+        s = new String (b, StandardCharsets.UTF_16);
+        System.out.println("UTF16: "+s);
+        f = new File(s);
+        try
+        {
+            System.out.println(f.canRead());
+            System.out.println("OK !!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (Exception ex)
+        {
+            System.out.println("FAIL");
+        }
+        s = new String (b, StandardCharsets.UTF_16BE);
+        System.out.println("16BE: "+s);
+        f = new File(s);
+        try
+        {
+            System.out.println(f.canRead());
+            System.out.println("OK !!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (Exception ex)
+        {
+            System.out.println("FAIL");
+        }
+        s = new String (b, StandardCharsets.UTF_16LE);
+        System.out.println("16LE: "+s);
+        f = new File(s);
+        try
+        {
+            System.out.println(f.canRead());
+            System.out.println("OK !!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (Exception ex)
+        {
+            System.out.println("FAIL");
+        }
+        s = new String (b, StandardCharsets.UTF_8);
+        System.out.println("UTF8: "+s);
+        f = new File(s);
+        try
+        {
+            System.out.println(f.canRead());
+            System.out.println("OK !!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (Exception ex)
+        {
+            System.out.println("FAIL");
+        }
+    }
+    
+    private void test1 (String in)
+    {
+        byte[] b = in.getBytes(StandardCharsets.ISO_8859_1);
+        test2(b);
+        b = in.getBytes(StandardCharsets.US_ASCII);
+        test2(b);
+        b = in.getBytes(StandardCharsets.UTF_16);
+        test2(b);
+        b = in.getBytes(StandardCharsets.UTF_16BE);
+        test2(b);
+        b = in.getBytes(StandardCharsets.UTF_16LE);
+        test2(b);
+        b = in.getBytes(StandardCharsets.UTF_8);
+        test2(b);
+    }
+    
     private void perform() throws Exception
     {
         //System.gc ();
@@ -416,6 +508,10 @@ public class WebServerClient implements Runnable
                 return;
             }
             String path = si[1].substring(1);
+
+            UrlEncodeUTF8 uenc = new UrlEncodeUTF8();
+            path = uenc.retransform(path);
+            
             //String lowpath = path.toLowerCase();
             if (isJpeg(path))
             {

@@ -15,7 +15,7 @@ import transform.Rot13;
 import transform.SHA1;
 import transform.SHA256;
 import transform.Transformation;
-import transform.UrlEncode;
+import transform.UrlEncodeUTF8;
 
 /**
  *
@@ -331,7 +331,7 @@ public class Transformer extends MDIChild
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton4ActionPerformed
     {//GEN-HEADEREND:event_jRadioButton4ActionPerformed
         decodeButt.setEnabled(true);
-        trans = new UrlEncode();
+        trans = new UrlEncodeUTF8();
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
 
