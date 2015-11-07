@@ -22,6 +22,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -37,6 +38,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.swing.JTextField;
+import transform.Transformation;
 
 /**
  *
@@ -330,7 +332,7 @@ public class Tools
             String entryName;
             ArrayList<String> list = new ArrayList<>();
 
-            jarFileName = URLDecoder.decode(url1.getFile(), "UTF-8");
+            jarFileName = URLDecoder.decode(url1.getFile(), Transformation.utf8);
             jarFileName = jarFileName.substring(5, jarFileName.indexOf("!"));
             jf = new JarFile(jarFileName);
             jarEntries = jf.entries();

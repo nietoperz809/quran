@@ -17,13 +17,12 @@ import java.util.logging.Logger;
  */
 public class UrlEncodeUTF8 implements Transformation
 {
-
     @Override
     public String transform(String in)
     {
         try
         {
-            return URLEncoder.encode (in, "UTF-8");
+            return URLEncoder.encode (in, utf8);
         }
         catch (UnsupportedEncodingException ex)
         {
@@ -37,7 +36,7 @@ public class UrlEncodeUTF8 implements Transformation
     {
         try
         {
-            return URLDecoder.decode (in, "UTF-8");
+            return URLDecoder.decode (in, utf8);
         }
         catch (UnsupportedEncodingException ex)
         {

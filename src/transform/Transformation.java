@@ -5,12 +5,15 @@
  */
 package transform;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  *
  * @author Administrator
  */
 public interface Transformation
 {
+    String utf8 = StandardCharsets.UTF_8.name();
     String transform (String in);
     String retransform (String in);
 }

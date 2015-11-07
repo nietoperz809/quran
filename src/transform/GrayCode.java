@@ -57,9 +57,9 @@ public class GrayCode implements Transformation
     {
         try
         {
-            byte[] b = in.getBytes("UTF-8");
+            byte[] b = in.getBytes(utf8);
             byte[] b2 = grayByteArray(b);
-            return new String (b2, "UTF-8");
+            return new String (b2, utf8);
         }
         catch (UnsupportedEncodingException ex)
         {
@@ -73,9 +73,9 @@ public class GrayCode implements Transformation
     {
         try
         {
-            byte[] b = in.getBytes("UTF-8");
+            byte[] b = in.getBytes(utf8);
             byte[] b2 = ungrayByteArray(b);
-            return new String (b2, "UTF-8");
+            return new String (b2, utf8);
         }
         catch (UnsupportedEncodingException ex)
         {

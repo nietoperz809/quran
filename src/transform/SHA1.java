@@ -38,7 +38,7 @@ public class SHA1 implements Transformation
         crypt.reset();
         try
         {
-            crypt.update(in.getBytes("UTF-8"));
+            crypt.update(in.getBytes(utf8));
             return new BigInteger(1, crypt.digest()).toString(16);
         }
         catch (UnsupportedEncodingException ex)

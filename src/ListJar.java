@@ -1,11 +1,13 @@
 
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import transform.Transformation;
 
 // $Revision:$
 
@@ -22,8 +24,9 @@ public class ListJar
 {
     public static void main(String[] args) throws Exception
     {
-        String[] test = listPackage ("quran/quranfiles/");
-        System.out.println(Arrays.toString(test));
+        System.out.println(Transformation.utf8);
+        //String[] test = listPackage ("quran/quranfiles/");
+        //System.out.println(Arrays.toString(test));
     }
     
     public static String[] listPackage(String path) throws Exception
@@ -38,7 +41,7 @@ public class ListJar
         ArrayList<String> list = new ArrayList<>();
         
         // build jar file name, then loop through zipped entries
-        jarFileName = URLDecoder.decode(url1.getFile(), "UTF-8");
+        jarFileName = URLDecoder.decode(url1.getFile(), Transformation.utf8);
         jarFileName = jarFileName.substring(5, jarFileName.indexOf("!"));
         jf = new JarFile(jarFileName);
         jarEntries = jf.entries();

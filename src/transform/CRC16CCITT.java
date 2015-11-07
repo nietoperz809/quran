@@ -23,7 +23,7 @@ public class CRC16CCITT implements Transformation
             int crc = 0xFFFF;          // initial value
             int polynomial = 0x1021;   // 0001 0000 0010 0001  (0, 5, 12)
             
-            byte[] bytes = in.getBytes("UTF-8");
+            byte[] bytes = in.getBytes(utf8);
             
             for (byte b : bytes)
             {

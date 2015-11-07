@@ -279,7 +279,7 @@ public class MD4 implements Transformation
         try
         {
             this.engineReset();        
-            this.engineUpdate (in.getBytes("UTF-8"), 0, in.length());
+            this.engineUpdate (in.getBytes(utf8), 0, in.length());
             return new BigInteger(1, this.engineDigest()).toString(16);
         }
         catch (UnsupportedEncodingException ex)
