@@ -591,8 +591,9 @@ public class MainWindow extends javax.swing.JFrame
         QuranMetadata.get();
 
         /* Set the look and feel */
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-
+        //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() ->
         {

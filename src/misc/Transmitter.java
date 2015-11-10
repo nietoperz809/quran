@@ -20,38 +20,42 @@ public class Transmitter
 {
     private final InputStream _in;
     private final OutputStream _out;
-    private int _blocksize = 0x10000;
+    private int _blocksize = 0x20000; // 0x10000;
     private final static AtomicLong counter = new AtomicLong();
- 
+    private long txTime;
+
     public static String getCounter()
     {
-        return "  "+Tools.humanReadableByteCount (counter.longValue());
+        return "  " + Tools.humanReadableByteCount(counter.longValue());
     }
-    
+
     /**
      * Constructor
+     *
      * @param i Source
      * @param o Sink
      */
-    public Transmitter (InputStream i, OutputStream o)
+    public Transmitter(InputStream i, OutputStream o)
     {
         _in = i;
         _out = o;
     }
-    
-    public Transmitter (byte[] ba, OutputStream o)
+
+    public Transmitter(byte[] ba, OutputStream o, int bl)
     {
+        _blocksize = bl;
         _in = new ByteArrayInputStream(ba);
         _out = o;
     }
-    
+
     /**
      * Constructor with Block Size
+     *
      * @param i Source
      * @param o Sink
      * @param bl Block Size
      */
-    public Transmitter (InputStream i, OutputStream o, int bl)
+    public Transmitter(InputStream i, OutputStream o, int bl)
     {
         _blocksize = bl;
         _in = i;
@@ -60,9 +64,10 @@ public class Transmitter
 
     /**
      * Constructor using sys.in as source
+     *
      * @param o Sink
      */
-    public Transmitter (OutputStream o)
+    public Transmitter(OutputStream o)
     {
         _in = System.in;
         _out = o;
@@ -70,23 +75,26 @@ public class Transmitter
 
     /**
      * Constructor using sys.out as sink
+     *
      * @param i Source
      */
-    public Transmitter (InputStream i)
+    public Transmitter(InputStream i)
     {
         _in = i;
         _out = System.out;
     }
-    
+
     /**
      * Does the transmission
+     *
      * @param gui
-     * @throws IOException 
+     * @throws IOException
      */
     public void doTransmission(WebServerGUI gui) throws IOException
     {
         byte b[] = new byte[_blocksize];
-        for(;;)
+        txTime = System.currentTimeMillis();
+        for (;;)
         {
             int r = _in.read(b);
             if (r == -1)
@@ -98,10 +106,13 @@ public class Transmitter
             counter.getAndAdd(r);
             if (gui != null)
             {
-                gui.showBytesTransmitted();
+                gui.showBytesTransmitted(counter.get(), 0);
             }
-
-            //Thread.yield();
+        }
+        txTime = System.currentTimeMillis() - txTime;
+        if (gui != null)
+        {
+            gui.showBytesTransmitted(counter.get(), txTime);
         }
     }
 }

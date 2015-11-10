@@ -18,23 +18,28 @@ import java.util.logging.Logger;
  */
 public class Sockserver implements Runnable
 {
-    int port;
-    String basePath;
-    ServerSocket server;
-    WebServerGUI _gui;
+    private final int port;
+    private final int buffSize;
+    private final String basePath;
+    private ServerSocket server;
+    private final WebServerGUI _gui;
 
-    public Sockserver(int p, String s)
+//    public Sockserver(int p, String s)
+//    {
+//        basePath = s;
+//        port = p;
+//        Thread t = new Thread(this);
+//        t.start();
+//    }
+
+    public Sockserver (int buffsz, int p, String s, WebServerGUI gui)
     {
         basePath = s;
         port = p;
+        buffSize = buffsz;
         Thread t = new Thread(this);
-        t.start();
-    }
-
-    public Sockserver (int p, String s, WebServerGUI gui)
-    {
-        this(p,s);
         _gui = gui;
+        t.start();
     }
     
     public boolean isRunning()
@@ -61,12 +66,12 @@ public class Sockserver implements Runnable
         System.err.println("started: "+port);
         try
         {
-            server = new ServerSocket(port);
+            server = new ServerSocket(port, 100);
 
             while (true)
             {
                 Socket sock = server.accept();
-                new WebServerClient(sock, basePath, _gui);
+                new WebServerClient(buffSize, sock, basePath, _gui);
             }
         }
         catch (IOException ex)

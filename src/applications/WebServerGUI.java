@@ -6,8 +6,10 @@
 package applications;
 
 import javax.swing.JInternalFrame;
-import misc.Transmitter;
 import inetserver.Sockserver;
+import java.awt.Color;
+import javax.swing.SwingUtilities;
+import misc.Tools;
 
 /**
  *
@@ -24,6 +26,7 @@ public class WebServerGUI extends JInternalFrame
     public WebServerGUI()
     {
         initComponents();
+        button.setBackground(Color.RED);
     }
 
     /**
@@ -42,6 +45,10 @@ public class WebServerGUI extends JInternalFrame
         jLabel2 = new javax.swing.JLabel();
         button = new javax.swing.JToggleButton();
         transmitted = new javax.swing.JLabel();
+        fileTime = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        buffSizeTxt = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -84,6 +91,7 @@ public class WebServerGUI extends JInternalFrame
             jLabel2.setText("Port");
 
             button.setText("Start");
+            button.setDoubleBuffered(true);
             button.addActionListener(new java.awt.event.ActionListener()
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -99,25 +107,41 @@ public class WebServerGUI extends JInternalFrame
             transmitted.setDoubleBuffered(true);
             transmitted.setOpaque(true);
 
+            fileTime.setText("0");
+            fileTime.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+            jLabel4.setText("time:");
+
+            jLabel3.setText("Buffer");
+
+            buffSizeTxt.setText("113072");
+
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
-                            .addGap(34, 34, 34)))
+                            .addGap(18, 18, 18)
+                            .addComponent(portTxt))
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buffSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(38, 38, 38)
+                            .addGap(17, 17, 17)
                             .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                            .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fileTime, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
                         .addComponent(pathTxt))
                     .addContainerGap())
             );
@@ -128,11 +152,21 @@ public class WebServerGUI extends JInternalFrame
                         .addComponent(jLabel1)
                         .addComponent(pathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button)
-                        .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fileTime)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(buffSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 3, Short.MAX_VALUE))
+                        .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap())
             );
 
             pack();
@@ -150,8 +184,10 @@ public class WebServerGUI extends JInternalFrame
             // start server
             String path = pathTxt.getText();
             int port = Integer.parseInt(portTxt.getText());
-            sockserver = new Sockserver (port, path, this);
+            int buffSize = Integer.parseInt(buffSizeTxt.getText());
+            sockserver = new Sockserver (buffSize, port, path, this);
             button.setText("stop");
+            button.setBackground(Color.GREEN);
         }
         else
         {
@@ -159,22 +195,32 @@ public class WebServerGUI extends JInternalFrame
             sockserver.halt();
             sockserver = null;
             button.setText("start");
+            button.setBackground(Color.RED);
         }
     }//GEN-LAST:event_buttonActionPerformed
     
     /**
      * Called from webserver worker threads to update counter display
+     * @param byteCount
      */
-    public synchronized void showBytesTransmitted ()
+    public void showBytesTransmitted (long byteCount, long filetime)
     {
-        transmitted.setText(Transmitter.getCounter());
-        repaint();
+        SwingUtilities.invokeLater(() ->
+        {
+            transmitted.setText (Tools.humanReadableByteCount(byteCount));
+            fileTime.setText (Tools.humanReadableByteCount(filetime));
+            repaint();
+        });        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField buffSizeTxt;
     private javax.swing.JToggleButton button;
+    private javax.swing.JLabel fileTime;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField pathTxt;
     private javax.swing.JTextField portTxt;
     private javax.swing.JLabel transmitted;
