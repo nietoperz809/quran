@@ -58,7 +58,6 @@ public class MainWindow extends javax.swing.JFrame
                 {
                     savesMenu.remove(men); // Remove damaged entry
                     Tools.deleteSave(s);    
-                    //DebugOut.get().out.println(ex);
                 }
             });
             savesMenu.add(men);
@@ -77,33 +76,6 @@ public class MainWindow extends javax.swing.JFrame
         initSavesMenu();
     }
 
-    static class BackWindow extends JDesktopPane implements PathNames
-    {
-        private Image image;
-
-        public BackWindow()
-        {
-            this.setOpaque(false);
-            try
-            {
-                image = ImageIO.read(new File(BackImagePath));
-
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void paint(Graphics g)
-        {
-            int x = this.getWidth();
-            int y = this.getHeight();
-            g.drawImage(image, 0, 0, x, y, this);
-            super.paint(g);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,6 +120,7 @@ public class MainWindow extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        desktopPane.setDoubleBuffered(true);
         desktopPane.setPreferredSize(new java.awt.Dimension(400, 400));
 
         menuBar.setBackground(new java.awt.Color(255, 255, 255));
@@ -409,7 +382,7 @@ public class MainWindow extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
