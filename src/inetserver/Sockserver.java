@@ -9,6 +9,8 @@ import applications.WebServerGUI;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,21 +22,12 @@ public class Sockserver implements Runnable
 {
     private final int port;
     private final int buffSize;
-    private final String basePath;
     private ServerSocket server;
     private final WebServerGUI _gui;
+    private static final TreeSet<WebServerClient> _clients = new TreeSet<>();
 
-//    public Sockserver(int p, String s)
-//    {
-//        basePath = s;
-//        port = p;
-//        Thread t = new Thread(this);
-//        t.start();
-//    }
-
-    public Sockserver (int buffsz, int p, String s, WebServerGUI gui)
+    public Sockserver (int buffsz, int p, WebServerGUI gui)
     {
-        basePath = s;
         port = p;
         buffSize = buffsz;
         Thread t = new Thread(this);
@@ -52,14 +45,34 @@ public class Sockserver implements Runnable
         try
         {
             server.close();
+            haltClients();
             server = null;
         }
         catch (IOException ex)
         {
-            Logger.getLogger(Sockserver.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
     }
 
+    public static void removClient (WebServerClient ws)
+    {
+        _clients.remove(ws);
+    }
+    
+    private static void haltClients()
+    {
+        Iterator<WebServerClient> it = _clients.iterator();
+        
+        while (it.hasNext())
+        {
+            WebServerClient ws = it.next();
+            if (ws.isRunning())
+            {
+                ws.closeSocket();
+            }
+        }
+    }
+    
     @Override
     public void run()
     {
@@ -71,7 +84,8 @@ public class Sockserver implements Runnable
             while (true)
             {
                 Socket sock = server.accept();
-                new WebServerClient(buffSize, sock, basePath, _gui);
+                WebServerClient ws = new WebServerClient(buffSize, sock, _gui);
+                _clients.add(ws);
             }
         }
         catch (IOException ex)

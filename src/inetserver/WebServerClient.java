@@ -23,12 +23,11 @@ import transform.UrlEncodeUTF8;
  *
  * @author Administrator
  */
-public class WebServerClient implements Runnable
+public class WebServerClient implements Runnable, Comparable
 {
     private final Socket m_sock;
     private final int m_buffSize;
     private final Thread m_thread;
-    private final String rootPath;
     private final WebServerGUI _gui;
     private final UrlEncodeUTF8 m_urltransform;
     private static int instances;
@@ -38,13 +37,11 @@ public class WebServerClient implements Runnable
      *
      * @param b send buffer size
      * @param s communication socket
-     * @param rp web server root path
      * @param g GUI
      */
-    public WebServerClient(int b, Socket s, String rp, WebServerGUI g)
+    public WebServerClient(int b, Socket s, WebServerGUI g)
     {
         m_buffSize = b;
-        rootPath = rp;
         m_sock = s;
         m_urltransform = new UrlEncodeUTF8();
         _gui = g;
@@ -54,6 +51,11 @@ public class WebServerClient implements Runnable
         m_thread.start();
     }
 
+    public boolean isRunning()
+    {
+        return m_thread.isAlive();
+    }
+    
     /**
      * Is File MP4
      *
@@ -364,6 +366,19 @@ public class WebServerClient implements Runnable
         String[] out = in.readLine().split(" ");
         return out;
     }
+    
+    public void closeSocket()
+    {
+        try
+        {
+            m_sock.shutdownOutput();
+            m_sock.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
 
     private void perform() throws Exception
     {
@@ -409,7 +424,7 @@ public class WebServerClient implements Runnable
         {
             if (path.isEmpty())
             {
-                path = rootPath;
+                path = _gui.getBasePath();
             }
             imagePage(m_sock.getOutputStream(), out, path);
         }
@@ -425,6 +440,7 @@ public class WebServerClient implements Runnable
         try
         {
             perform();
+            Sockserver.removClient(this);
         }
         catch (Exception ex)
         {
@@ -434,5 +450,11 @@ public class WebServerClient implements Runnable
 
         System.out.println("-- Client");
         //instances--;
+    }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        return o.hashCode() - this.hashCode();
     }
 }

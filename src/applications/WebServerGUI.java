@@ -13,7 +13,7 @@ import misc.Tools;
 
 /**
  *
- * @author Administrator
+ * This is the GUI class for the web server
  */
 public class WebServerGUI extends JInternalFrame
 {
@@ -21,7 +21,7 @@ public class WebServerGUI extends JInternalFrame
     private Sockserver sockserver;
     
     /**
-     * Creates new form WebServerGUI
+     * Constructor: creates new form WebServerGUI
      */
     public WebServerGUI()
     {
@@ -29,6 +29,11 @@ public class WebServerGUI extends JInternalFrame
         button.setBackground(Color.RED);
     }
 
+//    public Sockserver getServer()
+//    {
+//        return sockserver;
+//    }
+//    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,20 +177,30 @@ public class WebServerGUI extends JInternalFrame
             pack();
         }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * called when this frame is closed
+     * @param evt 
+     */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        System.out.println("closed");
+        if (sockserver != null)
+            sockserver.halt();
     }//GEN-LAST:event_formInternalFrameClosed
 
+    public String getBasePath()
+    {
+        return pathTxt.getText();
+    }
+    
+    
     private void buttonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_buttonActionPerformed
     {//GEN-HEADEREND:event_buttonActionPerformed
         if (button.isSelected())
         {
             // start server
-            String path = pathTxt.getText();
             int port = Integer.parseInt(portTxt.getText());
             int buffSize = Integer.parseInt(buffSizeTxt.getText());
-            sockserver = new Sockserver (buffSize, port, path, this);
+            sockserver = new Sockserver (buffSize, port, this);
             button.setText("stop");
             button.setBackground(Color.GREEN);
         }
