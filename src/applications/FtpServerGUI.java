@@ -6,9 +6,9 @@
 package applications;
 
 import inetserver.PittiFtpServer;
+import java.awt.Color;
 import javax.swing.JInternalFrame;
 import misc.Tools;
-import misc.Transmitter;
 
 /**
  *
@@ -25,6 +25,7 @@ public class FtpServerGUI extends JInternalFrame
     public FtpServerGUI()
     {
         initComponents();
+        button.setBackground(Color.RED);
     }
 
     /**
@@ -113,13 +114,13 @@ public class FtpServerGUI extends JInternalFrame
                             .addComponent(jLabel2)
                             .addGap(34, 34, 34)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pathTxt)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(38, 38, 38)
                             .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                            .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(pathTxt))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                            .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap())
             );
             layout.setVerticalGroup(
@@ -129,11 +130,15 @@ public class FtpServerGUI extends JInternalFrame
                         .addComponent(jLabel1)
                         .addComponent(pathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button)
-                        .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 15, Short.MAX_VALUE))
+                        .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap())
             );
 
             pack();
@@ -150,12 +155,14 @@ public class FtpServerGUI extends JInternalFrame
         if (button.isSelected())
         {
             button.setText("stop");
+            button.setBackground(Color.GREEN);
             ftp = new PittiFtpServer (this, pathTxt.getText(), Integer.parseInt (portTxt.getText()));
             ftp.start();
         }
         else
         {
             button.setText("start");
+            button.setBackground(Color.RED);
             ftp.stop();
             ftp = null;
         }
