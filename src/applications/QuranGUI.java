@@ -207,32 +207,30 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         jPanel1.add(tf_aya, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 32, 60, -1));
 
         jLabel3.setText("Quran");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 4, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, -1, -1));
 
         combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combobox.addActionListener(this);
-        jPanel1.add(combobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 0, 132, -1));
+        jPanel1.add(combobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 132, -1));
 
         jButton1.setText("Recite");
         jButton1.setToolTipText("");
         jButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
         jButton1.addActionListener(this);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 56, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 70, -1));
 
         upButton.setText("+");
-        upButton.setMargin(new java.awt.Insets(2, 0, 2, 0));
         upButton.addActionListener(this);
-        jPanel1.add(upButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 32, 28, -1));
+        jPanel1.add(upButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 32, 40, -1));
 
         downButton.setText("-");
-        downButton.setMargin(new java.awt.Insets(2, 0, 2, 0));
         downButton.addActionListener(this);
-        jPanel1.add(downButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 32, 28, -1));
+        jPanel1.add(downButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 32, 40, -1));
 
         jButton2.setText("Tweet");
         jButton2.setMargin(new java.awt.Insets(2, 0, 2, 0));
         jButton2.addActionListener(this);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 58, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 70, -1));
 
         jButton3.setText("Copy");
         jButton3.setToolTipText("");
@@ -241,14 +239,12 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 56, -1));
 
         upButton1.setText("+");
-        upButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
         upButton1.addActionListener(this);
-        jPanel1.add(upButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 0, 28, -1));
+        jPanel1.add(upButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 0, 40, -1));
 
         downButton1.setText("-");
-        downButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
         downButton1.addActionListener(this);
-        jPanel1.add(downButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 28, -1));
+        jPanel1.add(downButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 40, -1));
 
         infoText.setEditable(false);
         infoText.setBackground(new java.awt.Color(102, 255, 204));
@@ -256,18 +252,18 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         infoText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         infoText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(infoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 660, 37));
-        jPanel1.add(seekText, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 33, 100, -1));
+        jPanel1.add(seekText, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 100, -1));
 
         seekButton.setText("Seek");
         seekButton.addActionListener(this);
-        jPanel1.add(seekButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 32, -1, -1));
+        jPanel1.add(seekButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         cpFromTo.setText("1/1");
         cpFromTo.setToolTipText("Select Aya from/to for copy");
         jPanel1.add(cpFromTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 60, -1));
 
         jLabel4.setText("-->");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
