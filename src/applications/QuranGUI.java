@@ -56,12 +56,6 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         return v;
     }
 
-    private void setSelectedVerse(int sura, int aya)
-    {
-        tf_sura.setText("" + sura);
-        tf_aya.setText("" + aya);
-    }
-
     // Initializer
     
     {
@@ -122,6 +116,13 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         showText();
     }
 
+    private void setSelectedVerse(int sura, int aya)
+    {
+        tf_sura.setText("" + sura);
+        tf_aya.setText("" + aya);
+        cpFromTo.setText (""+aya+"/"+aya);
+    }
+    
     private void showText()
     {
         try
@@ -178,7 +179,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         cpFromTo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        outText = new javax.swing.JLabel();
+        outText = new javax.swing.JTextPane();
 
         setClosable(true);
         setIconifiable(true);
@@ -267,15 +268,9 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        outText.setBackground(new java.awt.Color(0, 0, 0));
-        outText.setFont(new java.awt.Font("Arabic Typesetting", 1, 24)); // NOI18N
-        outText.setForeground(new java.awt.Color(255, 255, 255));
-        outText.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        outText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        outText.setAutoscrolls(true);
-        outText.setDoubleBuffered(true);
-        outText.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        outText.setOpaque(true);
+        outText.setBackground(new java.awt.Color(255, 255, 255));
+        outText.setContentType("text/html"); // NOI18N
+        outText.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(outText);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -575,7 +570,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel outText;
+    private javax.swing.JTextPane outText;
     private javax.swing.JButton seekButton;
     private javax.swing.JTextField seekText;
     private javax.swing.JTextField tf_aya;

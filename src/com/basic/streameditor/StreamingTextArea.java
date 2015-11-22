@@ -19,6 +19,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
+import misc.Tools;
 
 /**
  *
@@ -26,6 +27,7 @@ import javax.swing.text.JTextComponent;
  */
 public class StreamingTextArea extends JTextArea implements Runnable
 {
+    private static final long serialVersionUID = 1L;
     private final RingBuffer<Character> inBuffer;
     private final InStream in;
 
@@ -154,32 +156,11 @@ public class StreamingTextArea extends JTextArea implements Runnable
         return out;
     }
 
-    private String getClipboard()
-    {
-        Clipboard clipboard = getDefaultToolkit().getSystemClipboard();
-        Transferable clipData = clipboard.getContents(clipboard);
-        if (clipData != null)
-        {
-            try
-            {
-                if (clipData.isDataFlavorSupported(stringFlavor))
-                {
-                    String s = (String) (clipData.getTransferData(stringFlavor));
-                    return s;
-                }
-            }
-            catch (UnsupportedFlavorException | IOException ufe)
-            {
-            }
-        }
-        return null;
-    }
-
     @Override
     public void paste()
     {
         super.paste();
-        String s = getClipboard();
+        String s = Tools.getClipBoardString();
         for (int n = 0; n < s.length(); n++)
         {
             try
@@ -256,6 +237,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
 
     class FancyCaret extends DefaultCaret
     {
+        private static final long serialVersionUID = 1L;
         @Override
         protected synchronized void damage(Rectangle r)
         {

@@ -10,8 +10,12 @@ import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
+import static java.awt.Toolkit.getDefaultToolkit;
 import java.awt.datatransfer.Clipboard;
+import static java.awt.datatransfer.DataFlavor.stringFlavor;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -275,6 +279,31 @@ public class Tools
         return ret;
     }
 
+    /**
+     *
+     * @return
+     */
+    public static String getClipBoardString()
+    {
+        Clipboard clipboard = getDefaultToolkit().getSystemClipboard();
+        Transferable clipData = clipboard.getContents(clipboard);
+        if (clipData != null)
+        {
+            try
+            {
+                if (clipData.isDataFlavorSupported(stringFlavor))
+                {
+                    String s = (String) (clipData.getTransferData(stringFlavor));
+                    return s;
+                }
+            }
+            catch (UnsupportedFlavorException | IOException ufe)
+            {
+            }
+        }
+        return null;
+    }
+    
     public static void toClipBoard(final String s)
     {
         StringSelection selection = new StringSelection(s);
