@@ -3,46 +3,32 @@
  */
 package misc;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FileDialog;
-import java.awt.Frame;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Toolkit;
-import static java.awt.Toolkit.getDefaultToolkit;
-import java.awt.datatransfer.Clipboard;
-import static java.awt.datatransfer.DataFlavor.stringFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import transform.Transformation;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
-import javax.swing.JTextField;
-import transform.Transformation;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.awt.Toolkit.getDefaultToolkit;
+import static java.awt.datatransfer.DataFlavor.stringFlavor;
 
 /**
  *
@@ -50,6 +36,7 @@ import transform.Transformation;
  */
 public class Tools
 {
+
     public static String humanReadableByteCount(long bytes, boolean si)
     {
         int unit = si ? 1000 : 1024;
@@ -89,13 +76,14 @@ public class Tools
         }
         catch (IOException ex)
         {
+            System.err.println("LoadImage fail");
         }
         return null;
     }
 
     public static boolean saveImage(String name, BufferedImage img, boolean jpg)
     {
-        if (jpg == true)
+        if (jpg)
         {
             if (!name.endsWith(".jpg"))
             {
@@ -112,7 +100,7 @@ public class Tools
         File f = new File(name);
         try
         {
-            if (jpg == true)
+            if (jpg)
             {
                 ImageIO.write(img, "jpg", f);
             }
@@ -129,19 +117,13 @@ public class Tools
         return true;
     }
 
-    public static boolean saveImage(BufferedImage img, boolean jpg)
-    {
-        if (img == null)
-        {
+    public static boolean saveImage(BufferedImage img, boolean jpg) {
+        if (img == null) {
             return false;
         }
         FileDialog fd = new FileDialog((Frame) null, "Save", FileDialog.SAVE);
         fd.setVisible(true);
-        if (fd.getFile() == null)
-        {
-            return false;
-        }
-        return saveImage(fd.getDirectory() + fd.getFile(), img, jpg);
+        return fd.getFile() != null && saveImage(fd.getDirectory() + fd.getFile(), img, jpg);
     }
 
     /**
@@ -240,7 +222,7 @@ public class Tools
         }
     }
 
-    static final String m_path = "../ser/";
+    private static final String m_path = "../ser/";
 
     /**
      * Create a save
@@ -312,12 +294,12 @@ public class Tools
             {
                 if (clipData.isDataFlavorSupported(stringFlavor))
                 {
-                    String s = (String) (clipData.getTransferData(stringFlavor));
-                    return s;
+                    return (String) (clipData.getTransferData(stringFlavor));
                 }
             }
             catch (UnsupportedFlavorException | IOException ufe)
             {
+                System.err.println("getClipoardString fail");
             }
         }
         return null;
@@ -333,7 +315,7 @@ public class Tools
     public static String removeHTML(String s)
     {
         s = s.replace("<br>", "\n");
-        s = s.replaceAll("\\<.*?>", "");
+        s = s.replaceAll("<.*?>", "");
         return s;
     }
 
@@ -365,7 +347,6 @@ public class Tools
      *
      * @param path package (as "hello/world/uh" instead of hello.world.uh)
      * @return String array with all names
-     * @throws Exception
      */
     public static String[] listPackage(String path)
     {
