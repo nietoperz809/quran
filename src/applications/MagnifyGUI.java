@@ -128,6 +128,7 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
         jButton3 = new javax.swing.JButton();
         checkHide = new javax.swing.JCheckBox();
         autoSaveText = new javax.swing.JTextField();
+        JpgCheck = new javax.swing.JCheckBox();
         magnifyPanel = new magnify.MagnifyPanel(this);
 
         setClosable(true);
@@ -198,6 +199,8 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
             }
         });
 
+        JpgCheck.setText("Save as Jpg");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -210,16 +213,18 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(checkHide)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(218, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JpgCheck)))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,13 +233,14 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
                     .addComponent(jButton1)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(checkHide)
-                    .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JpgCheck))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -276,7 +282,7 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
     // Save
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
-        ((MagnifyPanel) magnifyPanel).save();
+        ((MagnifyPanel) magnifyPanel).save(JpgCheck.isSelected());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void autoSaveTextActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_autoSaveTextActionPerformed
@@ -319,6 +325,7 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
 
     private boolean autoSaveChanged;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox JpgCheck;
     private javax.swing.JTextField autoSaveText;
     private javax.swing.JCheckBox checkHide;
     private javax.swing.JButton jButton1;

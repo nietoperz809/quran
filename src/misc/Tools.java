@@ -93,16 +93,33 @@ public class Tools
         return null;
     }
 
-    public static boolean saveImage(String name, BufferedImage img)
+    public static boolean saveImage(String name, BufferedImage img, boolean jpg)
     {
-        if (!name.endsWith(".png"))
+        if (jpg == true)
         {
-            name = name + ".png";
+            if (!name.endsWith(".jpg"))
+            {
+                name = name + ".jpg";
+            }
+        }
+        else
+        {
+            if (!name.endsWith(".png"))
+            {
+                name = name + ".png";
+            }
         }
         File f = new File(name);
         try
         {
-            ImageIO.write(img, "png", f);
+            if (jpg == true)
+            {
+                ImageIO.write(img, "jpg", f);
+            }
+            else
+            {
+                ImageIO.write(img, "png", f);
+            }
         }
         catch (IOException ex)
         {
@@ -112,7 +129,7 @@ public class Tools
         return true;
     }
 
-    public static boolean saveImage(BufferedImage img)
+    public static boolean saveImage(BufferedImage img, boolean jpg)
     {
         if (img == null)
         {
@@ -124,7 +141,7 @@ public class Tools
         {
             return false;
         }
-        return saveImage(fd.getDirectory() + fd.getFile(), img);
+        return saveImage(fd.getDirectory() + fd.getFile(), img, jpg);
     }
 
     /**
@@ -138,7 +155,9 @@ public class Tools
     public static BufferedImage resizeImage(BufferedImage originalImage, int b, int h)
     {
         if (originalImage == null)
+        {
             return null;
+        }
         int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
         BufferedImage resizedImage = new BufferedImage(b, h, type);
         Graphics2D g = resizedImage.createGraphics();
@@ -303,7 +322,7 @@ public class Tools
         }
         return null;
     }
-    
+
     public static void toClipBoard(final String s)
     {
         StringSelection selection = new StringSelection(s);

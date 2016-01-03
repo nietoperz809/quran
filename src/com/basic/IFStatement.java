@@ -90,7 +90,7 @@ class IFStatement extends Statement
         sb.append(" THEN ");
         if (thenClause == null)
         {
-            sb.append(lineTarget + "");
+            sb.append(lineTarget).append("");
             return sb.toString();
         }
         for (qq = thenClause; qq != null; qq = qq.nxt)

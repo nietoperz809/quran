@@ -88,7 +88,7 @@ class PrintItem implements Ser
             case STRING_VARIABLE:
                 return ((Variable) thing).unparse();
             case STRING_CONSTANT:
-                return ("\"" + (String) thing + "\"");
+                return "\"" + (String) thing + "\"";
             case TAB:
                 return (", ");
             case SEMI:

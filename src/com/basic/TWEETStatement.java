@@ -128,7 +128,6 @@ class TWEETStatement extends Statement
 
     private static void parse(TWEETStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        Token t;
         s.args = parseStringExpression(lt);
     }
 

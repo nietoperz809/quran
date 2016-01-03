@@ -54,9 +54,8 @@ class ParseStatement extends Statement
      */
     static Statement statement(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        Statement s = doParse(lt);
         // DebugOut.get().out.println("UNPARSE = '"+s.unparse()+"'");
-        return s;
+        return doParse(lt);
     }
 
     /**

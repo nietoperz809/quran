@@ -13,5 +13,5 @@ import java.io.Serializable;
  */
 public interface Ser extends Serializable
 {
-    public static final long serialVersionUID = 1L;
+    long serialVersionUID = 1L;
 }

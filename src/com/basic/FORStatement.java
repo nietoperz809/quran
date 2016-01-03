@@ -143,7 +143,6 @@ class FORStatement extends Statement
         }
         s.sExp = ParseExpression.expression(lt);
         noBool(s.sExp);
-        return;
     }
 
 }

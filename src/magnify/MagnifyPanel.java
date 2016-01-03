@@ -173,16 +173,16 @@ public class MagnifyPanel extends javax.swing.JPanel
             savCtr++;
             fname = path + "img" + savCtr + ".png";
         } while (new File(fname).exists());
-        Tools.saveImage(fname, _image);
+        Tools.saveImage(fname, _image, false);
     }
     
-    public boolean save()
+    public boolean save(boolean jpeg)
     {
         if (_image == null)
         {
             return false;
         }
-        return Tools.saveImage (_image);
+        return Tools.saveImage (_image, jpeg);
     }
     
     public boolean toClipboard()

@@ -60,12 +60,11 @@ class LETStatement extends Statement
 
     String unparse()
     {
-        StringBuffer sb = new StringBuffer();
-        sb.append("LET ");
-        sb.append(myVar.unparse());
-        sb.append(" = ");
-        sb.append(nExp.unparse());
-        return sb.toString();
+        String sb = "LET " +
+                myVar.unparse() +
+                " = " +
+                nExp.unparse();
+        return sb;
     }
 
     /**

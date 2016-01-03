@@ -137,7 +137,7 @@ enum KeyWords
     /**
      * @param text
      */
-    private KeyWords(final String text)
+    KeyWords(final String text)
     {
         this.text = text;
     }

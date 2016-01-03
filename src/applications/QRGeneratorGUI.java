@@ -192,7 +192,7 @@ public class QRGeneratorGUI extends MDIChild implements ActionListener
     {//GEN-HEADEREND:event_jButton7ActionPerformed
         int newsize = Integer.parseInt(sizeField.getText());
         BufferedImage img2 = Tools.resizeImage(_img, newsize, newsize);
-        Tools.saveImage(img2);
+        Tools.saveImage(img2, false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
 

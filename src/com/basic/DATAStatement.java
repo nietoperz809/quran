@@ -62,7 +62,7 @@ class DATAStatement extends Statement
             Token t = (Token) args.elementAt(i);
             if (i < (args.size() - 1))
             {
-                sb.append(t.unparse() + ", ");
+                sb.append(t.unparse()).append(", ");
             }
             else
             {

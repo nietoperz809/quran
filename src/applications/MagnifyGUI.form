@@ -56,6 +56,8 @@
                           <Component id="spinX" min="-2" pref="68" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="spinY" min="-2" pref="68" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="autoSaveText" min="-2" pref="133" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
@@ -63,11 +65,11 @@
                           <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="checkHide" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="autoSaveText" min="-2" pref="133" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="JpgCheck" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="218" max="32767" attributes="0"/>
+                  <EmptySpace pref="219" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -79,6 +81,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="spinY" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spinX" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="autoSaveText" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -86,7 +89,7 @@
                       <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkHide" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="autoSaveText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="JpgCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -145,6 +148,11 @@
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="autoSaveTextFocusLost"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoSaveTextActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="JpgCheck">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Save as Jpg"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

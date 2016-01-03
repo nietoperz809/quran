@@ -264,11 +264,7 @@ public class Program implements Runnable, Serializable
      */
     boolean del(int line)
     {
-        if (stmts.remove(new Integer(line)) == null)
-        {
-            return false;
-        }
-        return true;
+        return stmts.remove(new Integer(line)) != null;
     }
 
     /**
@@ -410,7 +406,7 @@ public class Program implements Runnable, Serializable
         {
             return s.nxt;
         }
-        return ((Statement) stmts.next(s.line));
+        return stmts.next(s.line);
     }
 
     /**
@@ -418,8 +414,7 @@ public class Program implements Runnable, Serializable
      */
     Statement getStatement(int line)
     {
-        Statement s = (Statement) stmts.get(new Integer(line));
-        return s;
+        return (Statement) stmts.get(new Integer(line));
     }
 
     /**

@@ -181,7 +181,7 @@ class FunctionExpression extends Expression
                     }
                     return 0.0;
                 case VAL:
-                    Double dd = null;
+                    Double dd;
                     String zz = (arg2.stringValue(p)).trim();
                     try
                     {

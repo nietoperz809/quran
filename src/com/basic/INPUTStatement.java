@@ -81,14 +81,14 @@ class INPUTStatement extends Statement
         sb.append("INPUT ");
         if (prompt != null)
         {
-            sb.append("\"" + prompt + "\"; ");
+            sb.append("\"").append(prompt).append("\"; ");
         }
         for (int i = 0; i < args.size(); i++)
         {
             Variable va = (Variable) args.elementAt(i);
             if (i < (args.size() - 1))
             {
-                sb.append(va.unparse() + ", ");
+                sb.append(va.unparse()).append(", ");
             }
             else
             {
@@ -242,8 +242,6 @@ class INPUTStatement extends Statement
 
     String getString(DataInputStream in, PrintStream out, String prompt) throws BASICRuntimeError
     {
-        int oldPos = currentPos;
-        int sIndex, eIndex;
         StringBuffer sb = new StringBuffer();
 
         if (currentPos >= buffer.length)

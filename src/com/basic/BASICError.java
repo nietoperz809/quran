@@ -24,14 +24,14 @@ package com.basic;
  * @see BASICSyntaxError
  * @see BASICRuntimeError
  */
-public class BASICError extends Exception implements Ser 
+class BASICError extends Exception implements Ser
 {
-    String msg = "None.";
-    Statement s = null;
+    private String msg = "None.";
+    private Statement s = null;
 
     /** A new runtime error with message <i>errorMessage</i>.
      * @param errorMessage */
-    public BASICError(String errorMessage) {
+    BASICError(String errorMessage) {
         super(errorMessage);
         msg = errorMessage;
     }
@@ -50,7 +50,7 @@ public class BASICError extends Exception implements Ser
      * of the error you've caught.
      * @return 
      */
-    public String getMsg() {
+    String getMsg() {
         if (s != null)
             return (msg+"\n At line :"+s.asString());
         return msg;

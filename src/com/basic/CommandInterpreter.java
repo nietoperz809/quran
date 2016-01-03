@@ -63,7 +63,6 @@ public class CommandInterpreter implements Serializable
     Program processCommand(Program pgm, LexicalTokenizer lt, Token x) throws Exception
     {
         Token t;
-        Statement s = null;
 
         switch (x.kwValue) 
         {
