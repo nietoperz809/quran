@@ -1,25 +1,19 @@
 package com.basic.streameditor;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import static java.awt.Toolkit.getDefaultToolkit;
-import java.awt.datatransfer.Clipboard;
-import static java.awt.datatransfer.DataFlavor.stringFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import javax.swing.JTextArea;
+import misc.Tools;
+
+import javax.swing.*;
 import javax.swing.event.CaretEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
-import misc.Tools;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  *
@@ -35,7 +29,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
     private final OutStream out;
 
     private transient Thread thread;
-    boolean running = true;
+    private boolean running = true;
 
     private int linenum = 0;
 

@@ -391,6 +391,11 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
     private void tf_ayaKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_tf_ayaKeyReleased
     {//GEN-HEADEREND:event_tf_ayaKeyReleased
         showText();
+        String s = tf_aya.getText();
+        if (s.isEmpty())
+            return;
+        cpFromTo.setText (s+"/"+s);
+
     }//GEN-LAST:event_tf_ayaKeyReleased
 
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_upButtonActionPerformed
