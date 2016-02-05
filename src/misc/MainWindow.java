@@ -24,7 +24,7 @@ import net.propero.rdp.RdpParamDialog;
 import quran.QuranMetadata;
 
 /**
- *
+ * $id:$
  * @author Administrator
  */
 public class MainWindow extends javax.swing.JFrame
