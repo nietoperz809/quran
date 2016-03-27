@@ -37,19 +37,19 @@ public class Token implements Serializable
     /**
      *
      */
-    protected KeyWords type;     // this token's type
+    public KeyWords type;     // this token's type
 
     /**
      *
      */
-    protected double nValue;     // Its numeric value (if it has one)
+    public double nValue;     // Its numeric value (if it has one)
 
     /**
      *
      */
     protected String sValue;     // Its string value (if it has one)
 
-    protected KeyWords kwValue;
+    public KeyWords kwValue;
     
     /**
      *
@@ -103,17 +103,17 @@ public class Token implements Serializable
         nValue = kw.ordinal();
     }
     
-    double numValue()
+    public double numValue ()
     {
         return nValue;
     }
 
-    String stringValue()
+    public String stringValue ()
     {
         return sValue;
     }
 
-    KeyWords typeNum()
+    public KeyWords typeNum ()
     {
         return type;
     }
@@ -123,7 +123,7 @@ public class Token implements Serializable
         return type.toString();
     }
 
-    String unparse()
+    public String unparse ()
     {
         switch (type)
         {
@@ -142,17 +142,17 @@ public class Token implements Serializable
         return ("TOKEN: Type=" + type.toString() + ", Numeric Value = " + nValue + ", String Value = '" + sValue + "'");
     }
 
-    boolean isSymbol(char c)
+    public boolean isSymbol (char c)
     {
         return isSymbol(this, c);
     }
 
-    boolean isOp(KeyWords op)
+    public boolean isOp (KeyWords op)
     {
         return ((type == KeyWords.OPERATOR) && kwValue == op); //((int) nValue == op));
     }
 
-    void negate()
+    public void negate ()
     {
         if (type != KeyWords.CONSTANT)
         {

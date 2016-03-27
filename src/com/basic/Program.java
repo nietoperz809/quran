@@ -17,6 +17,8 @@
  */
 package com.basic;
 
+import com.basic.statement.ParseStatement;
+import com.basic.statement.Statement;
 import com.basic.streameditor.StreamingTextArea;
 import com.basic.util.RedBlackTree;
 import com.sun.speech.freetts.Voice;
@@ -55,7 +57,7 @@ public class Program implements Runnable, Serializable
 {
     public static final long serialVersionUID = 1L;
 
-    Voice voice;  // Speech synth
+    public Voice voice;  // Speech synth
     
     public StreamingTextArea area;
     public boolean basic_prg_running = true;  // Program basic_prg_running
@@ -84,12 +86,12 @@ public class Program implements Runnable, Serializable
         voice = v;
     }
 
-    void trace(boolean a)
+    public void trace (boolean a)
     {
         traceState = a;
     }
 
-    void trace(boolean a, String f)
+    public void trace (boolean a, String f)
     {
         if (traceFile == null)
         {
@@ -106,12 +108,12 @@ public class Program implements Runnable, Serializable
         trace(a);
     }
 
-    Random getRandom()
+    public Random getRandom ()
     {
         return r;
     }
 
-    void randomize(double seed)
+    public void randomize (double seed)
     {
         r = new Random((long) seed);
     }
@@ -287,7 +289,7 @@ public class Program implements Runnable, Serializable
      * @throws BASICRuntimeError if the variable isn't defined.
      *
      */
-    double getVariable(Variable v) throws BASICRuntimeError
+    public double getVariable (Variable v) throws BASICRuntimeError
     {
         Variable vi = vars.get(v.name);
         if (vi == null)
@@ -327,7 +329,7 @@ public class Program implements Runnable, Serializable
      * is the first time we have seen the variable, create a place for it in the
      * symbol table.
      */
-    void setVariable(Variable v, double value) throws BASICRuntimeError
+    public void setVariable (Variable v, double value) throws BASICRuntimeError
     {
         Variable vi = vars.get(v.name);
         if (vi == null)
@@ -356,7 +358,7 @@ public class Program implements Runnable, Serializable
      * Set the string variable named <i>name</i> to have the value <i>value</i>.
      * If this is the first use of the variable it is created.
      */
-    void setVariable(Variable v, String value) throws BASICRuntimeError
+    public void setVariable (Variable v, String value) throws BASICRuntimeError
     {
         Variable vi = vars.get(v.name);
         if (vi == null)
@@ -382,7 +384,7 @@ public class Program implements Runnable, Serializable
      * nature of arrays we force them to be declared before they can be used.
      * This is common to most BASIC implementations.
      */
-    void declareArray(Variable v) throws BASICRuntimeError
+    public void declareArray (Variable v) throws BASICRuntimeError
     {
         Variable vi;
         int ii[] = getIndices(v);
@@ -396,7 +398,7 @@ public class Program implements Runnable, Serializable
      * <i>nxt</i> pointer use that one, otherwise use the next one in the
      * program numerically.
      */
-    Statement nextStatement(Statement s)
+    public Statement nextStatement (Statement s)
     {
         if (s == null)
         {
@@ -412,7 +414,7 @@ public class Program implements Runnable, Serializable
     /**
      * Return the statment whose line number is <i>line</i>
      */
-    Statement getStatement(int line)
+    public Statement getStatement (int line)
     {
         return (Statement) stmts.get(new Integer(line));
     }
@@ -716,7 +718,7 @@ public class Program implements Runnable, Serializable
     /**
      * Push this statement on the stack (one of FOR, GOSUB, or STOP)
      */
-    void push(Statement s)
+    public void push (Statement s)
     {
         stmtStack.push(s);
     }
@@ -724,7 +726,7 @@ public class Program implements Runnable, Serializable
     /**
      * Pop the next statement off the stack, return NULL if the stack is empty.
      */
-    Statement pop()
+    public Statement pop ()
     {
         if (stmtStack.isEmpty())
         {
@@ -736,7 +738,7 @@ public class Program implements Runnable, Serializable
     /**
      * Add a token to the data FIFO.
      */
-    void pushData(Token t)
+    public void pushData (Token t)
     {
         dataStore.addElement(t);
     }
@@ -744,7 +746,7 @@ public class Program implements Runnable, Serializable
     /**
      * Get the next token in the FIFO, return null if the FIFO is empty.
      */
-    Token popData()
+    public Token popData ()
     {
         if (dataPtr > (dataStore.size() - 1))
         {
@@ -756,7 +758,7 @@ public class Program implements Runnable, Serializable
     /**
      * Reset the data FIFO back to the beginning.
      */
-    void resetData()
+    public void resetData ()
     {
         dataPtr = 0;
     }

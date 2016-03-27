@@ -17,6 +17,8 @@
  */
 package com.basic;
 
+import com.basic.statement.ParseStatement;
+import com.basic.statement.Statement;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;

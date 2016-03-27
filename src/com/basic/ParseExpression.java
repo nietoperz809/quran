@@ -44,7 +44,7 @@ package com.basic;
  * >, >= 2. &, |, ^ 3. +, - 4. *, / 5. ** 6. unary -, unary !, unary .NOT.
  *
  */
-class ParseExpression extends Expression
+public class ParseExpression extends Expression
 {
 
     static Expression element(LexicalTokenizer lt) throws BASICSyntaxError
@@ -290,7 +290,7 @@ class ParseExpression extends Expression
         return result;
     }
 
-    static Expression expression(LexicalTokenizer lt) throws BASICSyntaxError
+    public static Expression expression (LexicalTokenizer lt) throws BASICSyntaxError
     {
         Expression result;
         Token t;

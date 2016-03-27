@@ -24,7 +24,7 @@ class StringExpression extends Expression {
         super(op, a, b);
     }
 
-    double value(Program pgm) throws BASICRuntimeError {
+    public double value (Program pgm) throws BASICRuntimeError {
         switch (oper) {
             case OP_EQ:
                 return (arg1.stringValue(pgm).compareTo(arg2.stringValue(pgm)) == 0) ? 1 : 0;
@@ -54,11 +54,11 @@ class StringExpression extends Expression {
         }
     }
 
-    String stringValue(Program pgm) throws BASICRuntimeError {
+    public String stringValue (Program pgm) throws BASICRuntimeError {
         return stringValue(pgm, 0);
     }
 
-    boolean isString() {
+    public boolean isString () {
         return true;
     }
 }

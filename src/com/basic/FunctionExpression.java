@@ -33,7 +33,7 @@ import java.util.Random;
  * Parsing of the arguments to to the function are left up to the parse method
  * in this class.
  */
-class FunctionExpression extends Expression
+public class FunctionExpression extends Expression
 {
     Expression sVar; // STRING function variable.
 
@@ -72,7 +72,7 @@ class FunctionExpression extends Expression
     Random r;
 
     @Override
-    void print(PrintStream p)
+    public void print (PrintStream p)
     {
         p.print(oper.toString().toUpperCase());
         p.print("(");
@@ -93,7 +93,7 @@ class FunctionExpression extends Expression
     }
 
     @Override
-    String unparse()
+    public String unparse ()
     {
         StringBuilder sb = new StringBuilder();
 
@@ -130,7 +130,7 @@ class FunctionExpression extends Expression
     }
 
     @Override
-    double value(Program p) throws BASICRuntimeError
+    public double value (Program p) throws BASICRuntimeError
     {
         try
         {
@@ -210,7 +210,7 @@ class FunctionExpression extends Expression
     }
 
     @Override
-    boolean isString()
+    public boolean isString ()
     {
         switch (oper)
         {
@@ -229,7 +229,7 @@ class FunctionExpression extends Expression
     }
 
     @Override
-    String stringValue(Program pgm) throws BASICRuntimeError
+    public String stringValue (Program pgm) throws BASICRuntimeError
     {
         return stringValue(pgm, 0);
     }
@@ -307,7 +307,7 @@ class FunctionExpression extends Expression
      * Parse a function argument. This code pulls off the '(' and ')' around the
      * arguments passed to the function and parses them.
      */
-    static FunctionExpression parse(KeyWords ty, LexicalTokenizer lt) throws BASICSyntaxError
+    public static FunctionExpression parse (KeyWords ty, LexicalTokenizer lt) throws BASICSyntaxError
     {
         FunctionExpression result;
         Expression a;

@@ -69,9 +69,9 @@ public class Expression implements Ser
 
     final static String typeError
             = "Expression: cannot combine boolean term with arithmetic term.";
-    Expression arg1;
-    Expression arg2;
-    KeyWords oper;
+    public Expression arg1;
+    public Expression arg2;
+    public KeyWords oper;
 
     protected Expression()
     {
@@ -99,7 +99,7 @@ public class Expression implements Ser
         oper = op;
     }
 
-    void print(PrintStream p)
+    public void print (PrintStream p)
     {
         p.print("(");
         // unary expressions don't have an arg1.
@@ -127,7 +127,7 @@ public class Expression implements Ser
         return sb.toString();
     }
 
-    String unparse()
+    public String unparse ()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
@@ -145,7 +145,7 @@ public class Expression implements Ser
      * Generate a set of trace records for this expression. All of the variables
      * in the expression are added to the tracer vector.
      */
-    void trace(RedBlackTree tracer)
+    public void trace (RedBlackTree tracer)
     {
         if (arg1 != null)
         {
@@ -165,7 +165,7 @@ public class Expression implements Ser
      * Note that for boolean operations the value 1.0 == true and the value 0.0
      * is equivalent to false.
      */
-    double value(Program pgm) throws BASICRuntimeError
+    public double value (Program pgm) throws BASICRuntimeError
     {
         switch (oper)
         {
@@ -223,12 +223,12 @@ public class Expression implements Ser
         throw new BASICRuntimeError("No String representation for this.");
     }
 
-    String stringValue(Program pgm) throws BASICRuntimeError
+    public String stringValue (Program pgm) throws BASICRuntimeError
     {
         throw new BASICRuntimeError("No String representation for this.");
     }
 
-    boolean isString()
+    public boolean isString ()
     {
         return false;
     }

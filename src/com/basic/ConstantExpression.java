@@ -22,12 +22,12 @@ import java.io.PrintStream;
 /**
  * This class implements the simplest possible expression, a constant.
  */
-class ConstantExpression extends Expression
+public class ConstantExpression extends Expression
 {
     private double v;
     private String strCons;
 
-    ConstantExpression(double a)
+    public ConstantExpression (double a)
     {
         super();
         v = a;
@@ -39,12 +39,12 @@ class ConstantExpression extends Expression
         strCons = a;
     }
 
-    void print(PrintStream p)
+    public void print (PrintStream p)
     {
         p.print((strCons == null) ? v + " " : strCons);
     }
 
-    double value(Program pgm) throws BASICRuntimeError
+    public double value (Program pgm) throws BASICRuntimeError
     {
         if (strCons != null)
         {
@@ -53,7 +53,7 @@ class ConstantExpression extends Expression
         return v;
     }
 
-    String unparse()
+    public String unparse ()
     {
         if (strCons != null)
         {
@@ -71,7 +71,7 @@ class ConstantExpression extends Expression
         return "" + v;
     }
 
-    String stringValue(Program pgm) throws BASICRuntimeError
+    public String stringValue (Program pgm) throws BASICRuntimeError
     {
         if (strCons != null)
         {
@@ -80,7 +80,7 @@ class ConstantExpression extends Expression
         return "" + v;
     }
 
-    boolean isString()
+    public boolean isString ()
     {
         return (strCons != null);
     }

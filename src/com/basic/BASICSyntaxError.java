@@ -17,6 +17,8 @@
  */
 package com.basic;
 
+import com.basic.statement.Statement;
+
 /**
  * Thrown by the parser if it can't parse an input line.
  */

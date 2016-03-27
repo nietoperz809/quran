@@ -17,6 +17,8 @@
  */
 package com.basic;
 
+import com.basic.statement.Statement;
+
 /**
  * Thrown by the parser if it can't parse an input line.
  */
@@ -30,7 +32,7 @@ public class BASICRuntimeError extends BASICError
         super(errorMessage);
     }
 
-    BASICRuntimeError(Statement thisStatement, String errorMessage) {
+    public BASICRuntimeError (Statement thisStatement, String errorMessage) {
         super(thisStatement, errorMessage);
     }
 

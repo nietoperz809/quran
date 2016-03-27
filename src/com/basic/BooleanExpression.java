@@ -21,7 +21,7 @@ package com.basic;
  * This class implements Boolean expression parsing and evaluation. unlike
  * normal arithmetic expressions, boolean expressions are only true or false.
  */
-class BooleanExpression extends Expression
+public class BooleanExpression extends Expression
 {
     BooleanExpression(KeyWords t, Expression a, Expression b) throws BASICSyntaxError
     {
@@ -34,7 +34,7 @@ class BooleanExpression extends Expression
     }
 
     @Override
-    double value(Program pgm) throws BASICRuntimeError
+    public double value (Program pgm) throws BASICRuntimeError
     {
         if (arg1 != null && arg2 != null)
         {

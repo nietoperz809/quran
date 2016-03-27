@@ -20,18 +20,18 @@ package com.basic;
 import com.basic.util.StaticFuncs;
 import java.io.PrintStream;
 
-class PrintItem implements Ser
+public class PrintItem implements Ser
 {
-    final static int EXPRESSION = 0;
+    public final static int EXPRESSION = 0;
     final static int STRING_VARIABLE = 1;
     final static int STRING_CONSTANT = 2;
-    final static int TAB = 3;
-    final static int SEMI = 4;
+    public final static int TAB = 3;
+    public final static int SEMI = 4;
 
     private int type;
     private Object thing;
 
-    PrintItem(int t, Object o)
+    public PrintItem(int t, Object o)
     {
         type = t;
         thing = o;
@@ -40,7 +40,7 @@ class PrintItem implements Ser
     private static final String S_TAB = "\t";
     private static final String S_SEMI = "";
 
-    String value(Program pgm, int c) throws BASICRuntimeError
+    public String value (Program pgm, int c) throws BASICRuntimeError
     {
         switch (type)
         {
@@ -74,12 +74,12 @@ class PrintItem implements Ser
         }
     }
 
-    boolean needCR()
+    public boolean needCR ()
     {
         return ((type != TAB) && (type != SEMI));
     }
 
-    String unparse()
+    public String unparse ()
     {
         switch (type)
         {

@@ -11,7 +11,7 @@ import java.util.EnumSet;
  *
  * @author Administrator
  */
-enum KeyWords
+public enum KeyWords
 {
     GOTO("goto"),
     GOSUB("gosub"),

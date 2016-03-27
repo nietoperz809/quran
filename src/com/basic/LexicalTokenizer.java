@@ -153,7 +153,7 @@ public class LexicalTokenizer implements Serializable
      * function is used extensively by the parser to "peek" ahead in the input
      * stream.
      */
-    void unGetToken()
+    public void unGetToken ()
     {
         if (currentPos != previousPos)
         {
@@ -339,7 +339,7 @@ public class LexicalTokenizer implements Serializable
      * tokenizer buffer. If the token isn't recognized an ERROR token will be
      * returned.
      */
-    Token nextToken()
+    public Token nextToken ()
     {
         Token r;
         // if we recurse then we need to know what the position was
@@ -590,7 +590,7 @@ public class LexicalTokenizer implements Serializable
     /*
      * Return the buffer from the current position to the end as a string.
      */
-    String asString()
+    public String asString ()
     {
         int ndx = currentPos;
 

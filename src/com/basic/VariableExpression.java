@@ -24,24 +24,24 @@ import java.io.PrintStream;
  * This class implements an expression that is simply a variable. Or more
  * correctly the value of that variable.
  */
-class VariableExpression extends Expression
+public class VariableExpression extends Expression
 {
     private final Variable v;
 
-    VariableExpression(Variable a)
+    public VariableExpression (Variable a)
     {
         super();
         v = a;
     }
 
     @Override
-    void print(PrintStream p)
+    public void print (PrintStream p)
     {
         p.print(v.toString());
     }
 
     @Override
-    double value(Program pgm) throws BASICRuntimeError
+    public double value (Program pgm) throws BASICRuntimeError
     {
         if (v.isString())
         {
@@ -61,7 +61,7 @@ class VariableExpression extends Expression
     }
 
     @Override
-    String stringValue(Program pgm) throws BASICRuntimeError
+    public String stringValue (Program pgm) throws BASICRuntimeError
     {
         if (v.isString())
         {
@@ -71,7 +71,7 @@ class VariableExpression extends Expression
     }
 
     @Override
-    String unparse()
+    public String unparse ()
     {
         return v.unparse();
     }
@@ -80,7 +80,7 @@ class VariableExpression extends Expression
      * Add the value of this variable to the trace record.
      */
     @Override
-    void trace(RedBlackTree tracer)
+    public void trace (RedBlackTree tracer)
     {
         tracer.put(v.name, this);
         if (v.isArray() && (v.numExpn() != 0))
@@ -93,7 +93,7 @@ class VariableExpression extends Expression
     }
 
     @Override
-    boolean isString()
+    public boolean isString ()
     {
         return (v.isString());
     }

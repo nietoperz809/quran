@@ -30,7 +30,7 @@ public class Variable extends Token
     // Legal variable sub types
     public enum SUBTYPE {NUMBER, INTEGER, thSTRING, NUMBER_ARRAY, STRING_ARRAY, INTEGER_ARRAY}
 
-    String name;
+    public String name;
     SUBTYPE subType;
 
     /*
@@ -49,7 +49,7 @@ public class Variable extends Token
     Expression expns[];
 
     @Override
-    double numValue()
+    public double numValue ()
     {
         if (subType == SUBTYPE.INTEGER)
             return (int)super.nValue;
@@ -142,7 +142,7 @@ public class Variable extends Token
      * trace function.
      */
     @Override
-            String unparse()
+    public String unparse ()
     {
         if (!isArray())
         {
@@ -247,7 +247,7 @@ public class Variable extends Token
      * value if necessary.
      */
     @Override
-    String stringValue()
+    public String stringValue ()
     {
         if (subType == SUBTYPE.INTEGER || subType == SUBTYPE.NUMBER)
         {
@@ -295,12 +295,12 @@ public class Variable extends Token
     /**
      * Return true if this variable holds a string value.
      */
-    boolean isString()
+    public boolean isString ()
     {
         return name.endsWith("$");
     }
 
-    boolean isArray()
+    public boolean isArray ()
     {
         return (subType == SUBTYPE.NUMBER_ARRAY) || 
                 (subType == SUBTYPE.STRING_ARRAY) || 

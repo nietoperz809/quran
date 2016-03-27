@@ -17,6 +17,8 @@
  */
 package com.basic;
 
+import com.basic.statement.Statement;
+
 /**
  * This is the base class for errors thrown by BASIC. If you catch it
  * then you will catch all exceptions possible.
