@@ -15,20 +15,20 @@ import midisystem.MidiSynthSystem;
  *
  * @author Administrator
  */
-class SCLRStatement extends Statement
+public class SCLRStatement extends Statement
 {
     /**
      * CLC command
      * @param lt
      * @throws BASICSyntaxError
      */
-    SCLRStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public SCLRStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.SCLR);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         try
         {
@@ -41,7 +41,7 @@ class SCLRStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         return "SCLR";
     }

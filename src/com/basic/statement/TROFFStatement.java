@@ -19,7 +19,7 @@
 package com.basic.statement;
 
 import com.basic.*;
-import com.basic.statement.Statement;
+import com.basic.Statement;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -30,21 +30,21 @@ import java.io.PrintStream;
  * The TROFF statement turns TRacing OFF. Syntax is:
  *      TROFF
  */
-class TROFFStatement extends Statement
+public class TROFFStatement extends Statement
 {
 
-    TROFFStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public TROFFStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.TROFF);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         pgm.trace(false);
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
+    public String unparse() {
         return "TROFF";
     }
 }

@@ -37,19 +37,20 @@ import java.util.Vector;
  *
  * Syntax Errors: Unexpected symbol in input.
  */
-class SPEAKStatement extends Statement
+public class SPEAKStatement extends Statement
 {
     // This is the line number to transfer control too.
     Vector args;
 
-    SPEAKStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public SPEAKStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.SPEAK);
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         StringBuilder buff = new StringBuilder();
         PrintItem pi = null;
@@ -73,7 +74,7 @@ class SPEAKStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("PRINT ");

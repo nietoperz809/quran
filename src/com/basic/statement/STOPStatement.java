@@ -36,21 +36,21 @@ import java.io.PrintStream;
  * Runtime errors:
  *      Program wasn't STOPped so cannot be resumed.
  */
-class STOPStatement extends Statement {
+public class STOPStatement extends Statement {
 
-    STOPStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public STOPStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.STOP);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         out.println("STOP at line : "+line);
         pgm.push(this);
         return null;
     }
 
-    String unparse() {
+    public String unparse() {
         return "STOP";
     }
 

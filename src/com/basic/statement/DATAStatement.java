@@ -34,19 +34,19 @@ import java.util.Vector;
  *
  * Syntax errors: Bogus value in DATA statement
  */
-class DATAStatement extends Statement
+public class DATAStatement extends Statement
 {
 
     Vector args;
 
-    DATAStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public DATAStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.DATA);
-
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         for (int i = 0; i < args.size(); i++)
         {
@@ -55,10 +55,10 @@ class DATAStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("DATA ");
+        sb.append(keyword.toString()+ " ");
         for (int i = 0; i < args.size(); i++)
         {
             Token t = (Token) args.elementAt(i);

@@ -37,20 +37,20 @@ import java.io.PrintStream;
  *
  * Runtime Errors: Non-existent line number.
  */
-class GOSUBStatement extends Statement
+public class GOSUBStatement extends Statement
 {
 
     // This is the line number to transfer control too.
     int lineTarget;
 
-    GOSUBStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public GOSUBStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.GOSUB);
-
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         Statement s;
         pgm.push(this);
@@ -62,9 +62,9 @@ class GOSUBStatement extends Statement
         throw new BASICRuntimeError("GOSUB non-existent line " + lineTarget + ".");
     }
 
-    String unparse()
+    public String unparse()
     {
-        return "GOSUB " + lineTarget;
+        return keyword.toString()+" " + lineTarget;
     }
 
     /**

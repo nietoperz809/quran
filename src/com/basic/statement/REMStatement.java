@@ -29,23 +29,24 @@ import java.io.PrintStream;
  * text after the REM keyword, up to the end of line, is ignored by the
  * interpreter. The syntax for the statement is: REM comment text
  */
-class REMStatement extends Statement
+public class REMStatement extends Statement
 {
     String comment;
 
-    REMStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public REMStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.REM);
 
-        comment = lt.asString();
+        if (lt.getBuffer() != null)
+            comment = lt.asString();
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         return " REM " + comment;
     }

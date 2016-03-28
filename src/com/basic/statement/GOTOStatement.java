@@ -34,20 +34,20 @@ import java.io.PrintStream;
  *
  * Runtime Errors: Non-existent line number.
  */
-class GOTOStatement extends Statement
+public class GOTOStatement extends Statement
 {
     // This is the line number to transfer control too.
     int lineTarget;
 
-    GOTOStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public GOTOStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.GOTO);
-
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         Statement s;
         s = pgm.getStatement(lineTarget);
@@ -59,9 +59,9 @@ class GOTOStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
-        return "GOTO " + lineTarget;
+        return keyword.toString()+" " + lineTarget;
     }
 
     /**

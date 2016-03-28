@@ -29,21 +29,21 @@ import java.io.PrintStream;
  * current statement, however unlike STOP the program cannot be resumed from the
  * point at which it exited. The syntax for the END statement is: END
  */
-class ENDStatement extends Statement
+public class ENDStatement extends Statement
 {
 
-    ENDStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public ENDStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.END);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         return null;
     }
 
-    String unparse()
+    public String unparse()
     {
-        return "END";
+        return keyword.toString();
     }
 }

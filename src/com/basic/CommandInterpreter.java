@@ -17,8 +17,6 @@
  */
 package com.basic;
 
-import com.basic.statement.ParseStatement;
-import com.basic.statement.Statement;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
@@ -28,8 +26,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.List;
 import javax.sound.midi.Instrument;
 import midisystem.MidiSynthSystem;
+import misc.ClassFinder;
+
+import static com.basic.ParseStatement.statement;
 
 /**
  * This class is an "interactive" BASIC environment. You can think of it as
@@ -108,6 +112,27 @@ public class CommandInterpreter implements Serializable
                 catch (BASICRuntimeError e2)
                 {
                     outStream.println(e2.getMsg());
+                }
+                return pgm;
+
+            case CMD_CMDS:
+                List<Class<?>> classes = ClassFinder.getClasses("com.basic.statement");
+                for (Class<?> clazz : classes)
+                {
+                    String n = clazz.getCanonicalName();
+                    if (n != null)
+                    {
+                        Constructor ctor = clazz.getConstructor(LexicalTokenizer.class);
+                        Object o1 = ctor.newInstance(new LexicalTokenizer(null));
+                        Field f = o1.getClass().getField("keyword");
+                        com.basic.KeyWords o = (com.basic.KeyWords)f.get(o1);
+                        String desc = o.getDesc();
+                        outStream.print(o);
+                        if (desc == null)
+                            outStream.println();
+                        else
+                            outStream.println(" - "+ desc);
+                    }
                 }
                 return pgm;
 
@@ -404,7 +429,7 @@ public class CommandInterpreter implements Serializable
                     }
                     try
                     {
-                        Statement s = ParseStatement.statement(tokenizer);
+                        Statement s = statement(tokenizer);
                         s.addText(lineData);
                         s.addLine((int) t.numValue());
                         basicProgram.add((int) t.numValue(), s);
@@ -427,7 +452,7 @@ public class CommandInterpreter implements Serializable
                     tokenizer.unGetToken();
                     try
                     {
-                        Statement s = ParseStatement.statement(tokenizer);
+                        Statement s = statement(tokenizer);
                         do
                         {
                             s = s.execute(basicProgram, inStream, outStream);

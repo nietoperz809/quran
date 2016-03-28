@@ -25,47 +25,60 @@ import java.io.PrintStream;
 
 /**
  * The RANDOMIZE statement.
- *
+ * <p>
  * The RANDOMIZE statement seeds the random number generator. Syntax is:
- *      RANDOMIZE
+ * RANDOMIZE
  */
-class RANDOMIZEStatement extends Statement
+public class RANDOMIZEStatement extends Statement
 {
     Expression nExpn;
     boolean useTimeOfDay = false;
 
-    RANDOMIZEStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public RANDOMIZEStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.RANDOMIZE);
-        Token t = lt.nextToken();
-        switch (t.typeNum()) {
-            case OPERATOR:
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                nExpn = ParseExpression.expression(lt);
-            case KEYWORD:
-                if (t.kwValue != KeyWords.TIMER)
-                    throw new BASICSyntaxError("Badly formed randomize statement.");
-                useTimeOfDay = true;
-            default:
-                lt.unGetToken();
+        if (lt.getBuffer() != null)
+        {
+            Token t = lt.nextToken();
+            switch (t.typeNum())
+            {
+                case OPERATOR:
+                case CONSTANT:
+                case VARIABLE:
+                    lt.unGetToken();
+                    nExpn = ParseExpression.expression(lt);
+                case KEYWORD:
+                    if (t.kwValue != KeyWords.TIMER)
+                    {
+                        throw new BASICSyntaxError("Badly formed randomize statement.");
+                    }
+                    useTimeOfDay = true;
+                default:
+                    lt.unGetToken();
+            }
         }
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
-        if (nExpn != null) {
+    public String unparse ()
+    {
+        if (nExpn != null)
+        {
+            return "RANDOMIZE " + nExpn.unparse();
+        }
+        return "RANDOMIZE";
+    }
+
+    public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
+        if (nExpn != null)
+        {
             pgm.randomize(nExpn.value(pgm));
-        } else {
+        }
+        else
+        {
             pgm.randomize((double) System.currentTimeMillis());
         }
         return pgm.nextStatement(this);
-    }
-
-    String unparse() {
-        if (nExpn != null)
-            return "RANDOMIZE "+nExpn.unparse();
-        return "RANDOMIZE";
     }
 
 }

@@ -13,20 +13,21 @@ import midisystem.MidiSynthSystem;
 
 /**
  */
-class SSPEEDStatement extends Statement
+public class SSPEEDStatement extends Statement
 {
     // This is the line number to transfer control too.
     int speed;
 
-    SSPEEDStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public SSPEEDStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.SSPEED);
 
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         try
         {
@@ -40,7 +41,7 @@ class SSPEEDStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse ()
     {
         return "SSPEED " + speed;
     }

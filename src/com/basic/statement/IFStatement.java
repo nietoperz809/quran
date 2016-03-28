@@ -41,7 +41,7 @@ import java.io.PrintStream;
  *
  * Runtime errors: Illegal line number following THEN.
  */
-class IFStatement extends Statement
+public class IFStatement extends Statement
 {
 
     // This is the line number to transfer control too.
@@ -49,14 +49,14 @@ class IFStatement extends Statement
     Expression nExp;
     Statement thenClause;
 
-    IFStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public IFStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.IF);
-
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         double v;
         Statement s;
@@ -81,7 +81,7 @@ class IFStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
         Statement qq;
@@ -105,7 +105,7 @@ class IFStatement extends Statement
         return sb.toString();
     }
 
-    RedBlackTree getVars()
+    public RedBlackTree getVars ()
     {
         RedBlackTree vv = new RedBlackTree();
         nExp.trace(vv);

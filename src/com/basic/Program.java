@@ -17,8 +17,6 @@
  */
 package com.basic;
 
-import com.basic.statement.ParseStatement;
-import com.basic.statement.Statement;
 import com.basic.streameditor.StreamingTextArea;
 import com.basic.util.RedBlackTree;
 import com.sun.speech.freetts.Voice;
@@ -37,6 +35,8 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.Vector;
 import midisystem.MidiSynthSystem;
+
+import static com.basic.ParseStatement.*;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
@@ -171,7 +171,7 @@ public class Program implements Runnable, Serializable
 
             try
             {
-                s = ParseStatement.statement(lt);
+                s = statement(lt);
             }
             catch (BASICSyntaxError bse)
             {

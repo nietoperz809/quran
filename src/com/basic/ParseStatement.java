@@ -15,9 +15,9 @@
  * SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT
  * OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-package com.basic.statement;
+package com.basic;
 
-import com.basic.*;
+import com.basic.statement.*;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -36,12 +36,12 @@ public class ParseStatement extends Statement
      * Here we implement the abstract methods of Statement, they all generate
      * errors since ParseStatement isn't a "real" statement.
      */
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         throw new BASICRuntimeError("Attempt to execute a statement parser object.");
     }
 
-    String unparse()
+    public String unparse ()
     {
         return "THE PARSESTATEMENT OBJECT, NOT A STATEMENT.";
     }

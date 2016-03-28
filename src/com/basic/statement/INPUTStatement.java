@@ -41,7 +41,7 @@ import java.util.Vector;
  * statement. Runtime errors: Type mismatch.
  *
  */
-class INPUTStatement extends Statement
+public class INPUTStatement extends Statement
 {
 
     /**
@@ -57,16 +57,17 @@ class INPUTStatement extends Statement
     /**
      * Construct a new INPUT statement object.
      */
-    INPUTStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public INPUTStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.INPUT);
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     /**
      * Execute the INPUT statement. Most of the work is done in fillArgs.
      */
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         DataInputStream dis = new DataInputStream(in);
         getMoreData(dis, out, prompt);
@@ -77,7 +78,7 @@ class INPUTStatement extends Statement
     /**
      * Reconstruct this statement from its parsed data.
      */
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
         sb.append("INPUT ");

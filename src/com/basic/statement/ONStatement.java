@@ -40,22 +40,23 @@ import java.util.Vector;
  * Runtime errors: Illegal or non-existent destination line.
  *
  */
-class ONStatement extends Statement
+public class ONStatement extends Statement
 {
 
     // This is the line number to transfer control too.
     Expression nExp;
     Vector args;
 
-    ONStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public ONStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.ON_GOTO);
 
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         Statement s;
 
@@ -78,7 +79,7 @@ class ONStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
         sb.append("ON ");
@@ -100,7 +101,7 @@ class ONStatement extends Statement
     }
 
     @Override
-    RedBlackTree getVars()
+    public RedBlackTree getVars ()
     {
         RedBlackTree vv = new RedBlackTree();
         nExp.trace(vv);

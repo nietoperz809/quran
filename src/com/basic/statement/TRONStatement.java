@@ -31,27 +31,28 @@ import java.io.PrintStream;
  *
  * If filename is supplied the trace output is directed there.
  */
-class TRONStatement extends Statement
+public class TRONStatement extends Statement
 {
 
     // This is the line number to transfer control too.
     Expression traceFile;
 
-    TRONStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public TRONStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.TRON);
 
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError {
         if (traceFile != null)
             pgm.trace(true, traceFile.stringValue(pgm));
         pgm.trace(true);
         return pgm.nextStatement(this);
     }
 
-    String unparse() {
+    public String unparse() {
         return "TRON "+((traceFile != null) ? "\""+traceFile.unparse()+"\"" : "");
     }
 

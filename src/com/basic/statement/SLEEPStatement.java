@@ -10,20 +10,21 @@ import com.basic.*;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-class SLEEPStatement extends Statement
+public class SLEEPStatement extends Statement
 {
 
     // This is the line number to transfer control too.
     int lineTarget;
 
-    SLEEPStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public SLEEPStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.SLEEP);
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         Statement s;
         s = pgm.nextStatement(this);
@@ -38,7 +39,7 @@ class SLEEPStatement extends Statement
         return s;
     }
 
-    String unparse()
+    public String unparse()
     {
         return "SLEEP " + lineTarget;
     }

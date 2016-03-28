@@ -10,21 +10,22 @@ import midisystem.TrackMaker;
 /**
  * SEQ based on DATA Statement
  */
-class SEQStatement extends Statement
+public class SEQStatement extends Statement
 {
     String arg;
     int channel;
     VariableExpression ve;
     
-    SEQStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public SEQStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.SEQ);
 
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         if (ve != null)
             arg = ve.stringValue(pgm);
@@ -41,7 +42,7 @@ class SEQStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
         return "SEQ "+arg;
     }

@@ -24,9 +24,10 @@ public class ListJar
 {
     public static void main(String[] args) throws Exception
     {
-        System.out.println(Transformation.utf8);
+        //System.out.println(Transformation.utf8);
         //String[] test = listPackage ("quran/quranfiles/");
-        //System.out.println(Arrays.toString(test));
+        String[] test = listPackage ("com/basic/statement");
+        System.out.println(Arrays.toString(test));
     }
     
     public static String[] listPackage(String path) throws Exception

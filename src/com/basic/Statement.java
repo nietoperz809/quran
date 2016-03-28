@@ -1,6 +1,5 @@
-package com.basic.statement;
+package com.basic;
 
-import com.basic.*;
 import com.basic.util.RedBlackTree;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -33,6 +32,11 @@ public abstract class Statement implements Ser
     protected Statement(KeyWords key)
     {
         keyword = key;
+    }
+
+    public KeyWords getKeyWord()
+    {
+        return keyword;
     }
 
     /**
@@ -123,7 +127,7 @@ public abstract class Statement implements Ser
      * reconstruct the statement from the parse tree, this is most useful for
      * diagnosing parsing problems.
      */
-    abstract String unparse();
+    public abstract String unparse ();
 
     /**
      * This method "runs" this statement and returns a reference on the next
@@ -132,7 +136,7 @@ public abstract class Statement implements Ser
      * @throws BASICRuntimeError if there is a problem during statement
      * execution such as divide by zero etc.
      */
-    abstract Statement doit(Program pgm, InputStream in, PrintStream out)
+    public abstract Statement doit (Program pgm, InputStream in, PrintStream out)
             throws BASICRuntimeError;
 
     /**
@@ -184,7 +188,7 @@ public abstract class Statement implements Ser
     /**
      * Can be overridden by statements that use variables in their execution.
      */
-    RedBlackTree getVars()
+    public RedBlackTree getVars()
     {
         return null;
     }

@@ -34,19 +34,20 @@ import java.util.Vector;
  *
  * Runtime Errors: Out of data. Type mismatch on read data.
  */
-class READStatement extends Statement
+public class READStatement extends Statement
 {
 
     Vector args;
 
-    READStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public READStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.READ);
 
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         for (int i = 0; i < args.size(); i++)
         {
@@ -77,7 +78,7 @@ class READStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
         sb.append("READ ");

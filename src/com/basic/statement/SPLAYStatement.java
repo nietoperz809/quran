@@ -15,7 +15,7 @@ import midisystem.MidiSynthSystem;
  *
  * @author Administrator
  */
-class SPLAYStatement extends Statement
+public class SPLAYStatement extends Statement
 {
     int repeats = 0;
     /**
@@ -23,19 +23,22 @@ class SPLAYStatement extends Statement
      * @param lt
      * @throws BASICSyntaxError
      */
-    SPLAYStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public SPLAYStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.SPLAY);
-        Token t = lt.nextToken();
-        if (t.type == KeyWords.EOL)
-            return;
-        if (t.type == KeyWords.CONSTANT)
-            repeats = (int)t.nValue - 1;
-        System.out.println (t);
+        if (lt.getBuffer() != null)
+        {
+            Token t = lt.nextToken();
+            if (t.type == KeyWords.EOL)
+                return;
+            if (t.type == KeyWords.CONSTANT)
+                repeats = (int) t.nValue - 1;
+            System.out.println(t);
+        }
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         if (repeats > 0)
             MidiSynthSystem.get().setLoops(repeats);
@@ -52,7 +55,7 @@ class SPLAYStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
         return "SPLAY";
     }

@@ -14,28 +14,28 @@ import java.io.PrintStream;
  *
  * @author Administrator
  */
-class CLSStatement extends Statement
+public class CLSStatement extends Statement
 {
     /**
      * CLC command
      * @param lt
      * @throws BASICSyntaxError
      */
-    CLSStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public CLSStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(com.basic.KeyWords.CLS);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         pgm.area.setText("");
         return pgm.nextStatement(this);
     }
 
     @Override
-    String unparse()
+    public String unparse ()
     {
-        return "CLS";
+        return keyword.name();
     }
 }

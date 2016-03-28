@@ -33,20 +33,21 @@ import java.io.PrintStream;
  * string expression. Boolean expression not allowed in LET. unmatched
  * parenthesis in LET statement.
  */
-class LETStatement extends Statement
+public class LETStatement extends Statement
 {
 
     Variable myVar;
     Expression nExp;
 
-    LETStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public LETStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.LET);
 
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         if (myVar.isString())
         {
@@ -59,7 +60,7 @@ class LETStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         String sb = "LET " +
                 myVar.unparse() +
@@ -71,7 +72,7 @@ class LETStatement extends Statement
     /**
      * Generate a trace record for the LET statement.
      */
-    RedBlackTree getVars()
+    public RedBlackTree getVars ()
     {
         RedBlackTree vv = new RedBlackTree();
         nExp.trace(vv);

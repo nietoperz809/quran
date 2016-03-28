@@ -13,11 +13,11 @@ import java.util.EnumSet;
  */
 public enum KeyWords
 {
-    GOTO("goto"),
-    GOSUB("gosub"),
-    RETURN("return"),
-    PRINT("print"),
-    IF("if"),
+    GOTO("goto", "jump to another line"),
+    GOSUB("gosub", "jump to subroutine and save return"),
+    RETURN("return", "returns from subroutine"),
+    PRINT("print", "output text and variables"),
+    IF("if", "tests condition and possibly do a branch"),
     THEN("then"),
     END("end"),
     DATA("data"),
@@ -49,7 +49,7 @@ public enum KeyWords
     NOTES("notes"),
     SPEAK("say"),
     PITCH("pitch"),
-    RATE("rate"),
+    RATE("rate"),   // Must be last statement
 
     CMD_NEW("new"),
     CMD_RUN("run"),
@@ -63,6 +63,7 @@ public enum KeyWords
     CMD_DUMP("dump"),
     CMD_CONT("cont"),
     CMD_INSTRLIST("instrlist"),
+    CMD_CMDS("cmds"),
     CMD_DIR("dir"),
     
     RND("rnd"),
@@ -133,6 +134,7 @@ public enum KeyWords
     final public static EnumSet<KeyWords> tokentype = EnumSet.range (SYMBOL, VARIABLE);
     
     private final String text;
+    private final String desc;
 
     /**
      * @param text
@@ -140,6 +142,18 @@ public enum KeyWords
     KeyWords(final String text)
     {
         this.text = text;
+        this.desc = null;
+    }
+
+    KeyWords(final String text, final String desc)
+    {
+        this.text = text;
+        this.desc = desc;
+    }
+
+    public String getDesc()
+    {
+        return desc;
     }
 
     /* (non-Javadoc)

@@ -33,39 +33,19 @@ public class LexicalTokenizer implements Serializable
 
     final public static EnumSet<KeyWords> boolTokens
             = EnumSet.of(KeyWords.OP_BAND, KeyWords.OP_BIOR, KeyWords.OP_BXOR, KeyWords.OP_BNOT);
-
-    /**
-     * return true if char is between a-z or A=Z
-     */
-    static boolean isLetter(char c)
-    {
-        return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')));
-    }
-
-    /**
-     * Return true if char is between 0 and 9
-     */
-    static boolean isDigit(char c)
-    {
-        return ((c >= '0') && (c <= '9'));
-    }
-
-    /**
-     * Return true if char is whitespace.
-     */
-    static boolean isSpace(char c)
-    {
-        return ((c == ' ') || (c == '\t'));
-    }
-
     int currentPos = 0;
     int previousPos = 0;
     int markPos = 0;
-    char buffer[];
+    char buffer[] = null;
     // we just keep this around 'cuz we return it a lot.
     Token EOLToken = new Token(KeyWords.EOL, 0);
 
-    public LexicalTokenizer(char data[])
+    public char[] getBuffer()
+    {
+        return buffer;
+    }
+
+    public LexicalTokenizer (char data[])
     {
         buffer = data;
         currentPos = 0;
@@ -74,7 +54,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * Returns true if there are more tokens to be returned.
      */
-    boolean hasMoreTokens()
+    boolean hasMoreTokens ()
     {
         return currentPos < buffer.length;
     }
@@ -83,7 +63,7 @@ public class LexicalTokenizer implements Serializable
      * Set's the current "mark" so that the line can be re-parsed from this
      * point.
      */
-    void mark()
+    void mark ()
     {
         markPos = currentPos;
     }
@@ -91,7 +71,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * Reset the line pointer to the mark for reparsing.
      */
-    void resetToMark()
+    void resetToMark ()
     {
         currentPos = markPos;
     }
@@ -99,7 +79,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * Reset the tokenizer with a new data buffer.
      */
-    void reset(char buf[])
+    void reset (char buf[])
     {
         buffer = buf;
         currentPos = 0;
@@ -108,7 +88,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * Reset the current buffer to zero.
      */
-    void reset()
+    void reset ()
     {
         currentPos = 0;
     }
@@ -117,7 +97,7 @@ public class LexicalTokenizer implements Serializable
      * Reset the tokenizer by first filling its data buffer with the passed in
      * string, then reset the mark to zero for parsing.
      */
-    void reset(String x)
+    void reset (String x)
     {
         int l = x.length();
         for (int i = 0; i < l; i++)
@@ -133,7 +113,7 @@ public class LexicalTokenizer implements Serializable
      * line of dashes (-) followed by a caret (^) at the current position. This
      * indicates where the tokenizer was when the error occured.
      */
-    String showError()
+    String showError ()
     {
         int errorPos = previousPos;
         currentPos = 0;
@@ -148,6 +128,23 @@ public class LexicalTokenizer implements Serializable
         return sb.toString();
     }
 
+    /*
+     * Return the buffer from the current position to the end as a string.
+     */
+    public String asString ()
+    {
+        int ndx = currentPos;
+
+        while ((buffer[ndx] != '\n') && (buffer[ndx] != '\r'))
+        {
+            ndx++;
+        }
+        String result = new String(buffer, currentPos, ndx - currentPos);
+        previousPos = currentPos;
+        currentPos = ndx;
+        return (result);
+    }
+
     /**
      * Give back the last token, basically a reset to this token's start. This
      * function is used extensively by the parser to "peek" ahead in the input
@@ -159,179 +156,6 @@ public class LexicalTokenizer implements Serializable
         {
             currentPos = previousPos;
         }
-    }
-
-    /**
-     * Check the input stream to see if it is one of the boolean operations.
-     */
-//    Token parseBooleanOp()
-//    {
-//        int oldPos = currentPos;
-//        StringBuffer sb = new StringBuffer();
-//        int len = 0;
-//        Token r = null;
-//
-//        if (buffer[currentPos] != '.')
-//        {
-//            return null;
-//        }
-//        sb.append('.');
-//        currentPos++;
-//        do
-//        {
-//            sb.append(buffer[currentPos + len]);
-//            len++;
-//        }
-//        while ((len < 7) && isLetter(buffer[currentPos + len]));
-//        if (buffer[currentPos + len] == '.')
-//        {
-//            sb.append('.');
-//            len++;
-//            String x = sb.toString();
-//            for (int i = 0; i < boolOps.length; i++)
-//            {
-//                if (x.equalsIgnoreCase(boolOps[i]))
-//                {
-//                    r = new Token(Token.OPERATOR, boolOps[i], boolTokens[i]);
-//                    break;
-//                }
-//            }
-//            if (r != null)
-//            {
-//                currentPos += len;
-//                return r;
-//            }
-//        }
-//        currentPos = oldPos;
-//        return null;
-//    }
-    Token parseBooleanOp()
-    {
-        int oldPos = currentPos;
-        StringBuilder sb = new StringBuilder();
-        int len = 0;
-        Token r = null;
-
-        do
-        {
-            sb.append(buffer[currentPos + len]);
-            len++;
-        }
-        while (isLetter(buffer[currentPos + len]));
-        if (true)
-        {
-            String x = sb.toString();
-            for (KeyWords k : boolTokens)
-            {
-                if (x.equalsIgnoreCase(k.toString()))
-                {
-                    r = new Token(KeyWords.OPERATOR, k);
-                    break;
-                }
-            }
-            if (r != null)
-            {
-                currentPos += len;
-                return r;
-            }
-        }
-        currentPos = oldPos;
-        return null;
-    }
-
-    /**
-     * This method will attempt to parse out a numeric constant. A numeric
-     * constant satisfies the form: 999.888e777 where '999' is the optional
-     * integral part. where '888' is the optional fractional part. and '777' is
-     * the optional exponential part. The '.' and 'E' are required if the
-     * fractional or exponential part are present, there can be no internal
-     * spaces in the number. Note that unary minuses are always stripped as a
-     * symbol.
-     *
-     * Also note that until the second character is read .5 and .and. appear to
-     * start similarly.
-     */
-    Token parseNumericConstant()
-    {
-        double m = 0;   // Mantissa
-        double f = 0;   // Fractional component
-        int oldPos = currentPos; // save our place.
-        boolean wasNeg = false;
-        boolean isConstant = false;
-        //Token r = null;
-
-        // Look for the integral part.
-        while (isDigit(buffer[currentPos]))
-        {
-            isConstant = true;
-            m = (m * 10.0) + (buffer[currentPos++] - '0');
-        }
-
-        // Now look for the fractional part.
-        if (buffer[currentPos] == '.')
-        {
-            currentPos++;
-            double t = .1;
-            while (isDigit(buffer[currentPos]))
-            {
-                isConstant = true;
-                f += (t * (buffer[currentPos++] - '0'));
-                t /= 10.0;
-            }
-        }
-
-        m = (m + f);
-        /*
-         * If we parse no mantissa and no fractional digits, it can't be a
-         * numeric constant now can it?
-         */
-        if (!isConstant)
-        {
-            currentPos = oldPos;
-            return null;
-        }
-
-        // so it was a number, perhaps we are done with it.
-        if ((buffer[currentPos] != 'E') && (buffer[currentPos] != 'e'))
-        {
-            return new Token(KeyWords.CONSTANT, m); // no exponent return value.
-        }
-        currentPos++; // skip over the 'e'
-
-        int p = 0;
-        double e;
-        wasNeg = false;
-
-        // check for negative exponent.
-        if (buffer[currentPos] == '-')
-        {
-            wasNeg = true;
-            currentPos++;
-        }
-        else if (buffer[currentPos] == '+')
-        {
-            currentPos++;
-        }
-
-        while (isDigit(buffer[currentPos]))
-        {
-            p = (p * 10) + (buffer[currentPos++] - '0');
-        }
-
-        try
-        {
-            e = Math.pow(10, p);
-        }
-        catch (ArithmeticException zzz)
-        {
-            return new Token(KeyWords.ERROR, "Illegal numeric constant.");
-        }
-
-        if (wasNeg)
-        {
-            e = 1 / e;
-        }
-        return new Token(KeyWords.CONSTANT, (m + f) * e);
     }
 
     /**
@@ -587,21 +411,201 @@ public class LexicalTokenizer implements Serializable
         return new Variable(t);
     }
 
-    /*
-     * Return the buffer from the current position to the end as a string.
+    /**
+     * Return true if char is whitespace.
      */
-    public String asString ()
+    static boolean isSpace (char c)
     {
-        int ndx = currentPos;
+        return ((c == ' ') || (c == '\t'));
+    }
 
-        while ((buffer[ndx] != '\n') && (buffer[ndx] != '\r'))
+    /**
+     * This method will attempt to parse out a numeric constant. A numeric
+     * constant satisfies the form: 999.888e777 where '999' is the optional
+     * integral part. where '888' is the optional fractional part. and '777' is
+     * the optional exponential part. The '.' and 'E' are required if the
+     * fractional or exponential part are present, there can be no internal
+     * spaces in the number. Note that unary minuses are always stripped as a
+     * symbol.
+     * <p>
+     * Also note that until the second character is read .5 and .and. appear to
+     * start similarly.
+     */
+    Token parseNumericConstant ()
+    {
+        double m = 0;   // Mantissa
+        double f = 0;   // Fractional component
+        int oldPos = currentPos; // save our place.
+        boolean wasNeg = false;
+        boolean isConstant = false;
+        //Token r = null;
+
+        // Look for the integral part.
+        while (isDigit(buffer[currentPos]))
         {
-            ndx++;
+            isConstant = true;
+            m = (m * 10.0) + (buffer[currentPos++] - '0');
         }
-        String result = new String(buffer, currentPos, ndx - currentPos);
-        previousPos = currentPos;
-        currentPos = ndx;
-        return (result);
+
+        // Now look for the fractional part.
+        if (buffer[currentPos] == '.')
+        {
+            currentPos++;
+            double t = .1;
+            while (isDigit(buffer[currentPos]))
+            {
+                isConstant = true;
+                f += (t * (buffer[currentPos++] - '0'));
+                t /= 10.0;
+            }
+        }
+
+        m = (m + f);
+        /*
+         * If we parse no mantissa and no fractional digits, it can't be a
+         * numeric constant now can it?
+         */
+        if (!isConstant)
+        {
+            currentPos = oldPos;
+            return null;
+        }
+
+        // so it was a number, perhaps we are done with it.
+        if ((buffer[currentPos] != 'E') && (buffer[currentPos] != 'e'))
+        {
+            return new Token(KeyWords.CONSTANT, m); // no exponent return value.
+        }
+        currentPos++; // skip over the 'e'
+
+        int p = 0;
+        double e;
+        wasNeg = false;
+
+        // check for negative exponent.
+        if (buffer[currentPos] == '-')
+        {
+            wasNeg = true;
+            currentPos++;
+        }
+        else if (buffer[currentPos] == '+')
+        {
+            currentPos++;
+        }
+
+        while (isDigit(buffer[currentPos]))
+        {
+            p = (p * 10) + (buffer[currentPos++] - '0');
+        }
+
+        try
+        {
+            e = Math.pow(10, p);
+        }
+        catch (ArithmeticException zzz)
+        {
+            return new Token(KeyWords.ERROR, "Illegal numeric constant.");
+        }
+
+        if (wasNeg)
+        {
+            e = 1 / e;
+        }
+        return new Token(KeyWords.CONSTANT, (m + f) * e);
+    }
+
+    /**
+     * Check the input stream to see if it is one of the boolean operations.
+     */
+//    Token parseBooleanOp()
+//    {
+//        int oldPos = currentPos;
+//        StringBuffer sb = new StringBuffer();
+//        int len = 0;
+//        Token r = null;
+//
+//        if (buffer[currentPos] != '.')
+//        {
+//            return null;
+//        }
+//        sb.append('.');
+//        currentPos++;
+//        do
+//        {
+//            sb.append(buffer[currentPos + len]);
+//            len++;
+//        }
+//        while ((len < 7) && isLetter(buffer[currentPos + len]));
+//        if (buffer[currentPos + len] == '.')
+//        {
+//            sb.append('.');
+//            len++;
+//            String x = sb.toString();
+//            for (int i = 0; i < boolOps.length; i++)
+//            {
+//                if (x.equalsIgnoreCase(boolOps[i]))
+//                {
+//                    r = new Token(Token.OPERATOR, boolOps[i], boolTokens[i]);
+//                    break;
+//                }
+//            }
+//            if (r != null)
+//            {
+//                currentPos += len;
+//                return r;
+//            }
+//        }
+//        currentPos = oldPos;
+//        return null;
+//    }
+    Token parseBooleanOp ()
+    {
+        int oldPos = currentPos;
+        StringBuilder sb = new StringBuilder();
+        int len = 0;
+        Token r = null;
+
+        do
+        {
+            sb.append(buffer[currentPos + len]);
+            len++;
+        }
+        while (isLetter(buffer[currentPos + len]));
+        if (true)
+        {
+            String x = sb.toString();
+            for (KeyWords k : boolTokens)
+            {
+                if (x.equalsIgnoreCase(k.toString()))
+                {
+                    r = new Token(KeyWords.OPERATOR, k);
+                    break;
+                }
+            }
+            if (r != null)
+            {
+                currentPos += len;
+                return r;
+            }
+        }
+        currentPos = oldPos;
+        return null;
+    }
+
+    /**
+     * return true if char is between a-z or A=Z
+     */
+    static boolean isLetter (char c)
+    {
+        return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')));
+    }
+
+    /**
+     * Return true if char is between 0 and 9
+     */
+    static boolean isDigit (char c)
+    {
+        return ((c >= '0') && (c <= '9'));
     }
 
 }

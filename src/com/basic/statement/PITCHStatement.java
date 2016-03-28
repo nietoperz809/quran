@@ -18,23 +18,26 @@ public class PITCHStatement extends Statement
 {
     Expression nExpn;
 
-    PITCHStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public PITCHStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.PITCH);
-        Token t = lt.nextToken();
-        switch (t.typeNum())
+        if (lt.getBuffer() != null)
         {
-            case OPERATOR:
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                nExpn = ParseExpression.expression(lt);
-            default:
-                lt.unGetToken();
+            Token t = lt.nextToken();
+            switch (t.typeNum())
+            {
+                case OPERATOR:
+                case CONSTANT:
+                case VARIABLE:
+                    lt.unGetToken();
+                    nExpn = ParseExpression.expression(lt);
+                default:
+                    lt.unGetToken();
+            }
         }
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         if (nExpn != null)
         {
@@ -43,7 +46,7 @@ public class PITCHStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         if (nExpn != null)
         {

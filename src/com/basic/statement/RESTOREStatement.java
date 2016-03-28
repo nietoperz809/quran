@@ -36,21 +36,21 @@ import java.io.PrintStream;
  *
  * Runtime Errors: None.
  */
-class RESTOREStatement extends Statement
+public class RESTOREStatement extends Statement
 {
 
-    RESTOREStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public RESTOREStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.RESTORE);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         pgm.resetData();
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         return "RESTORE";
     }

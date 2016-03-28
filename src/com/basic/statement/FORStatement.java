@@ -41,7 +41,7 @@ import java.io.PrintStream;
  * Syntax Errors: Missing variable in FOR statement. Numeric variable required
  * for FOR statement. Missing = in FOR statement. Missing TO in FOR statement.
  */
-class FORStatement extends Statement
+public class FORStatement extends Statement
 {
 
     // This is the line number to transfer control too.
@@ -51,24 +51,24 @@ class FORStatement extends Statement
     Expression sExp;
     Variable myVar;
 
-    FORStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public FORStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.FOR);
-
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         pgm.setVariable(myVar, nExp.value(pgm));
         pgm.push(this);
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
-        sb.append("FOR ");
+        sb.append(keyword.toString()+" ");
         sb.append(myVar.unparse());
         sb.append(" = ");
         sb.append(nExp.unparse());
@@ -86,7 +86,7 @@ class FORStatement extends Statement
      * Collect the variables associated with the execution of this statement.
      */
     @Override
-    RedBlackTree getVars()
+    public RedBlackTree getVars ()
     {
         RedBlackTree vv = new RedBlackTree();
         nExp.trace(vv);

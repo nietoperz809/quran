@@ -15,27 +15,27 @@ import midisystem.Notes;
  *
  * @author Administrator
  */
-class NOTESStatement extends Statement
+public class NOTESStatement extends Statement
 {
     /**
      * CLC command
      * @param lt
      * @throws BASICSyntaxError
      */
-    NOTESStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public NOTESStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.NOTES);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         out.println (new Notes().toString());
         return pgm.nextStatement(this);
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
         return "NOTES";
     }

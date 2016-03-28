@@ -35,16 +35,16 @@ import java.io.PrintStream;
  *
  * Runtime Errors: Return without GOSUB.
  */
-class RETURNStatement extends Statement
+public class RETURNStatement extends Statement
 {
 
-    RETURNStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public RETURNStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.RETURN);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         Statement s;
         try
@@ -66,7 +66,7 @@ class RETURNStatement extends Statement
         return pgm.nextStatement(s);
     }
 
-    String unparse()
+    public String unparse()
     {
         return "RETURN";
     }

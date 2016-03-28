@@ -37,20 +37,21 @@ import java.util.Vector;
  *
  * Syntax Errors: Unexpected symbol in input.
  */
-class PRINTStatement extends Statement
+public class PRINTStatement extends Statement
 {
 
     // This is the line number to transfer control too.
     Vector args;
 
-    PRINTStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public PRINTStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.PRINT);
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     @Override
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         PrintItem pi = null;
         int col = 0;
@@ -70,7 +71,7 @@ class PRINTStatement extends Statement
     }
 
     @Override
-    String unparse()
+    public String unparse()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("PRINT ");

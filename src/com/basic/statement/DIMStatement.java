@@ -37,23 +37,23 @@ import java.util.Vector;
  *
  * Errors: No arrays declared. Non-array declared.
  */
-class DIMStatement extends Statement
+public class DIMStatement extends Statement
 {
 
     Vector args;
 
-    DIMStatement(LexicalTokenizer lt) throws BASICSyntaxError
+    public DIMStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
         super(KeyWords.DIM);
-
-        parse(this, lt);
+        if (lt.getBuffer() != null)
+            parse(this, lt);
     }
 
     /**
      * Actually execute the dimension statement. What occurs is that the
      * declareArray() method gets called to define this variable as an array.
      */
-    Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         for (int i = 0; i < args.size(); i++)
         {
@@ -63,11 +63,11 @@ class DIMStatement extends Statement
         return pgm.nextStatement(this);
     }
 
-    String unparse()
+    public String unparse()
     {
         StringBuffer sb = new StringBuffer();
 
-        sb.append("DIM ");
+        sb.append(keyword.toString()+" ");
         for (int i = 0; i < args.size(); i++)
         {
             Variable va = (Variable) args.elementAt(i);
