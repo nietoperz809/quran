@@ -390,10 +390,7 @@ public class Tools
 
     public static String getBuildNumber()
     {
-        ResourceBundle vprops = ResourceBundle.getBundle("version", Locale.getDefault());
-        String number = vprops.getString("BUILDNUMBER");
-        String date = vprops.getString("BUILDDATE");
-        return date + "/" + number;
+        return BuildNumber.date + " Build:" + BuildNumber.num;
     }
 
     /**

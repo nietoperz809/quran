@@ -77,7 +77,7 @@ public class SPEAKStatement extends Statement
     public String unparse()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("PRINT ");
+        sb.append(keyword.name()+" ");
         for (int i = 0; i < args.size(); i++)
         {
             PrintItem pi = (PrintItem) (args.elementAt(i));
