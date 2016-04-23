@@ -57,9 +57,9 @@ public class Program implements Runnable, Serializable
 {
     public static final long serialVersionUID = 1L;
 
-    public Voice voice;  // Speech synth
+    public final Voice voice;  // Speech synth
     
-    public StreamingTextArea area;
+    public final StreamingTextArea area;
     public boolean basic_prg_running = true;  // Program basic_prg_running
     public boolean thread_running = true; // Thread basic_prg_running 
     public long basetime = System.currentTimeMillis();
@@ -70,15 +70,13 @@ public class Program implements Runnable, Serializable
     // this tree holds all of the variables.
     private RedBlackTree<String, Variable> vars = new RedBlackTree<>();
 
-    private Stack stmtStack = new Stack();
-    Vector dataStore = new Vector();
-    int dataPtr = 0;
-    Random r = new Random(0);
+    private Stack<Statement> stmtStack = new Stack<>();
+    private Vector dataStore = new Vector();
+    private int dataPtr = 0;
+    private Random r = new Random(0);
 
-    String myName;
-
-    boolean traceState = false;
-    PrintStream traceFile = null;
+    private boolean traceState = false;
+    private PrintStream traceFile = null;
 
     public Program (StreamingTextArea ta, Voice v)
     {
@@ -118,10 +116,12 @@ public class Program implements Runnable, Serializable
         r = new Random((long) seed);
     }
 
-    void randomize()
-    {
-        r = new Random(); // uses the clock
-    }
+// --Commented out by Inspection START (4/23/2016 9:39 AM):
+//    void randomize()
+//    {
+//        r = new Random(); // uses the clock
+//    }
+// --Commented out by Inspection STOP (4/23/2016 9:39 AM)
 
     /**
      * There are two ways to create a new program object, you can load one from
@@ -134,7 +134,7 @@ public class Program implements Runnable, Serializable
      * @throws java.io.IOException
      * @throws com.basic.BASICSyntaxError
      */
-    public static Program load(InputStream source, PrintStream out, StreamingTextArea ar, Voice v) throws IOException, BASICSyntaxError
+    private static Program load (InputStream source, PrintStream out, StreamingTextArea ar, Voice v) throws IOException, BASICSyntaxError
     {
         DataInputStream dis;
         dis = new DataInputStream(new BufferedInputStream(source));
@@ -214,39 +214,45 @@ public class Program implements Runnable, Serializable
         return r;
     }
 
-    /**
-     * Write the basic program out to the passed output stream. Conceptually
-     * this is identical to doing a list operation.
-     */
-    public void save(OutputStream out)
-    {
-        PrintStream p = new PrintStream(out);
-        list(p);
-    }
+// --Commented out by Inspection START (4/23/2016 9:40 AM):
+//    /**
+//     * Write the basic program out to the passed output stream. Conceptually
+//     * this is identical to doing a list operation.
+//     */
+//    private void save (OutputStream out)
+//    {
+//        PrintStream p = new PrintStream(out);
+//        list(p);
+//    }
+// --Commented out by Inspection STOP (4/23/2016 9:40 AM)
 
-    /**
-     * Write the program out to the file named in <i>output</i>.
-     */
-    public void save(String output) throws IOException
-    {
-        FileOutputStream fos = new FileOutputStream(output);
-        save(fos);
-        fos.flush();
-        fos.close();
-    }
+// --Commented out by Inspection START (4/23/2016 9:39 AM):
+//    /**
+//     * Write the program out to the file named in <i>output</i>.
+//     */
+//    public void save(String output) throws IOException
+//    {
+//        FileOutputStream fos = new FileOutputStream(output);
+//        save(fos);
+//        fos.flush();
+//        fos.close();
+//    }
+// --Commented out by Inspection STOP (4/23/2016 9:39 AM)
 
-    /**
-     * This method starts this program basic_prg_running in its own thread.
-     */
-    void start()
-    {
-        Thread t = new Thread(this);
-        if (myName != null)
-        {
-            t.setName(myName + " execution.");
-        }
-        t.start();
-    }
+// --Commented out by Inspection START (4/23/2016 9:39 AM):
+//    /**
+//     * This method starts this program basic_prg_running in its own thread.
+//     */
+//    void start()
+//    {
+//        Thread t = new Thread(this);
+////        if (myName != null)
+////        {
+////            t.setName(myName + " execution.");
+////        }
+//        t.start();
+//    }
+// --Commented out by Inspection STOP (4/23/2016 9:39 AM)
 
     /**
      * Add a statement to the current program. Statements are indexed by line
@@ -266,7 +272,7 @@ public class Program implements Runnable, Serializable
      */
     boolean del(int line)
     {
-        return stmts.remove(new Integer(line)) != null;
+        return stmts.remove(line) != null;
     }
 
     /**
@@ -412,7 +418,7 @@ public class Program implements Runnable, Serializable
      */
     public Statement getStatement (int line)
     {
-        return stmts.get(new Integer(line));
+        return stmts.get(line);
     }
 
     /**
@@ -422,9 +428,9 @@ public class Program implements Runnable, Serializable
      */
     void list(int start, int end, PrintStream p)
     {
-        for (Enumeration e = stmts.elements(); e.hasMoreElements();)
+        for (Enumeration<Map.Entry<Integer, Statement>> e = stmts.elements(); e.hasMoreElements();)
         {
-            Map.Entry<Integer, Statement> entry = (Map.Entry<Integer, Statement>) e.nextElement();
+            Map.Entry<Integer, Statement> entry = e.nextElement();
             Statement s = entry.getValue();
             if ((s.lineNo() >= start) && (s.lineNo() <= end))
             {
@@ -466,14 +472,16 @@ public class Program implements Runnable, Serializable
         list(0, p);
     }
 
-    /**
-     * This final variant of the list method will list the program on
-     * System.out.
-     */
-    void list()
-    {
-        list(System.out);
-    }
+// --Commented out by Inspection START (4/23/2016 9:38 AM):
+//    /**
+//     * This final variant of the list method will list the program on
+//     * System.out.
+//     */
+//    void list()
+//    {
+//        list(System.out);
+//    }
+// --Commented out by Inspection STOP (4/23/2016 9:38 AM)
 
     /**
      * Run the program and use the passed in streams as its input and output
@@ -491,7 +499,7 @@ public class Program implements Runnable, Serializable
     public void run(InputStream in, OutputStream out, int firstline) throws Exception
     {
         PrintStream pout;
-        Enumeration e = stmts.elements();
+        Enumeration<Map.Entry<Integer, Statement>> e = stmts.elements();
         stmtStack = new Stack();    // assume no stacked statements ...
         dataStore = new Vector();   // ...  and no data to be read.
         dataPtr = 0;
@@ -519,7 +527,7 @@ public class Program implements Runnable, Serializable
         /* First we load all of the data statements */
         while (e.hasMoreElements())
         {
-            s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
+            s = (e.nextElement()).getValue();
             if (s.keyword == KeyWords.DATA)
             {
                 s.execute(this, in, pout);
@@ -527,7 +535,7 @@ public class Program implements Runnable, Serializable
         }
 
         e = stmts.elements();
-        s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
+        s = e.nextElement().getValue();
         if (firstline != 0)  // Skip lines if desired
         {
             do 
@@ -536,7 +544,7 @@ public class Program implements Runnable, Serializable
                 {
                     break;
                 }
-                s = ((Map.Entry<Integer, Statement>) e.nextElement()).getValue();
+                s = e.nextElement().getValue();
             } while (e.hasMoreElements());
         }
         do
@@ -572,45 +580,47 @@ public class Program implements Runnable, Serializable
         MidiSynthSystem.get().shutdown();
     }
 
-    /**
-     * This package private version of run() is used by the command interpreter
-     * to run a "single" statement in the context of this program. Single is in
-     * quotes because if the statement has additional statements chained off its
-     * next pointer, these will be run as well. Further if one of them is a GOTO
-     * or GOSUB or IF and they cause a tranfer to a numbered statement then
-     * exectution will start at that statement. This can be useful for debugging
-     * but unpredictable since not all variables will be declared if their
-     * assignment statements have not yet been executed.
-     *
-     * Unlike its sibling method above, it does NOT clear the statement stack or
-     * data FIFO. This is so the command interpreter can debug stopped programs
-     * using the immediate execution feature.
-     */
-    void run(Statement s, InputStream in, OutputStream out) throws BASICRuntimeError
-    {
-        // if the program isn't yet valid.
-        PrintStream pout;
-        Enumeration e = stmts.elements();
-        if (!e.hasMoreElements())
-        {
-            return;
-        }
-
-        if (out instanceof PrintStream)
-        {
-            pout = (PrintStream) out;
-        }
-        else
-        {
-            pout = new PrintStream(out);
-        }
-
-        do
-        {
-            s = s.execute(this, in, pout);
-        }
-        while (s != null);
-    }
+// --Commented out by Inspection START (4/23/2016 9:39 AM):
+//    /**
+//     * This package private version of run() is used by the command interpreter
+//     * to run a "single" statement in the context of this program. Single is in
+//     * quotes because if the statement has additional statements chained off its
+//     * next pointer, these will be run as well. Further if one of them is a GOTO
+//     * or GOSUB or IF and they cause a tranfer to a numbered statement then
+//     * exectution will start at that statement. This can be useful for debugging
+//     * but unpredictable since not all variables will be declared if their
+//     * assignment statements have not yet been executed.
+//     *
+//     * Unlike its sibling method above, it does NOT clear the statement stack or
+//     * data FIFO. This is so the command interpreter can debug stopped programs
+//     * using the immediate execution feature.
+//     */
+//    void run(Statement s, InputStream in, OutputStream out) throws BASICRuntimeError
+//    {
+//        // if the program isn't yet valid.
+//        PrintStream pout;
+//        Enumeration e = stmts.elements();
+//        if (!e.hasMoreElements())
+//        {
+//            return;
+//        }
+//
+//        if (out instanceof PrintStream)
+//        {
+//            pout = (PrintStream) out;
+//        }
+//        else
+//        {
+//            pout = new PrintStream(out);
+//        }
+//
+//        do
+//        {
+//            s = s.execute(this, in, pout);
+//        }
+//        while (s != null);
+//    }
+// --Commented out by Inspection STOP (4/23/2016 9:39 AM)
 
     /**
      * This final version of run is used to implement the <b>Runnable</b>
@@ -727,7 +737,7 @@ public class Program implements Runnable, Serializable
         {
             return null;
         }
-        return (Statement) stmtStack.pop();
+        return stmtStack.pop();
     }
 
     /**

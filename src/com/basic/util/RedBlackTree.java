@@ -18,12 +18,7 @@
 package com.basic.util;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * This class implements a Dictionary using a B-tree. This exact type of tree is
@@ -38,7 +33,7 @@ import java.util.TreeMap;
  * @param <V>
  * @see	Dictionary
  */
-public class RedBlackTree<K,V> implements Serializable
+public class RedBlackTree <K,V> implements Serializable
 {
     /**
      *
@@ -58,7 +53,7 @@ public class RedBlackTree<K,V> implements Serializable
      * Return an enumeration of the trees keys.
      * @return 
      */
-    public Enumeration keys()
+    public Enumeration<K> keys()
     {
         return Collections.enumeration(map.keySet());        
     }
@@ -67,7 +62,7 @@ public class RedBlackTree<K,V> implements Serializable
      * Return an enumeration of the trees objects.
      * @return 
      */
-    public Enumeration elements()
+    public Enumeration<Map.Entry<K, V>> elements()
     {
         return Collections.enumeration(map.entrySet());        
     }

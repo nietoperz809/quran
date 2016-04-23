@@ -1,4 +1,4 @@
-package com.basic.statement;
+package com.basic;
 
 import com.basic.*;
 
@@ -73,5 +73,4 @@ public interface StringExParser
         }
         return buff.toString();
     }
-
 }

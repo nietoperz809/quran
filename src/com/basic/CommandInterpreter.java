@@ -66,7 +66,7 @@ public class CommandInterpreter implements Serializable
     /**
      * This method basically dispatches the commands of the command interpreter.
      */
-    Program processCommand(Program pgm, LexicalTokenizer lt, Token x) throws Exception
+    Program processCommand (Program pgm, LexicalTokenizer lt, Token x) throws Exception
     {
         Token t;
 

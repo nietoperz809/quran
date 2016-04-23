@@ -7,6 +7,8 @@ package applications;
 
 import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
+
+import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
@@ -20,7 +22,7 @@ import misc.Tools;
 public class BasicGUI extends MDIChild implements Runnable, ActionListener, InternalFrameListener
 {
     transient private Thread thread;
-    CommandInterpreter ci;
+    private CommandInterpreter ci;
 
     {
         initComponents();
@@ -45,12 +47,12 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     private void initComponents()
     {
 
-        jPanel1 = new javax.swing.JPanel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         area = new StreamingTextArea();
 
         setClosable(true);
@@ -84,7 +86,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
 
         area.setBackground(new java.awt.Color(0, 0, 153));
         area.setColumns(20);
-        area.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        area.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 18)); // NOI18N
         area.setForeground(new java.awt.Color(255, 255, 102));
         area.setLineWrap(true);
         area.setRows(20);
@@ -188,8 +190,6 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField saveName;
     // End of variables declaration//GEN-END:variables
 
