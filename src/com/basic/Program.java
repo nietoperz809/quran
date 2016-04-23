@@ -78,8 +78,11 @@ public class Program implements Runnable, Serializable
     private boolean traceState = false;
     private PrintStream traceFile = null;
 
-    public Program (StreamingTextArea ta, Voice v)
+    private CommandInterpreter m_caller;
+
+    public Program (StreamingTextArea ta, Voice v, CommandInterpreter caller)
     {
+        m_caller = caller;
         area = ta;
         voice = v;
     }
@@ -143,7 +146,7 @@ public class Program implements Runnable, Serializable
         String lineData;
         Statement s;
         Token t;
-        Program result = new Program(ar, v);
+        Program result = new Program(ar, v, null);
 
         while (true)
         {
@@ -335,7 +338,7 @@ public class Program implements Runnable, Serializable
      * is the first time we have seen the variable, create a place for it in the
      * symbol table.
      */
-    public void setVariable (Variable v, double value) throws BASICRuntimeError
+    public <T> void setVariable (Variable v, T value) throws BASICRuntimeError
     {
         Variable vi = vars.get(v.name);
         if (vi == null)
@@ -349,37 +352,37 @@ public class Program implements Runnable, Serializable
         }
         if (!vi.isArray())
         {
-            vi.setValue(value);
+            vi.setValue (value);
             return;
         }
         int ii[] = getIndices(v);
-        vi.setValue(value, ii);
+        vi.setValue (value, ii);
     }
 
     /**
      * Set the string variable named <i>name</i> to have the value <i>value</i>.
      * If this is the first use of the variable it is created.
      */
-    public void setVariable (Variable v, String value) throws BASICRuntimeError
-    {
-        Variable vi = vars.get(v.name);
-        if (vi == null)
-        {
-            if (v.isArray())
-            {
-                throw new BASICRuntimeError("Array must be declared in a DIM statement");
-            }
-            vi = new Variable(v.name);
-            vars.put(v.name, vi);
-        }
-        if (!vi.isArray())
-        {
-            vi.setValue(value);
-            return;
-        }
-        int ii[] = getIndices(v);
-        vi.setValue(value, ii);
-    }
+//    public void setVariable (Variable v, String value) throws BASICRuntimeError
+//    {
+//        Variable vi = vars.get(v.name);
+//        if (vi == null)
+//        {
+//            if (v.isArray())
+//            {
+//                throw new BASICRuntimeError("Array must be declared in a DIM statement");
+//            }
+//            vi = new Variable(v.name);
+//            vars.put(v.name, vi);
+//        }
+//        if (!vi.isArray())
+//        {
+//            vi.setValue(value);
+//            return;
+//        }
+//        int ii[] = getIndices(v);
+//        vi.setValue(value, ii);
+//    }
 
     /**
      * This method is used by the DIM statement to DECLARE arrays. Given the

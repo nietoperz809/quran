@@ -17,6 +17,7 @@
  */
 package com.basic;
 
+import applications.BasicGUI;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
@@ -51,16 +52,28 @@ public class CommandInterpreter implements Serializable
     transient private PrintStream outStream;
 
     transient private Voice voice;
-    
+
+    transient private BasicGUI m_bg;
+
+    public Program getProg()
+    {
+       return basicProgram;
+    }
+
+    public BasicGUI getGUI()
+    {
+        return m_bg;
+    }
 
     /**
      * Create a new command interpreter attached to the passed in streams.
      */
-    public CommandInterpreter ()
+    public CommandInterpreter (BasicGUI bg)
     {
         VoiceManager voiceManager = VoiceManager.getInstance();
         voice = voiceManager.getVoice("kevin16");
         voice.allocate();
+        m_bg = bg;
     }
 
     /**
@@ -344,7 +357,7 @@ public class CommandInterpreter implements Serializable
         }
         if (basicProgram == null)
         {
-            basicProgram = new Program(area, voice);
+            basicProgram = new Program(area, voice, this);
         }
 
         DataInputStream dis = inStream;
@@ -401,7 +414,7 @@ public class CommandInterpreter implements Serializable
                     }
                     else if (t.kwValue == KeyWords.CMD_NEW)
                     {
-                        basicProgram = new Program(area, voice);
+                        basicProgram = new Program (area, voice, this);
                         System.gc();
                         break;
                     }

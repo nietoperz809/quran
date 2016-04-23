@@ -259,38 +259,44 @@ public class Variable extends Token
     /**
      * Set this variables value in the symbol table.
      */
-    void setValue(double v)
+    <T> void setValue(T v)
     {
-        nValue = v;
+        if (v instanceof Double)
+            nValue = (Double)v;
+        else if (v instanceof String)
+            sValue = (String)v;
     }
 
-    /**
-     * Set this variables string value.
-     */
-    void setValue(String s)
-    {
-        sValue = s;
-    }
+//    /**
+//     * Set this variables string value.
+//     */
+//    <T> void setValue(T s)
+//    {
+//        sValue = s;
+//    }
 
-    void setValue (double v, int ii[]) throws BASICRuntimeError
+    <T> void setValue (T v, int ii[]) throws BASICRuntimeError
     {
         int offset = computeIndex(ii);
         if (nArrayValues == null)
         {
             throw new BASICRuntimeError("ARRAY storage not initialized.");
         }
-        nArrayValues[offset] = v;
+        if (v instanceof Double)
+            nArrayValues[offset] = (Double)v;
+        else if (v instanceof String)
+            sArrayValues[offset] = (String)v;
     }
 
-    void setValue(String v, int ii[]) throws BASICRuntimeError
-    {
-        int offset = computeIndex(ii);
-        if (sArrayValues == null)
-        {
-            throw new BASICRuntimeError("ARRAY storage not initialized.");
-        }
-        sArrayValues[offset] = v;
-    }
+//    void setValue(String v, int ii[]) throws BASICRuntimeError
+//    {
+//        int offset = computeIndex(ii);
+//        if (sArrayValues == null)
+//        {
+//            throw new BASICRuntimeError("ARRAY storage not initialized.");
+//        }
+//        sArrayValues[offset] = v;
+//    }
 
     /**
      * Return true if this variable holds a string value.

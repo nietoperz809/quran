@@ -210,7 +210,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     {
         if (ci == null)
         {
-            ci = new CommandInterpreter();
+            ci = new CommandInterpreter (this);
         }
         try
         {
