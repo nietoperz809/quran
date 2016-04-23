@@ -19,7 +19,6 @@ public class ClassFinder
     public static void main (String[] args) throws Exception
     {
         String packageName = "com.basic.statement"; //( args.length > 0 ) ? args[0] : null;
-        String classNameSearched = null; //( args.length > 1 ) ? args[1] : null;
         System.out.println("\n---- Gefundene Klassen:");
         List<Class<?>> classes = getClasses(packageName);
         for (Class<?> clazz : classes)

@@ -10,14 +10,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Scanner;
-import misc.PathNames;
+
 import misc.Tools;
 
 /**
  *
  * @author Administrator
  */
-public class Quran implements PathNames
+public class Quran //implements PathNames
 {
     private final HashMap<String, String> m_map = new HashMap<>();
     private final Charset ENCODING = StandardCharsets.UTF_8;
@@ -40,7 +40,7 @@ public class Quran implements PathNames
     
     /**
      * Constructs map from quran file
-     * @param with quran file initialized scanner 
+     * @param scanner
      */
     private void scan (Scanner scanner)
     {

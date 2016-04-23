@@ -560,6 +560,7 @@ public class MainWindow extends javax.swing.JFrame
      */
     public static void main(String args[]) throws Exception
     {
+        //System.exit(0);
         org.apache.log4j.BasicConfigurator.configure();
         QuranMetadata.get();
 

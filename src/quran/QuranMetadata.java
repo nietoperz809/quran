@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import misc.PathNames;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
  *
  * @author Administrator
  */
-public class QuranMetadata implements PathNames
+public class QuranMetadata //implements PathNames
 {
     private static QuranMetadata m_this;
     private final Document m_document;

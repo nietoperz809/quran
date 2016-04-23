@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_twittools" default="compile.module.twittools">
+  <dirname property="module.twittools.basedir" file="${ant.file.module_twittools}"/>
+  
+  <property name="module.jdk.home.twittools" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.twittools" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.twittools" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.twittools" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="twittools.output.dir" value="${module.twittools.basedir}/out/production/TwitTools"/>
+  <property name="twittools.testoutput.dir" value="${module.twittools.basedir}/out/test/TwitTools"/>
+  
+  <path id="twittools.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="twittools.module.production.classpath">
+    <path refid="${module.jdk.classpath.twittools}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="twittools.runtime.production.module.classpath">
+    <pathelement location="${twittools.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="twittools.module.classpath">
+    <path refid="${module.jdk.classpath.twittools}"/>
+    <pathelement location="${twittools.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="twittools.runtime.module.classpath">
+    <pathelement location="${twittools.testoutput.dir}"/>
+    <pathelement location="${twittools.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.twittools">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.twittools">
+    <patternset refid="excluded.from.module.twittools"/>
+  </patternset>
+  
+  <path id="twittools.module.sourcepath">
+    <dirset dir="${module.twittools.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.twittools" depends="compile.module.twittools.production,compile.module.twittools.tests" description="Compile module TwitTools"/>
+  
+  <target name="compile.module.twittools.production" depends="register.custom.compilers" description="Compile module TwitTools; production classes">
+    <mkdir dir="${twittools.output.dir}"/>
+    <javac2 destdir="${twittools.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.twittools}/javac">
+      <compilerarg line="${compiler.args.twittools}"/>
+      <bootclasspath refid="twittools.module.bootclasspath"/>
+      <classpath refid="twittools.module.production.classpath"/>
+      <src refid="twittools.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.twittools"/>
+    </javac2>
+    
+    <copy todir="${twittools.output.dir}">
+      <fileset dir="${module.twittools.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.twittools.tests" depends="register.custom.compilers,compile.module.twittools.production" description="compile module TwitTools; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.twittools" description="cleanup module">
+    <delete dir="${twittools.output.dir}"/>
+    <delete dir="${twittools.testoutput.dir}"/>
+  </target>
+</project>

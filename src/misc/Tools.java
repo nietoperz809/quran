@@ -18,9 +18,11 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.net.URLDecoder;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -31,13 +33,14 @@ import static java.awt.Toolkit.getDefaultToolkit;
 import static java.awt.datatransfer.DataFlavor.stringFlavor;
 
 /**
- *
  * @author Administrator
  */
 public class Tools
 {
 
-    public static String humanReadableByteCount(long bytes, boolean si)
+    private static final String m_path = "../ser/";
+
+    public static String humanReadableByteCount (long bytes, boolean si)
     {
         int unit = si ? 1000 : 1024;
         if (bytes < unit)
@@ -49,7 +52,7 @@ public class Tools
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    public static String humanReadableByteCount(long bytes)
+    public static String humanReadableByteCount (long bytes)
     {
         DecimalFormat myFormatter = new DecimalFormat("000,000,000");
         return "  " + myFormatter.format(bytes);
@@ -61,7 +64,7 @@ public class Tools
      * @param parent
      * @return
      */
-    public static BufferedImage loadImage(Frame parent)
+    public static BufferedImage loadImage (Frame parent)
     {
         FileDialog fd = new FileDialog(parent, "Load", FileDialog.LOAD);
         fd.show();
@@ -81,7 +84,18 @@ public class Tools
         return null;
     }
 
-    public static boolean saveImage(String name, BufferedImage img, boolean jpg)
+    public static boolean saveImage (BufferedImage img, boolean jpg)
+    {
+        if (img == null)
+        {
+            return false;
+        }
+        FileDialog fd = new FileDialog((Frame) null, "Save", FileDialog.SAVE);
+        fd.setVisible(true);
+        return fd.getFile() != null && saveImage(fd.getDirectory() + fd.getFile(), img, jpg);
+    }
+
+    public static boolean saveImage (String name, BufferedImage img, boolean jpg)
     {
         if (jpg)
         {
@@ -117,37 +131,6 @@ public class Tools
         return true;
     }
 
-    public static boolean saveImage(BufferedImage img, boolean jpg) {
-        if (img == null) {
-            return false;
-        }
-        FileDialog fd = new FileDialog((Frame) null, "Save", FileDialog.SAVE);
-        fd.setVisible(true);
-        return fd.getFile() != null && saveImage(fd.getDirectory() + fd.getFile(), img, jpg);
-    }
-
-    /**
-     * Creates Image copy of new size
-     *
-     * @param originalImage Input image
-     * @param b With
-     * @param h Height
-     * @return new Image
-     */
-    public static BufferedImage resizeImage(BufferedImage originalImage, int b, int h)
-    {
-        if (originalImage == null)
-        {
-            return null;
-        }
-        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-        BufferedImage resizedImage = new BufferedImage(b, h, type);
-        Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, b, h, null);
-        g.dispose();
-        return resizedImage;
-    }
-
     /**
      * Reduces image quality
      *
@@ -156,7 +139,7 @@ public class Tools
      * @return byte array of jpeg data
      * @throws Exception
      */
-    public static byte[] reduceImg(File path, float qual) throws Exception
+    public static byte[] reduceImg (File path, float qual) throws Exception
     {
         BufferedImage image = ImageIO.read(path);
         image = resizeImage(image, 100, 100);
@@ -173,7 +156,29 @@ public class Tools
         return os.toByteArray();
     }
 
-    public static double readDouble(JTextField jf, double defaultvalue)
+    /**
+     * Creates Image copy of new size
+     *
+     * @param originalImage Input image
+     * @param b             With
+     * @param h             Height
+     * @return new Image
+     */
+    public static BufferedImage resizeImage (BufferedImage originalImage, int b, int h)
+    {
+        if (originalImage == null)
+        {
+            return null;
+        }
+        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+        BufferedImage resizedImage = new BufferedImage(b, h, type);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, b, h, null);
+        g.dispose();
+        return resizedImage;
+    }
+
+    public static double readDouble (JTextField jf, double defaultvalue)
     {
         double res;
         try
@@ -188,7 +193,7 @@ public class Tools
         return res;
     }
 
-    public static int readInt(JTextField jf, int defaultvalue)
+    public static int readInt (JTextField jf, int defaultvalue)
     {
         int res;
         try
@@ -203,7 +208,7 @@ public class Tools
         return res;
     }
 
-    static void printStringArray(String[] sa)
+    static void printStringArray (String[] sa)
     {
         for (String s : sa)
         {
@@ -213,7 +218,7 @@ public class Tools
         }
     }
 
-    static void printStringList(List<String> sa)
+    static void printStringList (List<String> sa)
     {
         for (String s : sa)
         {
@@ -222,8 +227,6 @@ public class Tools
         }
     }
 
-    private static final String m_path = "../ser/";
-
     /**
      * Create a save
      *
@@ -231,7 +234,7 @@ public class Tools
      * @param o
      * @throws Exception
      */
-    public static void serialize(String filename, Object o) throws Exception
+    public static void serialize (String filename, Object o) throws Exception
     {
         new File(m_path).mkdirs();
         FileOutputStream f_out = new FileOutputStream(m_path + filename);
@@ -246,7 +249,7 @@ public class Tools
      *
      * @param filename
      */
-    public static void deleteSave(String filename)
+    public static void deleteSave (String filename)
     {
         File f = new File(m_path + filename);
         String message = f.exists() ? "is in use by another app" : "does not exist";
@@ -263,7 +266,7 @@ public class Tools
      * @return
      * @throws Exception
      */
-    public static Object deSerialize(String filename) throws Exception
+    public static Object deSerialize (String filename) throws Exception
     {
         Object ret = null;
         FileInputStream f_in = new FileInputStream(m_path + filename);
@@ -281,10 +284,9 @@ public class Tools
     }
 
     /**
-     *
      * @return
      */
-    public static String getClipBoardString()
+    public static String getClipBoardString ()
     {
         Clipboard clipboard = getDefaultToolkit().getSystemClipboard();
         Transferable clipData = clipboard.getContents(clipboard);
@@ -305,14 +307,14 @@ public class Tools
         return null;
     }
 
-    public static void toClipBoard(final String s)
+    public static void toClipBoard (final String s)
     {
         StringSelection selection = new StringSelection(s);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, selection);
     }
 
-    public static String removeHTML(String s)
+    public static String removeHTML (String s)
     {
         s = s.replace("<br>", "\n");
         s = s.replaceAll("<.*?>", "");
@@ -324,7 +326,7 @@ public class Tools
      *
      * @return
      */
-    public static List<String> listSaves()
+    public static List<String> listSaves ()
     {
         List<String> result = new ArrayList<>();
         File[] files = new File(m_path).listFiles();
@@ -348,7 +350,7 @@ public class Tools
      * @param path package (as "hello/world/uh" instead of hello.world.uh)
      * @return String array with all names
      */
-    public static String[] listPackage(String path)
+    public static String[] listPackage (String path)
     {
         try
         {
@@ -388,7 +390,7 @@ public class Tools
         return null;
     }
 
-    public static String getBuildNumber()
+    public static String getBuildNumber ()
     {
         return BuildNumber.date + " Build:" + BuildNumber.num;
     }
@@ -399,7 +401,7 @@ public class Tools
      * @param a Component to center
      * @param b Parent component
      */
-    public static void centerComponent(Component a, Component b)
+    public static void centerComponent (Component a, Component b)
     {
         Dimension db = b.getSize();
         Dimension da = a.getSize();
@@ -414,4 +416,6 @@ public class Tools
         }
         a.setLocation(pt);
     }
+
+
 }

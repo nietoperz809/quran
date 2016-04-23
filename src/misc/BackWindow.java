@@ -10,13 +10,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 
 /**
- * Background image drawing JDesktopPane
+ * Background image drawing in JDesktopPane
  * @author Administrator
  */
-public class BackWindow extends JDesktopPane implements PathNames
+public class BackWindow extends JDesktopPane // implements PathNames
 {
     private static final long serialVersionUID = 1L;
     private Image image;
+    public final String BackImagePath = "c:\\allah.jpg";
 
     public BackWindow()
     {

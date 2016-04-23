@@ -9,13 +9,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-import misc.PathNames;
 
 /**
  *
  * @author Administrator
  */
-public class VerbalQuran implements Runnable, PathNames
+public class VerbalQuran implements Runnable //, PathNames
 {
     private ThreadParam param;
 

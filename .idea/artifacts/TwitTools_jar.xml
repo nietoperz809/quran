@@ -3,53 +3,6 @@
     <output-path>$PROJECT_DIR$/dist</output-path>
     <root id="archive" name="TwitTools.jar">
       <element id="module-output" name="TwitTools" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/en_us.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-http-client-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-oauth-client-appengine-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/freetts.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-android-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-servlet-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-services-plus-v1-rev208-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/httpclient-4.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-oauth-client-servlet-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/quran.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-jackson2-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/AbsoluteLayout.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/java-getopt-1.0.14.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-http-client-jackson2-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-oauth-client-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jackson-core-2.1.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/cmu_us_kal.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/hadith.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-gson-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/ftpserver_complete.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-http-client-android-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/gson-2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-java6-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/cmulex.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-http-client-gson-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jdo2-api-2.3-eb.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/transaction-api-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jetty-6.1.26.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/httpcore-4.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/twitter4j-core-4.0.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/twitter4j-stream-4.0.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-http-client-appengine-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-http-client-jdo-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-oauth-client-java6-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jsr305-1.3.9.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jetty-util-6.1.26.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-oauth-client-jetty-1.19.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/beansbinding-1.2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/google-api-client-appengine-1.19.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/twitter4j-media-support-4.0.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/twitter4j-async-4.0.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/000_versebyverse.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/commons-logging-1.1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/zxing-2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jl1.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/dist/lib/jlatexmath-1.0.3.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
