@@ -329,6 +329,21 @@ public class ParseStatement extends Statement
                     }
                     throw new BASICSyntaxError(extraError);
 
+                case NAME:
+                    s = new NAMEStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
+                    {
+                        return s;
+                    }
+
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
                 case IF:
                     s = new IFStatement(lt);
                     t = lt.nextToken();

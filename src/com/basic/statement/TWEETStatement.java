@@ -42,7 +42,7 @@ public class TWEETStatement extends Statement
 {
 
     // This is the line number to transfer control too.
-    Vector args;
+    private Vector args;
 
     public TWEETStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
@@ -53,28 +53,14 @@ public class TWEETStatement extends Statement
 
     public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        StringBuilder buff = new StringBuilder();
-        PrintItem pi = null;
-        int col = 0;
-        for (int i = 0; i < args.size(); i++)
-        {
-            String z;
-            pi = (PrintItem) (args.elementAt(i));
-            z = pi.value(pgm, col);
-            buff.append(z);
-            col += z.length();
-        }
-        if ((pi == null) || pi.needCR())
-        {
-            buff.append("\n");
-        }
-        TwitTools.sendLongString (buff.toString());
+        String sss = StringExParser.printItemsToString (pgm, args);
+        TwitTools.sendLongString (sss);
         return pgm.nextStatement(this);
     }
 
     public String unparse()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("PRINT ");
         for (int i = 0; i < args.size(); i++)
         {
@@ -84,54 +70,10 @@ public class TWEETStatement extends Statement
         return sb.toString();
     }
 
-    private static Vector parseStringExpression(LexicalTokenizer lt) throws BASICSyntaxError
-    {
-        Vector result = new Vector();
-        Token t;
-
-        while (true)
-        {
-            t = lt.nextToken();
-            switch (t.typeNum())
-            {
-                case CONSTANT:
-                case FUNCTION:
-                case VARIABLE:
-                case STRING:
-                case OPERATOR:
-                    lt.unGetToken();
-                    result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
-                    break;
-                case SYMBOL:
-                    switch ((int) t.numValue())
-                    {
-                        case '(':
-                            lt.unGetToken();
-                            result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
-                            break;
-                        case ';':
-                            result.addElement(new PrintItem(PrintItem.SEMI, null));
-                            break;
-                        case ',':
-                            result.addElement(new PrintItem(PrintItem.TAB, null));
-                            break;
-                        default:
-                            lt.unGetToken();
-                            return result;
-                    }
-                    break;
-                case EOL:
-                    return result;
-                default:
-                    lt.unGetToken();
-                    return result;
-            }
-        }
-    }
 
     private static void parse(TWEETStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        s.args = parseStringExpression(lt);
+        s.args = StringExParser.parseStringExpression(lt);
     }
 
 }

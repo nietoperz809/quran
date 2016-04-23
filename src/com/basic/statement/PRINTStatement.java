@@ -41,7 +41,7 @@ public class PRINTStatement extends Statement
 {
 
     // This is the line number to transfer control too.
-    Vector args;
+    private Vector args;
 
     public PRINTStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
@@ -83,55 +83,10 @@ public class PRINTStatement extends Statement
         return sb.toString();
     }
 
-    private static Vector parseStringExpression(LexicalTokenizer lt) throws BASICSyntaxError
-    {
-        Vector result = new Vector();
-        Token t;
-
-        while (true)
-        {
-            t = lt.nextToken();
-            switch (t.typeNum())
-            {
-                case CONSTANT:
-                case FUNCTION:
-                case VARIABLE:
-                case STRING:
-                case OPERATOR:
-                    lt.unGetToken();
-                    result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
-                    break;
-                case SYMBOL:
-                    switch ((int) t.numValue())
-                    {
-                        case '(':
-                            lt.unGetToken();
-                            result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
-                            break;
-                        case ';':
-                            result.addElement(new PrintItem(PrintItem.SEMI, null));
-                            break;
-                        case ',':
-                            result.addElement(new PrintItem(PrintItem.TAB, null));
-                            break;
-                        default:
-                            lt.unGetToken();
-                            return result;
-                    }
-                    break;
-                case EOL:
-                    return result;
-                default:
-                    lt.unGetToken();
-                    return result;
-            }
-        }
-    }
 
     private static void parse(PRINTStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        Token t;
-        s.args = parseStringExpression(lt);
+        s.args = StringExParser.parseStringExpression(lt);
     }
 
 }

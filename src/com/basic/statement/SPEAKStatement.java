@@ -40,7 +40,7 @@ import java.util.Vector;
 public class SPEAKStatement extends Statement
 {
     // This is the line number to transfer control too.
-    Vector args;
+    private Vector args;
 
     public SPEAKStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
@@ -52,24 +52,8 @@ public class SPEAKStatement extends Statement
     @Override
     public Statement doit(Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        StringBuilder buff = new StringBuilder();
-        PrintItem pi = null;
-        int col = 0;
-        for (int i = 0; i < args.size(); i++)
-        {
-            String z;
-            pi = (PrintItem) (args.elementAt(i));
-            z = pi.value(pgm, col);
-            buff.append(z);
-            col += z.length();
-        }
-        if ((pi == null) || pi.needCR())
-        {
-            buff.append("\n");
-        }
-        pgm.voice.speak(buff.toString());
-        //System.out.println(buff.toString());
-        //TwitTools.sendLongString (buff.toString());
+        String sss = StringExParser.printItemsToString (pgm, args);
+        pgm.voice.speak (sss);
         return pgm.nextStatement(this);
     }
 
@@ -77,7 +61,7 @@ public class SPEAKStatement extends Statement
     public String unparse()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(keyword.name()+" ");
+        sb.append(keyword.name()).append(" ");
         for (int i = 0; i < args.size(); i++)
         {
             PrintItem pi = (PrintItem) (args.elementAt(i));
@@ -86,55 +70,9 @@ public class SPEAKStatement extends Statement
         return sb.toString();
     }
 
-    private static Vector parseStringExpression(LexicalTokenizer lt) throws BASICSyntaxError
-    {
-        Vector result = new Vector();
-        Token t;
-
-        while (true)
-        {
-            t = lt.nextToken();
-            switch (t.typeNum())
-            {
-                case CONSTANT:
-                case FUNCTION:
-                case VARIABLE:
-                case STRING:
-                case OPERATOR:
-                    lt.unGetToken();
-                    result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
-                    break;
-                case SYMBOL:
-                    switch ((int) t.numValue())
-                    {
-                        case '(':
-                            lt.unGetToken();
-                            result.addElement(new PrintItem(PrintItem.EXPRESSION, ParseExpression.expression(lt)));
-                            break;
-                        case ';':
-                            result.addElement(new PrintItem(PrintItem.SEMI, null));
-                            break;
-                        case ',':
-                            result.addElement(new PrintItem(PrintItem.TAB, null));
-                            break;
-                        default:
-                            lt.unGetToken();
-                            return result;
-                    }
-                    break;
-                case EOL:
-                    return result;
-                default:
-                    lt.unGetToken();
-                    return result;
-            }
-        }
-    }
-
     private static void parse(SPEAKStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        Token t;
-        s.args = parseStringExpression(lt);
+        s.args = StringExParser.parseStringExpression(lt);
     }
 
 }

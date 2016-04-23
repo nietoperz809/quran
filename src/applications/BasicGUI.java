@@ -206,7 +206,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      * runs the command line interpreter
      * @return 1 if GUI closed. otherwise 0
      */
-    private int runCLI()
+    private int runBasicSystem ()
     {
         if (ci == null)
         {
@@ -229,7 +229,8 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         System.out.println("BasicThread start");
-        if (runCLI() == 1)
+        int ret = runBasicSystem();
+        if (ret == 1)
         {
             ci.dispose();
             dispose();

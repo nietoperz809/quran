@@ -35,7 +35,7 @@ import java.util.Random;
  */
 public class FunctionExpression extends Expression
 {
-    Expression sVar; // STRING function variable.
+    private Expression sVar; // STRING function variable.
 
 //    final static String functions[] =
 //    {
@@ -69,7 +69,7 @@ public class FunctionExpression extends Expression
 //    final static int INKEYS = 22;
 //    final static int TIME = 23;
 
-    Random r;
+    private Random r;
 
     @Override
     public void print (PrintStream p)
@@ -250,13 +250,15 @@ public class FunctionExpression extends Expression
 
         switch (oper)
         {
-
             case LEFT:
+                assert ss != null;
                 return ss.substring(0, (int) arg2.value(pgm));
             case RIGHT:
+                assert ss != null;
                 return ss.substring(len - (int) arg2.value(pgm));
             case MID:
                 int t = (int) arg1.value(pgm);
+                assert ss != null;
                 return ss.substring(t - 1, (t - 1) + (int) arg2.value(pgm));
             case CHR:
                 return "" + (char) arg2.value(pgm);

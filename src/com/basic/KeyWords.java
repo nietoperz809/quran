@@ -31,6 +31,7 @@ public enum KeyWords
     TO("to", "before last value in for loop"),
     NEXT("next", "execute next looping"),
     STEP("step", "step with of for loop"),
+    NAME ("name", "give this thread a name"),
     LET("let"),
     INPUT("input"),
     STOP("stop"),

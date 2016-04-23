@@ -136,7 +136,7 @@ public class Program implements Runnable, Serializable
      */
     public static Program load(InputStream source, PrintStream out, StreamingTextArea ar, Voice v) throws IOException, BASICSyntaxError
     {
-        DataInputStream dis = null;
+        DataInputStream dis;
         dis = new DataInputStream(new BufferedInputStream(source));
         char data[] = new char[256];
         LexicalTokenizer lt = new LexicalTokenizer(data);
@@ -200,7 +200,7 @@ public class Program implements Runnable, Serializable
     {
         // XXX this needs to use the SourceManager class //
         FileInputStream fis = new FileInputStream(source);
-        Program r = null;
+        Program r;
         try
         {
             r = load(fis, out, ar, v);
@@ -218,7 +218,7 @@ public class Program implements Runnable, Serializable
      * Write the basic program out to the passed output stream. Conceptually
      * this is identical to doing a list operation.
      */
-    public void save(OutputStream out) throws IOException
+    public void save(OutputStream out)
     {
         PrintStream p = new PrintStream(out);
         list(p);
@@ -254,8 +254,8 @@ public class Program implements Runnable, Serializable
      */
     boolean add(int line, Statement s)
     {
-        Integer ln = new Integer(line);
-        Object z = stmts.put(ln, s);
+        Integer ln = line;
+        stmts.put(ln, s);
         return true;
     }
 
@@ -350,10 +350,6 @@ public class Program implements Runnable, Serializable
         vi.setValue(value, ii);
     }
 
-    void setRandom(long seed)
-    {
-    }
-
     /**
      * Set the string variable named <i>name</i> to have the value <i>value</i>.
      * If this is the first use of the variable it is created.
@@ -389,7 +385,7 @@ public class Program implements Runnable, Serializable
         Variable vi;
         int ii[] = getIndices(v);
         vi = new Variable(v.name, ii);
-        Variable xx = vars.put(v.name, vi);
+        vars.put(v.name, vi);
     }
 
     /**
@@ -416,7 +412,7 @@ public class Program implements Runnable, Serializable
      */
     public Statement getStatement (int line)
     {
-        return (Statement) stmts.get(new Integer(line));
+        return stmts.get(new Integer(line));
     }
 
     /**
@@ -492,7 +488,7 @@ public class Program implements Runnable, Serializable
      * @param firstline
      * @throws BASICRuntimeError if an error occurs while basic_prg_running.
      */
-    public void run(InputStream in, OutputStream out, int firstline) throws BASICRuntimeError, Exception
+    public void run(InputStream in, OutputStream out, int firstline) throws Exception
     {
         PrintStream pout;
         Enumeration e = stmts.elements();
@@ -666,7 +662,6 @@ public class Program implements Runnable, Serializable
     void cont(InputStream in, PrintStream pout) throws BASICRuntimeError
     {
         Statement s;
-        int yyy;
 
         s = pop();
         do
