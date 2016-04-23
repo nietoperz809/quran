@@ -67,7 +67,7 @@ class CaptureField extends Label implements Runnable
             {
                 Thread.sleep ((long) CaptureField.MILLIS);
             }
-            catch (Exception ex)
+            catch (Exception ignored)
             {
             }
             if (pc.equals (Color.RED))

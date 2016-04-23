@@ -16,12 +16,11 @@ class ScrollPanel extends Panel
     final Scrollbar r;
     final Scrollbar g;
     final Scrollbar b;
-    private final String a;
     private static final int MAXIMUM = 256;
 
     ScrollPanel (String sa)
     {
-        a = sa;
+        String a = sa;
         setLayout (new GridLayout (3, 0));
         if ("R".equals (a))
         {

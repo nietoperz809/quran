@@ -28,7 +28,7 @@ class AdjRGB implements AdjustmentListener
         setFriendsRGB (r, g, b);
     }
 
-    void setFriendsRGB (int r, int g, int b)
+    private void setFriendsRGB (int r, int g, int b)
     {
         s.e.colorChanged (r, g, b);
 

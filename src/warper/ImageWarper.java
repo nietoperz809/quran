@@ -12,12 +12,12 @@ import java.awt.image.BufferedImage;
 /////////////////////////////////////////////////////////////////////////
 public class ImageWarper
 {
-    Point mFromPoint;
-    Point mToPoint;
-    int[] mFromPixels;
-    int[] mToPixels;
-    int mWidth;
-    int mHeight; // width & height of warp image
+    private final Point mFromPoint;
+    private final Point mToPoint;
+    private final int[] mFromPixels;
+    private final int[] mToPixels;
+    private final int mWidth;
+    private final int mHeight; // width & height of warp image
 
     public ImageWarper (BufferedImage img, Point fromPoint, Point toPoint)
     {
@@ -83,7 +83,7 @@ public class ImageWarper
         return createImageFromArray (mToPixels, mWidth, mHeight);
     }
 
-    public static BufferedImage createImageFromArray(int[] pixels, int width, int height)
+    private static BufferedImage createImageFromArray (int[] pixels, int width, int height)
     {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         image.setRGB(0, 0, width, height, pixels, 0, width);
@@ -136,7 +136,7 @@ public class ImageWarper
         }
     }
 
-    void ClipRect(Rectangle r, int w, int h)
+    private void ClipRect (Rectangle r, int w, int h)
     {
         if (r.x < 0)
         {
@@ -160,7 +160,7 @@ public class ImageWarper
 
     // SetRect and SetPt are Mac OS functions. I wrote my own versions here
     // so I didn't have to rewrite too much of the code.
-    void SetRect(Rectangle r, int left, int top, int right, int bottom)
+    private void SetRect (Rectangle r, int left, int top, int right, int bottom)
     {
         r.x = left;
         r.y = top;
@@ -168,7 +168,7 @@ public class ImageWarper
         r.height = bottom - top;
     }
 
-    void SetPt(Point pt, int x, int y)
+    private void SetPt (Point pt, int x, int y)
     {
         pt.x = x;
         pt.y = y;

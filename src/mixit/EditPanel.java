@@ -96,6 +96,7 @@ class EditPanel extends Panel
 
         try
         {
+            assert sl.cb != null;
             Color c0 = sl.cb.p[0].field.getBackground ();
             Color c1 = sl.cb.p[1].field.getBackground ();
             Color c2 = sl.cb.p[2].field.getBackground ();
@@ -151,7 +152,7 @@ class EditPanel extends Panel
             sl.cb.p[8].field.setBackground (c8);
 
         }
-        catch (Exception ex)
+        catch (Exception ignored)
         {
 
         }

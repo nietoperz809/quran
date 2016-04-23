@@ -13,5 +13,5 @@ import java.awt.Point;
  */
 public interface MouseAction
 {
-    public void doMouseAction (Point pt1, Point pt2);
+    void doMouseAction (Point pt1, Point pt2);
 }

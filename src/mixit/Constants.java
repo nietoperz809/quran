@@ -3,7 +3,7 @@ package mixit;
 import java.awt.Color;
 
 
-public class Constants
+class Constants
 {
 
     /**

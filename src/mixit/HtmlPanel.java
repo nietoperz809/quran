@@ -33,22 +33,18 @@ class HtmlPanel extends Panel
             c.add (Constants.html[s]);
         }
         c.add (" - - - -");
-        c.addItemListener (new ItemListener()
-        {
-            public void itemStateChanged (ItemEvent e)
+        c.addItemListener (e -> {
+            try
             {
-                try
-                {
-                    int selectedIndex = c.getSelectedIndex ();
-                    Color cl = Color.decode ("0x" + Constants.html[2 * selectedIndex + 1]);
-                    int blue = cl.getBlue ();
-                    int green = cl.getGreen ();
-                    int red = cl.getRed ();
-                    two.cp_rgb.adjrgb.setRGB (red, green, blue);
-                }
-                catch (Exception ex)
-                {
-                }
+                int selectedIndex = c.getSelectedIndex ();
+                Color cl = Color.decode ("0x" + Constants.html[2 * selectedIndex + 1]);
+                int blue = cl.getBlue ();
+                int green = cl.getGreen ();
+                int red = cl.getRed ();
+                two.cp_rgb.adjrgb.setRGB (red, green, blue);
+            }
+            catch (Exception ignored)
+            {
             }
         }
         );

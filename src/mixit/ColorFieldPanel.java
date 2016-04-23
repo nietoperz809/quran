@@ -14,12 +14,11 @@ import java.awt.Panel;
 class ColorFieldPanel extends Panel
 {
     final ColorField field;
-    private final CFLabel cf;
 
     ColorFieldPanel (Colorbox cb, String txt)
     {
         setLayout (new BorderLayout (1, 1));
-        cf = new CFLabel (txt);
+        CFLabel cf = new CFLabel(txt);
         add ("North", cf);
         field = new ColorField (cb, cf);
         cf.f = field;
