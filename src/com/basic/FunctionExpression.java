@@ -136,6 +136,8 @@ public class FunctionExpression extends Expression
         {
             switch (oper)
             {
+                case TID:
+                    return Thread.currentThread().getId();
                 case RND:
                     if (r == null)
                     {
@@ -214,6 +216,7 @@ public class FunctionExpression extends Expression
     {
         switch (oper)
         {
+            case GETNAME:
             case LEFT:
             case RIGHT:
             case MID:
@@ -262,6 +265,8 @@ public class FunctionExpression extends Expression
                 return ss.substring(t - 1, (t - 1) + (int) arg2.value(pgm));
             case CHR:
                 return "" + (char) arg2.value(pgm);
+            case GETNAME:
+                return Thread.currentThread().getName();
             case INKEYS:
             {
                 try
@@ -317,7 +322,9 @@ public class FunctionExpression extends Expression
         Expression se;
         Token t;
 
-        if (ty == KeyWords.INKEYS || ty == KeyWords.TIME)
+        if (ty == KeyWords.INKEYS ||
+                ty == KeyWords.TIME ||
+                ty == KeyWords.GETNAME)
         {
             return new FunctionExpression(ty, new ConstantExpression(0));
         }
@@ -325,7 +332,12 @@ public class FunctionExpression extends Expression
         t = lt.nextToken();
         if (!t.isSymbol('('))
         {
-            if (ty == KeyWords.RND)
+            if (ty == KeyWords.TID)
+            {
+                lt.unGetToken();
+                return new FunctionExpression(ty, new ConstantExpression(1));
+            }
+            else if (ty == KeyWords.RND)
             {
                 lt.unGetToken();
                 return new FunctionExpression(ty, new ConstantExpression(1));
@@ -339,6 +351,7 @@ public class FunctionExpression extends Expression
         }
         switch (ty)
         {
+            case TID:
             case RND:
             case INT:
             case SIN:

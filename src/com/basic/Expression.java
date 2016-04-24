@@ -36,39 +36,9 @@ import java.io.PrintStream;
  */
 public class Expression implements Ser
 {
-//    /**
-//     * These are the valid operator types.
-//     */
-//    final static int OP_ADD = 1;   // Addition '+'
-//    final static int OP_SUB = 2;   // Subtraction '-'
-//    final static int OP_MUL = 3;   // Multiplication '*'
-//    final static int OP_DIV = 4;   // Division '/'
-//    final static int OP_EXP = 5;   // Exponentiation '**'
-//    final static int OP_AND = 6;   // Bitwise AND '&'
-//    final static int OP_IOR = 7;   // Bitwise inclusive OR '|'
-//    final static int OP_XOR = 8;   // Bitwise exclusive OR '^'
-//    final static int OP_NOT = 9;   // Unary negation '!'
-//    final static int OP_EQ = 10;  // Equality '='
-//    final static int OP_NE = 11;  // Inequality '<>'
-//    final static int OP_LT = 12;  // Less than '<'
-//    final static int OP_LE = 13;  // Less than or equal '<='
-//    final static int OP_GT = 14;  // Greater than '>'
-//    final static int OP_GE = 15;  // Greater than or equal '>='
-//    final static int OP_BAND = 16;  // Boolean AND '.AND.'
-//    final static int OP_BIOR = 17;  // Boolean inclusive or '.OR.'
-//    final static int OP_BXOR = 18;  // Boolean exclusive or '.XOR.'
-//    final static int OP_BNOT = 19;  // Boolean negation '.NOT.'
-//    final static int OP_NEG = 20;  // Unary minus
-//
-//    final static String opVals[] =
-//    {
-//        "<NULL>", "+", "-", "*", "/", "**", "&", "|", "^", "!", "=", "<>",
-//        "<", "<=", ">", ">=", "AND", "OR", "XOR", "NOT", "-",
-//    };
-//
 
-    final static String typeError
-            = "Expression: cannot combine boolean term with arithmetic term.";
+//    final static String typeError
+//            = "Expression: cannot combine boolean term with arithmetic term.";
     public Expression arg1;
     public Expression arg2;
     public KeyWords oper;

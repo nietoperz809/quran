@@ -67,7 +67,7 @@ public enum KeyWords
     CMD_CMDS("cmds"),
     CMD_DIR("dir"),
     
-    RND("rnd"),
+    RND("rnd", "get a random number"),
     INT("int"),
     SIN("sin"),
     COS("cos"),
@@ -77,6 +77,8 @@ public enum KeyWords
     MAX("max"),
     MIN("min"),
     ABS("abs"),
+    GETNAME ("name$", "get the thread name"),
+    TID("tid", "get the thread id"),
     LEFT("left$"),
     RIGHT("right$"),
     MID("mid$"),

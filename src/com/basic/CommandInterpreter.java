@@ -129,24 +129,34 @@ public class CommandInterpreter implements Serializable
                 return pgm;
 
             case CMD_CMDS:
-                List<Class<?>> classes = ClassFinder.getClasses("com.basic.statement");
-                for (Class<?> clazz : classes)
+                for (KeyWords k: KeyWords.values())
                 {
-                    String n = clazz.getCanonicalName();
-                    if (n != null)
+                    String description = k.getDesc();
+                    if (description != null)
                     {
-                        Constructor ctor = clazz.getConstructor(LexicalTokenizer.class);
-                        Object o1 = ctor.newInstance(new LexicalTokenizer(null));
-                        Field f = o1.getClass().getField("keyword");
-                        com.basic.KeyWords o = (com.basic.KeyWords)f.get(o1);
-                        String desc = o.getDesc();
-                        outStream.print(o);
-                        if (desc == null)
-                            outStream.println();
-                        else
-                            outStream.println(" - "+ desc);
+                        outStream.print (k.toString().toUpperCase());
+                        outStream.println(" - "+ description);
                     }
+
                 }
+//                List<Class<?>> classes = ClassFinder.getClasses("com.basic.statement");
+//                for (Class<?> clazz : classes)
+//                {
+//                    String n = clazz.getCanonicalName();
+//                    if (n != null)
+//                    {
+//                        Constructor ctor = clazz.getConstructor(LexicalTokenizer.class);
+//                        Object o1 = ctor.newInstance(new LexicalTokenizer(null));
+//                        Field f = o1.getClass().getField("keyword");
+//                        com.basic.KeyWords o = (com.basic.KeyWords)f.get(o1);
+//                        String desc = o.getDesc();
+//                        outStream.print(o);
+//                        if (desc == null)
+//                            outStream.println();
+//                        else
+//                            outStream.println(" - "+ desc);
+//                    }
+//                }
                 return pgm;
 
             case CMD_INSTRLIST:
