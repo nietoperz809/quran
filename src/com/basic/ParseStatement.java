@@ -214,6 +214,15 @@ public class ParseStatement extends Statement
                     }
                     return s;
 
+                case WAKEUP:
+                    s = new WAKEUPStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != KeyWords.EOL)
+                    {
+                        throw new BASICSyntaxError(extraError);
+                    }
+                    return s;
+
                 case SLEEP:
                     s = new SLEEPStatement(lt);
                     t = lt.nextToken();

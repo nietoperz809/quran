@@ -41,7 +41,8 @@ public enum KeyWords
     TROFF("troff"),
     TIMER("timer", "may be used for randomize"), // not a real statement
     CLS("cls"),
-    SLEEP("sleep"),
+    SLEEP("sleep", "sleeps for n milliseconds or * (infinite)"),
+    WAKEUP ("wakeup", "wakes a thread up"),
     TWEET("tweet"),
     SEQ("seq"),
     SCLR("sclr"),

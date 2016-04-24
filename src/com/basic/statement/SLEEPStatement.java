@@ -5,16 +5,18 @@
  */
 package com.basic.statement;
 
+import applications.BasicGUI;
 import com.basic.*;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.concurrent.CountDownLatch;
 
 public class SLEEPStatement extends Statement
 {
-
-    // This is the line number to transfer control too.
+    // This is the sleep time
     int lineTarget;
+    private final static int FOREVER = -1;
 
     public SLEEPStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
@@ -30,7 +32,16 @@ public class SLEEPStatement extends Statement
         s = pgm.nextStatement(this);
         try
         {
-            Thread.sleep(lineTarget);
+            if (lineTarget == FOREVER)
+            {
+                long id = Thread.currentThread().getId();
+                CountDownLatch cd = new CountDownLatch(1);
+                BasicGUI.latchMap.put(id, cd);
+                cd.await();
+                BasicGUI.latchMap.remove(id);
+            }
+            else
+                Thread.sleep(lineTarget);
         }
         catch (InterruptedException ex)
         {
@@ -50,9 +61,14 @@ public class SLEEPStatement extends Statement
     private static void parse(SLEEPStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
+        if (t.stringValue() != null && t.stringValue().equals("*"))
+        {
+            s.lineTarget = FOREVER;  // magic value
+            return;
+        }
         if (t.typeNum() != KeyWords.CONSTANT)
         {
-            throw new BASICSyntaxError("Line number required after SLEEP.");
+            throw new BASICSyntaxError("positive number or -1 required");
         }
         s.lineTarget = (int) t.numValue();
     }

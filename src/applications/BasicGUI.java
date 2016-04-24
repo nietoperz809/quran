@@ -10,6 +10,8 @@ import com.basic.streameditor.StreamingTextArea;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.MDIChild;
@@ -23,6 +25,8 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
 {
     transient private Thread thread;
     private CommandInterpreter ci;
+    transient public static final
+        ConcurrentHashMap<Long, CountDownLatch> latchMap = new ConcurrentHashMap<>();
 
     {
         initComponents();
