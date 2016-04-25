@@ -22,7 +22,7 @@ public abstract class Statement implements Ser
     // original string that was parsed into this statement.
 
     public Statement nxt;  // if there are chained statements
-    protected RedBlackTree vars; // variables used by this statement.
+    private RedBlackTree vars; // variables used by this statement.
     // variables used by this statement.
 
     /**
@@ -47,7 +47,7 @@ public abstract class Statement implements Ser
      */
     public Statement execute (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        Statement nxt = null;
+        Statement nxt;
         try
         {
             nxt = doit(pgm, in, out);
@@ -171,7 +171,7 @@ public abstract class Statement implements Ser
             for (Enumeration e = vars.elements(); e.hasMoreElements();)
             {
                 VariableExpression vi = (VariableExpression) e.nextElement();
-                String t = null;
+                String t;
                 try
                 {
                     t = vi.stringValue(pgm);

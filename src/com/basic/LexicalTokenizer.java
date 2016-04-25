@@ -31,14 +31,14 @@ public class LexicalTokenizer implements Serializable
     public static final long serialVersionUID = 1L;
     // multiple expressions can be chained with these operators
 
-    final public static EnumSet<KeyWords> boolTokens
+    private final static EnumSet<KeyWords> boolTokens
             = EnumSet.of(KeyWords.OP_BAND, KeyWords.OP_BIOR, KeyWords.OP_BXOR, KeyWords.OP_BNOT);
-    int currentPos = 0;
-    int previousPos = 0;
-    int markPos = 0;
-    char buffer[] = null;
+    private int currentPos = 0;
+    private int previousPos = 0;
+    private int markPos = 0;
+    private char[] buffer = null;
     // we just keep this around 'cuz we return it a lot.
-    Token EOLToken = new Token(KeyWords.EOL, 0);
+    private final Token EOLToken = new Token(KeyWords.EOL, 0);
 
     public char[] getBuffer()
     {
@@ -374,13 +374,13 @@ public class LexicalTokenizer implements Serializable
         if (buffer[currentPos] == '(')
         {
             currentPos++;
-            Vector expVec = new Vector();
+            Vector<Expression> expVec = new Vector<>();
             Expression expn[];
 
             // This line sets the maximum number of indices.
             for (int i = 0; i < 4; i++)
             {
-                Expression thisE = null;
+                Expression thisE;
                 try
                 {
                     thisE = ParseExpression.expression(this);
@@ -414,7 +414,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * Return true if char is whitespace.
      */
-    static boolean isSpace (char c)
+    private static boolean isSpace (char c)
     {
         return ((c == ' ') || (c == '\t'));
     }
@@ -431,12 +431,12 @@ public class LexicalTokenizer implements Serializable
      * Also note that until the second character is read .5 and .and. appear to
      * start similarly.
      */
-    Token parseNumericConstant ()
+    private Token parseNumericConstant ()
     {
         double m = 0;   // Mantissa
         double f = 0;   // Fractional component
         int oldPos = currentPos; // save our place.
-        boolean wasNeg = false;
+        boolean wasNeg;
         boolean isConstant = false;
         //Token r = null;
 
@@ -558,7 +558,7 @@ public class LexicalTokenizer implements Serializable
 //        currentPos = oldPos;
 //        return null;
 //    }
-    Token parseBooleanOp ()
+    private Token parseBooleanOp ()
     {
         int oldPos = currentPos;
         StringBuilder sb = new StringBuilder();
@@ -571,22 +571,19 @@ public class LexicalTokenizer implements Serializable
             len++;
         }
         while (isLetter(buffer[currentPos + len]));
-        if (true)
+        String x = sb.toString();
+        for (KeyWords k : boolTokens)
         {
-            String x = sb.toString();
-            for (KeyWords k : boolTokens)
+            if (x.equalsIgnoreCase(k.toString()))
             {
-                if (x.equalsIgnoreCase(k.toString()))
-                {
-                    r = new Token(KeyWords.OPERATOR, k);
-                    break;
-                }
+                r = new Token(KeyWords.OPERATOR, k);
+                break;
             }
-            if (r != null)
-            {
-                currentPos += len;
-                return r;
-            }
+        }
+        if (r != null)
+        {
+            currentPos += len;
+            return r;
         }
         currentPos = oldPos;
         return null;
@@ -595,7 +592,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * return true if char is between a-z or A=Z
      */
-    static boolean isLetter (char c)
+    private static boolean isLetter (char c)
     {
         return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')));
     }
@@ -603,7 +600,7 @@ public class LexicalTokenizer implements Serializable
     /**
      * Return true if char is between 0 and 9
      */
-    static boolean isDigit (char c)
+    private static boolean isDigit (char c)
     {
         return ((c >= '0') && (c <= '9'));
     }

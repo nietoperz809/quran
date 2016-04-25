@@ -241,7 +241,7 @@ public class CommandInterpreter implements Serializable
                 {
                     if (fileEntry.isFile())
                     {
-                        outStream.println(fileEntry.getName());
+                        outStream.println(fileEntry.getName()+ " -- " + fileEntry.length());
                     }
                 }
                 return pgm;

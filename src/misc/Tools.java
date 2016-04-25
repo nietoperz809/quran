@@ -67,7 +67,7 @@ public class Tools
     public static BufferedImage loadImage (Frame parent)
     {
         FileDialog fd = new FileDialog(parent, "Load", FileDialog.LOAD);
-        fd.show();
+        fd.setVisible(true);
         if (fd.getFile() == null)
         {
             return null;

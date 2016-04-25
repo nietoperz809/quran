@@ -20,15 +20,8 @@ package com.basic;
 import com.basic.streameditor.StreamingTextArea;
 import com.basic.util.RedBlackTree;
 import com.sun.speech.freetts.Voice;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.Serializable;
+
+import java.io.*;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Random;
@@ -71,14 +64,14 @@ public class Program implements Runnable, Serializable
     private RedBlackTree<String, Variable> vars = new RedBlackTree<>();
 
     private Stack<Statement> stmtStack = new Stack<>();
-    private Vector dataStore = new Vector();
+    private Vector<Token> dataStore = new Vector<>();
     private int dataPtr = 0;
     private Random r = new Random(0);
 
     private boolean traceState = false;
     private PrintStream traceFile = null;
 
-    private CommandInterpreter m_caller;
+    private final CommandInterpreter m_caller;
 
     public Program (StreamingTextArea ta, Voice v, CommandInterpreter caller)
     {
@@ -139,8 +132,9 @@ public class Program implements Runnable, Serializable
      */
     private static Program load (InputStream source, PrintStream out, StreamingTextArea ar, Voice v) throws IOException, BASICSyntaxError
     {
-        DataInputStream dis;
-        dis = new DataInputStream(new BufferedInputStream(source));
+        BufferedReader dis
+                = new BufferedReader(new InputStreamReader(source));
+
         char data[] = new char[256];
         LexicalTokenizer lt = new LexicalTokenizer(data);
         String lineData;
