@@ -21,18 +21,16 @@ import applications.BasicGUI;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.Serializable;
+
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.sound.midi.Instrument;
 import midisystem.MidiSynthSystem;
 import misc.ClassFinder;
+import misc.Transmitter;
 
 import static com.basic.ParseStatement.statement;
 
@@ -129,7 +127,8 @@ public class CommandInterpreter implements Serializable
                 return pgm;
 
             case CMD_CMDS:
-                for (KeyWords k: KeyWords.values())
+                List<KeyWords> list = KeyWords.getAlphabeticallySorted();
+                for (KeyWords k : list)
                 {
                     String description = k.getDesc();
                     if (description != null)
@@ -139,24 +138,6 @@ public class CommandInterpreter implements Serializable
                     }
 
                 }
-//                List<Class<?>> classes = ClassFinder.getClasses("com.basic.statement");
-//                for (Class<?> clazz : classes)
-//                {
-//                    String n = clazz.getCanonicalName();
-//                    if (n != null)
-//                    {
-//                        Constructor ctor = clazz.getConstructor(LexicalTokenizer.class);
-//                        Object o1 = ctor.newInstance(new LexicalTokenizer(null));
-//                        Field f = o1.getClass().getField("keyword");
-//                        com.basic.KeyWords o = (com.basic.KeyWords)f.get(o1);
-//                        String desc = o.getDesc();
-//                        outStream.print(o);
-//                        if (desc == null)
-//                            outStream.println();
-//                        else
-//                            outStream.println(" - "+ desc);
-//                    }
-//                }
                 return pgm;
 
             case CMD_INSTRLIST:
@@ -170,6 +151,19 @@ public class CommandInterpreter implements Serializable
                     sb.append('\n');
                 }
                 outStream.println(sb.toString());
+                return pgm;
+
+            case CMD_CAT:
+                t = lt.nextToken();
+                if (t.typeNum() != KeyWords.STRING)
+                {
+                    outStream.println("File name expected for CAT Command.");
+                    return pgm;
+                }
+                File f = new File(t.stringValue());
+                InputStream in = new FileInputStream(f);
+                Transmitter tr = new Transmitter(in, outStream);
+                tr.doTransmission(null);
                 return pgm;
 
             case CMD_DEL:
@@ -373,7 +367,7 @@ public class CommandInterpreter implements Serializable
         DataInputStream dis = inStream;
         String lineData;
 
-        outStream.println("*JavaBasic*");
+        outStream.println("*JavaBasic*\nType CMDS to see commands\n");
 
         while (true)
         {

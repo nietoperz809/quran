@@ -23,7 +23,7 @@ import misc.Tools;
  */
 public class BasicGUI extends MDIChild implements Runnable, ActionListener, InternalFrameListener
 {
-    transient private Thread thread;
+    transient private Thread basicThread;
     private CommandInterpreter ci;
     transient public static final
         ConcurrentHashMap<Long, CountDownLatch> latchMap = new ConcurrentHashMap<>();
@@ -37,8 +37,8 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     public BasicGUI()
     {
-        thread = new Thread(this);
-        thread.start();
+        basicThread = new Thread(this);
+        basicThread.start();
     }
 
     /**
@@ -50,7 +50,6 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -160,9 +159,9 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        ci.basicProgram.thread_running = false;  // Force thread to end if pg runs
+        ci.basicProgram.thread_running = false;  // Force basicThread to end if pg runs
         StreamingTextArea st = (StreamingTextArea) area;
-        st.fakeIn("bye\n");  // Force thread to end if no pg runs
+        st.fakeIn("bye\n");  // Force basicThread to end if no pg runs
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
@@ -185,6 +184,10 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
+        // end possible wait state
+        CountDownLatch cd = latchMap.get(basicThread.getId());
+        if (cd != null)
+            cd.countDown();
         ci.basicProgram.basic_prg_running = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -202,8 +205,8 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     {
         StreamingTextArea st = (StreamingTextArea) area;
         st.startThread();
-        thread = new Thread(this);
-        thread.start();
+        basicThread = new Thread(this);
+        basicThread.start();
     }
 
     /**

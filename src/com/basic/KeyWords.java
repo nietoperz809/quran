@@ -5,7 +5,10 @@
  */
 package com.basic;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
 /**
  *
@@ -15,16 +18,16 @@ public enum KeyWords
 {
     GOTO("goto", "jump to another line"),
     GOSUB("gosub", "jump to subroutine and save return"),
-    RETURN("return", "returns from subroutine"),
+    RETURN("return", "return from subroutine"),
     PRINT("print", "output text and variables"),
-    IF("if", "tests condition and possibly do a branch"),
+    IF("if", "test condition and possibly do a branch"),
     THEN("then", "alternative path for if statement"),
     END("end", "end program execution"),
-    DATA("data", "begin list of values"),
-    RESTORE("restore", "resets internal data read pointer"),
-    READ("read", "reads one value from data section and increments read pointer"),
-    ON("on", "precedes goto or gosub statement"),
-    ON_GOSUB("gosub", "on ... jump to subroutine condition"),
+    DATA("data", "define list of values"),
+    RESTORE("restore", "reset internal data read pointer"),
+    READ("read", "read one value from data section and increments read pointer"),
+    ON("on", "precede goto or gosub statement"),
+    ON_GOSUB("gosub", "on ... jump to subroutine on condition"),
     ON_GOTO("goto", "on ... conditional jump"),
     REM("rem", "line comment"),
     FOR("for", "begins for loop"),
@@ -32,41 +35,41 @@ public enum KeyWords
     NEXT("next", "execute next looping"),
     STEP("step", "step with of for loop"),
     NAME ("name", "give this thread a name"),
-    LET("let"),
-    INPUT("input"),
-    STOP("stop"),
-    DIM("dim"),
-    RANDOMIZE("randomize"),
-    TRON("tron"),
-    TROFF("troff"),
-    TIMER("timer", "may be used for randomize"), // not a real statement
-    CLS("cls"),
-    SLEEP("sleep", "sleeps for n milliseconds or * (infinite)"),
-    WAKEUP ("wakeup", "wakes a thread up"),
-    TWEET("tweet"),
-    SEQ("seq"),
+    LET("let", "assign values to variables"),
+    INPUT("input", "input values into variables"),
+    STOP("stop", "stop the program"),
+    DIM("dim", "define arrays"),
+    RANDOMIZE("randomize", "initialize random generator"),
+    TRON("tron", "start trace mode"),
+    TROFF("troff", "end trace mode"),
+    TIMER("timer", "get free running timer value"), // not a real statement
+    CLS("cls", "clear BASIC window"),
+    SLEEP("sleep", "sleep for n milliseconds or * (infinite)"),
+    WAKEUP ("wakeup", "wake a thread up"),
+    TWEET("tweet","send message over twitter"),
+    SEQ("seq", "define MIDI sequence"),
     SCLR("sclr"),
-    SPLAY("splay"),
-    SSPEED("sspeed"),
+    SPLAY("splay","run MIDI sequencer"),
+    SSPEED("sspeed", "set MIDI sequencer speed"),
     NOTES("notes", "prints out midi notes"),
     SPEAK("say", "speak out a text"),
     PITCH("pitch", "set the speech pitch"),
     RATE("rate", "set the speech rate"),   // Must be last statement
 
-    CMD_NEW("new"),
-    CMD_RUN("run"),
-    CMD_LIST("list"),
-    CMD_CAT("cat"),
-    CMD_DEL("del"),
-    CMD_RESUME("resume"),
-    CMD_BYE( "bye"),
-    CMD_SAVE("save"),
-    CMD_LOAD("load"),
-    CMD_DUMP("dump"),
+    CMD_NEW("new", "erase program in memory"),
+    CMD_RUN("run", "run program"),
+    CMD_LIST("list", "list program"),
+    CMD_CAT("cat", "show file content in BASIC window"),
+    CMD_DEL("del", "delete a file"),
+    CMD_RESUME("resume", "resume stopped program"),
+    CMD_BYE( "bye", "close this BASIC window"),
+    CMD_SAVE("save", "save program to disk"),
+    CMD_LOAD("load", "load program from disk"),
+    CMD_DUMP("dump", "dump variables"),
     CMD_CONT("cont"),
-    CMD_INSTRLIST("instrlist"),
-    CMD_CMDS("cmds"),
-    CMD_DIR("dir"),
+    CMD_INSTRLIST("instrlist", "lists MIDI ubstruments"),
+    CMD_CMDS("cmds", "generate sorted list of commands"),
+    CMD_DIR("dir", "show current directory"),
     
     RND("rnd", "get a random number"),
     INT("int"),
@@ -130,6 +133,19 @@ public enum KeyWords
     VARIABLE("operator"),
     
     ENDLIST("");
+
+    private static ArrayList<KeyWords> _list;
+
+    public static List<KeyWords> getAlphabeticallySorted()
+    {
+        if (_list == null)
+        {
+            _list = new ArrayList<>(EnumSet.allOf(KeyWords.class));
+            Collections.sort(_list, (o1, o2)
+                    -> o1.toString().compareTo(o2.toString()));
+        }
+        return _list;
+    }
 
     final public static EnumSet<KeyWords> keywords = EnumSet.range (GOTO, RATE);
     final public static EnumSet<KeyWords> commands = EnumSet.range (CMD_NEW, CMD_DIR);

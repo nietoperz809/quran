@@ -11,10 +11,10 @@ package transform;
  */
 public class Rot13 implements Transformation
 {
-    static final String a1 = "abcdefghijklm";
-    static final String a2 = "nopqrstuvwxyz";
+    private static final String a1 = "abcdefghijklm";
+    private static final String a2 = "nopqrstuvwxyz";
 
-    static char change (char c)
+    private static char change (char c)
     {
         for (int s=0; s<a1.length(); s++)
         {

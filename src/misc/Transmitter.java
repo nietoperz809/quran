@@ -22,7 +22,6 @@ public class Transmitter
     private final OutputStream _out;
     private int _blocksize = 0x20000; // 0x10000;
     private final static AtomicLong counter = new AtomicLong();
-    private long txTime;
 
     public static String getCounter()
     {
@@ -93,7 +92,7 @@ public class Transmitter
     public void doTransmission(WebServerGUI gui) throws IOException
     {
         byte b[] = new byte[_blocksize];
-        txTime = System.currentTimeMillis();
+        long txTime = System.currentTimeMillis();
         for (;;)
         {
             int r = _in.read(b);
