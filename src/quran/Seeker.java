@@ -23,7 +23,10 @@ public class Seeker
             try
             {
                 Vector<String> res = seeker.seek1(text);
-                all.addAll (res);
+                for (String r : res)
+                {
+                    all.add(file+": "+r);
+                }
             }
             catch (UnsupportedEncodingException e)
             {

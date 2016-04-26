@@ -109,7 +109,10 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
 
     public void display(String sa)
     {
-        String[] sp = sa.split(Pattern.quote("|"));
+        String[] sp0 = sa.split(Pattern.quote(": "));
+        //System.out.println(sp0[0]);  // sp0[0] ist quran file name
+        m_quran = new Quran(sp0[0]);
+        String[] sp = sp0[1].split(Pattern.quote("|"));
         int s = Integer.parseInt(sp[0]);
         int a = Integer.parseInt(sp[1]);
         setSelectedVerse(s, a);
