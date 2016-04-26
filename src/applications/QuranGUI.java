@@ -534,25 +534,22 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         {
             return;
         }
-//        HashMap<String, String> map = this.m_quran.getMap();
-//        HashmapSeeker seeker = new HashmapSeeker(map);
-//
-//        String[] res;
-//        try
-//        {
-//            res = seeker.seek(text);
-//        }
-//        catch (UnsupportedEncodingException ex)
-//        {
-//            Logger.getLogger(QuranGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            return;
-//        }
-
-        String[] res = Seeker.seekAllQurans(text);
-        SeekResultGui sr = new SeekResultGui(this, text, res);
-        seekResults.add(sr);
-        this.getDesktopPane().add(sr);
-        sr.moveToFront();
+        Runnable r = () ->
+        {
+            try
+            {
+                String[] res = Seeker.seekAllQurans(text);
+                SeekResultGui sr = new SeekResultGui(this, text, res);
+                seekResults.add(sr);
+                this.getDesktopPane().add(sr);
+                sr.moveToFront();
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(TwitTools.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
+        new Thread(r).start();
     }//GEN-LAST:event_seekButtonActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed

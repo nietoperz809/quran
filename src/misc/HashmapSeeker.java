@@ -6,6 +6,7 @@
 package misc;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
@@ -29,6 +30,7 @@ public class HashmapSeeker
         final String low = what.toLowerCase();
         System.err.println("seeking for: "+low);
         Vector<String> result = new Vector<>();
+        //Vector<String> result = new Vector<>();
 
         m_map.entrySet().stream().forEach((entry) ->
         {

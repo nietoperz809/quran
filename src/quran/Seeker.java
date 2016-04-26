@@ -3,6 +3,9 @@ package quran;
 import misc.HashmapSeeker;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.PhantomReference;
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
@@ -17,8 +20,8 @@ public class Seeker
         ArrayList<String> all = new ArrayList<>();
         for (String file : Quran.m_files)
         {
-            Quran q = new Quran(file);
-            HashMap<String, String> map = q.getMap();
+            WeakReference<Quran> q = new WeakReference<>(new Quran(file));
+            HashMap<String, String> map = q.get().getMap();
             HashmapSeeker seeker = new HashmapSeeker(map);
             try
             {
