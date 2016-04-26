@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Stores and applies Rules
  * @author Administrator
  */
-public final class RuleManager
+final class RuleManager
 {
     private String axiom = "";
     private final ArrayList<Rule> rules = new ArrayList<>();
@@ -44,7 +44,7 @@ public final class RuleManager
      * Constructor that sets the Axiom
      * @param a the Axiom string
      */
-    public RuleManager(String a)
+    private RuleManager (String a)
     {
         setAxiom(a);
     }

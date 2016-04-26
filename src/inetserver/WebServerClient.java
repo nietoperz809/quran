@@ -106,14 +106,13 @@ public class WebServerClient implements Runnable, Comparable
                 || in.endsWith(".hxx") || in.endsWith(".java");
     }
 
-    String makeHTTPHeader(int len, String type)
+    private String makeHTTPHeader (int len, String type)
     {
-        StringBuilder sb = new StringBuilder();
-        sb.append("HTTP/1.1 200 OK" + "\r\n");
-        sb.append("Content-Length: ").append(len).append("\r\n");
-        sb.append("Content-Type: ").append(type).append("; charset=utf-8" + "\r\n");
-        sb.append("\r\n");
-        return sb.toString();
+        String sb = ("HTTP/1.1 200 OK" + "\r\n") +
+                "Content-Length: " + len + "\r\n" +
+                "Content-Type: " + type + "; charset=utf-8" + "\r\n" +
+                "\r\n";
+        return sb;
     }
 
     /**
@@ -306,7 +305,7 @@ public class WebServerClient implements Runnable, Comparable
         PrintWriter w = new PrintWriter(out);
 
         InputStream input = new FileInputStream(f);
-        if (false == mp4Head(w, f.length(), fname))
+        if (!mp4Head(w, f.length(), fname))
         {
             w.println("File too small");
             w.close();
@@ -363,8 +362,7 @@ public class WebServerClient implements Runnable, Comparable
 //            System.out.println("Tick");
 //            Thread.sleep(1000);
 //        }
-        String[] out = in.readLine().split(" ");
-        return out;
+        return in.readLine().split(" ");
     }
     
     public void closeSocket()

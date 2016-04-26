@@ -13,8 +13,6 @@ import static java.awt.BorderLayout.CENTER;
  */
 public class TurtleWindow extends javax.swing.JInternalFrame
 {
-    private final int imgsizeX;
-    private final int imgsizeY;
     private final DoubleBufferedTurtle turtle;
 
     /**
@@ -24,9 +22,7 @@ public class TurtleWindow extends javax.swing.JInternalFrame
      */
     public TurtleWindow (int x, int y)
     {
-        imgsizeX = x;
-        imgsizeY = y;
-        turtle = new DoubleBufferedTurtle (imgsizeX,imgsizeY);
+        turtle = new DoubleBufferedTurtle (x, y);
         getContentPane().add (turtle, CENTER);
         initComponents();
     }
@@ -37,7 +33,7 @@ public class TurtleWindow extends javax.swing.JInternalFrame
      */
     public DoubleBufferedTurtle getTurtle()
     {
-        return (DoubleBufferedTurtle)turtle;
+        return turtle;
     }
     
     /**

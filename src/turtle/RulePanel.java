@@ -68,7 +68,7 @@ public class RulePanel extends javax.swing.JPanel implements ActionListener
         ruleTxt = new javax.swing.JTextField();
         probTxt = new javax.swing.JTextField();
         ruleTypeText = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 102));
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -114,7 +114,6 @@ public class RulePanel extends javax.swing.JPanel implements ActionListener
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField probTxt;
     private javax.swing.JTextField ruleTxt;
     private javax.swing.JLabel ruleTypeText;

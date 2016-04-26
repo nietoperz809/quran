@@ -15,8 +15,8 @@ import static java.lang.Integer.MIN_VALUE;
  */
 public class DoublePoint
 {
-    final Point Min;
-    final Point Max;
+    private final Point Min;
+    private final Point Max;
 
     public DoublePoint()
     {

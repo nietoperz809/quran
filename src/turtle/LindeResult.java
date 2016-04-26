@@ -11,8 +11,8 @@ package turtle;
  */
 class LindeResult
 {
-    public DoublePoint minmax;
-    public String result;
+    private final DoublePoint minmax;
+    private final String result;
 
     LindeResult(DoublePoint p, String s)
     {

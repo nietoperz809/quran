@@ -17,7 +17,7 @@ import misc.Tools;
  *
  * @author Administrator
  */
-public class Quran //implements PathNames
+public class Quran
 {
     private final HashMap<String, String> m_map = new HashMap<>();
     private final Charset ENCODING = StandardCharsets.UTF_8;
@@ -27,6 +27,11 @@ public class Quran //implements PathNames
     public Quran(int idx)
     {
         readFile (m_files[idx]);
+    }
+
+    public Quran(String name)
+    {
+        readFile (name);
     }
 
     /**

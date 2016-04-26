@@ -13,7 +13,7 @@ import java.awt.Point;
  * Contains angle and position to be stored on stack
  * @author Administrator
  */
-public class StackElement
+class StackElement
 {
     private final double angle;
     private final Point point;

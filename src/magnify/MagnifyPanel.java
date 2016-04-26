@@ -19,6 +19,7 @@ import misc.ClipboardImage;
 import misc.MainWindow;
 import misc.TextInputDlg;
 import misc.Tools;
+import org.jetbrains.annotations.Nullable;
 import twitter.TwitTools;
 
 /**
@@ -148,6 +149,7 @@ public class MagnifyPanel extends javax.swing.JPanel
         g.drawImage(_image, 0, 0, getWidth(), getHeight(), null);
     }
 
+    @Nullable
     private BufferedImage toNewSize()
     {
         if (_image == null)

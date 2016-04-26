@@ -19,10 +19,7 @@ import misc.ComboBoxTools;
 import misc.HashmapSeeker;
 import misc.MDIChild;
 import misc.Tools;
-import quran.Quran;
-import quran.QuranMetadata;
-import quran.SeekResultGui;
-import quran.VerbalQuran;
+import quran.*;
 import twitter.TwitTools;
 
 /**
@@ -66,6 +63,9 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         showText();
     }
 
+    /**
+     * fills combobox with quran instances
+     */
     private void fillCB()
     {
         ComboBoxTools.pollute(combobox, m_quran.getFileNames());
@@ -531,20 +531,21 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
         {
             return;
         }
-        HashMap<String, String> map = this.m_quran.getMap();
-        HashmapSeeker seeker = new HashmapSeeker(map);
+//        HashMap<String, String> map = this.m_quran.getMap();
+//        HashmapSeeker seeker = new HashmapSeeker(map);
+//
+//        String[] res;
+//        try
+//        {
+//            res = seeker.seek(text);
+//        }
+//        catch (UnsupportedEncodingException ex)
+//        {
+//            Logger.getLogger(QuranGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            return;
+//        }
 
-        String[] res;
-        try
-        {
-            res = seeker.seek(text);
-        }
-        catch (UnsupportedEncodingException ex)
-        {
-            Logger.getLogger(QuranGUI.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        }
-
+        String[] res = Seeker.seekAllQurans(text);
         SeekResultGui sr = new SeekResultGui(this, text, res);
         seekResults.add(sr);
         this.getDesktopPane().add(sr);

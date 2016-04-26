@@ -14,7 +14,7 @@ import javazoom.jl.player.Player;
  *
  * @author Administrator
  */
-public class VerbalQuran implements Runnable //, PathNames
+public class VerbalQuran implements Runnable
 {
     private ThreadParam param;
 

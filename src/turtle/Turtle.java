@@ -48,15 +48,14 @@ import static turtle.Command.create;
  */
 public class Turtle extends JPanel
 {
-    private int linenumber;
     /**
      * Factor to make radians from degrees
      */
-    static final double DEGFACTOR = (2 * PI) / 360.0;
+    private static final double DEGFACTOR = (2 * PI) / 360.0;
     /**
      * Handles and applies Rules
      */
-    private RuleManager rules = new RuleManager();
+    private final RuleManager rules = new RuleManager();
     /**
      * Current turtle position x/y
      */
@@ -81,11 +80,11 @@ public class Turtle extends JPanel
     /**
      * LSystem drawing variables
      */
-    double fixangle;
-    double fixstep;
-    Point multiplicator;
-    int pensize;
-    public DoublePoint minmax = new DoublePoint();
+    private double fixangle;
+    private double fixstep;
+    private Point multiplicator;
+    private int pensize;
+    private final DoublePoint minmax = new DoublePoint();
 
     /**
      * Constructor that sets Frame size
@@ -93,7 +92,7 @@ public class Turtle extends JPanel
      * @param width Frame width
      * @param height Frame height
      */
-    public Turtle(int width, int height)
+    Turtle (int width, int height)
     {
         this.setBackground(WHITE);
         this.setPreferredSize(new Dimension(width, height));
@@ -113,7 +112,7 @@ public class Turtle extends JPanel
      * @param x X
      * @param y Y
      */
-    public void CmdDrawToRelative(int x, int y)
+    private void CmdDrawToRelative (int x, int y)
     {
         commands.add(create(draw, x,y));
     }
@@ -145,7 +144,7 @@ public class Turtle extends JPanel
      * @param x X
      * @param y Y
      */
-    public void CmdSetPenPositionRelative(int x, int y)
+    private void CmdSetPenPositionRelative (int x, int y)
     {
         commands.add(create(Command.CMD.move, x,y));
     }
@@ -177,7 +176,7 @@ public class Turtle extends JPanel
      * @param x Factor to multiply x
      * @param y Factor to multiply y
      */
-    public void CmdSetStepFactor(int x, int y)
+    private void CmdSetStepFactor (int x, int y)
     {
         commands.add (create(mult, x, y));
     }
@@ -199,7 +198,7 @@ public class Turtle extends JPanel
      * @param g Green value
      * @param b Blue value
      */
-    public void CmdSetPenColor(int r, int g, int b)
+    private void CmdSetPenColor (int r, int g, int b)
     {
         commands.add (create(color, r, g, b));
     }
@@ -353,7 +352,7 @@ public class Turtle extends JPanel
      * @param r Final Rule as sting
      * @param probability 1.0 -> Rule applies always, 0.0 -> never
      */
-    public void CmdSetLindeFinalRule(String r, double probability)
+    private void CmdSetLindeFinalRule (String r, double probability)
     {
         commands.add (create(finalrule, r, probability));
     }
@@ -395,7 +394,7 @@ public class Turtle extends JPanel
         commands.add (create(lindestep, n));
     }
 
-    public LindeResult getLindeResult() throws Exception
+    public LindeResult getLindeResult()
     {
         return new LindeResult(minmax, rules.getResult());
     }
@@ -410,11 +409,11 @@ public class Turtle extends JPanel
         commands = new ArrayList<>(list);
     }
 
-    @Override
-    public Graphics getGraphics()
-    {
-        return super.getGraphics();
-    }
+//    @Override
+//    public Graphics getGraphics()
+//    {
+//        return super.getGraphics();
+//    }
 
     /**
      * Pushes current values (position and angle) onto stack
@@ -427,9 +426,8 @@ public class Turtle extends JPanel
     /**
      * Pops new Values (position and angle) from stack
      *
-     * @throws Exception
      */
-    private void pop() throws Exception
+    private void pop()
     {
         StackElement e = stack.pop();
         currentAngle = e.getAngle();
@@ -461,7 +459,6 @@ public class Turtle extends JPanel
      * @param in Input point
      * @param distance Distance
      * @param angle Angle
-     * @param mult Distance Multiplier
      * @param reverse 1 means forward, -1 means backwards
      * @return The new point
      */
@@ -481,7 +478,7 @@ public class Turtle extends JPanel
      * @param from
      * @param to
      */
-    protected void drawLine(Graphics g, Point from, Point to) //int x1, int y1, int x2, int y2)
+    private void drawLine (Graphics g, Point from, Point to) //int x1, int y1, int x2, int y2)
     {
         if (pensize == 0)
         {
@@ -517,8 +514,6 @@ public class Turtle extends JPanel
      * @param g Graphics context
      * @param pos Current position
      * @param angle Angle
-     * @param mult Distance Multiplier
-     * @param pensize Pen Size
      * @param distance Distance
      * @param cmd F or R that means Forward or Reverse
      */
@@ -545,7 +540,7 @@ public class Turtle extends JPanel
      * @param lsystem
      * @throws Exception When stack underflow occurs
      */
-    public void drawLindenmayerSystem(Graphics g1, String lsystem) throws Exception
+    private void drawLindenmayerSystem (Graphics g1, String lsystem) throws Exception
     {
         for (int s = 0; s < lsystem.length(); s++)
         {
@@ -603,7 +598,7 @@ public class Turtle extends JPanel
      * Does all the drawing based on ArrayList with commands
      *
      * @throws Exception Ex. that can occurs
-     * @param g Graphics Context
+     * @param g1 Graphics Context
      */
     void drawTurtleSteps(Graphics g1) throws Exception
     {
@@ -611,7 +606,7 @@ public class Turtle extends JPanel
         currentTurtlePosition = new Point(0, 0);
         g1.setColor(penColor);
         Point temp = new Point();
-        linenumber = 0;
+        int linenumber = 0;
         currentAngle = -90.0;
         fixangle = 90.0;
         fixstep = 10.0;

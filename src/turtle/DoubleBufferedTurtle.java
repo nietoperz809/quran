@@ -26,7 +26,7 @@ public class DoubleBufferedTurtle extends Turtle
     /**
      * Off-screen image used as canvas
      */
-    private BufferedImage offImg;
+    private final BufferedImage offImg;
     
     public BufferedImage getImage()
     {

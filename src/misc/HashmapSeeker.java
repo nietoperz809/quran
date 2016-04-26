@@ -22,15 +22,15 @@ public class HashmapSeeker
     {
         m_map = m;
     }
-    
-    public String[] seek (String what) throws UnsupportedEncodingException
+
+    public Vector<String> seek1 (String what) throws UnsupportedEncodingException
     {
         System.err.println("seeking for raw: "+what);
         final String low = what.toLowerCase();
         System.err.println("seeking for: "+low);
         Vector<String> result = new Vector<>();
 
-        m_map.entrySet().stream().forEach((entry) -> 
+        m_map.entrySet().stream().forEach((entry) ->
         {
             String key = entry.getKey();
             //System.out.println(entry.getKey()+"---"+entry.getValue());
@@ -39,9 +39,14 @@ public class HashmapSeeker
                 result.add(key);
         });
         System.err.println("Found: "+result.size());
-        
-        Collections.sort(result, (String s1, String s2) -> s1.compareTo(s2));        
-    
-        return result.toArray(new String[result.size()]);
+
+        Collections.sort(result, (String s1, String s2) -> s1.compareTo(s2));
+        return result;
+    }
+
+    public String[] seek (String what) throws UnsupportedEncodingException
+    {
+        Vector<String> v = seek1 (what);
+        return v.toArray(new String[v.size()]);
     }
 }

@@ -20,9 +20,8 @@ class ScrollPanel extends Panel
 
     ScrollPanel (String sa)
     {
-        String a = sa;
         setLayout (new GridLayout (3, 0));
-        if ("R".equals (a))
+        if ("R".equals (sa))
         {
             add (r = new Scrollbar (Scrollbar.HORIZONTAL, 0, 0, 0, ScrollPanel.MAXIMUM));
             add (g = new Scrollbar (Scrollbar.HORIZONTAL, 0, 0, 0, ScrollPanel.MAXIMUM));

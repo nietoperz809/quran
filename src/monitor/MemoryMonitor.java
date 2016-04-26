@@ -75,7 +75,7 @@ import javax.swing.JTextField;
  */
 public class MemoryMonitor extends JPanel
 {
-    final int sleep = 100;
+    private final int sleep = 100;
     private static final JCheckBox dateStampCB = new JCheckBox("Output Date Stamp");
     public final Surface surf = new Surface(sleep);
     private final JPanel controls = new JPanel();

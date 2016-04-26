@@ -18,9 +18,9 @@ public class SeekResultGui extends javax.swing.JInternalFrame
     
     /**
      * Creates new form SeekResultGui
-     * @param q
-     * @param text
-     * @param res
+     * @param q Master GUI
+     * @param text String that is seeked for
+     * @param res List of found positions
      */
     public SeekResultGui (QuranGUI q, String text, String[] res)
     {
@@ -29,7 +29,7 @@ public class SeekResultGui extends javax.swing.JInternalFrame
         this.setTitle(text);
 
         // Fill JList from String array
-        ComboBoxTools.pollute(listControl, res);
+        ComboBoxTools.pollute (listControl, res);
     }
 
     /**

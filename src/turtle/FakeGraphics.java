@@ -20,7 +20,7 @@ import java.text.AttributedCharacterIterator;
  *
  * @author Administrator
  */
-public class FakeGraphics extends Graphics
+class FakeGraphics extends Graphics
 {
 
     @Override
