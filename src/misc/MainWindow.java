@@ -81,8 +81,7 @@ public class MainWindow extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-
-        desktopPane = new BackWindow();
+        desktopPane = new BackWindow ("allah.jpg");
         javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         JMenuItem openMenuItem = new JMenuItem();

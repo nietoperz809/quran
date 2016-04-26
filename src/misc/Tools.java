@@ -18,7 +18,6 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -61,12 +60,11 @@ public class Tools
     /**
      * Load a buffered image from disk
      *
-     * @param parent
      * @return
      */
-    public static BufferedImage loadImage (Frame parent)
+    public static BufferedImage loadImage()
     {
-        FileDialog fd = new FileDialog(parent, "Load", FileDialog.LOAD);
+        FileDialog fd = new FileDialog ((Frame)null, "Load", FileDialog.LOAD);
         fd.setVisible(true);
         if (fd.getFile() == null)
         {

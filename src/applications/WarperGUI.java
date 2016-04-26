@@ -130,7 +130,7 @@ public class WarperGUI extends javax.swing.JInternalFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-        BufferedImage img = Tools.loadImage(null);
+        BufferedImage img = Tools.loadImage();
         ((WarpCanvas)jPanel1).setImage(img);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

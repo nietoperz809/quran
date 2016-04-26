@@ -16,9 +16,8 @@ public class ProcessTool
     private Process pc;
     private InputStream in;
     private OutputStream out;
-    private Thread thr;
 
-    public ProcessTool(String cmd)
+    private ProcessTool (String cmd)
     {
         ProcessBuilder pb = new ProcessBuilder(cmd);
         pb.redirectErrorStream(true);
@@ -36,7 +35,7 @@ public class ProcessTool
                 pc = null;
             }
         };
-        thr = new Thread(r);
+        Thread thr = new Thread(r);
         thr.start();
     }
 
@@ -52,7 +51,7 @@ public class ProcessTool
         {
             Thread.sleep(wait);
         }
-        catch (InterruptedException ex)
+        catch (InterruptedException ignored)
         {
         }
     }
@@ -68,7 +67,7 @@ public class ProcessTool
         write(s + "\r\n");
     }
 
-    public String ww(String s)
+    private String ww (String s)
     {
         writeln(s);
         try
@@ -82,7 +81,7 @@ public class ProcessTool
         return read();
     }
 
-    public void write(String s)
+    private void write (String s)
     {
         if (pc == null)
         {
@@ -93,7 +92,7 @@ public class ProcessTool
             out.write(s.getBytes());
             out.flush();
         }
-        catch (IOException ex)
+        catch (IOException ignored)
         {
         }
     }
@@ -106,13 +105,13 @@ public class ProcessTool
             while (in.available() > 0)
                 in.read();
         }
-        catch (IOException ex)
+        catch (IOException ignored)
         {
             
         }
     }
     
-    public String read()
+    private String read ()
     {
         return read(500);
     }
@@ -122,7 +121,7 @@ public class ProcessTool
         return read().trim().replace("\r\n\r\n", "\r\n");
     }
 
-    public String read(int wait)
+    private String read (int wait)
     {
         if (pc == null)
         {

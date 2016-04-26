@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 
@@ -17,14 +18,25 @@ public class BackWindow extends JDesktopPane // implements PathNames
 {
     private static final long serialVersionUID = 1L;
     private Image image;
-    public final String BackImagePath = "c:\\allah.jpg";
 
-    public BackWindow()
+    public BackWindow (String BackImagePath)
+    {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream(BackImagePath);
+        load (is);
+    }
+
+    public BackWindow (InputStream in)
+    {
+        load (in);
+    }
+
+    private void load (InputStream is)
     {
         this.setOpaque(false);
         try
         {
-            image = ImageIO.read(new File(BackImagePath));
+            image = ImageIO.read (is);
         }
         catch (IOException e)
         {
