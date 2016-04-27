@@ -11,6 +11,7 @@ import transform.CRC16CCITT;
 import transform.GrayCode;
 import transform.MD4;
 import transform.MD5;
+import transform.Pitti1Crypt;
 import transform.Rot13;
 import transform.SHA1;
 import transform.SHA256;
@@ -43,7 +44,6 @@ public class Transformer extends MDIChild
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         checkBase64 = new javax.swing.JRadioButton();
@@ -54,6 +54,7 @@ public class Transformer extends MDIChild
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         clearText = new javax.swing.JTextArea();
@@ -147,13 +148,22 @@ public class Transformer extends MDIChild
             }
         });
 
+        buttonGroup1.add(jRadioButton5);
+        jRadioButton5.setText("Substitute1");
+        jRadioButton5.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jRadioButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(encodeButt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 386, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(decodeButt)
                 .addGap(99, 99, 99))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -164,16 +174,22 @@ public class Transformer extends MDIChild
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton3)
-                    .addComponent(checkCRC16)
-                    .addComponent(checkMD5))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(checkMD5)
+                        .addGap(73, 73, 73)
+                        .addComponent(jRadioButton5))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(encodeButt)
+                        .addComponent(checkCRC16)))
+                .addGap(0, 388, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkBase64)
-                    .addComponent(checkMD5))
+                    .addComponent(checkMD5)
+                    .addComponent(jRadioButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
@@ -188,10 +204,11 @@ public class Transformer extends MDIChild
                     .addComponent(decodeButt)))
         );
 
-        jSplitPane1.setDividerLocation(240);
+        jSplitPane1.setDividerLocation(340);
         jSplitPane1.setDividerSize(3);
         jSplitPane1.setToolTipText("Drag left/right");
         jSplitPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(490, 100));
 
         clearText.setColumns(20);
         clearText.setLineWrap(true);
@@ -243,12 +260,12 @@ public class Transformer extends MDIChild
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(checkRot13)
                 .addGap(30, 30, 30)
                 .addComponent(checkSHA1)
-                .addGap(46, 46, 46)
+                .addGap(67, 67, 67)
                 .addComponent(jRadioButton4)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -262,7 +279,7 @@ public class Transformer extends MDIChild
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
         );
 
         pack();
@@ -334,6 +351,12 @@ public class Transformer extends MDIChild
         trans = new UrlEncodeUTF8();
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
+    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton5ActionPerformed
+    {//GEN-HEADEREND:event_jRadioButton5ActionPerformed
+        decodeButt.setEnabled(true);
+        trans = new Pitti1Crypt();
+    }//GEN-LAST:event_jRadioButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -351,6 +374,7 @@ public class Transformer extends MDIChild
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
