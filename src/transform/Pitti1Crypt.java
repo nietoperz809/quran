@@ -18,6 +18,7 @@ public class Pitti1Crypt implements Transformation
     }
 
     //////////////////////////////////////////////////////////////
+    
     private static String substituteWord(String in, boolean mode)
     {
         char arr1[] =
@@ -36,7 +37,10 @@ public class Pitti1Crypt implements Transformation
 
         for (int s = 0; s < in.length(); s++)
         {
-            out += exchg[in.charAt(s) - 'a'];
+            char c1 = in.charAt(s);
+            for (int n=0; n<(s+1); n++)
+                c1 = exchg[c1-'a'];
+            out += c1;
         }
 
         return out;

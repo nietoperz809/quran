@@ -6,17 +6,7 @@
 package applications;
 
 import misc.MDIChild;
-import transform.Base64;
-import transform.CRC16CCITT;
-import transform.GrayCode;
-import transform.MD4;
-import transform.MD5;
-import transform.Pitti1Crypt;
-import transform.Rot13;
-import transform.SHA1;
-import transform.SHA256;
-import transform.Transformation;
-import transform.UrlEncodeUTF8;
+import transform.*;
 
 /**
  *
@@ -44,6 +34,7 @@ public class Transformer extends MDIChild
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
+
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         checkBase64 = new javax.swing.JRadioButton();
@@ -55,6 +46,7 @@ public class Transformer extends MDIChild
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         clearText = new javax.swing.JTextArea();
@@ -158,6 +150,16 @@ public class Transformer extends MDIChild
             }
         });
 
+        buttonGroup1.add(jRadioButton6);
+        jRadioButton6.setText("Hagelin");
+        jRadioButton6.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jRadioButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -178,10 +180,13 @@ public class Transformer extends MDIChild
                         .addComponent(checkMD5)
                         .addGap(73, 73, 73)
                         .addComponent(jRadioButton5))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(encodeButt)
-                        .addComponent(checkCRC16)))
-                .addGap(0, 388, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(encodeButt)
+                            .addComponent(checkCRC16))
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton6)))
+                .addGap(0, 372, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +198,8 @@ public class Transformer extends MDIChild
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
-                    .addComponent(checkCRC16))
+                    .addComponent(checkCRC16)
+                    .addComponent(jRadioButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton2)
@@ -357,6 +363,12 @@ public class Transformer extends MDIChild
         trans = new Pitti1Crypt();
     }//GEN-LAST:event_jRadioButton5ActionPerformed
 
+    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jRadioButton6ActionPerformed
+    {//GEN-HEADEREND:event_jRadioButton6ActionPerformed
+        decodeButt.setEnabled(true);
+        trans = new HagelinCrypt();
+    }//GEN-LAST:event_jRadioButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -375,6 +387,7 @@ public class Transformer extends MDIChild
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
