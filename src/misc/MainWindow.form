@@ -181,7 +181,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem23">
               <Properties>
-                <Property name="text" type="java.lang.String" value="NumberConverter"/>
+                <Property name="text" type="java.lang.String" value="numconv.NumberConverter"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem23ActionPerformed"/>
