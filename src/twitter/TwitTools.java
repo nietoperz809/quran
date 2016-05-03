@@ -184,6 +184,22 @@ public class TwitTools implements TwitterKeys
         new Thread(r).start();
     }
 
+    public void sendAsync (final String str)
+    {
+        Runnable r = () ->
+        {
+            try
+            {
+                m_twit.updateStatus(str);
+            }
+            catch (TwitterException e)
+            {
+                e.printStackTrace();
+            }
+        };
+        new Thread(r).start();
+    }
+
     public static List<Status> getTimeLine()
     {
         TwitTools tw = TwitTools.get();

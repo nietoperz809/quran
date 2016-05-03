@@ -21,16 +21,13 @@ public class ClassFinder
         String packageName = "com.basic.statement"; //( args.length > 0 ) ? args[0] : null;
         System.out.println("\n---- Gefundene Klassen:");
         List<Class<?>> classes = getClasses(packageName);
-        for (Class<?> clazz : classes)
-        {
-            System.out.println(clazz);
-        }
+        classes.forEach(System.out::println);
     }
 
     // Finde Klassen (über Interface oder Klasse bzw. Package-Namen):
     public static List<Class<?>> getClasses (String packageName)
     {
-        List<Class<?>> classes = new ArrayList<Class<?>>();
+        List<Class<?>> classes = new ArrayList<>();
         for (String path : getPathesFromClasspath())
         {
             File fileOrDir = new File(path);
@@ -52,7 +49,7 @@ public class ClassFinder
         String classpath = System.getProperty("java.class.path");
         String pathseparator = System.getProperty("path.separator");
         StringTokenizer tokenizer = new StringTokenizer(classpath, pathseparator);
-        List<String> pathes = new ArrayList<String>();
+        List<String> pathes = new ArrayList<>();
         while (tokenizer.hasMoreElements())
         {
             pathes.add(tokenizer.nextToken());
@@ -66,7 +63,7 @@ public class ClassFinder
         {
             packageName = "";
         }
-        List<Class<?>> classes = new ArrayList<Class<?>>();
+        List<Class<?>> classes = new ArrayList<>();
         String dirSearched = packageName.replace(".", "/");
         ZipFile zipFile = null;
         try
@@ -113,7 +110,7 @@ public class ClassFinder
         {
             packageName = "";
         }
-        List<Class<?>> classes = new ArrayList<Class<?>>();
+        List<Class<?>> classes = new ArrayList<>();
         File dirSearched = new File(dir.getPath() + File.separator + packageName.replace(".", "/"));
         if (dirSearched.isDirectory())
         {

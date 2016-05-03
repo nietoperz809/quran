@@ -33,11 +33,15 @@ public class ConvertNumber
      * @return An array of size outputLength expressing digits in outputBase.
      */
     public static int[] convertFraction (int[] digits, int inputBase,
-                                         int outputBase, int outputLength)
+                                         int outputBase, int outputLength) throws Exception
     {
         long[] opDigits = new long[digits.length];
         for (int t = 0; t < digits.length; t++)
         {
+            if (digits[t] >= inputBase)
+            {
+                throw new Exception ("False digit in fraction on position: "+t); // false digit
+            }
             opDigits[t] = (long) digits[t];
         }
 
@@ -57,10 +61,19 @@ public class ConvertNumber
         return outputArray;
     }
 
+    /**
+     * the digits
+     */
     private static final String dig = "0123456789abcdefghijklmnopqrstuvwxyz";
 
+    /**
+     * Convert string to int array of digits
+     * @param in
+     * @return
+     */
     public static int[] toDigits (String in)
     {
+        in = in.toLowerCase();
         int[] res = new int[in.length()];
         for (int s=0; s<in.length(); s++)
         {
@@ -69,6 +82,11 @@ public class ConvertNumber
         return res;
     }
 
+    /**
+     * Convert int array of digits to string
+     * @param in
+     * @return
+     */
     public static String toString (int[] in)
     {
         StringBuilder sb = new StringBuilder();
@@ -79,16 +97,29 @@ public class ConvertNumber
         return sb.toString();
     }
 
+    /**
+     * Convert digits of integer part of number from one base to another
+     * @param digits input array of digits
+     * @param inputBase base of input
+     * @param outputBase base of output
+     * @return output array of digits
+     */
     public static int[] convertInteger  (int[] digits, int inputBase,
                                          int outputBase /*, int outputLength*/)
     {
         String digs = toString (digits);
-        //Integer digi = Integer.parseInt (digs, inputBase);
         String s = Integer.toString(Integer.parseInt(digs, inputBase), outputBase);
         return toDigits(s);
     }
 
-    public static String convNumber (String in, int inBase, int outBase)
+    /**
+     * Converts real number int.fraction
+     * @param in string representation of number
+     * @param inBase base of input string
+     * @param outBase base of output string
+     * @return base-converted number
+     */
+    public static String convNumber (String in, int inBase, int outBase) throws Exception
     {
         String[] parts = in.split("\\.");
         int[] integer  = toDigits(parts[0]);
@@ -103,19 +134,19 @@ public class ConvertNumber
         return out;
     }
 
-    public static void main (String[] args)
-    {
-        String in = "1234.10";
-        String o = convNumber(in, 10, 10);
-        System.out.println(o);
-
-//        int[] ll = toDigits("123f");
-//        String ss = toString(ll);
-//        System.out.println(Arrays.toString(ll));
-//        System.out.println(ss);
-//        int arr[] = {15,0,0,0};
+//    public static void main (String[] args)
+//    {
+//        String in = "1234.10";
+//        String o = convNumber(in, 10, 10);
+//        System.out.println(o);
 //
-//        int res[] = convertFraction(arr, 16, 10, 6);
-//        System.out.println(Arrays.toString(res));
-    }
+////        int[] ll = toDigits("123f");
+////        String ss = toString(ll);
+////        System.out.println(Arrays.toString(ll));
+////        System.out.println(ss);
+////        int arr[] = {15,0,0,0};
+////
+////        int res[] = convertFraction(arr, 16, 10, 6);
+////        System.out.println(Arrays.toString(res));
+//    }
 }

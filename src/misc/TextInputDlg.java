@@ -42,13 +42,7 @@ public class TextInputDlg extends javax.swing.JDialog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        textField.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                textFieldActionPerformed(evt);
-            }
-        });
+        textField.addActionListener(evt -> textFieldActionPerformed(evt));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,21 +107,17 @@ public class TextInputDlg extends javax.swing.JDialog
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
+        java.awt.EventQueue.invokeLater(() -> {
+            TextInputDlg dialog = new TextInputDlg(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter()
             {
-                TextInputDlg dialog = new TextInputDlg(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter()
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e)
                 {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e)
-                    {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 

@@ -82,9 +82,9 @@ public class ClipboardImage implements ClipboardOwner
         public boolean isDataFlavorSupported(DataFlavor flavor)
         {
             DataFlavor[] flavors = getTransferDataFlavors();
-            for (int i = 0; i < flavors.length; i++)
+            for (DataFlavor flavor1 : flavors)
             {
-                if (flavor.equals(flavors[i]))
+                if (flavor.equals(flavor1))
                 {
                     return true;
                 }

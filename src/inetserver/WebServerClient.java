@@ -443,7 +443,7 @@ public class WebServerClient implements Runnable, Comparable
         catch (Exception ex)
         {
             ex.printStackTrace();
-            //System.err.println(ex + " " + Thread.currentThread().getName());
+            //:)System.err.println(ex + " " + Thread.currentThread().getName());
         }
 
         System.out.println("-- Client");

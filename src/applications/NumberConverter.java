@@ -6,6 +6,7 @@
 package applications;
 
 import numconv.ConvertNumber;
+import twitter.TwitTools;
 
 /**
  *
@@ -13,13 +14,20 @@ import numconv.ConvertNumber;
  */
 public class NumberConverter extends javax.swing.JInternalFrame
 {
-
     /**
      * Creates new form NumberConverter
      */
     public NumberConverter()
     {
         initComponents();
+    }
+
+    private String doConversion() throws Exception
+    {
+        String from = tfIn.getText();
+        int baseFrom = Integer.parseInt(tfFrom.getText());
+        int baseTo = Integer.parseInt(tfTo.getText());
+        return  ConvertNumber.convNumber(from, baseFrom, baseTo);
     }
 
     /**
@@ -39,6 +47,7 @@ public class NumberConverter extends javax.swing.JInternalFrame
         tfTo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -47,12 +56,12 @@ public class NumberConverter extends javax.swing.JInternalFrame
         setVisible(true);
 
         tfIn.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
-        tfIn.setToolTipText("input");
+        tfIn.setToolTipText("Input decimal number with fraction");
 
         labOut.setBackground(new java.awt.Color(0, 0, 0));
         labOut.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         labOut.setForeground(new java.awt.Color(255, 255, 255));
-        //labOut.setText("jLabel1");
+        labOut.setText("  ");
         labOut.setOpaque(true);
 
         jButton1.setText("Just do it");
@@ -79,28 +88,40 @@ public class NumberConverter extends javax.swing.JInternalFrame
 
         jLabel3.setText("to base");
 
+        jButton2.setText("Tweet");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfIn)
-                    .addComponent(labOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfIn)
+                            .addComponent(labOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfTo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfTo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +134,8 @@ public class NumberConverter extends javax.swing.JInternalFrame
                     .addComponent(tfFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(labOut)
                 .addContainerGap())
@@ -126,12 +148,7 @@ public class NumberConverter extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         try
         {
-            String from = tfIn.getText();
-            int baseFrom = Integer.parseInt(tfFrom.getText());
-            int baseTo = Integer.parseInt(tfTo.getText());
-            String conv = ConvertNumber.convNumber(from, baseFrom, baseTo);
-            
-            labOut.setText(conv);
+            labOut.setText(doConversion());
         }
         catch (Exception ex)
         {
@@ -143,10 +160,30 @@ public class NumberConverter extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_tfToActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfToActionPerformed
+    
+    // tweet button pressed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        try
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.append (tfIn.getText());
+            sb.append (" in base ").append(tfFrom.getText());
+            sb.append (" is ").append(doConversion());
+            sb.append (" in base ").append(tfTo.getText());
+            System.out.println(sb.toString());
+            TwitTools.get().sendAsync(sb.toString());
+        }
+        catch (Exception ex)
+        {
+            System.out.println("oops" + ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labOut;
