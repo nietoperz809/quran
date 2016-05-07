@@ -11,6 +11,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +51,7 @@ public class Sockserver implements Runnable
             haltClients();
             server = null;
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
             System.out.println(ex);
         }
@@ -59,18 +62,21 @@ public class Sockserver implements Runnable
         _clients.remove(ws);
     }
     
-    private static void haltClients()
+    private static void haltClients() throws InterruptedException
     {
-        Iterator<WebServerClient> it = _clients.iterator();
-        
-        while (it.hasNext())
-        {
-            WebServerClient ws = it.next();
-            if (ws.isRunning())
-            {
-                ws.closeSocket();
-            }
-        }
+        WebServerClient.executor.shutdown();
+        WebServerClient.executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
+
+//        Iterator<WebServerClient> it = _clients.iterator();
+//
+//        while (it.hasNext())
+//        {
+//            WebServerClient ws = it.next();
+//            if (ws.isRunning())
+//            {
+//                ws.closeSocket();
+//            }
+//        }
     }
     
     @Override

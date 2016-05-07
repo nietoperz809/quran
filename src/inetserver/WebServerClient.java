@@ -14,6 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import misc.Tools;
 import misc.Transmitter;
 import transform.Transformation;
@@ -27,10 +30,12 @@ public class WebServerClient implements Runnable, Comparable
 {
     private final Socket m_sock;
     private final int m_buffSize;
-    private final Thread m_thread;
+    //private final Thread m_thread;
     private final WebServerGUI _gui;
     private final UrlEncodeUTF8 m_urltransform;
-    private static int instances;
+    private volatile static int instances;
+
+    public static ExecutorService executor = Executors.newFixedThreadPool(20); // .newCachedThreadPool();
 
     /**
      * Constructor
@@ -45,16 +50,17 @@ public class WebServerClient implements Runnable, Comparable
         m_sock = s;
         m_urltransform = new UrlEncodeUTF8();
         _gui = g;
-        m_thread = new Thread(this);
+        executor.submit(this);
+       // m_thread = new Thread(this);
         instances++;
-        m_thread.setName("webConn" + instances);
-        m_thread.start();
+        //m_thread.setName("webConn" + instances);
+        //m_thread.start();
     }
 
-    public boolean isRunning()
-    {
-        return m_thread.isAlive();
-    }
+//    public boolean isRunning()
+//    {
+//        return true; //m_thread.isAlive();
+//    }
     
     /**
      * Is File MP4
