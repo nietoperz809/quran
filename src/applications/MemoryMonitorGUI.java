@@ -5,6 +5,9 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+
 import monitor.MemoryMonitor;
 
 /**
@@ -15,23 +18,52 @@ import monitor.MemoryMonitor;
  */
 public class MemoryMonitorGUI extends JInternalFrame
 {
-    private class LocaWindowListener extends WindowAdapter
+    private class LocaWindowListener implements InternalFrameListener
     {
-        /**
-         * The window is closing
-         * @param e The window event that causes the action
-         */
         @Override
-        public void windowClosing(WindowEvent e)
+        public void internalFrameOpened (InternalFrameEvent e)
+        {
+
+        }
+
+        @Override
+        public void internalFrameClosing (InternalFrameEvent e)
         {
             mon.surf.stop();
-            ((MemoryMonitorGUI)e.getSource()).dispose();
-            m_instance = null;
+            ((MemoryMonitorGUI) e.getSource()).dispose();
+        }
+
+        @Override
+        public void internalFrameClosed (InternalFrameEvent e)
+        {
+        }
+
+        @Override
+        public void internalFrameIconified (InternalFrameEvent e)
+        {
+
+        }
+
+        @Override
+        public void internalFrameDeiconified (InternalFrameEvent e)
+        {
+
+        }
+
+        @Override
+        public void internalFrameActivated (InternalFrameEvent e)
+        {
+
+        }
+
+        @Override
+        public void internalFrameDeactivated (InternalFrameEvent e)
+        {
+
         }
     }
 
-    MemoryMonitor mon;
-    static MemoryMonitorGUI m_instance = null;
+    private final MemoryMonitor mon;
 
     public MemoryMonitorGUI()
     {
@@ -41,7 +73,7 @@ public class MemoryMonitorGUI extends JInternalFrame
         setMaximizable(true);
         setIconifiable(true);
         
-        //addWindowListener(new LocaWindowListener());
+        this.addInternalFrameListener(new LocaWindowListener());
         mon = new MemoryMonitor();
         add (mon);
         setSize (600,200);
@@ -53,6 +85,5 @@ public class MemoryMonitorGUI extends JInternalFrame
         setLocation(x, y);
         setVisible (true);
         mon.surf.start();
-        m_instance = this;
     }
 }

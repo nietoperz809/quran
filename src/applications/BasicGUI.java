@@ -10,8 +10,7 @@ import com.basic.streameditor.StreamingTextArea;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.*;
 import javax.swing.event.InternalFrameListener;
 import misc.MainWindow;
 import misc.MDIChild;
@@ -23,10 +22,13 @@ import misc.Tools;
  */
 public class BasicGUI extends MDIChild implements Runnable, ActionListener, InternalFrameListener
 {
-    transient private Thread basicThread;
+    //transient private Thread basicThread;
+    Future future;
     private CommandInterpreter ci;
     transient public static final
         ConcurrentHashMap<Long, CountDownLatch> latchMap = new ConcurrentHashMap<>();
+
+    public static final ExecutorService executor = Executors.newFixedThreadPool(10);
 
     {
         initComponents();
@@ -37,8 +39,9 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     public BasicGUI()
     {
-        basicThread = new Thread(this);
-        basicThread.start();
+        future = executor.submit(this);
+        //basicThread = new Thread(this);
+        //basicThread.start();
     }
 
     /**
@@ -185,9 +188,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         // end possible wait state
-        CountDownLatch cd = latchMap.get(basicThread.getId());
-        if (cd != null)
-            cd.countDown();
+        future.cancel(true);
         ci.basicProgram.basic_prg_running = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -205,8 +206,9 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     {
         StreamingTextArea st = (StreamingTextArea) area;
         st.startThread();
-        basicThread = new Thread(this);
-        basicThread.start();
+        //basicThread = new Thread(this);
+        //basicThread.start();
+        future = executor.submit(this);
     }
 
     /**

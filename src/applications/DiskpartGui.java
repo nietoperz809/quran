@@ -7,8 +7,11 @@ package applications;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.Future;
+
 import misc.MDIChild;
 import misc.ProcessTool;
+import misc.Tools;
 
 /**
  *
@@ -18,7 +21,7 @@ public class DiskpartGui extends MDIChild
 {
     ProcessTool proc = new ProcessTool("diskpart", 1000);
     InputStream inp = proc.getInput();
-    Thread reader;
+    Future reader;
     
     /**
      * Creates new form DiskpartGui
@@ -47,8 +50,9 @@ public class DiskpartGui extends MDIChild
                 }
             }
         };
-        reader = new Thread (r);
-        reader.start();
+        reader = Tools.submit(r);
+//        reader = new Thread (r);
+//        reader.start();
     }
 
     /**
@@ -359,7 +363,7 @@ public class DiskpartGui extends MDIChild
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        reader.interrupt();
+        reader.cancel(true);
         proc.kill();
     }//GEN-LAST:event_formInternalFrameClosed
 

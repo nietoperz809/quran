@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import misc.Tools;
 
 /**
  *
@@ -71,7 +72,7 @@ public class VerbalQuran implements Runnable
     public void playAsync(int sura, int aya)
     {
         param = new ThreadParam(sura, aya);
-        new Thread(this).start();
+        Tools.execute(this);
     }
 
     public void play(int sura, int aya) throws JavaLayerException

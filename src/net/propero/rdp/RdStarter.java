@@ -5,6 +5,8 @@
  */
 package net.propero.rdp;
 
+import misc.Tools;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +52,7 @@ public class RdStarter
         try
         {
             _rd = new Rdesktop(_host);
-            new Thread(() ->
+            Runnable r =() ->
             {
                 try
                 {
@@ -60,7 +62,8 @@ public class RdStarter
                 {
                     Logger.getLogger(RdStarter.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }).start();
+            };
+            Tools.execute(r);
         }
         catch (OrderException | RdesktopException ex)
         {

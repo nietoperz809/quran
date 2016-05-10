@@ -549,7 +549,7 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
                 Logger.getLogger(TwitTools.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
-        new Thread(r).start();
+        Tools.submit(r);
     }//GEN-LAST:event_seekButtonActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed

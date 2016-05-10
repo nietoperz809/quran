@@ -35,8 +35,7 @@ public class ProcessTool
                 pc = null;
             }
         };
-        Thread thr = new Thread(r);
-        thr.start();
+        Tools.execute(r);
     }
 
     public InputStream getInput()

@@ -37,7 +37,14 @@ public class SLEEPStatement extends Statement
                 long id = Thread.currentThread().getId();
                 CountDownLatch cd = new CountDownLatch(1);
                 BasicGUI.latchMap.put(id, cd);
-                cd.await();
+                try
+                {
+                    cd.await();
+                }
+                catch (InterruptedException ex)
+                {
+                    throw new BASICRuntimeError("cd wait interrupted");
+                }
                 BasicGUI.latchMap.remove(id);
             }
             else

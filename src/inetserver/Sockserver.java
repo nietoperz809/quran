@@ -27,15 +27,13 @@ public class Sockserver implements Runnable
     private final int buffSize;
     private ServerSocket server;
     private final WebServerGUI _gui;
-    private static final TreeSet<WebServerClient> _clients = new TreeSet<>();
 
     public Sockserver (int buffsz, int p, WebServerGUI gui)
     {
         port = p;
         buffSize = buffsz;
-        Thread t = new Thread(this);
         _gui = gui;
-        t.start();
+        WebServerClient.executor.execute(this);
     }
     
     public boolean isRunning()
@@ -57,26 +55,10 @@ public class Sockserver implements Runnable
         }
     }
 
-    public static void removClient (WebServerClient ws)
-    {
-        _clients.remove(ws);
-    }
-    
     private static void haltClients() throws InterruptedException
     {
         WebServerClient.executor.shutdown();
         WebServerClient.executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
-
-//        Iterator<WebServerClient> it = _clients.iterator();
-//
-//        while (it.hasNext())
-//        {
-//            WebServerClient ws = it.next();
-//            if (ws.isRunning())
-//            {
-//                ws.closeSocket();
-//            }
-//        }
     }
     
     @Override
@@ -89,9 +71,7 @@ public class Sockserver implements Runnable
 
             while (true)
             {
-                Socket sock = server.accept();
-                WebServerClient ws = new WebServerClient(buffSize, sock, _gui);
-                _clients.add(ws);
+                new WebServerClient(buffSize, server.accept(), _gui);
             }
         }
         catch (IOException ex)

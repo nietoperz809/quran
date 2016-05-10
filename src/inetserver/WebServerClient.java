@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 
 import misc.Tools;
 import misc.Transmitter;
+import org.jetbrains.annotations.NotNull;
 import transform.Transformation;
 import transform.UrlEncodeUTF8;
 
@@ -26,16 +27,15 @@ import transform.UrlEncodeUTF8;
  *
  * @author Administrator
  */
-public class WebServerClient implements Runnable, Comparable
+public class WebServerClient implements Runnable
 {
     private final Socket m_sock;
     private final int m_buffSize;
-    //private final Thread m_thread;
     private final WebServerGUI _gui;
     private final UrlEncodeUTF8 m_urltransform;
-    private volatile static int instances;
+    //private volatile static int instances;
 
-    public static ExecutorService executor = Executors.newFixedThreadPool(20); // .newCachedThreadPool();
+    public static final ExecutorService executor = Executors.newFixedThreadPool(20); // .newCachedThreadPool();
 
     /**
      * Constructor
@@ -51,17 +51,9 @@ public class WebServerClient implements Runnable, Comparable
         m_urltransform = new UrlEncodeUTF8();
         _gui = g;
         executor.submit(this);
-       // m_thread = new Thread(this);
-        instances++;
-        //m_thread.setName("webConn" + instances);
-        //m_thread.start();
+        //instances++;
     }
 
-//    public boolean isRunning()
-//    {
-//        return true; //m_thread.isAlive();
-//    }
-    
     /**
      * Is File MP4
      *
@@ -114,18 +106,16 @@ public class WebServerClient implements Runnable, Comparable
 
     private String makeHTTPHeader (int len, String type)
     {
-        String sb = ("HTTP/1.1 200 OK" + "\r\n") +
+        return ("HTTP/1.1 200 OK" + "\r\n") +
                 "Content-Length: " + len + "\r\n" +
                 "Content-Type: " + type + "; charset=utf-8" + "\r\n" +
                 "\r\n";
-        return sb;
     }
 
     /**
      * Send HTTP response header
      *
      * @param out socket as printwriter
-     * @param txt content as String
      * @param type Type parameter
      */
     private void sendHeader(PrintWriter out, int len, String type)
@@ -279,7 +269,6 @@ public class WebServerClient implements Runnable, Comparable
      * Send JPEG to output stream
      *
      * @param out output stream
-     * @param fname file name
      */
     private void sendJpegSmall(OutputStream out, String path) throws Exception
     {
@@ -391,10 +380,6 @@ public class WebServerClient implements Runnable, Comparable
         PrintWriter out
                 = new PrintWriter(m_sock.getOutputStream(), true);
         String[] si = getInput(in);
-        if (si == null)
-        {
-            return;
-        }
         String path = si[1].substring(1);
 
         path = m_urltransform.retransform(path);
@@ -440,25 +425,13 @@ public class WebServerClient implements Runnable, Comparable
     @Override
     public void run()
     {
-        System.out.println("++ Client");
         try
         {
             perform();
-            Sockserver.removClient(this);
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
-            //:)System.err.println(ex + " " + Thread.currentThread().getName());
         }
-
-        System.out.println("-- Client");
-        //instances--;
-    }
-
-    @Override
-    public int compareTo(Object o)
-    {
-        return o.hashCode() - this.hashCode();
     }
 }

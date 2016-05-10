@@ -1,34 +1,23 @@
 package monitor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import static java.awt.Color.BLACK;
-import static java.awt.Color.GREEN;
-import static java.awt.Color.YELLOW;
-import java.awt.Dimension;
-import java.awt.Font;
-import static java.awt.Font.PLAIN;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import misc.Tools;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.Future;
+
+import static java.awt.Color.*;
+import static java.awt.Font.PLAIN;
 import static java.lang.Long.parseLong;
 import static java.lang.Runtime.getRuntime;
 import static java.lang.String.valueOf;
 import static java.lang.System.arraycopy;
-import static java.lang.System.out;
-import static java.lang.Thread.MIN_PRIORITY;
 import static java.lang.Thread.sleep;
-import java.util.Date;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /*
  * @(#)MemoryMonitor.java	1.37 06/08/29
@@ -76,7 +65,7 @@ import javax.swing.JTextField;
 public class MemoryMonitor extends JPanel
 {
     private final int sleep = 100;
-    private static final JCheckBox dateStampCB = new JCheckBox("Output Date Stamp");
+    //private static final JCheckBox dateStampCB = new JCheckBox("Output Date Stamp");
     public final Surface surf = new Surface(sleep);
     private final JPanel controls = new JPanel();
     private boolean doControls;
@@ -99,8 +88,8 @@ public class MemoryMonitor extends JPanel
         controls.add(label);
         label.setFont(font);
         label.setForeground(BLACK);
-        controls.add(dateStampCB);
-        dateStampCB.setFont(font);
+        //controls.add(dateStampCB);
+        //dateStampCB.setFont(font);
 
         addMouseListener(new MouseAdapter()
         {
@@ -152,7 +141,8 @@ public class MemoryMonitor extends JPanel
         private final Color graphColor = new Color(46, 139, 87);
         private final Color mfColor = new Color(0, 100, 0);
         private String usedStr;
-        private boolean running = true;
+        //private boolean running = true;
+        private Future running;
 
         public Surface (long sleep)
         {
@@ -312,21 +302,18 @@ public class MemoryMonitor extends JPanel
 
         public void start()
         {
-            Thread thread = new Thread(this);
-            thread.setPriority(MIN_PRIORITY);
-            thread.start();
-            running = true;
+            running = Tools.submit(this);
         }
 
         public synchronized void stop()
         {
-            running = false;
-            notify();
+            System.out.println("stopping");
+            running.cancel(true);
         }
 
         public void run()
         {
-            while (running)
+            while (!running.isCancelled())
             {
                 Dimension d = getSize();
                 if (d.height > 50)
@@ -352,12 +339,12 @@ public class MemoryMonitor extends JPanel
                 {
                     break;
                 }
-                if (dateStampCB.isSelected())
-                {
-                    out.println(new Date().toString() + " " + usedStr);
-                }
+//                if (dateStampCB.isSelected())
+//                {
+//                    out.println(new Date().toString() + " " + usedStr);
+//                }
             }
-            //DebugOut.get().out.println ("stopped");
+            System.out.println("stopped");
         }
     }
 }

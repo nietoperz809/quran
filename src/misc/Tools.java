@@ -23,6 +23,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.logging.Level;
@@ -36,8 +40,34 @@ import static java.awt.datatransfer.DataFlavor.stringFlavor;
  */
 public class Tools
 {
-
     private static final String m_path = "../ser/";
+    private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(10);
+
+    public static int getExecutorFreeSlots ()
+    {
+        int tc = ((ThreadPoolExecutor)globalExecutor).getActiveCount();
+        int tm = ((ThreadPoolExecutor)globalExecutor).getCorePoolSize();
+        System.out.println(tc+"/"+tm);
+        return tm-tc;
+    }
+
+    public static void execute(Runnable r)
+    {
+        if (getExecutorFreeSlots() <= 0)
+        {
+            System.out.println("Thread pool exhausted");
+        }
+        globalExecutor.execute(r);
+    }
+
+    public static Future submit (Runnable r)
+    {
+        if (getExecutorFreeSlots() <= 0)
+        {
+            System.out.println("Thread pool exhausted");
+        }
+        return globalExecutor.submit(r);
+    }
 
     public static String humanReadableByteCount (long bytes, boolean si)
     {

@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import misc.StringDivider;
+import misc.Tools;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -131,7 +132,7 @@ public class TwitTools implements TwitterKeys
                 Logger.getLogger(TwitTools.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
-        new Thread(r).start();
+        Tools.execute(r);
     }
     
     public void send(InputStream in, String label) throws Exception
@@ -181,7 +182,7 @@ public class TwitTools implements TwitterKeys
         {
             sendLongString(str);
         };
-        new Thread(r).start();
+        Tools.execute(r);
     }
 
     public void sendAsync (final String str)
@@ -197,7 +198,7 @@ public class TwitTools implements TwitterKeys
                 e.printStackTrace();
             }
         };
-        new Thread(r).start();
+        Tools.execute(r);
     }
 
     public static List<Status> getTimeLine()
