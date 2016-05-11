@@ -29,7 +29,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
     private final OutStream out;
 
     private transient Thread thread;
-    private boolean running = true;
+    //private boolean running = true;
 
     private int linenum = 0;
 
@@ -117,7 +117,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
 
     public final void startThread()
     {
-        running = true;
+        //running = true;
         thread = new Thread(this);
         thread.start();
     }
@@ -187,7 +187,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
      */
     public synchronized void destroy()
     {
-        running = false;
+        thread.interrupt(); //running = false;
         inBuffer.notifyAll();
         outBuffer.notifyAll();
         try
@@ -202,16 +202,16 @@ public class StreamingTextArea extends JTextArea implements Runnable
     @Override
     public void run()
     {
-        while (running)
+        while (!thread.isInterrupted())
         {
-            String txt = null;
+            String txt;
             try
             {
                 txt = outBuffer.removeAsString();
             }
             catch (InterruptedException ex)
             {
-               
+                break;
             }
             try
             {
@@ -227,6 +227,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
                 System.out.println(ex + " -- " + txt);
             }
         }
+        System.out.println("stream thread ended");
     }
 
     class FancyCaret extends DefaultCaret

@@ -21,16 +21,12 @@ import applications.BasicGUI;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
-
-import java.io.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.stream.Collectors;
-import javax.sound.midi.Instrument;
 import midisystem.MidiSynthSystem;
-import misc.ClassFinder;
 import misc.Transmitter;
+
+import javax.sound.midi.Instrument;
+import java.io.*;
+import java.util.List;
 
 import static com.basic.ParseStatement.statement;
 
@@ -46,6 +42,7 @@ public class CommandInterpreter implements Serializable
     LexicalTokenizer tokenizer;
     public Program basicProgram;
 
+    StreamingTextArea streamingTextArea;
     transient private DataInputStream inStream;
     transient private PrintStream outStream;
 
@@ -341,6 +338,7 @@ public class CommandInterpreter implements Serializable
     public void dispose()
     {
         voice.deallocate();
+        streamingTextArea.destroy();
     }
     
     /**
@@ -352,6 +350,7 @@ public class CommandInterpreter implements Serializable
      */
     public int start (StreamingTextArea area) throws Exception
     {
+        streamingTextArea = area;
         inStream = new DataInputStream(area.getInputStream());
         outStream = new PrintStream(area.getOutputStream());
 

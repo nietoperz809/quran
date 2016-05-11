@@ -23,8 +23,8 @@ import misc.Tools;
 public class BasicGUI extends MDIChild implements Runnable, ActionListener, InternalFrameListener
 {
     //transient private Thread basicThread;
-    Future future;
-    private CommandInterpreter ci;
+    Future basicTask;
+    private CommandInterpreter commandInterpreter;
     transient public static final
         ConcurrentHashMap<Long, CountDownLatch> latchMap = new ConcurrentHashMap<>();
 
@@ -39,7 +39,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     public BasicGUI()
     {
-        future = executor.submit(this);
+        basicTask = executor.submit(this);
         //basicThread = new Thread(this);
         //basicThread.start();
     }
@@ -162,7 +162,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
     {//GEN-HEADEREND:event_formInternalFrameClosed
-        ci.basicProgram.thread_running = false;  // Force basicThread to end if pg runs
+        commandInterpreter.basicProgram.thread_running = false;  // Force basicThread to end if pg runs
         StreamingTextArea st = (StreamingTextArea) area;
         st.fakeIn("bye\n");  // Force basicThread to end if no pg runs
     }//GEN-LAST:event_formInternalFrameClosed
@@ -188,8 +188,8 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         // end possible wait state
-        future.cancel(true);
-        ci.basicProgram.basic_prg_running = false;
+        basicTask.cancel(true);
+        commandInterpreter.basicProgram.basic_prg_running = false;
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -208,7 +208,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
         st.startThread();
         //basicThread = new Thread(this);
         //basicThread.start();
-        future = executor.submit(this);
+        basicTask = executor.submit(this);
     }
 
     /**
@@ -217,14 +217,14 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     private int runBasicSystem ()
     {
-        if (ci == null)
+        if (commandInterpreter == null)
         {
-            ci = new CommandInterpreter (this);
+            commandInterpreter = new CommandInterpreter (this);
         }
         try
         {
             StreamingTextArea st = (StreamingTextArea) area;
-            return ci.start(st);
+            return commandInterpreter.start(st);
         }
         catch (Exception e)
         {
@@ -241,7 +241,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
         int ret = runBasicSystem();
         if (ret == 1)
         {
-            ci.dispose();
+            commandInterpreter.dispose();
             dispose();
         }
         System.out.println("BasicThread end");
