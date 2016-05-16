@@ -18,11 +18,14 @@ public class BackWindow extends JDesktopPane // implements PathNames
     private static final long serialVersionUID = 1L;
     private Image image;
 
+    public BackWindow ()
+    {
+        this ("allah.jpg");
+    }
+
     public BackWindow (String BackImagePath)
     {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream(BackImagePath);
-        load (is);
+        image = Tools.loadImageFromRessource(BackImagePath);
     }
 
     public BackWindow (InputStream in)

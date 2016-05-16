@@ -81,36 +81,38 @@ public class MainWindow extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-        desktopPane = new BackWindow("allah.jpg");
-        javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
-        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
-        JMenuItem openMenuItem = new JMenuItem();
-        JMenuItem jMenuItem1 = new JMenuItem();
-        JMenuItem jMenuItem2 = new JMenuItem();
-        JMenuItem jMenuItem3 = new JMenuItem();
-        JMenuItem jMenuItem4 = new JMenuItem();
-        JMenuItem jMenuItem5 = new JMenuItem();
-        JMenuItem jMenuItem6 = new JMenuItem();
-        JMenuItem jMenuItem8 = new JMenuItem();
-        JMenuItem jMenuItem9 = new JMenuItem();
-        JMenuItem jMenuItem10 = new JMenuItem();
-        JMenuItem jMenuItem12 = new JMenuItem();
-        JMenuItem jMenuItem13 = new JMenuItem();
-        JMenuItem jMenuItem14 = new JMenuItem();
-        JMenuItem jMenuItem15 = new JMenuItem();
-        JMenuItem jMenuItem16 = new JMenuItem();
-        JMenuItem jMenuItem17 = new JMenuItem();
-        JMenuItem jMenuItem18 = new JMenuItem();
-        JMenuItem jMenuItem19 = new JMenuItem();
-        JMenuItem jMenuItem20 = new JMenuItem();
-        JMenuItem jMenuItem21 = new JMenuItem();
-        JMenuItem jMenuItem23 = new JMenuItem();
+
+        desktopPane = new BackWindow();
+        menuBar = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        openMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
-        javax.swing.JMenu jMenu1 = new javax.swing.JMenu();
-        JMenuItem jMenuItem7 = new JMenuItem();
-        JMenuItem jMenuItem11 = new JMenuItem();
-        javax.swing.JMenu jMenu2 = new javax.swing.JMenu();
-        JMenuItem jMenuItem22 = new JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,87 +127,213 @@ public class MainWindow extends javax.swing.JFrame
 
         openMenuItem.setMnemonic('o');
         openMenuItem.setLabel("New Quran");
-        openMenuItem.addActionListener(evt -> openMenuItemActionPerformed(evt));
+        openMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                openMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(openMenuItem);
 
         jMenuItem1.setText("DirectTweet");
-        jMenuItem1.addActionListener(evt -> jMenuItem1ActionPerformed(evt));
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem1);
 
         jMenuItem2.setText("LaTEX");
-        jMenuItem2.addActionListener(evt -> jMenuItem2ActionPerformed(evt));
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem2);
 
         jMenuItem3.setText("Sliders");
-        jMenuItem3.addActionListener(evt -> jMenuItem3ActionPerformed(evt));
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem3);
 
         jMenuItem4.setText("RegExer");
-        jMenuItem4.addActionListener(evt -> jMenuItem4ActionPerformed(evt));
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem4);
 
         jMenuItem5.setText("ArrayGen");
-        jMenuItem5.addActionListener(evt -> jMenuItem5ActionPerformed(evt));
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem5);
 
         jMenuItem6.setText("Generate QR");
-        jMenuItem6.addActionListener(evt -> jMenuItem6ActionPerformed(evt));
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem6);
 
         jMenuItem8.setText("LindenGUI");
-        jMenuItem8.addActionListener(evt -> jMenuItem8ActionPerformed(evt));
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem8);
 
         jMenuItem9.setText("MemoryMon");
-        jMenuItem9.addActionListener(evt -> jMenuItem9ActionPerformed(evt));
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem9);
 
         jMenuItem10.setText("C64Text");
-        jMenuItem10.addActionListener(evt -> jMenuItem10ActionPerformed(evt));
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem10);
 
         jMenuItem12.setText("BASIC");
-        jMenuItem12.addActionListener(evt -> jMenuItem12ActionPerformed(evt));
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem12);
 
         jMenuItem13.setText("Warper");
-        jMenuItem13.addActionListener(evt -> jMenuItem13ActionPerformed(evt));
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem13);
 
         jMenuItem14.setText("Hadith");
-        jMenuItem14.addActionListener(evt -> jMenuItem14ActionPerformed(evt));
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem14);
 
         jMenuItem15.setText("TwitterTimeline");
-        jMenuItem15.addActionListener(evt -> jMenuItem15ActionPerformed(evt));
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem15);
 
         jMenuItem16.setText("Diskpart");
-        jMenuItem16.addActionListener(evt -> jMenuItem16ActionPerformed(evt));
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem16);
 
         jMenuItem17.setText("Webserver");
-        jMenuItem17.addActionListener(evt -> jMenuItem17ActionPerformed(evt));
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem17);
 
         jMenuItem18.setText("Magnifier");
-        jMenuItem18.addActionListener(evt -> jMenuItem18ActionPerformed(evt));
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem18);
 
         jMenuItem19.setText("Rdesktop");
-        jMenuItem19.addActionListener(evt -> jMenuItem19ActionPerformed(evt));
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem19);
 
         jMenuItem20.setText("Transformer");
-        jMenuItem20.addActionListener(evt -> jMenuItem20ActionPerformed(evt));
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem20);
 
         jMenuItem21.setText("FTPServer");
-        jMenuItem21.addActionListener(evt -> jMenuItem21ActionPerformed(evt));
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem21);
 
-        jMenuItem23.setText("NumberConverter");
-        jMenuItem23.addActionListener(evt -> jMenuItem23ActionPerformed(evt));
+        jMenuItem23.setText("numconv.NumberConverter");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
         fileMenu.add(jMenuItem23);
 
         menuBar.add(fileMenu);
@@ -217,11 +345,23 @@ public class MainWindow extends javax.swing.JFrame
         jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jMenuItem7.setText("Arrange");
-        jMenuItem7.addActionListener(evt -> jMenuItem7ActionPerformed(evt));
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem7);
 
         jMenuItem11.setText("Close All");
-        jMenuItem11.addActionListener(evt -> jMenuItem11ActionPerformed(evt));
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem11);
 
         menuBar.add(Box.createGlue());
@@ -231,8 +371,24 @@ public class MainWindow extends javax.swing.JFrame
         jMenu2.setText("Tools");
 
         jMenuItem22.setText("DebugOut");
-        jMenuItem22.addActionListener(evt -> jMenuItem22ActionPerformed(evt));
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem22);
+
+        jMenuItem24.setText("Clock");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem24);
 
         menuBar.add(jMenu2);
 
@@ -419,6 +575,11 @@ public class MainWindow extends javax.swing.JFrame
         createMDIChild (applications.NumberConverter.class);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem24ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem24ActionPerformed
+        createMDIChild (applications.ClockGUI.class);
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
+
     /** m0xyzptlkxy0
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -440,6 +601,35 @@ public class MainWindow extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenu savesMenu;
     // End of variables declaration//GEN-END:variables
 

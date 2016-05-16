@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 import misc.Tools;
 import misc.Transmitter;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 import transform.Transformation;
 import transform.UrlEncodeUTF8;
 
@@ -324,7 +324,7 @@ public class WebServerClient implements Runnable
      *
      * @param out Print Writer
      */
-    private void imagePage(OutputStream out, PrintWriter out2, String path) throws Exception
+    private void imagePage(OutputStream out, String path) throws Exception
     {
         String txt = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"/></head>\r\n"
                 + buildMainPage(path)
@@ -415,7 +415,7 @@ public class WebServerClient implements Runnable
             {
                 path = _gui.getBasePath();
             }
-            imagePage(m_sock.getOutputStream(), out, path);
+            imagePage(m_sock.getOutputStream(), path);
         }
         out.flush();
         out.close();
