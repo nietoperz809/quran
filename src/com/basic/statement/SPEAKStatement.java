@@ -46,7 +46,7 @@ public class SPEAKStatement extends Statement
     {
         super(KeyWords.SPEAK);
         if (lt.getBuffer() != null)
-            parse(this, lt);
+            parse(lt);
     }
 
     @Override
@@ -70,9 +70,9 @@ public class SPEAKStatement extends Statement
         return sb.toString();
     }
 
-    private static void parse(SPEAKStatement s, LexicalTokenizer lt) throws BASICSyntaxError
+    public void parse(LexicalTokenizer lt) throws BASICSyntaxError
     {
-        s.args = StringExParser.parseStringExpression(lt);
+        args = StringExParser.parseStringExpression(lt);
     }
 
 }

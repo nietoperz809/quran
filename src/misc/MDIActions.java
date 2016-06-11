@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameListener;
 
 /**
  *
@@ -20,7 +21,18 @@ public class MDIActions
     {
         JInternalFrame[] allframes = desk.getAllFrames();
         for (JInternalFrame f : allframes)
+        {
+            InternalFrameListener[] listeners = f.getInternalFrameListeners();
+            for (InternalFrameListener l : listeners)
+            {
+                l.internalFrameClosing(null);
+            }
             desk.getDesktopManager().closeFrame(f);
+            for (InternalFrameListener l : listeners)
+            {
+                l.internalFrameClosed(null);
+            }
+        }
     }
     
     public static void arrange (JDesktopPane desk)

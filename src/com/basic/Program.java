@@ -27,7 +27,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Stack;
 import java.util.Vector;
+
+import com.sun.speech.freetts.VoiceManager;
+import com.sun.speech.freetts.audio.AudioPlayer;
+import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 import midisystem.MidiSynthSystem;
+
+import javax.sound.sampled.AudioFileFormat;
 
 import static com.basic.ParseStatement.*;
 
@@ -50,8 +56,9 @@ public class Program implements Runnable, Serializable
 {
     public static final long serialVersionUID = 1L;
 
-    public final Voice voice;  // Speech synth
-    
+    public Voice voice;  // Speech synth
+    public AudioPlayer audioPlayer;
+
     public final StreamingTextArea area;
     public boolean basic_prg_running = true;  // Program basic_prg_running
     public boolean thread_running = true; // Thread basic_prg_running 
@@ -354,31 +361,6 @@ public class Program implements Runnable, Serializable
     }
 
     /**
-     * Set the string variable named <i>name</i> to have the value <i>value</i>.
-     * If this is the first use of the variable it is created.
-     */
-//    public void setVariable (Variable v, String value) throws BASICRuntimeError
-//    {
-//        Variable vi = vars.get(v.name);
-//        if (vi == null)
-//        {
-//            if (v.isArray())
-//            {
-//                throw new BASICRuntimeError("Array must be declared in a DIM statement");
-//            }
-//            vi = new Variable(v.name);
-//            vars.put(v.name, vi);
-//        }
-//        if (!vi.isArray())
-//        {
-//            vi.setValue(value);
-//            return;
-//        }
-//        int ii[] = getIndices(v);
-//        vi.setValue(value, ii);
-//    }
-
-    /**
      * This method is used by the DIM statement to DECLARE arrays. Given the
      * nature of arrays we force them to be declared before they can be used.
      * This is common to most BASIC implementations.
@@ -673,21 +655,6 @@ public class Program implements Runnable, Serializable
         s = pop();
         do
         {
-//            /* While basic_prg_running we skip Data statements. */
-//            try
-//            {
-//                yyy = in.available();
-//            }
-//            catch (IOException e)
-//            {
-//                yyy = 0;
-//            }
-//            if (yyy != 0)
-//            {
-//                pout.println("Stopped at :" + s);
-//                push(s);
-//                break;
-//            }
             if (!basic_prg_running)
             {
                 basic_prg_running = true;
@@ -763,5 +730,26 @@ public class Program implements Runnable, Serializable
     public void resetData ()
     {
         dataPtr = 0;
+    }
+
+    /**
+     * opem voice file
+     * @param sss
+     */
+    public void setVoiceFilename (String sss)
+    {
+        audioPlayer = new SingleFileAudioPlayer(sss, AudioFileFormat.Type.WAVE);
+        voice.setAudioPlayer(audioPlayer);
+    }
+
+    /**
+     * close voice file
+     */
+    public void unsetVoiceFilename ()
+    {
+        audioPlayer.close();
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        voice = voiceManager.getVoice("kevin16");
+        voice.allocate();
     }
 }

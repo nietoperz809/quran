@@ -15,30 +15,36 @@ public class Clock extends JPanel implements Runnable
 {
     private static final long serialVersionUID = 1L;
     // Farben
-    Color m_secondcolor = new Color(255, 255, 0);
-    Color m_minutecolor = new Color(255, 255, 255);
-    Color m_hourcolor = new Color(255, 255, 255);
-    Color m_framecolor = new Color(255, 255, 255);
-    Color m_xorcolor = new Color(0, 0, 255);
+    private final Color m_secondcolor = new Color(255, 255, 0);
+    private final Color m_minutecolor = new Color(255, 255, 255);
+    private final Color m_hourcolor = new Color(255, 255, 255);
+    private final Color m_xorcolor = new Color(0, 0, 255);
     // FensterKoordinaten
-    final int m_width = 78, m_height = 78, m_x2 = 39, m_y2 = 39;
+    private final int m_width = 78;
+    private final int m_height = 78;
+    private final int m_x2 = 39;
+    private final int m_y2 = 39;
     // Uhr
-    int m_second = -1;
-    int m_minute = -1;
-    int m_hour = -1;
-    int m_day = -1;
+    private int m_second = -1;
+    private int m_minute = -1;
+    private int m_hour = -1;
+    private int m_day = -1;
     // Letzte Position der Zeiger
-    int m_lastsec = -1;
-    int m_lastmin = -1;
-    int m_lasthour = -1;
-    int m_lastday = -1;
+    private int m_lastsec = -1;
+    private int m_lastmin = -1;
+    private int m_lasthour = -1;
+    private int m_lastday = -1;
     // Bitmaps
-    Image m_img, m_imgdays, m_imgthisday = null;
+    private final Image m_img;
+    private final Image m_imgdays;
+    private Image m_imgthisday = null;
 
-    BufferedImage imagebuffer = new BufferedImage (m_width, m_height, BufferedImage.TYPE_INT_ARGB);
-    Graphics img_g = imagebuffer.createGraphics();
-    
-    public Clock(Image img, Image img2)
+    private final BufferedImage imagebuffer = new BufferedImage (m_width, m_height, BufferedImage.TYPE_INT_ARGB);
+    private final Graphics img_g = imagebuffer.createGraphics();
+
+    private final ScheduledExecutorService scheduler;
+
+    private Clock (Image img, Image img2)
     {
         super();
         m_img = img;
@@ -49,7 +55,7 @@ public class Clock extends JPanel implements Runnable
         // draw clock face
         img_g.drawImage(m_img, 0, 0, this);
         
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.SECONDS);    
     }
 
@@ -58,7 +64,12 @@ public class Clock extends JPanel implements Runnable
         this (Tools.loadImageFromRessource("JOKE.GIF"),
               Tools.loadImageFromRessource("DAYS.GIF"));
     }
-    
+
+    public void shutdown()
+    {
+        scheduler.shutdown();
+    }
+
     // Berechnet den EndPunkt einer Geraden, deren StartPunkt der
     // MittelPunkt eines Kreises ist.
     // Eingabe:  xs,ys, -> der MittelPunkt
@@ -77,7 +88,6 @@ public class Clock extends JPanel implements Runnable
     @Override
     public void run()
     {
-        Graphics g = img_g;
         // Leave if g is currently not available
         GregorianCalendar cal = new GregorianCalendar();
         int sec = cal.get(GregorianCalendar.SECOND);
@@ -86,23 +96,25 @@ public class Clock extends JPanel implements Runnable
         int day = cal.get(GregorianCalendar.DAY_OF_WEEK)-1;
         if (m_second != sec)
         {
-            UpdateSecond(g, sec);
+            UpdateSecond(img_g, sec);
         }
         if (m_minute != min)
         {
-            UpdateMinute(g, min);
+            UpdateMinute(img_g, min);
         }
         if (m_hour != hr)
         {
-            UpdateHour(g, hr);
+            UpdateHour(img_g, hr);
         }
         if (day != m_day)
         {
-            UpdateDay(g, day);
+            UpdateDay(img_g, day);
         }
         
-        // to sreen
-        getGraphics().drawImage(imagebuffer, 0, 0, getWidth(), getHeight(), this);
+        // to screen
+        Graphics g2 = getGraphics();
+        if (g2 != null)
+            g2.drawImage(imagebuffer, 0, 0, getWidth(), getHeight(), this);
     }
 
     // Aktualisiert den SekundenZeiger

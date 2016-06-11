@@ -132,6 +132,7 @@ public class Chargen
         map.put('–', 0x968);
         map.put(':', 58 * 8);
         map.put(';', 59 * 8);
+
     }
 
     private int getIndex(char c)

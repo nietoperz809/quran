@@ -254,6 +254,15 @@ public class ParseStatement extends Statement
                     }
                     return s;
 
+                case SPCLOSE:
+                    s = new SpeechCloseStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != KeyWords.EOL)
+                    {
+                        throw new BASICSyntaxError(extraError);
+                    }
+                    return s;
+
                 case CLS:
                     s = new CLSStatement(lt);
                     t = lt.nextToken();
@@ -323,6 +332,20 @@ public class ParseStatement extends Statement
                     }
                     throw new BASICSyntaxError(extraError);
 
+                case SPFILE:
+                    s = new SpeechSaveStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
+                    {
+                        return s;
+                    }
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
                 case SPEAK:
                     s = new SPEAKStatement(lt);
                     t = lt.nextToken();
@@ -330,7 +353,6 @@ public class ParseStatement extends Statement
                     {
                         return s;
                     }
-
                     if (t.isSymbol(':'))
                     {
                         s.nxt = statement(lt);

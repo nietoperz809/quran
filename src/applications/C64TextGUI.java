@@ -174,6 +174,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
         if (chargen == null)
             chargen = new Chargen();
         String txt = inputText.getText();
+        txt = TextTools.replaceUmlaut(txt);
         TextTools tt = new TextTools(txt);
         Dimension d = tt.getImageDimension();
         

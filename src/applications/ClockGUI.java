@@ -5,11 +5,15 @@
  */
 package applications;
 
+import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+
 /**
  *
  * @author Administrator
  */
-public class ClockGUI extends javax.swing.JInternalFrame
+public class ClockGUI extends javax.swing.JInternalFrame implements InternalFrameListener
 {
     private clock.Clock m_clock;
     /**
@@ -18,9 +22,12 @@ public class ClockGUI extends javax.swing.JInternalFrame
     public ClockGUI()
     {
         initComponents();
+        setTitle("Analog Clock");
         m_clock = new clock.Clock();
         getContentPane().add(m_clock, java.awt.BorderLayout.CENTER);
         pack();
+        addInternalFrameListener(this);
+        setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -42,6 +49,48 @@ public class ClockGUI extends javax.swing.JInternalFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void internalFrameOpened (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameClosing (InternalFrameEvent e)
+    {
+        m_clock.shutdown();
+        System.out.println("shutting down clock");
+    }
+
+    @Override
+    public void internalFrameClosed (InternalFrameEvent e)
+    {
+    }
+
+    @Override
+    public void internalFrameIconified (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameDeiconified (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameActivated (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameDeactivated (InternalFrameEvent e)
+    {
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

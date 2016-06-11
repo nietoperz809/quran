@@ -101,4 +101,25 @@ public class TextTools
         d2.height += 10;
         return d2;
     }
+
+    /**
+     * Static function to replace german umlauts
+     * @param input
+     * @return
+     */
+    public static String replaceUmlaut(String input)
+    {
+       //replace all lower Umlauts
+        String output = input.replace("ü", "ue")
+                .replace("ö", "oe")
+                .replace("ä", "ae")
+                .replace("ß", "ss");
+
+        //now replace all the other capital umlaute
+        output = output.replace("Ü", "Ue")
+                .replace("Ö", "Oe")
+                .replace("Ä", "Ae");
+
+        return output;
+    }
 }
