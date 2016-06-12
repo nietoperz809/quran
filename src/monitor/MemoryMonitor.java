@@ -93,6 +93,7 @@ public class MemoryMonitor extends JPanel
 
         addMouseListener(new MouseAdapter()
         {
+            @Override
             public void mouseClicked(MouseEvent e)
             {
                 removeAll();
@@ -150,21 +151,25 @@ public class MemoryMonitor extends JPanel
             setBackground(BLACK);
         }
 
+        @Override
         public Dimension getMinimumSize()
         {
             return new Dimension (100,100);
         }
 
+        @Override
         public Dimension getMaximumSize()
         {
             return getPreferredSize();
         }
 
+        @Override
         public Dimension getPreferredSize()
         {
             return new Dimension(135, 80);
         }
 
+        @Override
         public void paint(Graphics g)
         {
 
