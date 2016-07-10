@@ -8,6 +8,8 @@ import arraygen.Arraygen;
 import java.io.File;
 import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
+
+import misc.MDIChild;
 import misc.Tools;
 
 
@@ -15,7 +17,7 @@ import misc.Tools;
  *
  * @author PetSel
  */
-public class ArrayGenGUI extends JInternalFrame
+public class ArrayGenGUI extends MDIChild
 {
     /**
      * Creates new form MainFrame
@@ -264,5 +266,11 @@ public class ArrayGenGUI extends JInternalFrame
     private javax.swing.JRadioButton rbJava1;
     private javax.swing.JRadioButton rbPHP;
     private javax.swing.JTextArea textArea;
+
+    @Override
+    public void initAfterDeserialization ()
+    {
+
+    }
     // End of variables declaration//GEN-END:variables
 }

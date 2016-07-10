@@ -106,6 +106,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItemIban = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -326,7 +327,7 @@ public class MainWindow extends javax.swing.JFrame
         });
         fileMenu.add(jMenuItem21);
 
-        jMenuItem23.setText("numconv.NumberConverter");
+        jMenuItem23.setText("NumberConverter");
         jMenuItem23.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -335,6 +336,16 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
         fileMenu.add(jMenuItem23);
+
+        jMenuItemIban.setText("IBAN Calc");
+        jMenuItemIban.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItemIbanActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItemIban);
 
         menuBar.add(fileMenu);
 
@@ -575,6 +586,11 @@ public class MainWindow extends javax.swing.JFrame
         createMDIChild (applications.NumberConverter.class);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
+    private void jMenuItemIbanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem23ActionPerformed
+        createMDIChild (applications.IbanGUI.class);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem24ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem24ActionPerformed
         createMDIChild (applications.ClockGUI.class);
@@ -620,6 +636,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItemIban;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

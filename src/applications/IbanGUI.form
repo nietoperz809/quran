@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="applications.IbanGUI">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="14" width="500" height="406"/>
+    </constraints>
+    <properties>
+      <background color="-15009758"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="f6fc3" binding="topPanel" layout-manager="GridBagLayout">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-1700082"/>
+          <minimumSize width="0" height="100"/>
+          <preferredSize width="4" height="100"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
+        <border type="bevel-lowered"/>
+        <children>
+          <component id="2eede" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="45772" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="KTO:"/>
+            </properties>
+          </component>
+          <component id="5ad73" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="BLZ:"/>
+            </properties>
+          </component>
+          <component id="e091" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="dfaae" class="javax.swing.JButton" binding="calculateIban">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <label value="Do Calc"/>
+              <text value="Do Calc"/>
+            </properties>
+          </component>
+          <component id="89a3d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="2.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="9e8f5" class="javax.swing.JLabel" binding="output">
+        <constraints border-constraint="South"/>
+        <properties>
+          <background color="-16777216"/>
+          <font name="Iskoola Pota" size="28"/>
+          <foreground color="-855544"/>
+          <horizontalAlignment value="0"/>
+          <opaque value="true"/>
+          <preferredSize width="36" height="50"/>
+          <text value="Label"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

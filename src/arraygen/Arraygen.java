@@ -14,15 +14,15 @@ import java.io.FileInputStream;
  */
 public class Arraygen
 {
-    public enum CODE {JAVA, JAVAFUNC, C, PHP};
-    static CODE code = CODE.JAVAFUNC; 
+    public enum CODE {JAVA, JAVAFUNC, C, PHP}
+    private static CODE code = CODE.JAVAFUNC;
     
     public static void setCode (CODE c)
     {
         code = c;
     }
 
-    public static byte[] loadFile (String filename) throws Exception
+    private static byte[] loadFile (String filename) throws Exception
     {
         File f = new File (filename);
         byte[] arr = new byte[(int)f.length()];
