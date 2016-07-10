@@ -1,0 +1,56 @@
+package iban;
+
+/**
+ * Created by Administrator on 7/10/2016.
+ */
+public enum CountryCode
+{
+    COUNTRY_CODE_AUSTRIA("AT"),
+    COUNTRY_CODE_BELGIUM("BE"),
+    COUNTRY_CODE_BULGARIA("BG"),
+    COUNTRY_CODE_CROATIA("HR"),
+    COUNTRY_CODE_CYPRUS("CY"),
+    COUNTRY_CODE_CZECH_REPUBLIC("CZ"),
+    COUNTRY_CODE_DENMARK("DK"),
+    COUNTRY_CODE_ESTONIA("EE"),
+    COUNTRY_CODE_FINLAND("FI"),
+    COUNTRY_CODE_FRANCE("FR"),
+    COUNTRY_CODE_GERMAN("DE"),
+    COUNTRY_CODE_GREECE("GR"),
+    COUNTRY_CODE_HUNGARY("HU"),
+    COUNTRY_CODE_ICELAND("IS"),
+    COUNTRY_CODE_IRELAND("IE"),
+    COUNTRY_CODE_ITALY("IT"),
+    COUNTRY_CODE_LATVIA("LV"),
+    COUNTRY_CODE_LIECHTENSTEIN("LI"),
+    COUNTRY_CODE_LITHUANIA("LT"),
+    COUNTRY_CODE_LUXEMBOURG("LU"),
+    COUNTRY_CODE_MALTA("MT"),
+    COUNTRY_CODE_MONACO("MC"),
+    COUNTRY_CODE_NETHERLANDS("NL"),
+    COUNTRY_CODE_NORWAY("NO"),
+    COUNTRY_CODE_POLAND("PL"),
+    COUNTRY_CODE_PORTUGAL("PT"),
+    COUNTRY_CODE_ROMANIA("RO"),
+    COUNTRY_CODE_SLOVAKIA("SK"),
+    COUNTRY_CODE_SLOVENIA("SI"),
+    COUNTRY_CODE_SPAIN("ES"),
+    COUNTRY_CODE_SWEDEN("SE"),
+    COUNTRY_CODE_SWITZERLAND("CH"),
+    COUNTRY_CODE_UNITED_KINGDOM("GB");
+
+    private String _code; // price of each apple 
+
+    // Constructor
+    CountryCode (String p)
+    {
+        _code = p;
+    }
+
+    @Override
+    public String toString()
+    {
+        return _code;
+    }
+
+}

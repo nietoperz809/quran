@@ -51,7 +51,7 @@ class BbanImpl
         this.country = country.toUpperCase(Locale.ENGLISH);
         this.bankIdent = bban.substring(0, BANKIDENT_LENGTH);
         this.ktoIdent = bban.substring(BANKIDENT_LENGTH, bban.length());
-        if (country.equals(Iban.COUNTRY_CODE_GERMAN))
+        if (country.equals(CountryCode.COUNTRY_CODE_GERMAN.toString()))
         {
             this.bankGerman = new BankGerman(bankIdent);
         }
@@ -72,7 +72,7 @@ class BbanImpl
         KTOIDENT_LENGTH = ibanFormat.getKtoIdentLength();
 
         this.country = country.toUpperCase(Locale.ENGLISH);
-        if (country.equals(Iban.COUNTRY_CODE_GERMAN))
+        if (country.equals(CountryCode.COUNTRY_CODE_GERMAN.toString()))
         {
             this.bankGerman = new BankGerman(bankIdent);
             this.ruleGerman = bankGerman.getIbanRule();
@@ -118,7 +118,7 @@ class BbanImpl
     private void setKtoIdent (String ktoIdent, int length) throws IbanException
     {
         // Consider Iban rules for Germany
-        if (country.equals(Iban.COUNTRY_CODE_GERMAN))
+        if (country.equals(CountryCode.COUNTRY_CODE_GERMAN.toString()))
         {
             // Only not standard rules
             String ruleId = bankGerman.getRuleId();

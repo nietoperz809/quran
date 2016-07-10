@@ -1,9 +1,11 @@
 package applications;
 
+import iban.CountryCode;
 import misc.MDIChild;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.stream.Stream;
 
 /**
  * Created by Administrator on 7/10/2016.
@@ -16,10 +18,12 @@ public class IbanGUI extends MDIChild
     private JTextField textField2;
     private JButton calculateIban;
     private JLabel output;
+    private JList CountryList;
 
     public IbanGUI ()
     {
         super();
+        fillList();
         this.setContentPane(panel1);
         setClosable(true);
         setIconifiable(true);
@@ -29,6 +33,16 @@ public class IbanGUI extends MDIChild
         setSize(500, 300);
         setVisible(true);
         calculateIban.addActionListener(e -> System.out.println("hello"));
+    }
+
+    private void fillList ()
+    {
+        DefaultListModel listModel = new DefaultListModel();
+        for (CountryCode cd : CountryCode.values())
+        {
+            listModel.add(0, cd.toString());
+        }
+        CountryList.setModel(listModel);
     }
 
     @Override
@@ -84,38 +98,52 @@ public class IbanGUI extends MDIChild
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         topPanel.add(label1, gbc);
-        final JLabel label2 = new JLabel();
-        label2.setForeground(new Color(-16777216));
-        label2.setText("BLZ:");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        topPanel.add(label2, gbc);
-        textField2 = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        topPanel.add(textField2, gbc);
         calculateIban = new JButton();
         calculateIban.setLabel("Do Calc");
         calculateIban.setText("Do Calc");
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
+        gbc.gridx = 7;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         topPanel.add(calculateIban, gbc);
-        final JLabel label3 = new JLabel();
-        label3.setText("");
+        final JLabel label2 = new JLabel();
+        label2.setForeground(new Color(-16777216));
+        label2.setText("BLZ:");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
-        gbc.weightx = 2.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        topPanel.add(label2, gbc);
+        textField2 = new JTextField();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        topPanel.add(textField2, gbc);
+        final JLabel label3 = new JLabel();
+        label3.setForeground(new Color(-16777216));
+        label3.setText("Country");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         topPanel.add(label3, gbc);
+        CountryList = new JList();
+        CountryList.setPreferredSize(new Dimension(40, 0));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        topPanel.add(CountryList, gbc);
+        final JLabel label4 = new JLabel();
+        label4.setText("Label");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 6;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        topPanel.add(label4, gbc);
         output = new JLabel();
         output.setBackground(new Color(-16777216));
         output.setFont(new Font("Iskoola Pota", output.getFont().getStyle(), 28));

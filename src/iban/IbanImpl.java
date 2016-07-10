@@ -188,7 +188,7 @@ public class IbanImpl implements Iban
     public boolean validate () throws IbanException
     {
         validateFormat();
-        if (country.equals(Iban.COUNTRY_CODE_GERMAN))
+        if (country.equals(CountryCode.COUNTRY_CODE_GERMAN))
         {
             BbanImpl bbanTmp = new BbanImpl(country, bban.getBankIdent(), bban.getKtoIdent());
             String checkDigitTmp = calcCheckDigit(bbanTmp);
