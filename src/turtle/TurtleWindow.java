@@ -5,6 +5,8 @@
  */
 package turtle;
 
+import java.awt.*;
+import javax.swing.*;
 import static java.awt.BorderLayout.CENTER;
 
 /**
@@ -43,19 +45,20 @@ public class TurtleWindow extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
 
+        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setVisible(true);
-
-        pack();
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - unknown
     // End of variables declaration//GEN-END:variables
 }

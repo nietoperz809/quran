@@ -5,6 +5,11 @@
  */
 package net.propero.rdp;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
+
 /**
  *
  * @author Administrator
@@ -28,55 +33,52 @@ public class RdpParamDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jLabel1 = new JLabel();
+        host = new JTextField();
+        jButton1 = new JButton();
 
-        jLabel1 = new javax.swing.JLabel();
-        host = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        //======== this ========
+        setDefaultCloseOperation(2);
         setResizable(false);
+        Container contentPane = getContentPane();
 
+        //---- jLabel1 ----
         jLabel1.setText("Host");
 
+        //---- jButton1 ----
         jButton1.setText("Go");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(e -> jButton1ActionPerformed(e));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(host, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
                     .addComponent(jLabel1)
-                    .addComponent(host, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(host, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(host, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton1)
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
         pack();
+        setLocationRelativeTo(getOwner());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
@@ -149,8 +151,9 @@ public class RdpParamDialog extends javax.swing.JDialog
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField host;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JLabel jLabel1;
+    private JTextField host;
+    private JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

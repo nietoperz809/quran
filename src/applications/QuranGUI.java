@@ -5,8 +5,6 @@
  */
 package applications;
 
-import java.awt.*;
-import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -16,9 +14,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
 import javax.swing.event.InternalFrameListener;
 import misc.ComboBoxTools;
 import misc.HashmapSeeker;
@@ -42,72 +37,6 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
     {
         m_quran = new Quran(0);
         m_speaker = new VerbalQuran();
-    }
-
-    @Override
-    public void actionPerformed (ActionEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameOpened (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameClosing (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameClosed (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameIconified (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameDeiconified (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameActivated (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void internalFrameDeactivated (InternalFrameEvent e)
-    {
-
-    }
-
-    @Override
-    public void keyTyped (KeyEvent e)
-    {
-
-    }
-
-    @Override
-    public void keyPressed (KeyEvent e)
-    {
-
-    }
-
-    @Override
-    public void keyReleased (KeyEvent e)
-    {
-
     }
 
     class Verse
@@ -230,201 +159,220 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jPanel1 = new JPanel();
-        jLabel1 = new JLabel();
-        tf_sura = new JTextField();
-        jLabel2 = new JLabel();
-        tf_aya = new JTextField();
-        jLabel3 = new JLabel();
-        combobox = new JComboBox<>();
-        jButton1 = new JButton();
-        upButton = new JButton();
-        downButton = new JButton();
-        jButton2 = new JButton();
-        jButton3 = new JButton();
-        upButton1 = new JButton();
-        downButton1 = new JButton();
-        infoText = new JTextField();
-        seekText = new JTextField();
-        seekButton = new JButton();
-        cpFromTo = new JTextField();
-        jLabel4 = new JLabel();
-        jScrollPane1 = new JScrollPane();
-        outText = new JTextPane();
+    private void initComponents()
+    {
 
-        //======== this ========
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tf_sura = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tf_aya = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        combobox = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
+        upButton = new javax.swing.JButton();
+        downButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        upButton1 = new javax.swing.JButton();
+        downButton1 = new javax.swing.JButton();
+        infoText = new javax.swing.JTextField();
+        seekText = new javax.swing.JTextField();
+        seekButton = new javax.swing.JButton();
+        cpFromTo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        outText = new javax.swing.JTextPane();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-                formInternalFrameClosed(e);
-            }
-        });
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setPreferredSize(new java.awt.Dimension(600, 400));
+        setVisible(true);
+        addInternalFrameListener(this);
 
-        //======== jPanel1 ========
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(394, 100));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Sura");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, -1, -1));
+
+        tf_sura.setText("1");
+        tf_sura.addKeyListener(this);
+        jPanel1.add(tf_sura, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 1, 60, -1));
+
+        jLabel2.setText("Aya");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 35, -1, -1));
+
+        tf_aya.setText("1");
+        tf_aya.addKeyListener(this);
+        jPanel1.add(tf_aya, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 32, 60, -1));
+
+        jLabel3.setText("Quran");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, -1, -1));
+
+        combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combobox.addActionListener(this);
+        jPanel1.add(combobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 132, -1));
+
+        jButton1.setText("Recite");
+        jButton1.setToolTipText("");
+        jButton1.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jButton1.addActionListener(this);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 70, -1));
+
+        upButton.setText("+");
+        upButton.addActionListener(this);
+        jPanel1.add(upButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 32, 40, -1));
+
+        downButton.setText("-");
+        downButton.addActionListener(this);
+        jPanel1.add(downButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 32, 40, -1));
+
+        jButton2.setText("Tweet");
+        jButton2.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jButton2.addActionListener(this);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 70, -1));
+
+        jButton3.setText("Copy");
+        jButton3.setToolTipText("");
+        jButton3.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jButton3.addActionListener(this);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 56, -1));
+
+        upButton1.setText("+");
+        upButton1.addActionListener(this);
+        jPanel1.add(upButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 0, 40, -1));
+
+        downButton1.setText("-");
+        downButton1.addActionListener(this);
+        jPanel1.add(downButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 40, -1));
+
+        infoText.setEditable(false);
+        infoText.setBackground(new java.awt.Color(102, 255, 204));
+        infoText.setFont(new java.awt.Font("Arabic Typesetting", 1, 24)); // NOI18N
+        infoText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        infoText.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel1.add(infoText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 660, 37));
+        jPanel1.add(seekText, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 100, -1));
+
+        seekButton.setText("Seek");
+        seekButton.addActionListener(this);
+        jPanel1.add(seekButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
+
+        cpFromTo.setText("1/1");
+        cpFromTo.setToolTipText("Select Aya from/to for copy");
+        jPanel1.add(cpFromTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 60, -1));
+
+        jLabel4.setText("-->");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        outText.setBackground(new java.awt.Color(255, 255, 255));
+        outText.setContentType("text/html"); // NOI18N
+        outText.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jScrollPane1.setViewportView(outText);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == combobox)
         {
-
-            // JFormDesigner evaluation mark
-            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-            jPanel1.setLayout(null);
-
-            //---- jLabel1 ----
-            jLabel1.setText("Sura");
-            jPanel1.add(jLabel1);
-            jLabel1.setBounds(new Rectangle(new Point(0, 4), jLabel1.getPreferredSize()));
-
-            //---- tf_sura ----
-            tf_sura.setText("1");
-            tf_sura.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    tf_suraKeyReleased(e);
-                }
-            });
-            jPanel1.add(tf_sura);
-            tf_sura.setBounds(29, 1, 60, tf_sura.getPreferredSize().height);
-
-            //---- jLabel2 ----
-            jLabel2.setText("Aya");
-            jPanel1.add(jLabel2);
-            jLabel2.setBounds(new Rectangle(new Point(6, 35), jLabel2.getPreferredSize()));
-
-            //---- tf_aya ----
-            tf_aya.setText("1");
-            tf_aya.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    tf_ayaKeyReleased(e);
-                }
-            });
-            jPanel1.add(tf_aya);
-            tf_aya.setBounds(29, 32, 60, tf_aya.getPreferredSize().height);
-
-            //---- jLabel3 ----
-            jLabel3.setText("Quran");
-            jPanel1.add(jLabel3);
-            jLabel3.setBounds(new Rectangle(new Point(180, 0), jLabel3.getPreferredSize()));
-
-            //---- combobox ----
-            combobox.setModel(new DefaultComboBoxModel<>(new String[] {
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4"
-            }));
-            combobox.addActionListener(e -> comboboxActionPerformed(e));
-            jPanel1.add(combobox);
-            combobox.setBounds(220, 0, 132, combobox.getPreferredSize().height);
-
-            //---- jButton1 ----
-            jButton1.setText("Recite");
-            jButton1.setToolTipText("");
-            jButton1.setMargin(new Insets(2, 0, 2, 0));
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-            jPanel1.add(jButton1);
-            jButton1.setBounds(350, 0, 70, jButton1.getPreferredSize().height);
-
-            //---- upButton ----
-            upButton.setText("+");
-            upButton.addActionListener(e -> upButtonActionPerformed(e));
-            jPanel1.add(upButton);
-            upButton.setBounds(96, 32, 40, upButton.getPreferredSize().height);
-
-            //---- downButton ----
-            downButton.setText("-");
-            downButton.addActionListener(e -> downButtonActionPerformed(e));
-            jPanel1.add(downButton);
-            downButton.setBounds(131, 32, 40, downButton.getPreferredSize().height);
-
-            //---- jButton2 ----
-            jButton2.setText("Tweet");
-            jButton2.setMargin(new Insets(2, 0, 2, 0));
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-            jPanel1.add(jButton2);
-            jButton2.setBounds(430, 0, 70, jButton2.getPreferredSize().height);
-
-            //---- jButton3 ----
-            jButton3.setText("Copy");
-            jButton3.setToolTipText("");
-            jButton3.setMargin(new Insets(2, 0, 2, 0));
-            jButton3.addActionListener(e -> jButton3ActionPerformed(e));
-            jPanel1.add(jButton3);
-            jButton3.setBounds(430, 30, 56, jButton3.getPreferredSize().height);
-
-            //---- upButton1 ----
-            upButton1.setText("+");
-            upButton1.addActionListener(e -> upButton1ActionPerformed(e));
-            jPanel1.add(upButton1);
-            upButton1.setBounds(96, 0, 40, upButton1.getPreferredSize().height);
-
-            //---- downButton1 ----
-            downButton1.setText("-");
-            downButton1.addActionListener(e -> downButton1ActionPerformed(e));
-            jPanel1.add(downButton1);
-            downButton1.setBounds(131, 0, 40, downButton1.getPreferredSize().height);
-
-            //---- infoText ----
-            infoText.setEditable(false);
-            infoText.setHorizontalAlignment(0);
-            infoText.setBorder(new EmptyBorder(1, 1, 1, 1));
-            jPanel1.add(infoText);
-            infoText.setBounds(0, 64, 660, 37);
-            jPanel1.add(seekText);
-            seekText.setBounds(180, 30, 100, seekText.getPreferredSize().height);
-
-            //---- seekButton ----
-            seekButton.setText("Seek");
-            seekButton.addActionListener(e -> seekButtonActionPerformed(e));
-            jPanel1.add(seekButton);
-            seekButton.setBounds(new Rectangle(new Point(280, 30), seekButton.getPreferredSize()));
-
-            //---- cpFromTo ----
-            cpFromTo.setText("1/1");
-            cpFromTo.setToolTipText("Select Aya from/to for copy");
-            jPanel1.add(cpFromTo);
-            cpFromTo.setBounds(350, 30, 60, cpFromTo.getPreferredSize().height);
-
-            //---- jLabel4 ----
-            jLabel4.setText("-->");
-            jPanel1.add(jLabel4);
-            jLabel4.setBounds(new Rectangle(new Point(410, 40), jLabel4.getPreferredSize()));
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < jPanel1.getComponentCount(); i++) {
-                    Rectangle bounds = jPanel1.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = jPanel1.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                jPanel1.setMinimumSize(preferredSize);
-                jPanel1.setPreferredSize(preferredSize);
-            }
+            QuranGUI.this.comboboxActionPerformed(evt);
         }
-        contentPane.add(jPanel1, BorderLayout.PAGE_START);
-
-        //======== jScrollPane1 ========
+        else if (evt.getSource() == jButton1)
         {
-
-            //---- outText ----
-            outText.setContentType("text/html");
-            jScrollPane1.setViewportView(outText);
+            QuranGUI.this.jButton1ActionPerformed(evt);
         }
-        contentPane.add(jScrollPane1, BorderLayout.CENTER);
+        else if (evt.getSource() == upButton)
+        {
+            QuranGUI.this.upButtonActionPerformed(evt);
+        }
+        else if (evt.getSource() == downButton)
+        {
+            QuranGUI.this.downButtonActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton2)
+        {
+            QuranGUI.this.jButton2ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton3)
+        {
+            QuranGUI.this.jButton3ActionPerformed(evt);
+        }
+        else if (evt.getSource() == upButton1)
+        {
+            QuranGUI.this.upButton1ActionPerformed(evt);
+        }
+        else if (evt.getSource() == downButton1)
+        {
+            QuranGUI.this.downButton1ActionPerformed(evt);
+        }
+        else if (evt.getSource() == seekButton)
+        {
+            QuranGUI.this.seekButtonActionPerformed(evt);
+        }
+    }
+
+    public void keyPressed(java.awt.event.KeyEvent evt)
+    {
+    }
+
+    public void keyReleased(java.awt.event.KeyEvent evt)
+    {
+        if (evt.getSource() == tf_sura)
+        {
+            QuranGUI.this.tf_suraKeyReleased(evt);
+        }
+        else if (evt.getSource() == tf_aya)
+        {
+            QuranGUI.this.tf_ayaKeyReleased(evt);
+        }
+    }
+
+    public void keyTyped(java.awt.event.KeyEvent evt)
+    {
+    }
+
+    public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+    {
+        if (evt.getSource() == QuranGUI.this)
+        {
+            QuranGUI.this.formInternalFrameClosed(evt);
+        }
+    }
+
+    public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+    {
+    }
+
+    public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+    {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboboxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_comboboxActionPerformed
@@ -614,27 +562,26 @@ public class QuranGUI extends MDIChild implements ActionListener, KeyListener, I
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel jPanel1;
-    private JLabel jLabel1;
-    private JTextField tf_sura;
-    private JLabel jLabel2;
-    private JTextField tf_aya;
-    private JLabel jLabel3;
-    private JComboBox<String> combobox;
-    private JButton jButton1;
-    private JButton upButton;
-    private JButton downButton;
-    private JButton jButton2;
-    private JButton jButton3;
-    private JButton upButton1;
-    private JButton downButton1;
-    private JTextField infoText;
-    private JTextField seekText;
-    private JButton seekButton;
-    private JTextField cpFromTo;
-    private JLabel jLabel4;
-    private JScrollPane jScrollPane1;
-    private JTextPane outText;
+    private javax.swing.JComboBox combobox;
+    private javax.swing.JTextField cpFromTo;
+    private javax.swing.JButton downButton;
+    private javax.swing.JButton downButton1;
+    private javax.swing.JTextField infoText;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextPane outText;
+    private javax.swing.JButton seekButton;
+    private javax.swing.JTextField seekText;
+    private javax.swing.JTextField tf_aya;
+    private javax.swing.JTextField tf_sura;
+    private javax.swing.JButton upButton;
+    private javax.swing.JButton upButton1;
     // End of variables declaration//GEN-END:variables
 }

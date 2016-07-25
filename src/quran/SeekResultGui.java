@@ -5,6 +5,10 @@
  */
 package quran;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.PropertyVetoException;
+import javax.swing.*;
 import applications.QuranGUI;
 import misc.ComboBoxTools;
 
@@ -39,47 +43,56 @@ public class SeekResultGui extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jScrollPane1 = new JScrollPane();
+        listControl = new JList<>();
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listControl = new javax.swing.JList();
-
+        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setAutoscrolls(true);
         setDoubleBuffered(true);
-        setMinimumSize(new java.awt.Dimension(100, 300));
-        setName(""); // NOI18N
+        setName("");
         try
         {
             setSelected(true);
-        } catch (java.beans.PropertyVetoException e1)
-        {
-            e1.printStackTrace();
         }
-        setVisible(true);
-
-        listControl.setModel(new javax.swing.AbstractListModel()
+        catch (PropertyVetoException e)
         {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        listControl.addMouseListener(new java.awt.event.MouseAdapter()
+            e.printStackTrace();
+        }
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
+
+        //======== jScrollPane1 ========
         {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                listControlMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listControl);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        pack();
+            //---- listControl ----
+            listControl.setModel(new AbstractListModel<String>() {
+                String[] values = {
+                    "Item 1",
+                    "Item 2",
+                    "Item 3",
+                    "Item 4",
+                    "Item 5"
+                };
+                @Override
+                public int getSize() { return values.length; }
+                @Override
+                public String getElementAt(int i) { return values[i]; }
+            });
+            listControl.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    listControlMouseClicked(e);
+                }
+            });
+            jScrollPane1.setViewportView(listControl);
+        }
+        contentPane.add(jScrollPane1, BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void listControlMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_listControlMouseClicked
@@ -90,7 +103,8 @@ public class SeekResultGui extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList listControl;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JScrollPane jScrollPane1;
+    private JList<String> listControl;
     // End of variables declaration//GEN-END:variables
 }

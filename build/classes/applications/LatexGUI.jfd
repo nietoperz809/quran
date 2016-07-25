@@ -3,7 +3,7 @@ JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "misc.MDIChild", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"visible": true
 			"closable": true

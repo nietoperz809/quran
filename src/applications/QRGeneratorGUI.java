@@ -5,15 +5,12 @@
  */
 package applications;
 
-import java.awt.*;
-import javax.swing.*;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import misc.MDIChild;
@@ -49,120 +46,89 @@ public class QRGeneratorGUI extends MDIChild implements ActionListener
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jPanel1 = new JPanel();
-        makeButton = new JButton();
-        jScrollPane1 = new JScrollPane();
-        inputField = new JTextArea();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jButton7 = new JButton();
-        sizeField = new JTextField();
-        jLabel1 = new JLabel();
+    private void initComponents()
+    {
+
+        jPanel1 = new javax.swing.JPanel();
+        makeButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inputField = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        sizeField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         canvas = new misc.QuadraticPixelCanvas();
 
-        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("QR Maker");
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setVisible(true);
 
-        //======== jPanel1 ========
+        jPanel1.setBackground(new java.awt.Color(255, 0, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 140));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        makeButton.setText("Make!");
+        makeButton.addActionListener(this);
+        jPanel1.add(makeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 7, -1, -1));
+
+        inputField.setColumns(20);
+        inputField.setRows(5);
+        jScrollPane1.setViewportView(inputField);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 462, -1));
+
+        jButton1.setText("To Clip");
+        jButton1.addActionListener(this);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 39, -1, -1));
+
+        jButton2.setText("Tweet");
+        jButton2.addActionListener(this);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 71, -1, -1));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 0));
+        jButton7.setText("Save");
+        jButton7.addActionListener(this);
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 80, -1));
+
+        sizeField.setText("200");
+        jPanel1.add(sizeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 50, -1));
+
+        jLabel1.setText("---- SIZE --->");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 80, -1));
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        canvas.setBackground(new java.awt.Color(255, 255, 102));
+        canvas.setLayout(null);
+        getContentPane().add(canvas, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == makeButton)
         {
-
-            // JFormDesigner evaluation mark
-            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-            jPanel1.setLayout(null);
-
-            //---- makeButton ----
-            makeButton.setText("Make!");
-            makeButton.addActionListener(e -> makeButtonActionPerformed(e));
-            jPanel1.add(makeButton);
-            makeButton.setBounds(new Rectangle(new Point(18, 7), makeButton.getPreferredSize()));
-
-            //======== jScrollPane1 ========
-            {
-
-                //---- inputField ----
-                inputField.setColumns(20);
-                inputField.setRows(5);
-                jScrollPane1.setViewportView(inputField);
-            }
-            jPanel1.add(jScrollPane1);
-            jScrollPane1.setBounds(100, 0, 462, jScrollPane1.getPreferredSize().height);
-
-            //---- jButton1 ----
-            jButton1.setText("To Clip");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-            jPanel1.add(jButton1);
-            jButton1.setBounds(new Rectangle(new Point(18, 39), jButton1.getPreferredSize()));
-
-            //---- jButton2 ----
-            jButton2.setText("Tweet");
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-            jPanel1.add(jButton2);
-            jButton2.setBounds(new Rectangle(new Point(18, 71), jButton2.getPreferredSize()));
-
-            //---- jButton7 ----
-            jButton7.setText("Save");
-            jButton7.addActionListener(e -> jButton7ActionPerformed(e));
-            jPanel1.add(jButton7);
-            jButton7.setBounds(20, 110, 80, jButton7.getPreferredSize().height);
-
-            //---- sizeField ----
-            sizeField.setText("200");
-            jPanel1.add(sizeField);
-            sizeField.setBounds(180, 110, 50, sizeField.getPreferredSize().height);
-
-            //---- jLabel1 ----
-            jLabel1.setText("---- SIZE --->");
-            jPanel1.add(jLabel1);
-            jLabel1.setBounds(100, 110, 80, jLabel1.getPreferredSize().height);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < jPanel1.getComponentCount(); i++) {
-                    Rectangle bounds = jPanel1.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = jPanel1.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                jPanel1.setMinimumSize(preferredSize);
-                jPanel1.setPreferredSize(preferredSize);
-            }
+            QRGeneratorGUI.this.makeButtonActionPerformed(evt);
         }
-        contentPane.add(jPanel1, BorderLayout.NORTH);
-
-        //======== canvas ========
+        else if (evt.getSource() == jButton1)
         {
-            canvas.setLayout(null);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < canvas.getComponentCount(); i++) {
-                    Rectangle bounds = canvas.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = canvas.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                canvas.setMinimumSize(preferredSize);
-                canvas.setPreferredSize(preferredSize);
-            }
+            QRGeneratorGUI.this.jButton1ActionPerformed(evt);
         }
-        contentPane.add(canvas, BorderLayout.CENTER);
+        else if (evt.getSource() == jButton2)
+        {
+            QRGeneratorGUI.this.jButton2ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton7)
+        {
+            QRGeneratorGUI.this.jButton7ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean render()
@@ -231,28 +197,21 @@ public class QRGeneratorGUI extends MDIChild implements ActionListener
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel jPanel1;
-    private JButton makeButton;
-    private JScrollPane jScrollPane1;
-    private JTextArea inputField;
-    private JButton jButton1;
-    private JButton jButton2;
-    private JButton jButton7;
-    private JTextField sizeField;
-    private JLabel jLabel1;
-    private JPanel canvas;
+    private javax.swing.JPanel canvas;
+    private javax.swing.JTextArea inputField;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton makeButton;
+    private javax.swing.JTextField sizeField;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initAfterDeserialization()
     {
         //
-    }
-
-    @Override
-    public void actionPerformed (ActionEvent e)
-    {
-
     }
 }

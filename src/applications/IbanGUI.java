@@ -33,6 +33,7 @@ public class IbanGUI extends MDIChild
         {
             comboCountry.addItem(cd.toString());
         }
+        this.setContentPane(panel1);
         comboCountry.setSelectedItem(CountryCode.COUNTRY_CODE_GERMAN.toString());
     }
 
@@ -41,7 +42,6 @@ public class IbanGUI extends MDIChild
     {
         super();
         initCombo();
-        this.setContentPane(panel1);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);

@@ -5,10 +5,6 @@
  */
 package applications;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 import numconv.ConvertNumber;
 import twitter.TwitTools;
 
@@ -41,95 +37,111 @@ public class NumberConverter extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        tfIn = new JTextField();
-        labOut = new JLabel();
-        jButton1 = new JButton();
-        tfFrom = new JTextField();
-        tfTo = new JTextField();
-        jLabel2 = new JLabel();
-        jLabel3 = new JLabel();
-        jButton2 = new JButton();
+    private void initComponents()
+    {
 
-        //======== this ========
+        tfIn = new javax.swing.JTextField();
+        labOut = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        tfFrom = new javax.swing.JTextField();
+        tfTo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        Container contentPane = getContentPane();
+        setVisible(true);
 
-        //---- tfIn ----
-        tfIn.setToolTipText("input");
+        tfIn.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
+        tfIn.setToolTipText("Input decimal number with fraction");
 
-        //---- labOut ----
+        labOut.setBackground(new java.awt.Color(0, 0, 0));
+        labOut.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
+        labOut.setForeground(new java.awt.Color(255, 255, 255));
         labOut.setText("  ");
         labOut.setOpaque(true);
 
-        //---- jButton1 ----
         jButton1.setText("Just do it");
-        jButton1.addActionListener(e -> jButton1ActionPerformed(e));
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        //---- tfFrom ----
         tfFrom.setText("10");
 
-        //---- tfTo ----
         tfTo.setText("16");
-        tfTo.addActionListener(e -> tfToActionPerformed(e));
+        tfTo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                tfToActionPerformed(evt);
+            }
+        });
 
-        //---- jLabel2 ----
         jLabel2.setText("from base");
 
-        //---- jLabel3 ----
         jLabel3.setText("to base");
 
-        //---- jButton2 ----
         jButton2.setText("Tweet");
-        jButton2.addActionListener(e -> jButton2ActionPerformed(e));
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(tfIn)
-                                .addComponent(labOut, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfFrom, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfTo, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-                            .addGap(51, 51, 51)
-                            .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                            .addComponent(jButton2)))
-                    .addContainerGap())
-        );
-        contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(tfIn, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfFrom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfTo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfIn)
+                            .addComponent(labOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
-                        .addComponent(jButton2))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                    .addComponent(labOut)
-                    .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfTo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addContainerGap())
         );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tfIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(labOut)
+                .addContainerGap())
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
@@ -170,14 +182,13 @@ public class NumberConverter extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JTextField tfIn;
-    private JLabel labOut;
-    private JButton jButton1;
-    private JTextField tfFrom;
-    private JTextField tfTo;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JButton jButton2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labOut;
+    private javax.swing.JTextField tfFrom;
+    private javax.swing.JTextField tfIn;
+    private javax.swing.JTextField tfTo;
     // End of variables declaration//GEN-END:variables
 }

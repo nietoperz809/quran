@@ -5,11 +5,7 @@
  */
 package applications;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 import misc.Tools;
 import misc.WarpCanvas;
 import twitter.TwitTools;
@@ -36,102 +32,100 @@ public class WarperGUI extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jMenuBar1 = new JMenuBar();
-        jMenu1 = new JMenu();
-        jMenuItem1 = new JMenuItem();
-        jMenuItem2 = new JMenuItem();
-        jPanel1 = new WarpCanvas();
-        jPanel2 = new JPanel();
-        jButton4 = new JButton();
-        messageTxt = new JTextField();
+    private void initComponents()
+    {
 
-        //======== this ========
+        jPanel1 = new WarpCanvas();
+        jPanel2 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        messageTxt = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setVisible(true);
 
-        //======== jMenuBar1 ========
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 329, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 207, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setBackground(new java.awt.Color(255, 153, 0));
+
+        jButton4.setText("Tweet");
+        jButton4.addActionListener(new java.awt.event.ActionListener()
         {
-
-            //======== jMenu1 ========
+            public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jMenu1.setText("File");
-
-                //---- jMenuItem1 ----
-                jMenuItem1.setText("Load");
-                jMenuItem1.addActionListener(e -> jMenuItem1ActionPerformed(e));
-                jMenu1.add(jMenuItem1);
-
-                //---- jMenuItem2 ----
-                jMenuItem2.setText("Save");
-                jMenuItem2.addActionListener(e -> jMenuItem2ActionPerformed(e));
-                jMenu1.add(jMenuItem2);
+                jButton4ActionPerformed(evt);
             }
-            jMenuBar1.add(jMenu1);
-        }
+        });
+
+        messageTxt.setText("Warped_Image");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(messageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(messageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(0, 24, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Load");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Save");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
-        //======== jPanel1 ========
-        {
-
-            // JFormDesigner evaluation mark
-            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-
-            GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-            jPanel1.setLayout(jPanel1Layout);
-            jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup()
-                    .addGap(0, 329, Short.MAX_VALUE)
-            );
-            jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup()
-                    .addGap(0, 207, Short.MAX_VALUE)
-            );
-        }
-        contentPane.add(jPanel1, BorderLayout.CENTER);
-
-        //======== jPanel2 ========
-        {
-
-            //---- jButton4 ----
-            jButton4.setText("Tweet");
-            jButton4.addActionListener(e -> jButton4ActionPerformed(e));
-
-            //---- messageTxt ----
-            messageTxt.setText("Warped_Image");
-
-            GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
-            jPanel2.setLayout(jPanel2Layout);
-            jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup()
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton4)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(messageTxt, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(121, Short.MAX_VALUE))
-            );
-            jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup()
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(messageTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))
-                        .addGap(0, 24, Short.MAX_VALUE))
-            );
-        }
-        contentPane.add(jPanel2, BorderLayout.PAGE_END);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -165,14 +159,13 @@ public class WarperGUI extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JMenuBar jMenuBar1;
-    private JMenu jMenu1;
-    private JMenuItem jMenuItem1;
-    private JMenuItem jMenuItem2;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JButton jButton4;
-    private JTextField messageTxt;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField messageTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,14 +5,10 @@
  */
 package applications;
 
-import java.awt.*;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.List;
-import javax.swing.*;
-import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-import javax.swing.LayoutStyle;
 import misc.Tools;
 import twitter.SingleTweet;
 import twitter.TwitTools;
@@ -40,74 +36,74 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        buttonPanel = new JPanel();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jScrollPane1 = new JScrollPane();
-        itemPanel = new JPanel();
+    private void initComponents()
+    {
 
-        //======== this ========
+        buttonPanel = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        itemPanel = new javax.swing.JPanel();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setPreferredSize(new java.awt.Dimension(660, 500));
+        setVisible(true);
 
-        //======== buttonPanel ========
+        jButton1.setText("Fetch");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
         {
-
-            // JFormDesigner evaluation mark
-            buttonPanel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), buttonPanel.getBorder())); buttonPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-
-            //---- jButton1 ----
-            jButton1.setText("Fetch");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-
-            //---- jButton2 ----
-            jButton2.setText("toClipBrd");
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-
-            GroupLayout buttonPanelLayout = new GroupLayout(buttonPanel);
-            buttonPanel.setLayout(buttonPanelLayout);
-            buttonPanelLayout.setHorizontalGroup(
-                buttonPanelLayout.createParallelGroup()
-                    .addGroup(buttonPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addContainerGap(368, Short.MAX_VALUE))
-            );
-            buttonPanelLayout.setVerticalGroup(
-                buttonPanelLayout.createParallelGroup()
-                    .addGroup(buttonPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(buttonPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addContainerGap(23, Short.MAX_VALUE))
-            );
-        }
-        contentPane.add(buttonPanel, BorderLayout.SOUTH);
-
-        //======== jScrollPane1 ========
-        {
-
-            //======== itemPanel ========
+            public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                itemPanel.setLayout(new GridLayout(0, 1, 5, 5));
+                jButton1ActionPerformed(evt);
             }
-            jScrollPane1.setViewportView(itemPanel);
-        }
-        contentPane.add(jScrollPane1, BorderLayout.CENTER);
+        });
+
+        jButton2.setText("toClipBrd");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
+        buttonPanel.setLayout(buttonPanelLayout);
+        buttonPanelLayout.setHorizontalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(368, Short.MAX_VALUE))
+        );
+        buttonPanelLayout.setVerticalGroup(
+            buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
+
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(0, 0));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 100));
+
+        itemPanel.setMinimumSize(new java.awt.Dimension(100, 1000));
+        itemPanel.setPreferredSize(new java.awt.Dimension(100, 100));
+        itemPanel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        jScrollPane1.setViewportView(itemPanel);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItem(Status st)
@@ -170,11 +166,10 @@ public class TimeLineGUI extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel buttonPanel;
-    private JButton jButton1;
-    private JButton jButton2;
-    private JScrollPane jScrollPane1;
-    private JPanel itemPanel;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JPanel itemPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

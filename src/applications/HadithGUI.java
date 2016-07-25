@@ -5,11 +5,7 @@
  */
 package applications;
 
-import java.awt.*;
 import java.io.IOException;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 import quran.HadithCollection;
 import twitter.TwitTools;
 
@@ -43,77 +39,76 @@ public class HadithGUI extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jPanel1 = new JPanel();
-        jButton2 = new JButton();
-        jButton1 = new JButton();
-        jScrollPane2 = new JScrollPane();
-        outWin = new JTextArea();
+    private void initComponents()
+    {
 
-        //======== this ========
+        jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        outWin = new javax.swing.JTextArea();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setMinimumSize(new java.awt.Dimension(500, 500));
+        setPreferredSize(new java.awt.Dimension(500, 500));
+        setVisible(true);
 
-        //======== jPanel1 ========
+        jButton2.setText("GET");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
         {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-            // JFormDesigner evaluation mark
-            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-
-            //---- jButton2 ----
-            jButton2.setText("GET");
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-
-            //---- jButton1 ----
-            jButton1.setText("Tweet");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-
-            GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-            jPanel1.setLayout(jPanel1Layout);
-            jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup()
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addContainerGap(396, Short.MAX_VALUE))
-            );
-            jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup()
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
-        }
-        contentPane.add(jPanel1, BorderLayout.SOUTH);
-
-        //======== jScrollPane2 ========
+        jButton1.setText("Tweet");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
         {
-            jScrollPane2.setHorizontalScrollBarPolicy(31);
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-            //---- outWin ----
-            outWin.setEditable(false);
-            outWin.setColumns(20);
-            outWin.setLineWrap(true);
-            outWin.setRows(5);
-            outWin.setWrapStyleWord(true);
-            jScrollPane2.setViewportView(outWin);
-        }
-        contentPane.add(jScrollPane2, BorderLayout.CENTER);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(396, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        outWin.setEditable(false);
+        outWin.setColumns(20);
+        outWin.setLineWrap(true);
+        outWin.setRows(5);
+        outWin.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(outWin);
+
+        getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
@@ -131,11 +126,10 @@ public class HadithGUI extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel jPanel1;
-    private JButton jButton2;
-    private JButton jButton1;
-    private JScrollPane jScrollPane2;
-    private JTextArea outWin;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea outWin;
     // End of variables declaration//GEN-END:variables
 }

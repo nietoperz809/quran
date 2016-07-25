@@ -5,10 +5,7 @@
  */
 package applications;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 import misc.MainWindow;
 import misc.MDIChild;
 import misc.Tools;
@@ -42,80 +39,64 @@ public class DirectTweetGUI extends MDIChild implements ActionListener
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jScrollPane1 = new JScrollPane();
-        textArea = new JTextArea();
-        jPanel1 = new JPanel();
-        jButton1 = new JButton();
-        jButton7 = new JButton();
-        saveName = new JTextField();
+    private void initComponents()
+    {
 
-        //======== this ========
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        saveName = new javax.swing.JTextField();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("DirectTweet");
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setPreferredSize(new java.awt.Dimension(425, 412));
+        setVisible(true);
 
-        //======== jScrollPane1 ========
+        textArea.setColumns(20);
+        textArea.setLineWrap(true);
+        textArea.setRows(5);
+        textArea.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(textArea);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(487, 50));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Send");
+        jButton1.addActionListener(this);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 5, 90, 40));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 0));
+        jButton7.setText("Save as -->");
+        jButton7.addActionListener(this);
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 115, -1));
+
+        saveName.setText("DirectTweet");
+        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 192, -1));
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
+
+        pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == jButton1)
         {
-
-            //---- textArea ----
-            textArea.setColumns(20);
-            textArea.setLineWrap(true);
-            textArea.setRows(5);
-            textArea.setWrapStyleWord(true);
-            jScrollPane1.setViewportView(textArea);
+            DirectTweetGUI.this.jButton1ActionPerformed(evt);
         }
-        contentPane.add(jScrollPane1, BorderLayout.CENTER);
-
-        //======== jPanel1 ========
+        else if (evt.getSource() == jButton7)
         {
-
-            // JFormDesigner evaluation mark
-            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-            jPanel1.setLayout(null);
-
-            //---- jButton1 ----
-            jButton1.setText("Send");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-            jPanel1.add(jButton1);
-            jButton1.setBounds(20, 5, 90, 40);
-
-            //---- jButton7 ----
-            jButton7.setText("Save as -->");
-            jButton7.addActionListener(e -> jButton7ActionPerformed(e));
-            jPanel1.add(jButton7);
-            jButton7.setBounds(150, 10, 115, jButton7.getPreferredSize().height);
-
-            //---- saveName ----
-            saveName.setText("DirectTweet");
-            jPanel1.add(saveName);
-            saveName.setBounds(280, 10, 192, saveName.getPreferredSize().height);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < jPanel1.getComponentCount(); i++) {
-                    Rectangle bounds = jPanel1.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = jPanel1.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                jPanel1.setMinimumSize(preferredSize);
-                jPanel1.setPreferredSize(preferredSize);
-            }
+            DirectTweetGUI.this.jButton7ActionPerformed(evt);
         }
-        contentPane.add(jPanel1, BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
@@ -139,24 +120,17 @@ public class DirectTweetGUI extends MDIChild implements ActionListener
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JScrollPane jScrollPane1;
-    private JTextArea textArea;
-    private JPanel jPanel1;
-    private JButton jButton1;
-    private JButton jButton7;
-    private JTextField saveName;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField saveName;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initAfterDeserialization()
     {
         // Nothing to do
-    }
-
-    @Override
-    public void actionPerformed (ActionEvent e)
-    {
-
     }
 }

@@ -5,14 +5,11 @@
  */
 package applications;
 
-import java.awt.*;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 import javax.swing.JLabel;
 import misc.MainWindow;
 import misc.MDIChild;
@@ -49,117 +46,91 @@ public class LatexGUI extends MDIChild implements ActionListener
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jPanel1 = new JPanel();
-        jScrollPane1 = new JScrollPane();
-        textArea = new JTextArea();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jButton3 = new JButton();
-        jButton7 = new JButton();
-        saveName = new JTextField();
+    private void initComponents()
+    {
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textArea = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        saveName = new javax.swing.JTextField();
         canvas = new misc.PixelCanvas();
 
-        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("LaTEX");
         setToolTipText("");
-        setName("");
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setMinimumSize(new java.awt.Dimension(130, 163));
+        setName(""); // NOI18N
+        setVisible(true);
 
-        //======== jPanel1 ========
+        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel1.setMaximumSize(new java.awt.Dimension(32767, 100));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        textArea.setColumns(20);
+        textArea.setRows(5);
+        jScrollPane1.setViewportView(textArea);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 90));
+
+        jButton1.setText("Render");
+        jButton1.addActionListener(this);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jButton2.setText("to Clipboard");
+        jButton2.addActionListener(this);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
+
+        jButton3.setText("Tweet");
+        jButton3.addActionListener(this);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, -1));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 0));
+        jButton7.setText("Save as -->");
+        jButton7.addActionListener(this);
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 115, -1));
+
+        saveName.setText("LaTEX");
+        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 192, -1));
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        canvas.setBackground(new java.awt.Color(51, 255, 0));
+        canvas.setMinimumSize(new java.awt.Dimension(630, 201));
+        canvas.setName(""); // NOI18N
+        canvas.setPreferredSize(new java.awt.Dimension(0, 201));
+        canvas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(canvas, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == jButton1)
         {
-
-            // JFormDesigner evaluation mark
-            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-            jPanel1.setLayout(null);
-
-            //======== jScrollPane1 ========
-            {
-
-                //---- textArea ----
-                textArea.setColumns(20);
-                textArea.setRows(5);
-                jScrollPane1.setViewportView(textArea);
-            }
-            jPanel1.add(jScrollPane1);
-            jScrollPane1.setBounds(0, 0, 630, 90);
-
-            //---- jButton1 ----
-            jButton1.setText("Render");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-            jPanel1.add(jButton1);
-            jButton1.setBounds(new Rectangle(new Point(10, 100), jButton1.getPreferredSize()));
-
-            //---- jButton2 ----
-            jButton2.setText("to Clipboard");
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-            jPanel1.add(jButton2);
-            jButton2.setBounds(new Rectangle(new Point(100, 100), jButton2.getPreferredSize()));
-
-            //---- jButton3 ----
-            jButton3.setText("Tweet");
-            jButton3.addActionListener(e -> jButton3ActionPerformed(e));
-            jPanel1.add(jButton3);
-            jButton3.setBounds(new Rectangle(new Point(210, 100), jButton3.getPreferredSize()));
-
-            //---- jButton7 ----
-            jButton7.setText("Save as -->");
-            jButton7.addActionListener(e -> jButton7ActionPerformed(e));
-            jPanel1.add(jButton7);
-            jButton7.setBounds(310, 100, 115, jButton7.getPreferredSize().height);
-
-            //---- saveName ----
-            saveName.setText("LaTEX");
-            jPanel1.add(saveName);
-            saveName.setBounds(430, 100, 192, saveName.getPreferredSize().height);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < jPanel1.getComponentCount(); i++) {
-                    Rectangle bounds = jPanel1.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = jPanel1.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                jPanel1.setMinimumSize(preferredSize);
-                jPanel1.setPreferredSize(preferredSize);
-            }
+            LatexGUI.this.jButton1ActionPerformed(evt);
         }
-        contentPane.add(jPanel1, BorderLayout.NORTH);
-
-        //======== canvas ========
+        else if (evt.getSource() == jButton2)
         {
-            canvas.setName("");
-            canvas.setLayout(null);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < canvas.getComponentCount(); i++) {
-                    Rectangle bounds = canvas.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = canvas.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                canvas.setMinimumSize(preferredSize);
-                canvas.setPreferredSize(preferredSize);
-            }
+            LatexGUI.this.jButton2ActionPerformed(evt);
         }
-        contentPane.add(canvas, BorderLayout.CENTER);
+        else if (evt.getSource() == jButton3)
+        {
+            LatexGUI.this.jButton3ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton7)
+        {
+            LatexGUI.this.jButton7ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
@@ -235,27 +206,20 @@ public class LatexGUI extends MDIChild implements ActionListener
 */    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel jPanel1;
-    private JScrollPane jScrollPane1;
-    private JTextArea textArea;
-    private JButton jButton1;
-    private JButton jButton2;
-    private JButton jButton3;
-    private JButton jButton7;
-    private JTextField saveName;
-    private JPanel canvas;
+    private javax.swing.JPanel canvas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField saveName;
+    private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initAfterDeserialization()
     {
         //
-    }
-
-    @Override
-    public void actionPerformed (ActionEvent e)
-    {
-
     }
 }

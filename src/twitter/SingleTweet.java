@@ -5,6 +5,9 @@
  */
 package twitter;
 
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import twitter4j.Status;
 
 /**
@@ -39,65 +42,81 @@ public class SingleTweet extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jScrollPane1 = new JScrollPane();
+        mainTxt = new JTextArea();
+        timeTxt = new JTextField();
+        userTxt = new JTextField();
+        miscTxt = new JTextField();
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        mainTxt = new javax.swing.JTextArea();
-        timeTxt = new javax.swing.JTextField();
-        userTxt = new javax.swing.JTextField();
-        miscTxt = new javax.swing.JTextField();
+        //======== this ========
 
-        setBackground(new java.awt.Color(255, 153, 0));
+        // JFormDesigner evaluation mark
+        setBorder(new javax.swing.border.CompoundBorder(
+            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-        mainTxt.setEditable(false);
-        mainTxt.setColumns(20);
-        mainTxt.setLineWrap(true);
-        mainTxt.setRows(2);
-        mainTxt.setWrapStyleWord(true);
-        mainTxt.setAutoscrolls(false);
-        jScrollPane1.setViewportView(mainTxt);
 
+        //======== jScrollPane1 ========
+        {
+
+            //---- mainTxt ----
+            mainTxt.setEditable(false);
+            mainTxt.setColumns(20);
+            mainTxt.setLineWrap(true);
+            mainTxt.setRows(2);
+            mainTxt.setWrapStyleWord(true);
+            mainTxt.setAutoscrolls(false);
+            jScrollPane1.setViewportView(mainTxt);
+        }
+
+        //---- timeTxt ----
         timeTxt.setEditable(false);
 
+        //---- userTxt ----
         userTxt.setEditable(false);
 
+        //---- miscTxt ----
         miscTxt.setEditable(false);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timeTxt)
-                    .addComponent(userTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(miscTxt)
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(timeTxt)
+                        .addComponent(userTxt, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
+                .addComponent(miscTxt)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(timeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(miscTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(timeTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(userTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                    .addComponent(miscTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea mainTxt;
-    private javax.swing.JTextField miscTxt;
-    private javax.swing.JTextField timeTxt;
-    private javax.swing.JTextField userTxt;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JScrollPane jScrollPane1;
+    private JTextArea mainTxt;
+    private JTextField timeTxt;
+    private JTextField userTxt;
+    private JTextField miscTxt;
     // End of variables declaration//GEN-END:variables
 }

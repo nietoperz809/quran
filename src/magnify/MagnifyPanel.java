@@ -5,6 +5,9 @@
  */
 package magnify;
 
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.GroupLayout;
 import applications.MagnifyGUI;
 import java.awt.AWTException;
 import java.awt.Graphics;
@@ -61,38 +64,44 @@ public class MagnifyPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
 
-        setBackground(new java.awt.Color(51, 204, 255));
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
-        {
-            public void mouseDragged(java.awt.event.MouseEvent evt)
-            {
-                formMouseDragged(evt);
+        //======== this ========
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                formMouseDragged(e);
             }
         });
-        addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mousePressed(java.awt.event.MouseEvent evt)
-            {
-                formMousePressed(evt);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                formMousePressed(e);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt)
-            {
-                formMouseReleased(evt);
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                formMouseReleased(e);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        // JFormDesigner evaluation mark
+        setBorder(new javax.swing.border.CompoundBorder(
+            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 307, Short.MAX_VALUE)
+            layout.createParallelGroup()
+                .addGap(0, 307, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 217, Short.MAX_VALUE)
+            layout.createParallelGroup()
+                .addGap(0, 217, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -211,5 +220,6 @@ public class MagnifyPanel extends javax.swing.JPanel
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - unknown
     // End of variables declaration//GEN-END:variables
 }

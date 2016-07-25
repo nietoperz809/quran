@@ -5,13 +5,7 @@
  */
 package applications;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.GroupLayout;
 import javax.swing.JInternalFrame;
-import javax.swing.LayoutStyle;
-import javax.swing.border.*;
-import javax.swing.event.*;
 import inetserver.Sockserver;
 import java.awt.Color;
 import javax.swing.SwingUtilities;
@@ -47,121 +41,140 @@ public class WebServerGUI extends JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        pathTxt = new JTextField();
-        portTxt = new JTextField();
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
-        button = new JToggleButton();
-        transmitted = new JLabel();
-        fileTime = new JLabel();
-        jLabel4 = new JLabel();
-        jLabel3 = new JLabel();
-        buffSizeTxt = new JTextField();
+    private void initComponents()
+    {
 
-        //======== this ========
+        pathTxt = new javax.swing.JTextField();
+        portTxt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        button = new javax.swing.JToggleButton();
+        transmitted = new javax.swing.JLabel();
+        fileTime = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        buffSizeTxt = new javax.swing.JTextField();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Webserver");
-        addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-                formInternalFrameClosed(e);
+        setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
+        {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+            {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+            {
             }
         });
-        Container contentPane = getContentPane();
 
-        //---- pathTxt ----
         pathTxt.setText("F:\\\\");
 
-        //---- portTxt ----
-        portTxt.setText("80");
+            portTxt.setText("80");
 
-        //---- jLabel1 ----
-        jLabel1.setText("BasePath");
+            jLabel1.setText("BasePath");
 
-        //---- jLabel2 ----
-        jLabel2.setText("Port");
+            jLabel2.setText("Port");
 
-        //---- button ----
-        button.setText("Start");
-        button.setDoubleBuffered(true);
-        button.addActionListener(e -> buttonActionPerformed(e));
+            button.setText("Start");
+            button.setDoubleBuffered(true);
+            button.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    buttonActionPerformed(evt);
+                }
+            });
 
-        //---- transmitted ----
-        transmitted.setText("0");
-        transmitted.setToolTipText("Bytes transferred ...");
-        transmitted.setDoubleBuffered(true);
-        transmitted.setOpaque(true);
+            transmitted.setBackground(new java.awt.Color(0, 0, 0));
+            transmitted.setForeground(new java.awt.Color(255, 255, 51));
+            transmitted.setText("0");
+            transmitted.setToolTipText("Bytes transferred ...");
+            transmitted.setDoubleBuffered(true);
+            transmitted.setOpaque(true);
 
-        //---- fileTime ----
-        fileTime.setText("0");
-        fileTime.setBorder(new BevelBorder(BevelBorder.RAISED));
+            fileTime.setText("0");
+            fileTime.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        //---- jLabel4 ----
-        jLabel4.setText("time:");
+            jLabel4.setText("time:");
 
-        //---- jLabel3 ----
-        jLabel3.setText("Buffer");
+            jLabel3.setText("Buffer");
 
-        //---- buffSizeTxt ----
-        buffSizeTxt.setText("113072");
+            buffSizeTxt.setText("113072");
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addGroup(contentPaneLayout.createSequentialGroup()
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(18, 18, 18)
                             .addComponent(portTxt))
                         .addComponent(jLabel1)
-                        .addGroup(contentPaneLayout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel3)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buffSizeTxt, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buffSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
                             .addGap(17, 17, 17)
-                            .addComponent(transmitted, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel4)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fileTime, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fileTime, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(button, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                            .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
                         .addComponent(pathTxt))
                     .addContainerGap())
-        );
-        contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(pathTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(pathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel2)
-                                .addComponent(portTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(transmitted, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(portTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(transmitted, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(fileTime)
                                 .addComponent(jLabel4))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel3)
-                                .addComponent(buffSizeTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buffSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(0, 3, Short.MAX_VALUE))
-                        .addComponent(button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap())
-        );
+            );
+
+            pack();
         }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -216,17 +229,16 @@ public class WebServerGUI extends JInternalFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JTextField pathTxt;
-    private JTextField portTxt;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JToggleButton button;
-    private JLabel transmitted;
-    private JLabel fileTime;
-    private JLabel jLabel4;
-    private JLabel jLabel3;
-    private JTextField buffSizeTxt;
+    private javax.swing.JTextField buffSizeTxt;
+    private javax.swing.JToggleButton button;
+    private javax.swing.JLabel fileTime;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField pathTxt;
+    private javax.swing.JTextField portTxt;
+    private javax.swing.JLabel transmitted;
     // End of variables declaration//GEN-END:variables
 
 }

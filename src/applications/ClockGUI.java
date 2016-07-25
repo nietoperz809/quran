@@ -5,7 +5,6 @@
  */
 package applications;
 
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
@@ -38,17 +37,17 @@ public class ClockGUI extends javax.swing.JInternalFrame implements InternalFram
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
+    private void initComponents()
+    {
 
-        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setDoubleBuffered(true);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setVisible(true);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
@@ -95,6 +94,5 @@ public class ClockGUI extends javax.swing.JInternalFrame implements InternalFram
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
     // End of variables declaration//GEN-END:variables
 }

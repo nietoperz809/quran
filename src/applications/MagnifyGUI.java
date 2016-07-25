@@ -5,25 +5,20 @@
  */
 package applications;
 
-import java.awt.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
-import javax.swing.LayoutStyle;
 import magnify.MagnifyPanel;
 
 /**
@@ -122,136 +117,149 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        jPanel2 = new JPanel();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        spinX = new JSpinner();
-        spinY = new JSpinner();
-        jButton3 = new JButton();
-        checkHide = new JCheckBox();
-        autoSaveText = new JTextField();
-        JpgCheck = new JCheckBox();
-        magnifyPanel = new magnify.MagnifyPanel(this);;
+    private void initComponents()
+    {
 
-        //======== this ========
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        spinX = new javax.swing.JSpinner();
+        spinY = new javax.swing.JSpinner();
+        jButton3 = new javax.swing.JButton();
+        checkHide = new javax.swing.JCheckBox();
+        autoSaveText = new javax.swing.JTextField();
+        JpgCheck = new javax.swing.JCheckBox();
+        magnifyPanel = new magnify.MagnifyPanel(this);
+
         setClosable(true);
         setResizable(true);
         setTitle("Magnifier");
-        setName("");
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                formComponentResized(e);
+        setName(""); // NOI18N
+        setVisible(true);
+        addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentResized(java.awt.event.ComponentEvent evt)
+            {
+                formComponentResized(evt);
             }
         });
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
 
-        //======== jPanel2 ========
+        jPanel2.setBackground(new java.awt.Color(204, 255, 0));
+        jPanel2.setPreferredSize(new java.awt.Dimension(394, 60));
+
+        jButton1.setFont(new java.awt.Font("Lucida Console", 0, 8)); // NOI18N
+        jButton1.setText("toClpBrd");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
         {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-            // JFormDesigner evaluation mark
-            jPanel2.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), jPanel2.getBorder())); jPanel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+        jButton2.setFont(new java.awt.Font("Lucida Sans", 0, 8)); // NOI18N
+        jButton2.setText("Tweet");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
+        jButton3.setFont(new java.awt.Font("Lucida Sans", 0, 8)); // NOI18N
+        jButton3.setText("Save->");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-            //---- jButton1 ----
-            jButton1.setText("toClpBrd");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
+        checkHide.setText("Hide all");
 
-            //---- jButton2 ----
-            jButton2.setText("Tweet");
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
+        autoSaveText.setToolTipText("<html><u>autoSaveDir (empty = autoave off)</u><br>only name of dir allowed<br>subdir will be stored in home directory</html>");
+        autoSaveText.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                autoSaveTextFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                autoSaveTextFocusLost(evt);
+            }
+        });
+        autoSaveText.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                autoSaveTextActionPerformed(evt);
+            }
+        });
 
-            //---- jButton3 ----
-            jButton3.setText("Save->");
-            jButton3.addActionListener(e -> jButton3ActionPerformed(e));
+        JpgCheck.setText("Save as Jpg");
 
-            //---- checkHide ----
-            checkHide.setText("Hide all");
-
-            //---- autoSaveText ----
-            autoSaveText.setToolTipText("<html><u>autoSaveDir (empty = autoave off)</u><br>only name of dir allowed<br>subdir will be stored in home directory</html>");
-            autoSaveText.addFocusListener(new FocusAdapter() {
-                @Override
-                public void focusGained(FocusEvent e) {
-                    autoSaveTextFocusGained(e);
-                }
-                @Override
-                public void focusLost(FocusEvent e) {
-                    autoSaveTextFocusLost(e);
-                }
-            });
-            autoSaveText.addActionListener(e -> autoSaveTextActionPerformed(e));
-
-            //---- JpgCheck ----
-            JpgCheck.setText("Save as Jpg");
-
-            GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
-            jPanel2.setLayout(jPanel2Layout);
-            jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup()
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinX, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinY, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(autoSaveText, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(checkHide)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(JpgCheck)))
-                        .addContainerGap(219, Short.MAX_VALUE))
-            );
-            jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup()
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup()
-                            .addComponent(jButton1)
-                            .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(spinY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(spinX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(autoSaveText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(checkHide)
-                            .addComponent(JpgCheck))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
-        }
-        contentPane.add(jPanel2, BorderLayout.NORTH);
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(checkHide)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JpgCheck)))
+                .addContainerGap(219, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(spinY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(autoSaveText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(checkHide)
+                    .addComponent(JpgCheck))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        //======== magnifyPanel ========
-        {
+        getContentPane().add(jPanel2, java.awt.BorderLayout.NORTH);
 
-            GroupLayout magnifyPanelLayout = new GroupLayout(magnifyPanel);
-            magnifyPanel.setLayout(magnifyPanelLayout);
-            magnifyPanelLayout.setHorizontalGroup(
-                magnifyPanelLayout.createParallelGroup()
-                    .addGap(0, 576, Short.MAX_VALUE)
-            );
-            magnifyPanelLayout.setVerticalGroup(
-                magnifyPanelLayout.createParallelGroup()
-                    .addGap(0, 204, Short.MAX_VALUE)
-            );
-        }
-        contentPane.add(magnifyPanel, BorderLayout.CENTER);
+        javax.swing.GroupLayout magnifyPanelLayout = new javax.swing.GroupLayout(magnifyPanel);
+        magnifyPanel.setLayout(magnifyPanelLayout);
+        magnifyPanelLayout.setHorizontalGroup(
+            magnifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 576, Short.MAX_VALUE)
+        );
+        magnifyPanelLayout.setVerticalGroup(
+            magnifyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 204, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(magnifyPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
@@ -317,16 +325,15 @@ public class MagnifyGUI extends javax.swing.JInternalFrame
 
     private boolean autoSaveChanged;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel jPanel2;
-    private JButton jButton1;
-    private JButton jButton2;
-    private JSpinner spinX;
-    private JSpinner spinY;
-    private JButton jButton3;
-    private JCheckBox checkHide;
-    private JTextField autoSaveText;
-    private JCheckBox JpgCheck;
-    private JPanel magnifyPanel;
+    private javax.swing.JCheckBox JpgCheck;
+    private javax.swing.JTextField autoSaveText;
+    private javax.swing.JCheckBox checkHide;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel magnifyPanel;
+    private javax.swing.JSpinner spinX;
+    private javax.swing.JSpinner spinY;
     // End of variables declaration//GEN-END:variables
 }

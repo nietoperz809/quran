@@ -5,12 +5,9 @@
  */
 package applications;
 
-import java.awt.*;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 import misc.MainWindow;
 import misc.MDIChild;
 import misc.Tools;
@@ -47,225 +44,170 @@ public class LindenGUI extends MDIChild implements ActionListener
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    // Generated using JFormDesigner Evaluation license - unknown
-    private void initComponents() {
-        North = new JPanel();
-        jButton3 = new JButton();
-        jLabel1 = new JLabel();
-        jButton2 = new JButton();
-        jLabel3 = new JLabel();
-        penSize = new JTextField();
-        jLabel4 = new JLabel();
-        penPosX = new JTextField();
-        penPosY = new JTextField();
-        jLabel5 = new JLabel();
-        lineLength = new JTextField();
-        jLabel2 = new JLabel();
-        recursions = new JTextField();
-        axiom = new JTextField();
-        jLabel6 = new JLabel();
-        angle = new JTextField();
-        jLabel7 = new JLabel();
-        sizeY = new JTextField();
-        sizeX = new JTextField();
-        South = new JPanel();
-        jButton1 = new JButton();
-        jButton4 = new JButton();
-        saveName = new JTextField();
-        jButton7 = new JButton();
-        jPanel1 = new JPanel();
-        jScrollPane1 = new JScrollPane();
-        rulePanelContainer = new JPanel();
+    private void initComponents()
+    {
 
-        //======== this ========
+        North = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        penSize = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        penPosX = new javax.swing.JTextField();
+        penPosY = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lineLength = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        recursions = new javax.swing.JTextField();
+        axiom = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        angle = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        sizeY = new javax.swing.JTextField();
+        sizeX = new javax.swing.JTextField();
+        South = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        saveName = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        rulePanelContainer = new javax.swing.JPanel();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Lindenmayer");
         setDoubleBuffered(true);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        setMaximumSize(new java.awt.Dimension(32000, 32000));
+        setMinimumSize(new java.awt.Dimension(100, 38));
+        setPreferredSize(new java.awt.Dimension(600, 300));
+        setVisible(true);
 
-        //======== North ========
+        North.setBackground(new java.awt.Color(153, 255, 255));
+        North.setMinimumSize(new java.awt.Dimension(100, 100));
+        North.setPreferredSize(new java.awt.Dimension(591, 100));
+        North.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton3.setText("Add Rule");
+        jButton3.addActionListener(this);
+        North.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 71, -1, -1));
+
+        jLabel1.setText("Axiom");
+        North.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 45, -1, -1));
+
+        jButton2.setText("Final Rule");
+        jButton2.addActionListener(this);
+        North.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 71, -1, -1));
+
+        jLabel3.setText("PenSize");
+        North.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, -1, -1));
+
+        penSize.setText("0");
+        North.add(penSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 13, 31, -1));
+
+        jLabel4.setText("PenPos");
+        North.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 16, -1, -1));
+
+        penPosX.setText("506");
+        North.add(penPosX, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 13, 39, -1));
+
+        penPosY.setText("254");
+        North.add(penPosY, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 13, 38, -1));
+
+        jLabel5.setText("LineLength");
+        North.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 16, -1, -1));
+
+        lineLength.setText("2.0");
+        North.add(lineLength, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 13, 39, -1));
+
+        jLabel2.setText("Recursions");
+        North.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 16, -1, -1));
+
+        recursions.setText("6");
+        North.add(recursions, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 13, 26, -1));
+
+        axiom.setText("F+XF+F+XF");
+        North.add(axiom, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 42, 186, -1));
+
+        jLabel6.setText("Angle");
+        North.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, -1, -1));
+
+        angle.setText("90.0");
+        North.add(angle, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 42, 43, -1));
+
+        jLabel7.setText("Imagesize");
+        North.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 45, -1, -1));
+
+        sizeY.setText("600");
+        North.add(sizeY, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 42, 37, -1));
+
+        sizeX.setText("600");
+        North.add(sizeX, new org.netbeans.lib.awtextra.AbsoluteConstraints(463, 42, 37, -1));
+
+        getContentPane().add(North, java.awt.BorderLayout.NORTH);
+
+        South.setBackground(new java.awt.Color(255, 153, 153));
+        South.setMinimumSize(new java.awt.Dimension(100, 50));
+        South.setPreferredSize(new java.awt.Dimension(591, 70));
+        South.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Render");
+        jButton1.addActionListener(this);
+        South.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 32, -1, -1));
+
+        jButton4.setText("Tweet");
+        jButton4.addActionListener(this);
+        South.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 32, -1, -1));
+
+        saveName.setText("LindeSave");
+        South.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 192, -1));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 0));
+        jButton7.setText("Save as -->");
+        jButton7.addActionListener(this);
+        South.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 115, -1));
+
+        getContentPane().add(South, java.awt.BorderLayout.SOUTH);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        rulePanelContainer.setLayout(new javax.swing.BoxLayout(rulePanelContainer, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(rulePanelContainer);
+
+        jPanel1.add(jScrollPane1);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    public void actionPerformed(java.awt.event.ActionEvent evt)
+    {
+        if (evt.getSource() == jButton3)
         {
-
-            // JFormDesigner evaluation mark
-            North.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), North.getBorder())); North.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-            North.setLayout(null);
-
-            //---- jButton3 ----
-            jButton3.setText("Add Rule");
-            jButton3.addActionListener(e -> jButton3ActionPerformed(e));
-            North.add(jButton3);
-            jButton3.setBounds(new Rectangle(new Point(158, 71), jButton3.getPreferredSize()));
-
-            //---- jLabel1 ----
-            jLabel1.setText("Axiom");
-            North.add(jLabel1);
-            jLabel1.setBounds(new Rectangle(new Point(111, 45), jLabel1.getPreferredSize()));
-
-            //---- jButton2 ----
-            jButton2.setText("Final Rule");
-            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
-            North.add(jButton2);
-            jButton2.setBounds(new Rectangle(new Point(250, 71), jButton2.getPreferredSize()));
-
-            //---- jLabel3 ----
-            jLabel3.setText("PenSize");
-            North.add(jLabel3);
-            jLabel3.setBounds(new Rectangle(new Point(12, 16), jLabel3.getPreferredSize()));
-
-            //---- penSize ----
-            penSize.setText("0");
-            North.add(penSize);
-            penSize.setBounds(62, 13, 31, penSize.getPreferredSize().height);
-
-            //---- jLabel4 ----
-            jLabel4.setText("PenPos");
-            North.add(jLabel4);
-            jLabel4.setBounds(new Rectangle(new Point(158, 16), jLabel4.getPreferredSize()));
-
-            //---- penPosX ----
-            penPosX.setText("506");
-            North.add(penPosX);
-            penPosX.setBounds(204, 13, 39, penPosX.getPreferredSize().height);
-
-            //---- penPosY ----
-            penPosY.setText("254");
-            North.add(penPosY);
-            penPosY.setBounds(261, 13, 38, penPosY.getPreferredSize().height);
-
-            //---- jLabel5 ----
-            jLabel5.setText("LineLength");
-            North.add(jLabel5);
-            jLabel5.setBounds(new Rectangle(new Point(304, 16), jLabel5.getPreferredSize()));
-
-            //---- lineLength ----
-            lineLength.setText("2.0");
-            North.add(lineLength);
-            lineLength.setBounds(370, 13, 39, lineLength.getPreferredSize().height);
-
-            //---- jLabel2 ----
-            jLabel2.setText("Recursions");
-            North.add(jLabel2);
-            jLabel2.setBounds(new Rectangle(new Point(414, 16), jLabel2.getPreferredSize()));
-
-            //---- recursions ----
-            recursions.setText("6");
-            North.add(recursions);
-            recursions.setBounds(481, 13, 26, recursions.getPreferredSize().height);
-
-            //---- axiom ----
-            axiom.setText("F+XF+F+XF");
-            North.add(axiom);
-            axiom.setBounds(158, 42, 186, axiom.getPreferredSize().height);
-
-            //---- jLabel6 ----
-            jLabel6.setText("Angle");
-            North.add(jLabel6);
-            jLabel6.setBounds(new Rectangle(new Point(12, 45), jLabel6.getPreferredSize()));
-
-            //---- angle ----
-            angle.setText("90.0");
-            North.add(angle);
-            angle.setBounds(49, 42, 43, angle.getPreferredSize().height);
-
-            //---- jLabel7 ----
-            jLabel7.setText("Imagesize");
-            North.add(jLabel7);
-            jLabel7.setBounds(new Rectangle(new Point(356, 45), jLabel7.getPreferredSize()));
-
-            //---- sizeY ----
-            sizeY.setText("600");
-            North.add(sizeY);
-            sizeY.setBounds(419, 42, 37, sizeY.getPreferredSize().height);
-
-            //---- sizeX ----
-            sizeX.setText("600");
-            North.add(sizeX);
-            sizeX.setBounds(463, 42, 37, sizeX.getPreferredSize().height);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < North.getComponentCount(); i++) {
-                    Rectangle bounds = North.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = North.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                North.setMinimumSize(preferredSize);
-                North.setPreferredSize(preferredSize);
-            }
+            LindenGUI.this.jButton3ActionPerformed(evt);
         }
-        contentPane.add(North, BorderLayout.NORTH);
-
-        //======== South ========
+        else if (evt.getSource() == jButton2)
         {
-            South.setLayout(null);
-
-            //---- jButton1 ----
-            jButton1.setText("Render");
-            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
-            South.add(jButton1);
-            jButton1.setBounds(new Rectangle(new Point(12, 32), jButton1.getPreferredSize()));
-
-            //---- jButton4 ----
-            jButton4.setText("Tweet");
-            jButton4.addActionListener(e -> jButton4ActionPerformed(e));
-            South.add(jButton4);
-            jButton4.setBounds(new Rectangle(new Point(99, 32), jButton4.getPreferredSize()));
-
-            //---- saveName ----
-            saveName.setText("LindeSave");
-            South.add(saveName);
-            saveName.setBounds(330, 30, 192, saveName.getPreferredSize().height);
-
-            //---- jButton7 ----
-            jButton7.setText("Save as -->");
-            jButton7.addActionListener(e -> jButton7ActionPerformed(e));
-            South.add(jButton7);
-            jButton7.setBounds(210, 30, 115, jButton7.getPreferredSize().height);
-
-            { // compute preferred size
-                Dimension preferredSize = new Dimension();
-                for(int i = 0; i < South.getComponentCount(); i++) {
-                    Rectangle bounds = South.getComponent(i).getBounds();
-                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                }
-                Insets insets = South.getInsets();
-                preferredSize.width += insets.right;
-                preferredSize.height += insets.bottom;
-                South.setMinimumSize(preferredSize);
-                South.setPreferredSize(preferredSize);
-            }
+            LindenGUI.this.jButton2ActionPerformed(evt);
         }
-        contentPane.add(South, BorderLayout.SOUTH);
-
-        //======== jPanel1 ========
+        else if (evt.getSource() == jButton1)
         {
-            jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.X_AXIS));
-
-            //======== jScrollPane1 ========
-            {
-
-                //======== rulePanelContainer ========
-                {
-                    rulePanelContainer.setLayout(new BoxLayout(rulePanelContainer, BoxLayout.Y_AXIS));
-                }
-                jScrollPane1.setViewportView(rulePanelContainer);
-            }
-            jPanel1.add(jScrollPane1);
+            LindenGUI.this.jButton1ActionPerformed(evt);
         }
-        contentPane.add(jPanel1, BorderLayout.CENTER);
+        else if (evt.getSource() == jButton4)
+        {
+            LindenGUI.this.jButton4ActionPerformed(evt);
+        }
+        else if (evt.getSource() == jButton7)
+        {
+            LindenGUI.this.jButton7ActionPerformed(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -431,45 +373,38 @@ public class LindenGUI extends MDIChild implements ActionListener
     }//GEN-LAST:event_jButton7ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - unknown
-    private JPanel North;
-    private JButton jButton3;
-    private JLabel jLabel1;
-    private JButton jButton2;
-    private JLabel jLabel3;
-    private JTextField penSize;
-    private JLabel jLabel4;
-    private JTextField penPosX;
-    private JTextField penPosY;
-    private JLabel jLabel5;
-    private JTextField lineLength;
-    private JLabel jLabel2;
-    private JTextField recursions;
-    private JTextField axiom;
-    private JLabel jLabel6;
-    private JTextField angle;
-    private JLabel jLabel7;
-    private JTextField sizeY;
-    private JTextField sizeX;
-    private JPanel South;
-    private JButton jButton1;
-    private JButton jButton4;
-    private JTextField saveName;
-    private JButton jButton7;
-    private JPanel jPanel1;
-    private JScrollPane jScrollPane1;
-    private JPanel rulePanelContainer;
+    private javax.swing.JPanel North;
+    private javax.swing.JPanel South;
+    private javax.swing.JTextField angle;
+    private javax.swing.JTextField axiom;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField lineLength;
+    private javax.swing.JTextField penPosX;
+    private javax.swing.JTextField penPosY;
+    private javax.swing.JTextField penSize;
+    private javax.swing.JTextField recursions;
+    private javax.swing.JPanel rulePanelContainer;
+    private javax.swing.JTextField saveName;
+    private javax.swing.JTextField sizeX;
+    private javax.swing.JTextField sizeY;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initAfterDeserialization()
     {
         // Nothing to do here
-    }
-
-    @Override
-    public void actionPerformed (ActionEvent e)
-    {
-
     }
 }
