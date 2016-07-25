@@ -1,0 +1,82 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, par l {comp textOut:::::x, seq {space :10:10:p, comp check_case_insensitive:::p::p, space :::p, comp check_multiline:::p::p, space :::p, comp check_dotall:::p::p, space :::p, comp check_unicode_case:::p::p, space :::p, comp check_canon_eq:::p::p, space :0:14:x}, seq {par l {comp label1::l:p::p, comp label2::l:p::p, comp label3::l:p::p}, par l {comp source:::::x, comp regex:::::x, comp replace:::::x}}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, par t {comp label1:::p::p, comp source:::p::p}, space :::p, par l {comp label2::l:p::p, comp regex::l:p::p}, space :::p, par l {comp replace:::p::p, comp label3:::p::p}, space :::p, par c {comp check_case_insensitive::c:p::p, comp check_multiline::c:p::p, comp check_dotall::c:p::p, comp check_unicode_case::c:p::p, comp check_canon_eq::c:p::p}, space :::p, comp textOut::::183:x, space :::p}}"
+		} ) {
+			name: "this"
+			"visible": true
+			"background": new java.awt.Color( 153, 255, 255, 255 )
+			"title": "RegExer"
+			"font": new java.awt.Font( "Dialog", 0, 10 )
+			"name": "RegExer"
+			add( new FormComponent( "java.awt.Label" ) {
+				name: "label1"
+				"text": "Source Text"
+			} )
+			add( new FormComponent( "java.awt.Label" ) {
+				name: "label2"
+				"text": "RegEx"
+			} )
+			add( new FormComponent( "java.awt.TextField" ) {
+				name: "source"
+				addEvent( new FormEvent( "java.awt.event.TextListener", "textValueChanged", "sourceTextValueChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.TextField" ) {
+				name: "regex"
+				addEvent( new FormEvent( "java.awt.event.TextListener", "textValueChanged", "regexTextValueChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.TextArea" ) {
+				name: "textOut"
+				"background": new java.awt.Color( 0, 0, 0, 255 )
+				"cursor": new java.awt.Cursor( 0 )
+				"editable": false
+				"font": new java.awt.Font( "Dialog", 0, 14 )
+				"foreground": new java.awt.Color( 255, 255, 0, 255 )
+				"text": "Welcome to REGEXER!"
+			} )
+			add( new FormComponent( "java.awt.Label" ) {
+				name: "label3"
+				"text": "Replace"
+			} )
+			add( new FormComponent( "java.awt.TextField" ) {
+				name: "replace"
+				addEvent( new FormEvent( "java.awt.event.TextListener", "textValueChanged", "replaceTextValueChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.Checkbox" ) {
+				name: "check_case_insensitive"
+				"label": "CASE_INSENSITIVE"
+				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "check_case_insensitiveItemStateChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.Checkbox" ) {
+				name: "check_multiline"
+				"label": "MULTILINE"
+				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "check_multilineItemStateChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.Checkbox" ) {
+				name: "check_dotall"
+				"label": "DOTALL"
+				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "check_dotallItemStateChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.Checkbox" ) {
+				name: "check_unicode_case"
+				"label": "UNICODE_CASE"
+				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "check_unicode_caseItemStateChanged", true ) )
+			} )
+			add( new FormComponent( "java.awt.Checkbox" ) {
+				name: "check_canon_eq"
+				"label": "CANON_EQ"
+				addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "check_canon_eqItemStateChanged", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormComponent( "java.awt.Button" ) {
+			name: "button1"
+			"label": "button1"
+		} )
+	}
+}

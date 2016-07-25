@@ -5,6 +5,10 @@
  */
 package applications;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import misc.MDIChild;
 import transform.*;
 
@@ -32,263 +36,219 @@ public class Transformer extends MDIChild
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jPanel1 = new JPanel();
+        checkBase64 = new JRadioButton();
+        checkMD5 = new JRadioButton();
+        checkCRC16 = new JRadioButton();
+        encodeButt = new JButton();
+        decodeButt = new JButton();
+        jRadioButton1 = new JRadioButton();
+        jRadioButton3 = new JRadioButton();
+        jRadioButton2 = new JRadioButton();
+        jRadioButton5 = new JRadioButton();
+        jRadioButton6 = new JRadioButton();
+        jSplitPane1 = new JSplitPane();
+        jScrollPane1 = new JScrollPane();
+        clearText = new JTextArea();
+        jScrollPane2 = new JScrollPane();
+        encText = new JTextArea();
+        checkRot13 = new JRadioButton();
+        checkSHA1 = new JRadioButton();
+        jRadioButton4 = new JRadioButton();
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
-        checkBase64 = new javax.swing.JRadioButton();
-        checkMD5 = new javax.swing.JRadioButton();
-        checkCRC16 = new javax.swing.JRadioButton();
-        encodeButt = new javax.swing.JButton();
-        decodeButt = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        clearText = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        encText = new javax.swing.JTextArea();
-        checkRot13 = new javax.swing.JRadioButton();
-        checkSHA1 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-
+        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setVisible(true);
+        Container contentPane = getContentPane();
 
-        buttonGroup1.add(checkBase64);
-        checkBase64.setText("Base64");
-        checkBase64.addActionListener(new java.awt.event.ActionListener()
+        //======== jPanel1 ========
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                checkBase64ActionPerformed(evt);
-            }
-        });
 
-        buttonGroup1.add(checkMD5);
-        checkMD5.setText("MD5");
-        checkMD5.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                checkMD5ActionPerformed(evt);
-            }
-        });
+            // JFormDesigner evaluation mark
+            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-        buttonGroup1.add(checkCRC16);
-        checkCRC16.setText("CRC16-CCITT");
-        checkCRC16.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                checkCRC16ActionPerformed(evt);
-            }
-        });
 
-        encodeButt.setText("Encode >>");
-        encodeButt.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                encodeButtActionPerformed(evt);
-            }
-        });
+            //---- checkBase64 ----
+            checkBase64.setText("Base64");
+            checkBase64.addActionListener(e -> checkBase64ActionPerformed(e));
 
-        decodeButt.setText("<< Decode");
-        decodeButt.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                decodeButtActionPerformed(evt);
-            }
-        });
+            //---- checkMD5 ----
+            checkMD5.setText("MD5");
+            checkMD5.addActionListener(e -> checkMD5ActionPerformed(e));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("SHA256");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
+            //---- checkCRC16 ----
+            checkCRC16.setText("CRC16-CCITT");
+            checkCRC16.addActionListener(e -> checkCRC16ActionPerformed(e));
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("GrayCode");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
+            //---- encodeButt ----
+            encodeButt.setText("Encode >>");
+            encodeButt.addActionListener(e -> encodeButtActionPerformed(e));
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("MD4");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
+            //---- decodeButt ----
+            decodeButt.setText("<< Decode");
+            decodeButt.addActionListener(e -> decodeButtActionPerformed(e));
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setText("Substitute1");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jRadioButton5ActionPerformed(evt);
-            }
-        });
+            //---- jRadioButton1 ----
+            jRadioButton1.setText("SHA256");
+            jRadioButton1.addActionListener(e -> jRadioButton1ActionPerformed(e));
 
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setText("Hagelin");
-        jRadioButton6.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jRadioButton6ActionPerformed(evt);
-            }
-        });
+            //---- jRadioButton3 ----
+            jRadioButton3.setText("GrayCode");
+            jRadioButton3.addActionListener(e -> jRadioButton3ActionPerformed(e));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(decodeButt)
-                .addGap(99, 99, 99))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBase64)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
+            //---- jRadioButton2 ----
+            jRadioButton2.setText("MD4");
+            jRadioButton2.addActionListener(e -> jRadioButton2ActionPerformed(e));
+
+            //---- jRadioButton5 ----
+            jRadioButton5.setText("Substitute1");
+            jRadioButton5.addActionListener(e -> jRadioButton5ActionPerformed(e));
+
+            //---- jRadioButton6 ----
+            jRadioButton6.setText("Hagelin");
+            jRadioButton6.addActionListener(e -> jRadioButton6ActionPerformed(e));
+
+            GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup()
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(checkMD5)
-                        .addGap(73, 73, 73)
-                        .addComponent(jRadioButton5))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(decodeButt)
+                        .addGap(99, 99, 99))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(encodeButt)
-                            .addComponent(checkCRC16))
+                        .addGroup(jPanel1Layout.createParallelGroup()
+                            .addComponent(checkBase64)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2))
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton6)))
-                .addGap(0, 372, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBase64)
-                    .addComponent(checkMD5)
-                    .addComponent(jRadioButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(checkCRC16)
-                    .addComponent(jRadioButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(encodeButt)
-                    .addComponent(decodeButt)))
-        );
+                        .addGroup(jPanel1Layout.createParallelGroup()
+                            .addComponent(jRadioButton3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(checkMD5)
+                                .addGap(73, 73, 73)
+                                .addComponent(jRadioButton5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addComponent(encodeButt)
+                                    .addComponent(checkCRC16))
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton6)))
+                        .addGap(0, 372, Short.MAX_VALUE))
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBase64)
+                            .addComponent(checkMD5)
+                            .addComponent(jRadioButton5))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(checkCRC16)
+                            .addComponent(jRadioButton6))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jRadioButton3))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(encodeButt)
+                            .addComponent(decodeButt)))
+            );
+        }
 
-        jSplitPane1.setDividerLocation(340);
-        jSplitPane1.setDividerSize(3);
-        jSplitPane1.setToolTipText("Drag left/right");
-        jSplitPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(490, 100));
+        //======== jSplitPane1 ========
+        {
+            jSplitPane1.setDividerLocation(340);
+            jSplitPane1.setDividerSize(3);
+            jSplitPane1.setToolTipText("Drag left/right");
 
-        clearText.setColumns(20);
-        clearText.setLineWrap(true);
-        clearText.setRows(5);
-        jScrollPane1.setViewportView(clearText);
+            //======== jScrollPane1 ========
+            {
 
-        jSplitPane1.setLeftComponent(jScrollPane1);
+                //---- clearText ----
+                clearText.setColumns(20);
+                clearText.setLineWrap(true);
+                clearText.setRows(5);
+                jScrollPane1.setViewportView(clearText);
+            }
+            jSplitPane1.setLeftComponent(jScrollPane1);
 
-        encText.setColumns(20);
-        encText.setLineWrap(true);
-        encText.setRows(5);
-        jScrollPane2.setViewportView(encText);
+            //======== jScrollPane2 ========
+            {
 
-        jSplitPane1.setRightComponent(jScrollPane2);
+                //---- encText ----
+                encText.setColumns(20);
+                encText.setLineWrap(true);
+                encText.setRows(5);
+                jScrollPane2.setViewportView(encText);
+            }
+            jSplitPane1.setRightComponent(jScrollPane2);
+        }
 
-        buttonGroup1.add(checkRot13);
+        //---- checkRot13 ----
         checkRot13.setSelected(true);
         checkRot13.setText("Rot13");
-        checkRot13.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                checkRot13ActionPerformed(evt);
-            }
-        });
+        checkRot13.addActionListener(e -> checkRot13ActionPerformed(e));
 
-        buttonGroup1.add(checkSHA1);
+        //---- checkSHA1 ----
         checkSHA1.setText("SHA1");
-        checkSHA1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                checkSHA1ActionPerformed(evt);
-            }
-        });
+        checkSHA1.addActionListener(e -> checkSHA1ActionPerformed(e));
 
-        buttonGroup1.add(jRadioButton4);
+        //---- jRadioButton4 ----
         jRadioButton4.setText("URL Enc");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jRadioButton4ActionPerformed(evt);
-            }
-        });
+        jRadioButton4.addActionListener(e -> jRadioButton4ActionPerformed(e));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(checkRot13)
-                .addGap(30, 30, 30)
-                .addComponent(checkSHA1)
-                .addGap(67, 67, 67)
-                .addComponent(jRadioButton4)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(contentPaneLayout.createSequentialGroup()
                     .addComponent(checkRot13)
+                    .addGap(30, 30, 30)
                     .addComponent(checkSHA1)
-                    .addComponent(jRadioButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                    .addGap(67, 67, 67)
+                    .addComponent(jRadioButton4)
+                    .addGap(0, 0, Short.MAX_VALUE))
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkRot13)
+                        .addComponent(checkSHA1)
+                        .addComponent(jRadioButton4))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jSplitPane1, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
         );
 
-        pack();
+        //---- buttonGroup1 ----
+        ButtonGroup buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(checkBase64);
+        buttonGroup1.add(checkMD5);
+        buttonGroup1.add(checkCRC16);
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton3);
+        buttonGroup1.add(jRadioButton2);
+        buttonGroup1.add(jRadioButton5);
+        buttonGroup1.add(jRadioButton6);
+        buttonGroup1.add(checkRot13);
+        buttonGroup1.add(checkSHA1);
+        buttonGroup1.add(jRadioButton4);
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkBase64ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkBase64ActionPerformed
@@ -371,26 +331,26 @@ public class Transformer extends MDIChild
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JRadioButton checkBase64;
-    private javax.swing.JRadioButton checkCRC16;
-    private javax.swing.JRadioButton checkMD5;
-    private javax.swing.JRadioButton checkRot13;
-    private javax.swing.JRadioButton checkSHA1;
-    private javax.swing.JTextArea clearText;
-    private javax.swing.JButton decodeButt;
-    private javax.swing.JTextArea encText;
-    private javax.swing.JButton encodeButt;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSplitPane jSplitPane1;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JPanel jPanel1;
+    private JRadioButton checkBase64;
+    private JRadioButton checkMD5;
+    private JRadioButton checkCRC16;
+    private JButton encodeButt;
+    private JButton decodeButt;
+    private JRadioButton jRadioButton1;
+    private JRadioButton jRadioButton3;
+    private JRadioButton jRadioButton2;
+    private JRadioButton jRadioButton5;
+    private JRadioButton jRadioButton6;
+    private JSplitPane jSplitPane1;
+    private JScrollPane jScrollPane1;
+    private JTextArea clearText;
+    private JScrollPane jScrollPane2;
+    private JTextArea encText;
+    private JRadioButton checkRot13;
+    private JRadioButton checkSHA1;
+    private JRadioButton jRadioButton4;
     // End of variables declaration//GEN-END:variables
 
     @Override

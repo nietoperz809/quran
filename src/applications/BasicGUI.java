@@ -5,10 +5,13 @@
  */
 package applications;
 
+import javax.swing.*;
+import javax.swing.event.*;
 import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.*;
 import javax.swing.event.InternalFrameListener;
@@ -51,108 +54,93 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
-        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        saveName = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jPanel1 = new JPanel();
+        jButton1 = new JButton();
+        jButton9 = new JButton();
+        saveName = new JTextField();
+        jButton2 = new JButton();
+        jScrollPane1 = new JScrollPane();
         area = new StreamingTextArea();
 
+        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("BASIC");
-        setVisible(true);
-        addInternalFrameListener(this);
+        addInternalFrameListener(new InternalFrameAdapter() {
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                formInternalFrameClosed(e);
+            }
+        });
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton1.setText("CLS");
-        jButton1.addActionListener(this);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jButton9.setBackground(new java.awt.Color(255, 255, 0));
-        jButton9.setText("Save as -->");
-        jButton9.addActionListener(this);
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 120, -1));
-
-        saveName.setText("BASIC");
-        jPanel1.add(saveName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 160, -1));
-
-        jButton2.setText("Stop");
-        jButton2.addActionListener(this);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
-
-        area.setBackground(new java.awt.Color(0, 0, 153));
-        area.setColumns(20);
-        area.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 18)); // NOI18N
-        area.setForeground(new java.awt.Color(255, 255, 102));
-        area.setLineWrap(true);
-        area.setRows(20);
-        area.setCaretColor(new java.awt.Color(255, 102, 102));
-        area.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(area);
-
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        pack();
-    }
-
-    // Code for dispatching events from components to event handlers.
-
-    public void actionPerformed(java.awt.event.ActionEvent evt)
-    {
-        if (evt.getSource() == jButton1)
+        //======== jPanel1 ========
         {
-            BasicGUI.this.jButton1ActionPerformed(evt);
+
+            // JFormDesigner evaluation mark
+            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+
+            jPanel1.setLayout(null);
+
+            //---- jButton1 ----
+            jButton1.setText("CLS");
+            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
+            jPanel1.add(jButton1);
+            jButton1.setBounds(new Rectangle(new Point(0, 0), jButton1.getPreferredSize()));
+
+            //---- jButton9 ----
+            jButton9.setText("Save as -->");
+            jButton9.addActionListener(e -> jButton9ActionPerformed(e));
+            jPanel1.add(jButton9);
+            jButton9.setBounds(310, 0, 120, jButton9.getPreferredSize().height);
+
+            //---- saveName ----
+            saveName.setText("BASIC");
+            jPanel1.add(saveName);
+            saveName.setBounds(430, 0, 160, saveName.getPreferredSize().height);
+
+            //---- jButton2 ----
+            jButton2.setText("Stop");
+            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
+            jPanel1.add(jButton2);
+            jButton2.setBounds(new Rectangle(new Point(70, 0), jButton2.getPreferredSize()));
+
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < jPanel1.getComponentCount(); i++) {
+                    Rectangle bounds = jPanel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = jPanel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                jPanel1.setMinimumSize(preferredSize);
+                jPanel1.setPreferredSize(preferredSize);
+            }
         }
-        else if (evt.getSource() == jButton9)
+        contentPane.add(jPanel1, BorderLayout.SOUTH);
+
+        //======== jScrollPane1 ========
         {
-            BasicGUI.this.jButton9ActionPerformed(evt);
+
+            //---- area ----
+            area.setColumns(20);
+            area.setLineWrap(true);
+            area.setRows(20);
+            area.setCaretColor(new Color(255, 102, 102));
+            jScrollPane1.setViewportView(area);
         }
-        else if (evt.getSource() == jButton2)
-        {
-            BasicGUI.this.jButton2ActionPerformed(evt);
-        }
-    }
-
-    public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
-    {
-        if (evt.getSource() == BasicGUI.this)
-        {
-            BasicGUI.this.formInternalFrameClosed(evt);
-        }
-    }
-
-    public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
-    {
-    }
-
-    public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
-    {
+        contentPane.add(jScrollPane1, BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -194,11 +182,14 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea area;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JTextField saveName;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JPanel jPanel1;
+    private JButton jButton1;
+    private JButton jButton9;
+    private JTextField saveName;
+    private JButton jButton2;
+    private JScrollPane jScrollPane1;
+    private JTextArea area;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -245,5 +236,53 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
             dispose();
         }
         System.out.println("BasicThread end");
+    }
+
+    @Override
+    public void actionPerformed (ActionEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameOpened (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameClosing (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameClosed (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameIconified (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameDeiconified (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameActivated (InternalFrameEvent e)
+    {
+
+    }
+
+    @Override
+    public void internalFrameDeactivated (InternalFrameEvent e)
+    {
+
     }
 }

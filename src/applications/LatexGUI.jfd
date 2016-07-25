@@ -1,0 +1,93 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "misc.MDIChild", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "LaTEX"
+			"toolTipText": ""
+			"minimumSize": new java.awt.Dimension( 130, 163 )
+			"name": ""
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "jPanel1"
+				"background": new java.awt.Color( 255, 51, 51, 255 )
+				"maximumSize": new java.awt.Dimension( 32767, 100 )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "jScrollPane1"
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "textArea"
+						"columns": 20
+						"rows": 5
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 630
+					"height": 90
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "Render"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 10
+					"y": 100
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "to Clipboard"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 100
+					"y": 100
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton3"
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton3ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 210
+					"y": 100
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton7"
+					"background": new java.awt.Color( 255, 255, 0, 255 )
+					"text": "Save as -->"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton7ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 310
+					"y": 100
+					"width": 115
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "saveName"
+					"text": "LaTEX"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 430
+					"y": 100
+					"width": 192
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "canvas"
+				"background": new java.awt.Color( 51, 255, 0, 255 )
+				"minimumSize": new java.awt.Dimension( 630, 201 )
+				"name": ""
+				"preferredSize": new java.awt.Dimension( 0, 201 )
+				auxiliary() {
+					"JavaCodeGenerator.customCreateCode": "new misc.PixelCanvas();"
+				}
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 638, 395 )
+		} )
+	}
+}

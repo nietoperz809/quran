@@ -5,9 +5,12 @@
  */
 package applications;
 
+import java.awt.*;
+import javax.swing.*;
 import chargen.Chargen;
 import chargen.TextTools;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import misc.ClipboardImage;
@@ -66,103 +69,110 @@ public class C64TextGUI extends MDIChild implements ActionListener
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jScrollPane1 = new JScrollPane();
+        inputText = new JTextArea();
+        jPanel1 = new JPanel();
+        jButton1 = new JButton();
+        jButton7 = new JButton();
+        saveName = new JTextField();
+        jButton2 = new JButton();
+        jButton4 = new JButton();
+        messageTxt = new JTextField();
+        checkCentered = new JCheckBox();
+        checkRight = new JCheckBox();
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        inputText = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        saveName = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        messageTxt = new javax.swing.JTextField();
-        checkCentered = new javax.swing.JCheckBox();
-        checkRight = new javax.swing.JCheckBox();
-
+        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("C64Font");
-        setMinimumSize(new java.awt.Dimension(550, 38));
-        setPreferredSize(new java.awt.Dimension(499, 284));
-        setVisible(true);
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
-        inputText.setColumns(20);
-        inputText.setRows(5);
-        inputText.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(inputText);
-
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        jPanel1.setMinimumSize(new java.awt.Dimension(100, 100));
-        jPanel1.setPreferredSize(new java.awt.Dimension(491, 50));
-        jPanel1.setLayout(null);
-
-        jButton1.setText("Render");
-        jButton1.addActionListener(this);
-        jPanel1.add(jButton1);
-        jButton1.setBounds(10, 0, 75, 20);
-
-        jButton7.setBackground(new java.awt.Color(255, 255, 0));
-        jButton7.setText("Save as -->");
-        jButton7.addActionListener(this);
-        jPanel1.add(jButton7);
-        jButton7.setBounds(390, 10, 120, 25);
-
-        saveName.setText("C64Text");
-        jPanel1.add(saveName);
-        saveName.setBounds(510, 10, 160, 22);
-
-        jButton2.setText("To Clip");
-        jButton2.addActionListener(this);
-        jPanel1.add(jButton2);
-        jButton2.setBounds(10, 30, 90, 20);
-
-        jButton4.setText("Tweet");
-        jButton4.addActionListener(this);
-        jPanel1.add(jButton4);
-        jButton4.setBounds(250, 0, 71, 25);
-
-        messageTxt.setText("C64_Font");
-        jPanel1.add(messageTxt);
-        messageTxt.setBounds(230, 30, 120, 22);
-
-        checkCentered.setText("centered");
-        jPanel1.add(checkCentered);
-        checkCentered.setBounds(111, 0, 110, 25);
-
-        checkRight.setText("right");
-        jPanel1.add(checkRight);
-        checkRight.setBounds(110, 20, 91, 25);
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
-
-        pack();
-    }
-
-    // Code for dispatching events from components to event handlers.
-
-    public void actionPerformed(java.awt.event.ActionEvent evt)
-    {
-        if (evt.getSource() == jButton1)
+        //======== jScrollPane1 ========
         {
-            C64TextGUI.this.jButton1ActionPerformed(evt);
+
+            //---- inputText ----
+            inputText.setColumns(20);
+            inputText.setRows(5);
+            jScrollPane1.setViewportView(inputText);
         }
-        else if (evt.getSource() == jButton7)
+        contentPane.add(jScrollPane1, BorderLayout.CENTER);
+
+        //======== jPanel1 ========
         {
-            C64TextGUI.this.jButton7ActionPerformed(evt);
+
+            // JFormDesigner evaluation mark
+            jPanel1.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), jPanel1.getBorder())); jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+
+            jPanel1.setLayout(null);
+
+            //---- jButton1 ----
+            jButton1.setText("Render");
+            jButton1.addActionListener(e -> jButton1ActionPerformed(e));
+            jPanel1.add(jButton1);
+            jButton1.setBounds(10, 0, jButton1.getPreferredSize().width, 20);
+
+            //---- jButton7 ----
+            jButton7.setText("Save as -->");
+            jButton7.addActionListener(e -> jButton7ActionPerformed(e));
+            jPanel1.add(jButton7);
+            jButton7.setBounds(390, 10, 120, jButton7.getPreferredSize().height);
+
+            //---- saveName ----
+            saveName.setText("C64Text");
+            jPanel1.add(saveName);
+            saveName.setBounds(510, 10, 160, saveName.getPreferredSize().height);
+
+            //---- jButton2 ----
+            jButton2.setText("To Clip");
+            jButton2.addActionListener(e -> jButton2ActionPerformed(e));
+            jPanel1.add(jButton2);
+            jButton2.setBounds(10, 30, 90, 20);
+
+            //---- jButton4 ----
+            jButton4.setText("Tweet");
+            jButton4.addActionListener(e -> jButton4ActionPerformed(e));
+            jPanel1.add(jButton4);
+            jButton4.setBounds(new Rectangle(new Point(250, 0), jButton4.getPreferredSize()));
+
+            //---- messageTxt ----
+            messageTxt.setText("C64_Font");
+            jPanel1.add(messageTxt);
+            messageTxt.setBounds(230, 30, 120, messageTxt.getPreferredSize().height);
+
+            //---- checkCentered ----
+            checkCentered.setText("centered");
+            jPanel1.add(checkCentered);
+            checkCentered.setBounds(111, 0, 110, checkCentered.getPreferredSize().height);
+
+            //---- checkRight ----
+            checkRight.setText("right");
+            jPanel1.add(checkRight);
+            checkRight.setBounds(110, 20, 91, checkRight.getPreferredSize().height);
+
+            { // compute preferred size
+                Dimension preferredSize = new Dimension();
+                for(int i = 0; i < jPanel1.getComponentCount(); i++) {
+                    Rectangle bounds = jPanel1.getComponent(i).getBounds();
+                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                }
+                Insets insets = jPanel1.getInsets();
+                preferredSize.width += insets.right;
+                preferredSize.height += insets.bottom;
+                jPanel1.setMinimumSize(preferredSize);
+                jPanel1.setPreferredSize(preferredSize);
+            }
         }
-        else if (evt.getSource() == jButton2)
-        {
-            C64TextGUI.this.jButton2ActionPerformed(evt);
-        }
-        else if (evt.getSource() == jButton4)
-        {
-            C64TextGUI.this.jButton4ActionPerformed(evt);
-        }
+        contentPane.add(jPanel1, BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -236,22 +246,29 @@ public class C64TextGUI extends MDIChild implements ActionListener
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox checkCentered;
-    private javax.swing.JCheckBox checkRight;
-    private javax.swing.JTextArea inputText;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField messageTxt;
-    private javax.swing.JTextField saveName;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JScrollPane jScrollPane1;
+    private JTextArea inputText;
+    private JPanel jPanel1;
+    private JButton jButton1;
+    private JButton jButton7;
+    private JTextField saveName;
+    private JButton jButton2;
+    private JButton jButton4;
+    private JTextField messageTxt;
+    private JCheckBox checkCentered;
+    private JCheckBox checkRight;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initAfterDeserialization()
     {
         // Nix
+    }
+
+    @Override
+    public void actionPerformed (ActionEvent e)
+    {
+
     }
 }

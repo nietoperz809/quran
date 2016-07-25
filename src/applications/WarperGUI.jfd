@@ -1,0 +1,63 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "jMenuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "jMenu1"
+					"text": "File"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "jMenuItem1"
+						"text": "Load"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jMenuItem1ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "jMenuItem2"
+						"text": "Save"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jMenuItem2ActionPerformed", true ) )
+					} )
+				} )
+			}
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {space :0:329:x}"
+				"$verticalGroup": "par l {space :0:207:x}"
+			} ) {
+				name: "jPanel1"
+				auxiliary() {
+					"JavaCodeGenerator.customCreateCode": "new WarpCanvas();"
+				}
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :::p, comp jButton4:::p::p, space :::p, comp messageTxt:::p:120:p, space ::121:x}}"
+				"$verticalGroup": "par l {seq l {space :p:2:p, par b {comp messageTxt::b:p::p, comp jButton4::b:p::p}, space :0:24:x}}"
+			} ) {
+				name: "jPanel2"
+				"background": new java.awt.Color( 255, 153, 0, 255 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton4"
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton4ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "messageTxt"
+					"text": "Warped_Image"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Last"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 345, 320 )
+		} )
+	}
+}

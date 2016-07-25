@@ -1,0 +1,222 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "misc.MDIChild", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "Lindenmayer"
+			"doubleBuffered": true
+			"maximumSize": new java.awt.Dimension( 32000, 32000 )
+			"minimumSize": new java.awt.Dimension( 100, 38 )
+			"preferredSize": new java.awt.Dimension( 600, 300 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "North"
+				"background": new java.awt.Color( 153, 255, 255, 255 )
+				"minimumSize": new java.awt.Dimension( 100, 100 )
+				"preferredSize": new java.awt.Dimension( 591, 100 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton3"
+					"text": "Add Rule"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton3ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 158
+					"y": 71
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel1"
+					"text": "Axiom"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 111
+					"y": 45
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "Final Rule"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+					"y": 71
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel3"
+					"text": "PenSize"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 12
+					"y": 16
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "penSize"
+					"text": "0"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 62
+					"y": 13
+					"width": 31
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel4"
+					"text": "PenPos"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 158
+					"y": 16
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "penPosX"
+					"text": "506"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 204
+					"y": 13
+					"width": 39
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "penPosY"
+					"text": "254"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 261
+					"y": 13
+					"width": 38
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel5"
+					"text": "LineLength"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 304
+					"y": 16
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "lineLength"
+					"text": "2.0"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 370
+					"y": 13
+					"width": 39
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel2"
+					"text": "Recursions"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 414
+					"y": 16
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "recursions"
+					"text": "6"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 481
+					"y": 13
+					"width": 26
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "axiom"
+					"text": "F+XF+F+XF"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 158
+					"y": 42
+					"width": 186
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel6"
+					"text": "Angle"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 12
+					"y": 45
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "angle"
+					"text": "90.0"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 49
+					"y": 42
+					"width": 43
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel7"
+					"text": "Imagesize"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 356
+					"y": 45
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "sizeY"
+					"text": "600"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 419
+					"y": 42
+					"width": 37
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "sizeX"
+					"text": "600"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 463
+					"y": 42
+					"width": 37
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "South"
+				"background": new java.awt.Color( 255, 153, 153, 255 )
+				"minimumSize": new java.awt.Dimension( 100, 50 )
+				"preferredSize": new java.awt.Dimension( 591, 70 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "Render"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 12
+					"y": 32
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton4"
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton4ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 99
+					"y": 32
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "saveName"
+					"text": "LindeSave"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 330
+					"y": 30
+					"width": 192
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton7"
+					"background": new java.awt.Color( 255, 255, 0, 255 )
+					"text": "Save as -->"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton7ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 210
+					"y": 30
+					"width": 115
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+				name: "jPanel1"
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "jScrollPane1"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
+						"axis": 1
+					} ) {
+						name: "rulePanelContainer"
+					} )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 545, 335 )
+		} )
+	}
+}

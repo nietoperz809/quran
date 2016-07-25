@@ -1,0 +1,51 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"minimumSize": new java.awt.Dimension( 500, 500 )
+			"preferredSize": new java.awt.Dimension( 500, 500 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :::p, comp jButton2:::p::p, space :::p, comp jButton1:::p::p, space ::396:x}}"
+				"$verticalGroup": "par l {seq {space :p:10:p, par b {comp jButton2::b:p::p, comp jButton1::b:p::p}, space :::x}}"
+			} ) {
+				name: "jPanel1"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "GET"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane2"
+				"horizontalScrollBarPolicy": 31
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "outWin"
+					"editable": false
+					"columns": 20
+					"lineWrap": true
+					"rows": 5
+					"wrapStyleWord": true
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 555, 180 )
+		} )
+	}
+}

@@ -1,0 +1,52 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {par l {seq l {comp jLabel1:::p::p, space :::p}, seq t {comp jLabel2:::p::p, space :p:34:p}}, par l {comp pathTxt::l:::x, seq l {comp portTxt:::p:51:p, space :p:38:p, comp transmitted:::p:111:p, space ::74:x, comp button:::p:90:p}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {par b {comp jLabel1::b:p::p, comp pathTxt::b:p::p}, space :::p, par l {seq {par b {comp jLabel2::b:p::p, comp portTxt::b:p::p, comp transmitted::b:p:25:p}, space :0:15:x}, comp button:::::x}, space :::p}}"
+		} ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "FtpServer"
+			addEvent( new FormEvent( "javax.swing.event.InternalFrameListener", "internalFrameClosed", "formInternalFrameClosed", true ) )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "pathTxt"
+				"text": "C:\\\\"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "portTxt"
+				"text": "21"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel1"
+				"text": "BasePath"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel2"
+				"text": "Port"
+			} )
+			add( new FormComponent( "javax.swing.JToggleButton" ) {
+				name: "button"
+				"text": "Start"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "transmitted"
+				"background": new java.awt.Color( 0, 0, 0, 255 )
+				"foreground": new java.awt.Color( 255, 255, 51, 255 )
+				"text": "0"
+				"toolTipText": "Bytes transferred ..."
+				"doubleBuffered": true
+				"opaque": true
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

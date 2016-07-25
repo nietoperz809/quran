@@ -5,9 +5,14 @@
  */
 package applications;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.Future;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
+import javax.swing.event.*;
 
 import misc.MDIChild;
 import misc.ProcessTool;
@@ -62,28 +67,28 @@ public class DiskpartGui extends MDIChild
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    // Generated using JFormDesigner Evaluation license - unknown
+    private void initComponents() {
+        jScrollPane1 = new JScrollPane();
+        outField = new JTextArea();
+        jButton1 = new JButton();
+        jButton2 = new JButton();
+        jButton3 = new JButton();
+        jButton4 = new JButton();
+        jButton5 = new JButton();
+        numberField = new JTextField();
+        jButton6 = new JButton();
+        jButton7 = new JButton();
+        directText = new JTextField();
+        jButton8 = new JButton();
+        jButton9 = new JButton();
+        jButton10 = new JButton();
+        jButton11 = new JButton();
+        jButton12 = new JButton();
+        jButton13 = new JButton();
+        jButton14 = new JButton();
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        outField = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        numberField = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        directText = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-
+        //======== this ========
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -91,274 +96,182 @@ public class DiskpartGui extends MDIChild
         setTitle("DiskPartitioner");
         setAlignmentX(0.0F);
         setAlignmentY(0.0F);
-        setVisible(true);
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
-        {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
-            {
-                formInternalFrameClosed(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
-            {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
-            {
+        addInternalFrameListener(new InternalFrameAdapter() {
+            @Override
+            public void internalFrameClosed(InternalFrameEvent e) {
+                formInternalFrameClosed(e);
             }
         });
+        Container contentPane = getContentPane();
 
-        outField.setColumns(20);
-        outField.setFont(new java.awt.Font("Lucida Console", 0, 10)); // NOI18N
-        outField.setRows(5);
-        outField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(outField);
+        //======== jScrollPane1 ========
+        {
 
+            //---- outField ----
+            outField.setColumns(20);
+            outField.setRows(5);
+            jScrollPane1.setViewportView(outField);
+        }
+
+        //---- jButton1 ----
         jButton1.setText("help");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(e -> jButton1ActionPerformed(e));
 
+        //---- jButton2 ----
         jButton2.setText("listVolume");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(e -> jButton2ActionPerformed(e));
 
+        //---- jButton3 ----
         jButton3.setText("listDisk");
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(e -> jButton3ActionPerformed(e));
 
+        //---- jButton4 ----
         jButton4.setText("listPartition");
-        jButton4.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jButton4.addActionListener(e -> jButton4ActionPerformed(e));
 
+        //---- jButton5 ----
         jButton5.setText("selDisk");
-        jButton5.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        jButton5.addActionListener(e -> jButton5ActionPerformed(e));
 
+        //---- numberField ----
         numberField.setText("0");
 
+        //---- jButton6 ----
         jButton6.setText("selPartition");
-        jButton6.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton6ActionPerformed(evt);
-            }
-        });
+        jButton6.addActionListener(e -> jButton6ActionPerformed(e));
 
+        //---- jButton7 ----
         jButton7.setText("selVolume");
-        jButton7.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        jButton7.addActionListener(e -> jButton7ActionPerformed(e));
 
+        //---- directText ----
         directText.setText("?");
-        directText.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                directTextActionPerformed(evt);
-            }
-        });
+        directText.addActionListener(e -> directTextActionPerformed(e));
 
+        //---- jButton8 ----
         jButton8.setText("detDisk");
-        jButton8.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton8ActionPerformed(evt);
-            }
-        });
+        jButton8.addActionListener(e -> jButton8ActionPerformed(e));
 
+        //---- jButton9 ----
         jButton9.setText("detPart");
-        jButton9.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton9ActionPerformed(evt);
-            }
-        });
+        jButton9.addActionListener(e -> jButton9ActionPerformed(e));
 
+        //---- jButton10 ----
         jButton10.setText("detVolume");
-        jButton10.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton10ActionPerformed(evt);
-            }
-        });
+        jButton10.addActionListener(e -> jButton10ActionPerformed(e));
 
+        //---- jButton11 ----
         jButton11.setText("fileSys");
-        jButton11.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton11ActionPerformed(evt);
-            }
-        });
+        jButton11.addActionListener(e -> jButton11ActionPerformed(e));
 
+        //---- jButton12 ----
         jButton12.setText("attrVolume");
-        jButton12.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton12ActionPerformed(evt);
-            }
-        });
+        jButton12.addActionListener(e -> jButton12ActionPerformed(e));
 
+        //---- jButton13 ----
         jButton13.setText("attrDisk");
-        jButton13.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton13ActionPerformed(evt);
-            }
-        });
+        jButton13.addActionListener(e -> jButton13ActionPerformed(e));
 
+        //---- jButton14 ----
         jButton14.setText("clr");
-        jButton14.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton14ActionPerformed(evt);
-            }
-        });
+        jButton14.addActionListener(e -> jButton14ActionPerformed(e));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(jButton12))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addComponent(jButton7))
-                            .addComponent(jButton5)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(150, 150, 150)
-                                .addComponent(jButton13))
-                            .addComponent(jButton3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jButton4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jButton6))
-                            .addComponent(jButton8)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jButton9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addComponent(jButton10))
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 568, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(60, 60, 60)
+                                    .addComponent(jButton12))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(160, 160, 160)
+                                    .addComponent(jButton7))
+                                .addComponent(jButton5)
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(150, 150, 150)
+                                    .addComponent(jButton13))
+                                .addComponent(jButton3)
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(70, 70, 70)
+                                    .addComponent(jButton4))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(160, 160, 160)
+                                    .addComponent(jButton2))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(70, 70, 70)
+                                    .addComponent(jButton6))
+                                .addComponent(jButton8)
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(70, 70, 70)
+                                    .addComponent(jButton9))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(140, 140, 140)
+                                    .addComponent(jButton10))
+                                .addComponent(jButton11))
+                            .addGap(9, 9, 9)
+                            .addComponent(numberField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(250, 250, 250)
+                            .addComponent(jButton1))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(directText, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addComponent(jButton14))))
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(60, 60, 60)
+                            .addComponent(jButton12))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jButton7))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jButton5))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(60, 60, 60)
+                            .addComponent(jButton13))
+                        .addComponent(jButton3)
+                        .addComponent(jButton4)
+                        .addComponent(jButton2)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jButton6))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jButton8))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jButton9))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jButton10))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(60, 60, 60)
                             .addComponent(jButton11))
-                        .addGap(9, 9, 9)
-                        .addComponent(numberField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(250, 250, 250)
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(numberField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(directText, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jButton14))))
+                    .addGap(175, 175, 175)
+                    .addComponent(directText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton14)
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton13))
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(numberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
-                .addGap(175, 175, 175)
-                .addComponent(directText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton14)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
-        );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameClosed
@@ -449,24 +362,25 @@ public class DiskpartGui extends MDIChild
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField directText;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField numberField;
-    private javax.swing.JTextArea outField;
+    // Generated using JFormDesigner Evaluation license - unknown
+    private JScrollPane jScrollPane1;
+    private JTextArea outField;
+    private JButton jButton1;
+    private JButton jButton2;
+    private JButton jButton3;
+    private JButton jButton4;
+    private JButton jButton5;
+    private JTextField numberField;
+    private JButton jButton6;
+    private JButton jButton7;
+    private JTextField directText;
+    private JButton jButton8;
+    private JButton jButton9;
+    private JButton jButton10;
+    private JButton jButton11;
+    private JButton jButton12;
+    private JButton jButton13;
+    private JButton jButton14;
     // End of variables declaration//GEN-END:variables
 
     @Override
