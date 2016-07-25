@@ -42,36 +42,42 @@ public class PittiFtpServer
         public void init(FtpletContext fc) throws FtpException
         {
             _fc = fc;
+            System.out.println("ftp init: ");
         }
 
         @Override
         public void destroy()
         {
+            System.out.println("ftp destroy");
         }
 
         @Override
         public FtpletResult beforeCommand(FtpSession fs, FtpRequest fr) throws FtpException, IOException
         {
-            return null;
+            System.out.println("ftp before: "+fr.getCommand());
+            return FtpletResult.DEFAULT;
         }
 
         @Override
         public FtpletResult afterCommand(FtpSession fs, FtpRequest fr, FtpReply fr1) throws FtpException, IOException
         {
+            System.out.println("ftp after: "+fr.getCommand());
             _gui.showBytesTransmitted(_fc.getFtpStatistics().getTotalDownloadSize());
-            return null;
+            return FtpletResult.DEFAULT;
         }
 
         @Override
         public FtpletResult onConnect(FtpSession fs) throws FtpException, IOException
         {
-            return null;
+            System.out.println("ftp connect: "+fs.toString());
+            return FtpletResult.DEFAULT;
         }
 
         @Override
         public FtpletResult onDisconnect(FtpSession fs) throws FtpException, IOException
         {
-            return null;
+            System.out.println("ftp disconnect: "+fs.getSessionId());
+            return FtpletResult.DEFAULT;
         }
     }
     
@@ -86,9 +92,12 @@ public class PittiFtpServer
         ListenerFactory factory = new ListenerFactory();
         factory.setPort(port);
         
-        Ftplet ftplet = new Pittilet();
+        //Ftplet ftplet = new Pittilet();
         Map<java.lang.String,Ftplet> ftpmap = new HashMap<>();
-        ftpmap.put("testlet", ftplet);
+        ftpmap.put("ftp1", new Pittilet());
+        ftpmap.put("ftp2", new Pittilet());
+        ftpmap.put("ftp3", new Pittilet());
+        ftpmap.put("ftp4", new Pittilet());
         serverFactory.setFtplets(ftpmap);
         
         //java.util.Map<java.lang.String,Ftplet> ftplets = serverFactory.getFtplets();
@@ -108,7 +117,7 @@ public class PittiFtpServer
         }
         catch (FtpException ex)
         {
-            Logger.getLogger(PittiFtpServer.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("init exception "+ex.getMessage());
             ftpServer = null;
             return;
         }
@@ -137,7 +146,7 @@ public class PittiFtpServer
         }
         catch (Exception ex)
         {
-            Logger.getLogger(PittiFtpServer.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("start exception "+ex.getMessage());
             return false;
         }
         return true;

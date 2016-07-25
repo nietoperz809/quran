@@ -19,9 +19,9 @@
         </properties>
         <border type="bevel-lowered"/>
         <children>
-          <component id="2eede" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="2eede" class="javax.swing.JTextField" binding="textKTO">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
               <gridbag weightx="1.0" weighty="1.0"/>
@@ -32,7 +32,7 @@
           </component>
           <component id="45772" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="1.0"/>
             </constraints>
             <properties>
@@ -52,7 +52,7 @@
           </component>
           <component id="5ad73" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -60,9 +60,9 @@
               <text value="BLZ:"/>
             </properties>
           </component>
-          <component id="e091" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+          <component id="e091" class="javax.swing.JTextField" binding="textBLZ">
             <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
               <gridbag weightx="1.0" weighty="0.0"/>
@@ -71,7 +71,7 @@
           </component>
           <component id="9b1b6" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="4" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -79,37 +79,58 @@
               <text value="Country"/>
             </properties>
           </component>
-          <component id="7b15f" class="javax.swing.JList" binding="CountryList">
-            <constraints>
-              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <preferredSize width="40" height="0"/>
-            </properties>
-          </component>
           <component id="ea1cc" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
               <text value="Label"/>
             </properties>
           </component>
+          <component id="38a21" class="javax.swing.JComboBox" binding="comboCountry">
+            <constraints>
+              <grid row="0" column="5" row-span="2" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <minimumSize width="1000" height="31"/>
+              <preferredSize width="70" height="31"/>
+            </properties>
+          </component>
+          <component id="cb1e" class="javax.swing.JButton" binding="clipbrdButton">
+            <constraints>
+              <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <label value="toClip"/>
+              <text value="toClip"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <component id="9e8f5" class="javax.swing.JLabel" binding="output">
-        <constraints border-constraint="South"/>
+      <component id="9e8f5" class="javax.swing.JLabel" binding="outputIban">
+        <constraints border-constraint="Center"/>
         <properties>
           <background color="-16777216"/>
-          <font name="Iskoola Pota" size="28"/>
+          <font name="Arial" size="28"/>
           <foreground color="-855544"/>
           <horizontalAlignment value="0"/>
           <opaque value="true"/>
           <preferredSize width="36" height="50"/>
+          <text value="Label"/>
+        </properties>
+      </component>
+      <component id="15c82" class="javax.swing.JLabel" binding="outputBIC">
+        <constraints border-constraint="South"/>
+        <properties>
+          <background color="-15987184"/>
+          <font name="Arial" size="24"/>
+          <foreground color="-1"/>
+          <horizontalAlignment value="0"/>
+          <opaque value="true"/>
+          <preferredSize width="36" height="60"/>
           <text value="Label"/>
         </properties>
       </component>
