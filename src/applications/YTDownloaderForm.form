@@ -59,14 +59,20 @@
           <preferredSize width="400" height="31"/>
         </properties>
       </component>
-      <component id="457fe" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="f4c6b" class="javax.swing.JToggleButton" binding="toggleButt">
         <constraints>
-          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms/>
         </constraints>
         <properties>
-          <label value="DoIt"/>
-          <text value="DoIt"/>
+          <background color="-1700082"/>
+          <doubleBuffered value="true"/>
+          <label value="GO"/>
+          <margin top="0" left="0" bottom="0" right="0"/>
+          <maximumSize width="500" height="40"/>
+          <minimumSize width="37" height="40"/>
+          <opaque value="true"/>
+          <preferredSize width="140" height="40"/>
         </properties>
       </component>
     </children>

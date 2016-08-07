@@ -7,6 +7,8 @@ import misc.MDIChild;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,8 +20,8 @@ public class YTDownloaderForm extends MDIChild
 {
     private JTextField textField1;
     private JTextField textField2;
-    private JButton button1;
     private JPanel mainPanel;
+    private JToggleButton toggleButt;
 
     public YTDownloaderForm ()
     {
@@ -32,6 +34,25 @@ public class YTDownloaderForm extends MDIChild
         setTitle("YT Downloader");
         setSize(400, 110);
         setVisible(true);
+        toggleButt.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed (ActionEvent e)
+            {
+                if (toggleButt.isSelected())
+                {
+                    toggleButt.setText("STOP");
+                    toggleButt.setBackground(Color.GREEN);
+
+                }
+                else
+                {
+                    toggleButt.setText("GO");
+                    toggleButt.setBackground(Color.RED);
+                }
+                //repaint();
+            }
+        });
     }
 
     public static void main (String[] args)
@@ -86,10 +107,16 @@ public class YTDownloaderForm extends MDIChild
         textField2.setMinimumSize(new Dimension(50, 31));
         textField2.setPreferredSize(new Dimension(400, 31));
         mainPanel.add(textField2, cc.xy(7, 1));
-        button1 = new JButton();
-        button1.setLabel("DoIt");
-        button1.setText("DoIt");
-        mainPanel.add(button1, cc.xy(5, 3));
+        toggleButt = new JToggleButton();
+        toggleButt.setBackground(new Color(-1700082));
+        toggleButt.setDoubleBuffered(true);
+        toggleButt.setLabel("GO");
+        toggleButt.setMargin(new Insets(0, 0, 0, 0));
+        toggleButt.setMaximumSize(new Dimension(500, 40));
+        toggleButt.setMinimumSize(new Dimension(37, 40));
+        toggleButt.setOpaque(true);
+        toggleButt.setPreferredSize(new Dimension(140, 40));
+        mainPanel.add(toggleButt, cc.xy(3, 3));
     }
 
     /**

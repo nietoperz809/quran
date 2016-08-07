@@ -5,35 +5,101 @@
  */
 package misc;
 
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Constructor;
-import java.util.List;
-import javax.swing.Box;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenuItem;
-import javax.swing.UIManager;
 import net.propero.rdp.RdStarter;
 import net.propero.rdp.RdpParamDialog;
 import quran.QuranMetadata;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 /**
  * $id:$
+ *
  * @author Administrator
  */
 public class MainWindow extends javax.swing.JFrame
 {
     private static MainWindow instance;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItemIban;
+    private javax.swing.JMenuItem jMenuItemYTD;
+    private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem openMenuItem;
+    private javax.swing.JMenu savesMenu;
+
+    /**
+     * Creates new form MDIApplication
+     */
+    public MainWindow ()
+    {
+        instance = this;
+        initComponents();
+        this.setTitle(Tools.getBuildNumber());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initSavesMenu();
+    }
 
     /**
      * @return the instance
      */
-    public static MainWindow getInstance()
+    public static MainWindow getInstance ()
     {
         return instance;
     }
 
-    public final void initSavesMenu()
+    /**
+     * m0xyzptlkxy0
+     *
+     * @param args the command line arguments
+     * @throws java.lang.Exception
+     */
+    public static void main (String args[]) throws Exception
+    {
+        //System.exit(0);
+        org.apache.log4j.BasicConfigurator.configure();
+        QuranMetadata.get();
+
+        /* Set the look and feel */
+        //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() ->
+                new MainWindow().setVisible(true));
+    }
+
+    public final void initSavesMenu ()
     {
         savesMenu.removeAll();
         List<String> saves = Tools.listSaves();
@@ -44,32 +110,19 @@ public class MainWindow extends javax.swing.JFrame
             {
                 try
                 {
-                    MDIChild obj = (MDIChild)Tools.deSerialize(s);
+                    MDIChild obj = (MDIChild) Tools.deSerialize(s);
                     obj.initAfterDeserialization();
                     MainWindow.getInstance().addChild(obj);
                 }
                 catch (Exception ex)
                 {
                     savesMenu.remove(men); // Remove damaged entry
-                    Tools.deleteSave(s);    
+                    Tools.deleteSave(s);
                 }
             });
             savesMenu.add(men);
         });
     }
-
-    /**
-     * Creates new form MDIApplication
-     */
-    public MainWindow()
-    {
-        instance = this;
-        initComponents();
-        this.setTitle(Tools.getBuildNumber());
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        initSavesMenu();
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,7 +132,7 @@ public class MainWindow extends javax.swing.JFrame
     // menuBar.add(Box.createGlue()) added manually !!!!!!!!!!!!!!!
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
+    private void initComponents ()
     {
 
         desktopPane = new BackWindow();
@@ -131,7 +184,7 @@ public class MainWindow extends javax.swing.JFrame
         openMenuItem.setLabel("New Quran");
         openMenuItem.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 openMenuItemActionPerformed(evt);
             }
@@ -141,7 +194,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem1.setText("DirectTweet");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem1ActionPerformed(evt);
             }
@@ -151,7 +204,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem2.setText("LaTEX");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem2ActionPerformed(evt);
             }
@@ -161,7 +214,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem3.setText("Sliders");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem3ActionPerformed(evt);
             }
@@ -171,7 +224,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem4.setText("RegExer");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem4ActionPerformed(evt);
             }
@@ -181,7 +234,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem5.setText("ArrayGen");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem5ActionPerformed(evt);
             }
@@ -191,7 +244,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem6.setText("Generate QR");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem6ActionPerformed(evt);
             }
@@ -201,7 +254,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem8.setText("LindenGUI");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem8ActionPerformed(evt);
             }
@@ -211,7 +264,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem9.setText("MemoryMon");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem9ActionPerformed(evt);
             }
@@ -221,7 +274,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem10.setText("C64Text");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem10ActionPerformed(evt);
             }
@@ -231,7 +284,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem12.setText("BASIC");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem12ActionPerformed(evt);
             }
@@ -241,7 +294,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem13.setText("Warper");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem13ActionPerformed(evt);
             }
@@ -251,7 +304,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem14.setText("Hadith");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem14ActionPerformed(evt);
             }
@@ -261,7 +314,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem15.setText("TwitterTimeline");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem15ActionPerformed(evt);
             }
@@ -271,7 +324,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem16.setText("Diskpart");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem16ActionPerformed(evt);
             }
@@ -281,7 +334,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem17.setText("Webserver");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem17ActionPerformed(evt);
             }
@@ -291,7 +344,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem18.setText("Magnifier");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem18ActionPerformed(evt);
             }
@@ -301,7 +354,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem19.setText("Rdesktop");
         jMenuItem19.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem19ActionPerformed(evt);
             }
@@ -311,7 +364,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem20.setText("Transformer");
         jMenuItem20.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem20ActionPerformed(evt);
             }
@@ -321,7 +374,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem21.setText("FTPServer");
         jMenuItem21.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem21ActionPerformed(evt);
             }
@@ -331,7 +384,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem23.setText("NumberConverter");
         jMenuItem23.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem23ActionPerformed(evt);
             }
@@ -341,7 +394,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItemIban.setText("IBAN Calc");
         jMenuItemIban.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItemIbanActionPerformed(evt);
             }
@@ -351,7 +404,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItemYTD.setText("YTDownloader");
         jMenuItemYTD.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItemYTDActionPerformed(evt);
             }
@@ -369,7 +422,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem7.setText("Arrange");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem7ActionPerformed(evt);
             }
@@ -379,7 +432,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem11.setText("Close All");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem11ActionPerformed(evt);
             }
@@ -395,7 +448,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem22.setText("DebugOut");
         jMenuItem22.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem22ActionPerformed(evt);
             }
@@ -405,7 +458,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem24.setText("Clock");
         jMenuItem24.addActionListener(new java.awt.event.ActionListener()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void actionPerformed (java.awt.event.ActionEvent evt)
             {
                 jMenuItem24ActionPerformed(evt);
             }
@@ -419,18 +472,18 @@ public class MainWindow extends javax.swing.JFrame
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addChild(JInternalFrame c)
+    public void addChild (JInternalFrame c)
     {
         desktopPane.add(c);
         Tools.centerComponent(c, desktopPane);
@@ -443,9 +496,9 @@ public class MainWindow extends javax.swing.JFrame
      * @param c Runtime class Must be of type JInternalFrame
      * @return New JInternalFrame or null on Error
      */
-    public JInternalFrame createMDIChild(Class<?> c)
+    public JInternalFrame createMDIChild (Class<?> c)
     {
-        System.err.println("Starting app: "+c.getName());
+        System.err.println("Starting app: " + c.getName());
         try
         {
             Constructor<?> cons = c.getConstructor();
@@ -455,42 +508,49 @@ public class MainWindow extends javax.swing.JFrame
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            if (ex instanceof InvocationTargetException)
+            {
+                System.out.println(ex.getCause());
+            }
+            else
+            {
+                System.out.println(ex);
+            }
         }
         return null;
     }
 
-    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
+    private void openMenuItemActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_openMenuItemActionPerformed
     {//GEN-HEADEREND:event_openMenuItemActionPerformed
         createMDIChild(applications.QuranGUI.class);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
         createMDIChild(applications.DirectTweetGUI.class);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem2ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
         createMDIChild(applications.LatexGUI.class);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItem3ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
         createMDIChild(applications.SlidersGUI.class);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItem4ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
         createMDIChild(applications.RegExerGUI.class);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItem5ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem5ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem5ActionPerformed
         createMDIChild(applications.ArrayGenGUI.class);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jMenuItem6ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem6ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem6ActionPerformed
         createMDIChild(applications.QRGeneratorGUI.class);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
@@ -500,75 +560,75 @@ public class MainWindow extends javax.swing.JFrame
      *
      * @param evt
      */
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void jMenuItem7ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem7ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem7ActionPerformed
         MDIActions.arrange(desktopPane);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void jMenuItem8ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem8ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem8ActionPerformed
         createMDIChild(applications.LindenGUI.class);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void jMenuItem9ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem9ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem9ActionPerformed
-        createMDIChild (applications.MemoryMonitorGUI.class);
+        createMDIChild(applications.MemoryMonitorGUI.class);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void jMenuItem10ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem10ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem10ActionPerformed
-        createMDIChild (applications.C64TextGUI.class);
+        createMDIChild(applications.C64TextGUI.class);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * Close all
-     * @param evt 
+     *
+     * @param evt
      */
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void jMenuItem11ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem11ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem11ActionPerformed
-        MDIActions.closeAll (desktopPane);
+        MDIActions.closeAll(desktopPane);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void jMenuItem12ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem12ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem12ActionPerformed
-        createMDIChild (applications.BasicGUI.class);
+        createMDIChild(applications.BasicGUI.class);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem13ActionPerformed
+    private void jMenuItem13ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem13ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem13ActionPerformed
-        createMDIChild (applications.WarperGUI.class);
+        createMDIChild(applications.WarperGUI.class);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem14ActionPerformed
+    private void jMenuItem14ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem14ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem14ActionPerformed
-        createMDIChild (applications.HadithGUI.class);
+        createMDIChild(applications.HadithGUI.class);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem15ActionPerformed
+    private void jMenuItem15ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem15ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem15ActionPerformed
-        createMDIChild (applications.TimeLineGUI.class);
+        createMDIChild(applications.TimeLineGUI.class);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem16ActionPerformed
+    private void jMenuItem16ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem16ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem16ActionPerformed
-        createMDIChild (applications.DiskpartGui.class);
+        createMDIChild(applications.DiskpartGui.class);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem17ActionPerformed
+    private void jMenuItem17ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem17ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem17ActionPerformed
-        createMDIChild (applications.WebServerGUI.class);
+        createMDIChild(applications.WebServerGUI.class);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem18ActionPerformed
+    private void jMenuItem18ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem18ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem18ActionPerformed
-        createMDIChild (applications.MagnifyGUI.class);
+        createMDIChild(applications.MagnifyGUI.class);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
-    
-    
+
     // Start RDesktop
-    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem19ActionPerformed
+    private void jMenuItem19ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem19ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem19ActionPerformed
-        RdpParamDialog rp = new RdpParamDialog (this, true);
+        RdpParamDialog rp = new RdpParamDialog(this, true);
         rp.setVisible(true);
         rp.setVisible(false);
         //System.out.println(rp.getHost());
@@ -577,95 +637,40 @@ public class MainWindow extends javax.swing.JFrame
         addChild(rdStart.getFrame());
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
-    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem20ActionPerformed
+    private void jMenuItem20ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem20ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem20ActionPerformed
-       createMDIChild (applications.Transformer.class);
+        createMDIChild(applications.Transformer.class);
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
-    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem21ActionPerformed
+    private void jMenuItem21ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem21ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem21ActionPerformed
-       createMDIChild (applications.FtpServerGUI.class);
+        createMDIChild(applications.FtpServerGUI.class);
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
-    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem22ActionPerformed
+    private void jMenuItem22ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem22ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem22ActionPerformed
-        createMDIChild (applications.ConsoleViewGUI.class);
+        createMDIChild(applications.ConsoleViewGUI.class);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
-    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
+    private void jMenuItem23ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem23ActionPerformed
-        createMDIChild (applications.NumberConverter.class);
+        createMDIChild(applications.NumberConverter.class);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
-    private void jMenuItemIbanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
+    private void jMenuItemIbanActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem23ActionPerformed
-        createMDIChild (applications.IbanGUI.class);
+        createMDIChild(applications.IbanGUI.class);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
-    private void jMenuItemYTDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
+    private void jMenuItemYTDActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem23ActionPerformed
-        createMDIChild (applications.YTDownloaderForm.class);
+        createMDIChild(applications.YTDownloaderForm.class);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
-
-    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem24ActionPerformed
+    private void jMenuItem24ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem24ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem24ActionPerformed
-        createMDIChild (applications.ClockGUI.class);
+        createMDIChild(applications.ClockGUI.class);
     }//GEN-LAST:event_jMenuItem24ActionPerformed
-
-    /** m0xyzptlkxy0
-     * @param args the command line arguments
-     * @throws java.lang.Exception
-     */
-    public static void main(String args[]) throws Exception
-    {
-        //System.exit(0);
-        org.apache.log4j.BasicConfigurator.configure();
-        QuranMetadata.get();
-
-        /* Set the look and feel */
-        //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() ->
-                new MainWindow().setVisible(true));
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
-    private javax.swing.JMenuItem jMenuItem23;
-    private javax.swing.JMenuItem jMenuItemIban;
-    private javax.swing.JMenuItem jMenuItemYTD;
-    private javax.swing.JMenuItem jMenuItem24;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenu savesMenu;
     // End of variables declaration//GEN-END:variables
 
 }
