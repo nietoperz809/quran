@@ -5,6 +5,7 @@
  */
 package misc;
 
+import applications.PlotWindow;
 import net.propero.rdp.RdStarter;
 import net.propero.rdp.RdpParamDialog;
 import quran.QuranMetadata;

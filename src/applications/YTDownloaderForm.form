@@ -29,7 +29,7 @@
           <text value="Url:"/>
         </properties>
       </component>
-      <component id="8165f" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="8165f" class="javax.swing.JTextField" binding="urlIn">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms/>
@@ -49,7 +49,7 @@
           <text value="Path:"/>
         </properties>
       </component>
-      <component id="d4fb" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="d4fb" class="javax.swing.JTextField" binding="pathIn">
         <constraints>
           <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms/>

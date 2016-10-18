@@ -40,8 +40,6 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     public BasicGUI()
     {
         basicTask = executor.submit(this);
-        //basicThread = new Thread(this);
-        //basicThread.start();
     }
 
     /**

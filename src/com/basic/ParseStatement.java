@@ -384,6 +384,21 @@ public class ParseStatement extends Statement
                     }
                     return s;
 
+                case PLOT:
+                    s = new PLOTStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
+                    {
+                        return s;
+                    }
+
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
                 case DATA:
                     s = new DATAStatement(lt);
                     t = lt.nextToken();

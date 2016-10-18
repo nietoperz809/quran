@@ -18,6 +18,7 @@
 package com.basic;
 
 import applications.BasicGUI;
+import applications.PlotWindow;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;

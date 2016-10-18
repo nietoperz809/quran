@@ -56,6 +56,7 @@ public enum KeyWords
     SPFILE ("sayopen", "set file name for speech output"),
     SPCLOSE ("sayclose", "close speech-to-file output"),
     PITCH("pitch", "set the speech pitch"),
+    PLOT ("plot", "plot point in graphics window"),
     RATE("rate", "set the speech rate"),   // Must be last statement
 
     CMD_NEW("new", "erase program in memory"),
