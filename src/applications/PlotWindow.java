@@ -14,16 +14,21 @@ public class PlotWindow extends MDIChild
 {
     private JPanel panel1;
 
-    BufferedImage off_Image =
-            new BufferedImage(1024, 1024,
-                    BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g2 = off_Image.createGraphics();
+    private BufferedImage off_Image;
+    private Graphics2D g2;
+
+    public void clear ()
+    {
+        off_Image = new BufferedImage(1024, 1024,
+                BufferedImage.TYPE_INT_ARGB);
+        g2 = off_Image.createGraphics();
+        getPixelCanvas().setImage(off_Image);
+    }
 
     public void plot (int x, int y)
     {
         g2.drawRect(x, y, 1, 1);
         getPixelCanvas().setImage(off_Image);
-        //System.out.println("plot " + x + ":" + y);
     }
 
     public PlotWindow ()
@@ -58,6 +63,7 @@ public class PlotWindow extends MDIChild
         panel1.setVisible(true);
         panel1.setBackground(Color.BLACK);
         getContentPane().add(panel1, BorderLayout.CENTER);
+        clear();
     }
 
     /**

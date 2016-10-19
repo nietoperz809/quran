@@ -272,6 +272,15 @@ public class ParseStatement extends Statement
                     }
                     return s;
 
+                case PCLS:
+                    s = new PCLSStatement(lt);
+                    t = lt.nextToken();
+                    if (t.typeNum() != KeyWords.EOL)
+                    {
+                        throw new BASICSyntaxError(extraError);
+                    }
+                    return s;
+
                 case SPLAY:
                     s = new SPLAYStatement(lt);
                     t = lt.nextToken();

@@ -44,6 +44,7 @@ public enum KeyWords
     TROFF("troff", "end trace mode"),
     TIMER("timer", "get free running timer value"), // not a real statement
     CLS("cls", "clear BASIC window"),
+    PCLS("pcls", "clear plotter window"),
     SLEEP("sleep", "sleep for n milliseconds or * (infinite)"),
     WAKEUP ("wakeup", "wake a thread up"),
     TWEET("tweet","send message over twitter"),

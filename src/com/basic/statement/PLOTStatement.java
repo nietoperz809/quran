@@ -13,17 +13,23 @@ import java.io.PrintStream;
  */
 public class PLOTStatement extends Statement
 {
-    Expression xval;
-    Expression yval;
-
-    //static private PlotWindow plotter;
-
     private static final ThreadLocal<PlotWindow> plotter =
-            new ThreadLocal<PlotWindow>() {
-                @Override protected PlotWindow initialValue() {
+            new ThreadLocal<PlotWindow>()
+            {
+                @Override
+                protected PlotWindow initialValue ()
+                {
                     return null;
                 }
             };
+
+    public static PlotWindow getPlotWindow()
+    {
+        return plotter.get();
+    }
+
+    Expression xval;
+    Expression yval;
 
     public PLOTStatement (LexicalTokenizer lt) throws BASICSyntaxError
     {
@@ -75,15 +81,6 @@ public class PLOTStatement extends Statement
         return "PLOT " + xval + "," + yval;
     }
 
-    private PlotWindow createPlotWindow()
-    {
-        plotter.remove();
-        JInternalFrame ji = MainWindow.getInstance().createMDIChild (PlotWindow.class);
-        ji.setTitle ("Basic plot window: "+Thread.currentThread().getName());
-        plotter.set((PlotWindow)ji);
-        return (PlotWindow)ji;
-    }
-
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
         PlotWindow w = plotter.get();
@@ -96,11 +93,20 @@ public class PLOTStatement extends Statement
             w = createPlotWindow();
         }
 
-        int x = (int)xval.value(pgm);
-        int y = (int)yval.value(pgm);
+        int x = (int) xval.value(pgm);
+        int y = (int) yval.value(pgm);
 
-        w.plot (x,y);
+        w.plot(x, y);
 
         return pgm.nextStatement(this);
+    }
+
+    private PlotWindow createPlotWindow ()
+    {
+        plotter.remove();
+        JInternalFrame ji = MainWindow.getInstance().createMDIChild(PlotWindow.class);
+        ji.setTitle("Basic plot window: " + Thread.currentThread().getName());
+        plotter.set((PlotWindow) ji);
+        return (PlotWindow) ji;
     }
 }
