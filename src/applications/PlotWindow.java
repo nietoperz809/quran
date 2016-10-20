@@ -16,6 +16,18 @@ public class PlotWindow extends MDIChild
 
     private BufferedImage off_Image;
     private Graphics2D g2;
+    private Color col;
+
+    public void setColor (Color c)
+    {
+        col = c;
+        g2.setColor(col);
+    }
+
+    public void setColor (int r, int g, int b)
+    {
+        setColor(new Color(r, g, b));
+    }
 
     public void clear ()
     {
@@ -64,6 +76,7 @@ public class PlotWindow extends MDIChild
         panel1.setBackground(Color.BLACK);
         getContentPane().add(panel1, BorderLayout.CENTER);
         clear();
+        setColor(Color.WHITE);
     }
 
     /**

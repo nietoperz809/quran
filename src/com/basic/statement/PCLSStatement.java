@@ -1,5 +1,6 @@
 package com.basic.statement;
 
+import applications.PlotWindow;
 import com.basic.*;
 
 import java.io.InputStream;
@@ -20,7 +21,9 @@ public class PCLSStatement extends Statement
     @Override
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
     {
-        PLOTStatement.getPlotWindow().clear();
+        PlotWindow pw = PLOTStatement.getPlotWindow();
+        if (pw != null)
+            pw.clear();
         return pgm.nextStatement(this);
     }
 

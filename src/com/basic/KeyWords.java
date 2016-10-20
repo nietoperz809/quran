@@ -44,7 +44,6 @@ public enum KeyWords
     TROFF("troff", "end trace mode"),
     TIMER("timer", "get free running timer value"), // not a real statement
     CLS("cls", "clear BASIC window"),
-    PCLS("pcls", "clear plotter window"),
     SLEEP("sleep", "sleep for n milliseconds or * (infinite)"),
     WAKEUP ("wakeup", "wake a thread up"),
     TWEET("tweet","send message over twitter"),
@@ -58,6 +57,8 @@ public enum KeyWords
     SPCLOSE ("sayclose", "close speech-to-file output"),
     PITCH("pitch", "set the speech pitch"),
     PLOT ("plot", "plot point in graphics window"),
+    PCLS("pcls", "clear plotter window"),
+    PCOLOR ("pcolor","set plot color"),
     RATE("rate", "set the speech rate"),   // Must be last statement
 
     CMD_NEW("new", "erase program in memory"),
