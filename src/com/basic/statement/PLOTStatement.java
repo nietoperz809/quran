@@ -42,9 +42,9 @@ public class PLOTStatement extends Statement
 
     private static void parse (PLOTStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        s.xval = s.getArg (lt);
+        s.xval = s.getNumericArg(lt);
         s.checkComma(lt);
-        s.yval = s.getArg (lt);
+        s.yval = s.getNumericArg(lt);
     }
 
     public String unparse ()
@@ -53,6 +53,18 @@ public class PLOTStatement extends Statement
     }
 
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError
+    {
+        PlotWindow w = makePlotWindow();
+
+        int x = (int) xval.value(pgm);
+        int y = (int) yval.value(pgm);
+
+        w.plot(x, y);
+
+        return pgm.nextStatement(this);
+    }
+
+    public static PlotWindow makePlotWindow()
     {
         PlotWindow w = plotter.get();
         if (w == null)
@@ -63,16 +75,10 @@ public class PLOTStatement extends Statement
         {
             w = createPlotWindow();
         }
-
-        int x = (int) xval.value(pgm);
-        int y = (int) yval.value(pgm);
-
-        w.plot(x, y);
-
-        return pgm.nextStatement(this);
+        return w;
     }
 
-    private PlotWindow createPlotWindow ()
+    private static PlotWindow createPlotWindow ()
     {
         plotter.remove();
         JInternalFrame ji = MainWindow.getInstance().createMDIChild(PlotWindow.class);

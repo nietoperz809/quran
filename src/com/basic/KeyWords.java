@@ -59,6 +59,7 @@ public enum KeyWords
     PLOT ("plot", "plot point in graphics window"),
     PCLS("pcls", "clear plotter window"),
     PCOLOR ("pcolor","set plot color"),
+    PPRINT ("pprint","print into plot window"),
     RATE("rate", "set the speech rate"),   // Must be last statement
 
     CMD_NEW("new", "erase program in memory"),

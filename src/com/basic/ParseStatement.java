@@ -408,6 +408,21 @@ public class ParseStatement extends Statement
                     }
                     throw new BASICSyntaxError(extraError);
 
+                case PPRINT:
+                    s = new PPRINTStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
+                    {
+                        return s;
+                    }
+
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
                 case PCOLOR:
                     s = new PCOLORStatement(lt);
                     t = lt.nextToken();

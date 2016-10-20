@@ -26,11 +26,11 @@ public class PCOLORStatement extends Statement
 
     private static void parse (PCOLORStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        s._r = s.getArg (lt);
+        s._r = s.getNumericArg(lt);
         s.checkComma(lt);
-        s._g = s.getArg (lt);
+        s._g = s.getNumericArg(lt);
         s.checkComma(lt);
-        s._b = s.getArg (lt);
+        s._b = s.getNumericArg(lt);
     }
 
     public String unparse ()

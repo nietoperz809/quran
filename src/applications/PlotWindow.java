@@ -1,7 +1,9 @@
 package applications;
 
+import chargen.Chargen;
 import misc.MDIChild;
 import misc.PixelCanvas;
+import sun.font.CharToGlyphMapper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +36,13 @@ public class PlotWindow extends MDIChild
         off_Image = new BufferedImage(1024, 1024,
                 BufferedImage.TYPE_INT_ARGB);
         g2 = off_Image.createGraphics();
+        getPixelCanvas().setImage(off_Image);
+    }
+
+    public void print (int x, int y, String txt)
+    {
+        Chargen cg = new Chargen();
+        cg.printImg(off_Image, txt, x, y);
         getPixelCanvas().setImage(off_Image);
     }
 

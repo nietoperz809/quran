@@ -200,7 +200,7 @@ public abstract class Statement implements Ser
      * @return expression
      * @throws BASICSyntaxError
      */
-    protected Expression getArg (LexicalTokenizer lt) throws BASICSyntaxError
+    protected Expression getNumericArg (LexicalTokenizer lt) throws BASICSyntaxError
     {
         Token t = lt.nextToken();
         switch (t.typeNum())
@@ -212,6 +212,17 @@ public abstract class Statement implements Ser
             default:
                 throw new BASICSyntaxError("param must be constant or variable");
         }
+    }
+
+    protected String getStringArg (LexicalTokenizer lt) throws BASICSyntaxError
+    {
+        Token t = lt.nextToken();
+        if (t.typeNum() == KeyWords.STRING)
+        {
+            return t.stringValue();
+        }
+        lt.unGetToken();
+        throw new BASICSyntaxError("param must be constant or variable");
     }
 
     protected void checkComma (LexicalTokenizer lt) throws BASICSyntaxError
