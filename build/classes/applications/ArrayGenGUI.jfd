@@ -1,0 +1,73 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :12:12:p, comp button:::p::p, space :8:8:p, comp rbC:::p::p, space :4:4:p, comp rbJava:::p::p, space :4:4:p, comp rbJava1:::p::p, space :0:0:p, comp rbPHP:::p::p, space :18:18:p, comp nameField:::p:60:p, space ::99:x}, comp jScrollPane1::l:::x, comp chooser::l::0:x}"
+			"$verticalGroup": "par l {seq {comp chooser:::p:214:p, space :7:7:p, comp jScrollPane1:::p:207:p, space :7:7:p, par l {comp button:::p::p, comp rbC:::p::p, comp rbJava:::p::p, comp rbJava1:::p::p, comp rbPHP:::p::p, seq {space :1:1:p, comp nameField:::p::p}}, space :::x}}"
+		} ) {
+			name: "this"
+			"visible": true
+			"title": "Pittis Array Generator"
+			add( new FormComponent( "javax.swing.JFileChooser" ) {
+				name: "chooser"
+				"acceptAllFileFilterUsed": false
+				"controlButtonsAreShown": false
+				"font": new java.awt.Font( "Dialog", 0, 8 )
+				"toolTipText": ""
+				"cursor": new java.awt.Cursor( 0 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "chooserActionPerformed", true ) )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea"
+					"background": new java.awt.Color( 153, 255, 255, 255 )
+					"columns": 20
+					"rows": 5
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button"
+				"text": "Copy to clipboard ..."
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "rbC"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"text": "C"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "rbCActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "rbJava"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"text": "Java"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "rbJavaActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "nameField"
+				"text": "myArray"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nameFieldActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "rbPHP"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"text": "PHP"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "rbPHPActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "rbJava1"
+				"$buttonGroup": new FormReference( "buttonGroup" )
+				"selected": true
+				"text": "Java func"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "rbJava1ActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup"
+		} )
+	}
+}

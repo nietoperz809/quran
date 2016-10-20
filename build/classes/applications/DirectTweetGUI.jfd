@@ -1,0 +1,65 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "DirectTweet"
+			"preferredSize": new java.awt.Dimension( 425, 412 )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea"
+					"columns": 20
+					"lineWrap": true
+					"rows": 5
+					"wrapStyleWord": true
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "jPanel1"
+				"preferredSize": new java.awt.Dimension( 487, 50 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "Send"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 20
+					"y": 5
+					"width": 90
+					"height": 40
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton7"
+					"background": new java.awt.Color( 255, 255, 0, 255 )
+					"text": "Save as -->"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton7ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 150
+					"y": 10
+					"width": 115
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "saveName"
+					"text": "DirectTweet"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 280
+					"y": 10
+					"width": 192
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 495, 341 )
+		} )
+	}
+}

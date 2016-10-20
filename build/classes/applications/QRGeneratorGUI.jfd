@@ -1,0 +1,95 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "QR Maker"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "jPanel1"
+				"background": new java.awt.Color( 255, 0, 255, 255 )
+				"preferredSize": new java.awt.Dimension( 600, 140 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "makeButton"
+					"text": "Make!"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "makeButtonActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 18
+					"y": 7
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "jScrollPane1"
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "inputField"
+						"columns": 20
+						"rows": 5
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 100
+					"width": 462
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "To Clip"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 18
+					"y": 39
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 18
+					"y": 71
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton7"
+					"background": new java.awt.Color( 255, 255, 0, 255 )
+					"text": "Save"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton7ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 20
+					"y": 110
+					"width": 80
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "sizeField"
+					"text": "200"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 180
+					"y": 110
+					"width": 50
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel1"
+					"text": "---- SIZE --->"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 100
+					"y": 110
+					"width": 80
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "canvas"
+				"background": new java.awt.Color( 255, 255, 102, 255 )
+				auxiliary() {
+					"JavaCodeGenerator.customCreateCode": "new misc.QuadraticPixelCanvas();"
+				}
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 630, 396 )
+		} )
+	}
+}

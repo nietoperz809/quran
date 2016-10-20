@@ -1,0 +1,47 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"resizable": true
+			"title": "DebugOut"
+			"name": ""
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textBox"
+					"editable": false
+					"columns": 20
+					"rows": 5
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {comp jButton1:::p::p, space :::p, comp jButton2:::p::p, space :0:259:x}}"
+				"$verticalGroup": "par l {seq {space :5:5:p, par b {comp jButton1::b:p::p, comp jButton2::b:p::p}}}"
+			} ) {
+				name: "jPanel1"
+				"minimumSize": new java.awt.Dimension( 10, 20 )
+				"preferredSize": new java.awt.Dimension( 100, 30 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "CLR"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "ToClip"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

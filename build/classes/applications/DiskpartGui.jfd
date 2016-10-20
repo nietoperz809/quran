@@ -1,0 +1,113 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :p:1:p, comp jScrollPane1:::p:568:p, space :::p, par l {seq {par l {seq {space :60:60:p, comp jButton12:::p::p}, seq {space :160:160:p, comp jButton7:::p::p}, comp jButton5:::p::p, seq {space :150:150:p, comp jButton13:::p::p}, comp jButton3:::p::p, seq {space :70:70:p, comp jButton4:::p::p}, seq {space :160:160:p, comp jButton2:::p::p}, seq {space :70:70:p, comp jButton6:::p::p}, comp jButton8:::p::p, seq {space :70:70:p, comp jButton9:::p::p}, seq {space :140:140:p, comp jButton10:::p::p}, comp jButton11:::p::p}, space :9:9:p, comp numberField:::p:30:p}, seq {space :250:250:p, comp jButton1:::p::p}, seq {space :40:40:p, comp directText:::p:190:p}, seq l {space :p:16:p, comp jButton14:::p::p}}}}"
+			"$verticalGroup": "par l {seq {par l {seq {space :60:60:p, comp jButton12:::p::p}, seq {space :20:20:p, comp jButton7:::p::p}, seq {space :20:20:p, comp jButton5:::p::p}, seq {space :60:60:p, comp jButton13:::p::p}, comp jButton3:::p::p, comp jButton4:::p::p, comp jButton2:::p::p, seq {space :20:20:p, comp jButton6:::p::p}, seq {space :40:40:p, comp jButton8:::p::p}, seq {space :40:40:p, comp jButton9:::p::p}, seq {space :40:40:p, comp jButton10:::p::p}, seq {space :60:60:p, comp jButton11:::p::p}, seq {space :20:20:p, comp numberField:::p::p}, comp jButton1:::p::p}, space :175:175:p, comp directText:::p::p, space :::p, comp jButton14:::p::p, space :::x}, comp jScrollPane1::l:::x}"
+		} ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "DiskPartitioner"
+			"alignmentX": 0.0f
+			"alignmentY": 0.0f
+			addEvent( new FormEvent( "javax.swing.event.InternalFrameListener", "internalFrameClosed", "formInternalFrameClosed", true ) )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "outField"
+					"columns": 20
+					"font": new java.awt.Font( "Lucida Console", 0, 10 )
+					"rows": 5
+					"cursor": new java.awt.Cursor( 2 )
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton1"
+				"text": "help"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton2"
+				"text": "listVolume"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton3"
+				"text": "listDisk"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton3ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton4"
+				"text": "listPartition"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton4ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton5"
+				"text": "selDisk"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton5ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "numberField"
+				"text": "0"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton6"
+				"text": "selPartition"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton6ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton7"
+				"text": "selVolume"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton7ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "directText"
+				"text": "?"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "directTextActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton8"
+				"text": "detDisk"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton8ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton9"
+				"text": "detPart"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton9ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton10"
+				"text": "detVolume"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton10ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton11"
+				"text": "fileSys"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton11ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton12"
+				"text": "attrVolume"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton12ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton13"
+				"text": "attrDisk"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton13ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton14"
+				"text": "clr"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton14ActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

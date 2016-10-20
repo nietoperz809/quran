@@ -1,0 +1,72 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "BASIC"
+			addEvent( new FormEvent( "javax.swing.event.InternalFrameListener", "internalFrameClosed", "formInternalFrameClosed", true ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "jPanel1"
+				"background": new java.awt.Color( 255, 204, 255, 255 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "CLS"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton9"
+					"background": new java.awt.Color( 255, 255, 0, 255 )
+					"text": "Save as -->"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton9ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 310
+					"width": 120
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "saveName"
+					"text": "BASIC"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 430
+					"width": 160
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "Stop"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 70
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "area"
+					"background": new java.awt.Color( 0, 0, 153, 255 )
+					"columns": 20
+					"font": new java.awt.Font( "Monospaced", 1, 18 )
+					"foreground": new java.awt.Color( 255, 255, 102, 255 )
+					"lineWrap": true
+					"rows": 20
+					"caretColor": new java.awt.Color( 255, 102, 102, 255 )
+					"cursor": new java.awt.Cursor( 2 )
+					auxiliary() {
+						"JavaCodeGenerator.customCreateCode": "new StreamingTextArea();"
+					}
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 618, 438 )
+		} )
+	}
+}

@@ -1,0 +1,78 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"resizable": true
+			"title": "Magnifier"
+			"name": ""
+			addEvent( new FormEvent( "java.awt.event.ComponentListener", "componentResized", "formComponentResized", true ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq {space :::p, par l {seq l {comp jButton1:::p::p, space :::p, comp spinX:::p:68:p, space :::p, comp spinY:::p:68:p, space :::p, comp autoSaveText:::p:133:p}, seq l {comp jButton2:::p::p, space :::p, comp jButton3:::p::p, space s:::p, comp checkHide:::p::p, space u:::p, comp JpgCheck:::p::p}}, space ::219:x}}"
+				"$verticalGroup": "par l {seq t {par l {comp jButton1::l:p::p, par b {comp spinY::b:p::p, comp spinX::b:p::p, comp autoSaveText::b:p::p}}, space :::p, par b {comp jButton2::b:p::p, comp jButton3::b:p::p, comp checkHide::b:p::p, comp JpgCheck::b:p::p}, space :::x}}"
+			} ) {
+				name: "jPanel2"
+				"background": new java.awt.Color( 204, 255, 0, 255 )
+				"preferredSize": new java.awt.Dimension( 394, 60 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"font": new java.awt.Font( "Lucida Console", 0, 8 )
+					"text": "toClpBrd"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"font": new java.awt.Font( "Lucida Sans", 0, 8 )
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JSpinner" ) {
+					name: "spinX"
+				} )
+				add( new FormComponent( "javax.swing.JSpinner" ) {
+					name: "spinY"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton3"
+					"font": new java.awt.Font( "Lucida Sans", 0, 8 )
+					"text": "Save->"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton3ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkHide"
+					"text": "Hide all"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "autoSaveText"
+					"toolTipText": "<html><u>autoSaveDir (empty = autoave off)</u><br>only name of dir allowed<br>subdir will be stored in home directory</html>"
+					addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "autoSaveTextFocusGained", true ) )
+					addEvent( new FormEvent( "java.awt.event.FocusListener", "focusLost", "autoSaveTextFocusLost", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "autoSaveTextActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "JpgCheck"
+					"text": "Save as Jpg"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {space :0:576:x}"
+				"$verticalGroup": "par l {space :0:204:x}"
+			} ) {
+				name: "magnifyPanel"
+				auxiliary() {
+					"JavaCodeGenerator.customCreateCode": "new magnify.MagnifyPanel(this);;"
+				}
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 592, 300 )
+		} )
+	}
+}

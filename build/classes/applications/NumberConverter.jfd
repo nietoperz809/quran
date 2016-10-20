@@ -1,0 +1,60 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {par l {seq {space :::p, par l {comp tfIn:::::x, comp labOut:::::x}}, seq t {space :p:14:p, comp jLabel2:::p::p, space :::p, comp tfFrom:::p:51:p, space :::p, comp jLabel3:::p::p, space :::p, comp tfTo:::p:53:p, space :p:51:p, comp jButton1:::p:192:p, space ::94:x, comp jButton2:::p::p}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp tfIn:::p::p, space s:::p, par b {comp jButton1::b:p:42:p, comp tfFrom::b:p::p, comp tfTo::b:p::p, comp jLabel2::b:p::p, comp jLabel3::b:p::p, comp jButton2::b:p::p}, space ::15:x, comp labOut:::p::p, space :::p}}"
+		} ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "tfIn"
+				"font": new java.awt.Font( "sansserif", 0, 36 )
+				"toolTipText": "input"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "labOut"
+				"background": new java.awt.Color( 0, 0, 0, 255 )
+				"font": new java.awt.Font( "sansserif", 0, 36 )
+				"foreground": new java.awt.Color( 255, 255, 255, 255 )
+				"text": "  "
+				"opaque": true
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton1"
+				"text": "Just do it"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "tfFrom"
+				"text": "10"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "tfTo"
+				"text": "16"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "tfToActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel2"
+				"text": "from base"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel3"
+				"text": "to base"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton2"
+				"text": "Tweet"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

@@ -1,0 +1,104 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"title": "C64Font"
+			"minimumSize": new java.awt.Dimension( 550, 38 )
+			"preferredSize": new java.awt.Dimension( 499, 284 )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "inputText"
+					"columns": 20
+					"rows": 5
+					"cursor": new java.awt.Cursor( 2 )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "jPanel1"
+				"minimumSize": new java.awt.Dimension( 100, 100 )
+				"preferredSize": new java.awt.Dimension( 491, 50 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "Render"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 10
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton7"
+					"background": new java.awt.Color( 255, 255, 0, 255 )
+					"text": "Save as -->"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton7ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 390
+					"y": 10
+					"width": 120
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "saveName"
+					"text": "C64Text"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 510
+					"y": 10
+					"width": 160
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton2"
+					"text": "To Clip"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 10
+					"y": 30
+					"width": 90
+					"height": 20
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton4"
+					"text": "Tweet"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton4ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 250
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "messageTxt"
+					"text": "C64_Font"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 230
+					"y": 30
+					"width": 120
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkCentered"
+					"text": "centered"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 111
+					"width": 110
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkRight"
+					"text": "right"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 110
+					"y": 20
+					"width": 91
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Last"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 696, 289 )
+		} )
+	}
+}

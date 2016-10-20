@@ -1,0 +1,136 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp jPanel1::l:::x, comp jSplitPane1::t:::x, seq l {comp checkRot13:::p::p, space :p:30:p, comp checkSHA1:::p::p, space :p:67:p, comp jRadioButton4:::p::p, space :0:0:x}}"
+			"$verticalGroup": "par l {seq l {par b {comp checkRot13::b:p::p, comp checkSHA1::b:p::p, comp jRadioButton4::b:p::p}, space :::p, comp jPanel1:::p::p, space :::p, comp jSplitPane1::::168:x}}"
+		} ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :0:0:x, comp decodeButt:::p::p, space :p:99:p}, seq {par l {comp checkBase64::l:p::p, comp jRadioButton1::l:p::p, comp jRadioButton2::l:p::p}, space s:::p, par l {comp jRadioButton3:::p::p, seq {comp checkMD5:::p::p, space :p:73:p, comp jRadioButton5:::p::p}, seq l {par t {comp encodeButt:::p::p, comp checkCRC16:::p::p}, space s:::p, comp jRadioButton6:::p::p}}, space :0:372:x}}"
+				"$verticalGroup": "par l {seq l {par b {comp checkBase64::b:p::p, comp checkMD5::b:p::p, comp jRadioButton5::b:p::p}, space :::p, par b {comp jRadioButton1::b:p::p, comp checkCRC16::b:p::p, comp jRadioButton6::b:p::p}, space u:::p, par b {comp jRadioButton2::b:p::p, comp jRadioButton3::b:p::p}, space ::9:x, par b {comp encodeButt::b:p::p, comp decodeButt::b:p::p}}}"
+			} ) {
+				name: "jPanel1"
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "checkBase64"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "Base64"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkBase64ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "checkMD5"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "MD5"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkMD5ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "checkCRC16"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "CRC16-CCITT"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkCRC16ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "encodeButt"
+					"text": "Encode >>"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "encodeButtActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "decodeButt"
+					"text": "<< Decode"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "decodeButtActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "jRadioButton1"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "SHA256"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioButton1ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "jRadioButton3"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "GrayCode"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioButton3ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "jRadioButton2"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "MD4"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioButton2ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "jRadioButton5"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "Substitute1"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioButton5ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "jRadioButton6"
+					"$buttonGroup": new FormReference( "buttonGroup1" )
+					"text": "Hagelin"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioButton6ActionPerformed", true ) )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
+				name: "jSplitPane1"
+				"dividerLocation": 340
+				"dividerSize": 3
+				"toolTipText": "Drag left/right"
+				"cursor": new java.awt.Cursor( 12 )
+				"preferredSize": new java.awt.Dimension( 490, 100 )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "jScrollPane1"
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "clearText"
+						"columns": 20
+						"lineWrap": true
+						"rows": 5
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "left"
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "jScrollPane2"
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "encText"
+						"columns": 20
+						"lineWrap": true
+						"rows": 5
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "right"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "checkRot13"
+				"$buttonGroup": new FormReference( "buttonGroup1" )
+				"selected": true
+				"text": "Rot13"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkRot13ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "checkSHA1"
+				"$buttonGroup": new FormReference( "buttonGroup1" )
+				"text": "SHA1"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkSHA1ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JRadioButton" ) {
+				name: "jRadioButton4"
+				"$buttonGroup": new FormReference( "buttonGroup1" )
+				"text": "URL Enc"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioButton4ActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup1"
+		} )
+	}
+}

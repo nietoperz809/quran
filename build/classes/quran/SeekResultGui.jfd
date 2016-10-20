@@ -1,0 +1,38 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			"closable": true
+			"iconifiable": true
+			"maximizable": true
+			"resizable": true
+			"autoscrolls": true
+			"doubleBuffered": true
+			"minimumSize": new java.awt.Dimension( 100, 300 )
+			"name": ""
+			"selected": true
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "jScrollPane1"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "listControl"
+					"model": new javax.swing.DefaultListModel {
+						addElement( "Item 1" )
+						addElement( "Item 2" )
+						addElement( "Item 3" )
+						addElement( "Item 4" )
+						addElement( "Item 5" )
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "listControlMouseClicked", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 113, 312 )
+		} )
+	}
+}

@@ -1,0 +1,29 @@
+JFDML JFormDesigner: "5.2.4.0.321" Java: "1.8.0" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, comp jLabel1:::p::p, space :::p, par l {comp host:::p:124:p, seq {space :10:10:p, comp jButton1:::p:89:p}}, space :::x}}"
+			"$verticalGroup": "par l {seq l {space :::p, par b {comp jLabel1::b:p::p, comp host::b:p::p}, space :::p, comp jButton1:::p::p, space :::x}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"resizable": false
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel1"
+				"text": "Host"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "host"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "jButton1"
+				"text": "Go"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}
