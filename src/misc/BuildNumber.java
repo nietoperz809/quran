@@ -4,7 +4,7 @@ package misc;
 
 public final class BuildNumber
 {
-    public static final long num = 352L;
-    public static final String date = "2016/10/20 03:26:48";
+    public static final long num = 354L;
+    public static final String date = "2016/10/20 03:46:52";
 }
 

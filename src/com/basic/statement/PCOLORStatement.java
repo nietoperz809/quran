@@ -26,57 +26,11 @@ public class PCOLORStatement extends Statement
 
     private static void parse (PCOLORStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        Token t;
-
-        t = lt.nextToken();
-        switch (t.typeNum())
-        {
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                s._r = ParseExpression.expression(lt);
-                break;
-            default:
-                throw new BASICSyntaxError("xval must be constant or variable");
-        }
-
-        t = lt.nextToken();
-        if (!t.isSymbol(','))
-        {
-            lt.unGetToken();
-            throw new BASICSyntaxError("missing comma separator");
-        }
-
-        t = lt.nextToken();
-        switch (t.typeNum())
-        {
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                s._g = ParseExpression.expression(lt);
-                break;
-            default:
-                throw new BASICSyntaxError("yval must be constant or variable");
-        }
-
-        t = lt.nextToken();
-        if (!t.isSymbol(','))
-        {
-            lt.unGetToken();
-            throw new BASICSyntaxError("missing comma separator");
-        }
-
-        t = lt.nextToken();
-        switch (t.typeNum())
-        {
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                s._b = ParseExpression.expression(lt);
-                break;
-            default:
-                throw new BASICSyntaxError("yval must be constant or variable");
-        }
+        s._r = s.getArg (lt);
+        s.checkComma(lt);
+        s._g = s.getArg (lt);
+        s.checkComma(lt);
+        s._b = s.getArg (lt);
     }
 
     public String unparse ()

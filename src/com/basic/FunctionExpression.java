@@ -377,6 +377,7 @@ public class FunctionExpression extends Expression
                 }
                 result = new FunctionExpression(ty, a);
                 break;
+
             case MAX:
             case MIN:
                 a = ParseExpression.expression(lt);

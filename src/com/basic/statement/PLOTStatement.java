@@ -42,38 +42,9 @@ public class PLOTStatement extends Statement
 
     private static void parse (PLOTStatement s, LexicalTokenizer lt) throws BASICSyntaxError
     {
-        Token t;
-
-        t = lt.nextToken();
-        switch (t.typeNum())
-        {
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                s.xval = ParseExpression.expression(lt);
-                break;
-            default:
-                throw new BASICSyntaxError("xval must be constant or variable");
-        }
-
-        t = lt.nextToken();
-        if (!t.isSymbol(','))
-        {
-            lt.unGetToken();
-            throw new BASICSyntaxError("missing comma separator");
-        }
-
-        t = lt.nextToken();
-        switch (t.typeNum())
-        {
-            case CONSTANT:
-            case VARIABLE:
-                lt.unGetToken();
-                s.yval = ParseExpression.expression(lt);
-                break;
-            default:
-                throw new BASICSyntaxError("yval must be constant or variable");
-        }
+        s.xval = s.getArg (lt);
+        s.checkComma(lt);
+        s.yval = s.getArg (lt);
     }
 
     public String unparse ()

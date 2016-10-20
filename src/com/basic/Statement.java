@@ -193,4 +193,34 @@ public abstract class Statement implements Ser
     {
         return null;
     }
+
+    /**
+     * Read one argument expression
+     * @param lt program lt
+     * @return expression
+     * @throws BASICSyntaxError
+     */
+    protected Expression getArg (LexicalTokenizer lt) throws BASICSyntaxError
+    {
+        Token t = lt.nextToken();
+        switch (t.typeNum())
+        {
+            case CONSTANT:
+            case VARIABLE:
+                lt.unGetToken();
+                return ParseExpression.expression(lt);
+            default:
+                throw new BASICSyntaxError("param must be constant or variable");
+        }
+    }
+
+    protected void checkComma (LexicalTokenizer lt) throws BASICSyntaxError
+    {
+        Token t = lt.nextToken();
+        if (!t.isSymbol(','))
+        {
+            lt.unGetToken();
+            throw new BASICSyntaxError("missing comma separator");
+        }
+    }
 }
