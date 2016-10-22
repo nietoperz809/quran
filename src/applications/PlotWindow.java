@@ -78,7 +78,7 @@ public class PlotWindow extends MDIChild
     {
         super();
         $$$setupUI$$$();
-        getContentPane().add(mainpanel, BorderLayout.PAGE_END);
+        getContentPane().add(mainpanel, BorderLayout.CENTER);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -107,7 +107,9 @@ public class PlotWindow extends MDIChild
         pixelcanvas.setOpaque(true);
         pixelcanvas.setDoubleBuffered(true);
         pixelcanvas.setBackground(Color.black);
-        pixelcanvas.setPreferredSize(new Dimension(1024, 1024));
+        pixelcanvas.setLayout(null);
+        pixelcanvas.setSize(100, 100);
+        pixelcanvas.setVisible(true);
         clear();
         setColor(Color.white);
     }
@@ -124,12 +126,7 @@ public class PlotWindow extends MDIChild
         createUIComponents();
         mainpanel = new JPanel();
         mainpanel.setLayout(new BorderLayout(0, 0));
-        mainpanel.setAutoscrolls(true);
         mainpanel.setForeground(new Color(-16777216));
-        mainpanel.setMinimumSize(new Dimension(0, 0));
-        mainpanel.setOpaque(true);
-        mainpanel.setPreferredSize(new Dimension(500, 600));
-        mainpanel.setRequestFocusEnabled(false);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         panel1.setBackground(new Color(-502703));
@@ -148,12 +145,6 @@ public class PlotWindow extends MDIChild
         wipeButton.setPreferredSize(new Dimension(81, 20));
         wipeButton.setText("wipe");
         panel1.add(wipeButton);
-        pixelcanvas.setAutoscrolls(false);
-        pixelcanvas.setMaximumSize(new Dimension(132767, 132767));
-        pixelcanvas.setMinimumSize(new Dimension(0, 0));
-        pixelcanvas.setPreferredSize(new Dimension(1024, 1024));
-        pixelcanvas.setRequestFocusEnabled(false);
-        pixelcanvas.setVerifyInputWhenFocusTarget(false);
         mainpanel.add(pixelcanvas, BorderLayout.CENTER);
     }
 

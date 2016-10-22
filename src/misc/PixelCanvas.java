@@ -55,13 +55,13 @@ public class PixelCanvas extends JPanel implements Serializable
     
     protected void drawImg (Graphics g)
     {
-//        int w = getWidth();
-//        int h = getHeight();
+        int w = getWidth();
+        int h = getHeight();
 //        int wi = m_img.getHeight(null);
 //        int hi = m_img.getWidth(null);
-        int off_x = 20; //(w-wi)/2;
-        int off_y = 20; //(h-hi)/2;
-        g.drawImage(m_img, off_x, off_y, null);
+//        int off_x = 20; //(w-wi)/2;
+//        int off_y = 20; //(h-hi)/2;
+        g.drawImage(m_img, 0, 0, w, h, null);
     }
     
     @Override
