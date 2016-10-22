@@ -3,10 +3,11 @@ package applications;
 import chargen.Chargen;
 import misc.MDIChild;
 import misc.PixelCanvas;
-import sun.font.CharToGlyphMapper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -14,7 +15,10 @@ import java.awt.image.BufferedImage;
  */
 public class PlotWindow extends MDIChild
 {
-    private JPanel panel1;
+    private JPanel mainpanel;
+    private PixelCanvas pixelcanvas;
+    private JButton button1;
+    private JButton wipeButton;
 
     private BufferedImage off_Image;
     private Graphics2D g2;
@@ -46,6 +50,18 @@ public class PlotWindow extends MDIChild
         getPixelCanvas().setImage(off_Image);
     }
 
+    public void circle (int x, int y, int rad)
+    {
+        g2.drawOval(x, y, rad, rad);
+        getPixelCanvas().setImage(off_Image);
+    }
+
+    public void line (int x1, int y1, int x2, int y2)
+    {
+        g2.drawLine(x1, y1, x2, y2);
+        getPixelCanvas().setImage(off_Image);
+    }
+
     public void plot (int x, int y)
     {
         g2.drawRect(x, y, 1, 1);
@@ -56,18 +72,21 @@ public class PlotWindow extends MDIChild
     {
         super();
         $$$setupUI$$$();
+        getContentPane().add(mainpanel, BorderLayout.PAGE_END);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("BASIC plot window");
-        setSize(500, 500);
+        setTitle("Plot Window: " + Thread.currentThread().getId());
+        setSize(600, 650);
         setVisible(true);
+        button1.addActionListener(e -> pixelcanvas.toClipboard());
+        wipeButton.addActionListener(e -> this.clear());
     }
 
     public PixelCanvas getPixelCanvas ()
     {
-        return (PixelCanvas) panel1;
+        return pixelcanvas;
     }
 
     @Override
@@ -78,14 +97,13 @@ public class PlotWindow extends MDIChild
 
     private void createUIComponents ()
     {
-        panel1 = new PixelCanvas();
-        panel1.setSize(500, 500);
-        panel1.setOpaque(true);
-        panel1.setVisible(true);
-        panel1.setBackground(Color.BLACK);
-        getContentPane().add(panel1, BorderLayout.CENTER);
+        pixelcanvas = new PixelCanvas();
+        pixelcanvas.setOpaque(true);
+        pixelcanvas.setDoubleBuffered(true);
+        pixelcanvas.setBackground(Color.black);
+        pixelcanvas.setPreferredSize(new Dimension(1024, 1024));
         clear();
-        setColor(Color.WHITE);
+        setColor(Color.white);
     }
 
     /**
@@ -98,7 +116,39 @@ public class PlotWindow extends MDIChild
     private void $$$setupUI$$$ ()
     {
         createUIComponents();
-        panel1.setMinimumSize(new Dimension(500, 500));
+        mainpanel = new JPanel();
+        mainpanel.setLayout(new BorderLayout(0, 0));
+        mainpanel.setAutoscrolls(true);
+        mainpanel.setForeground(new Color(-16777216));
+        mainpanel.setMinimumSize(new Dimension(0, 0));
+        mainpanel.setOpaque(true);
+        mainpanel.setPreferredSize(new Dimension(500, 600));
+        mainpanel.setRequestFocusEnabled(false);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        panel1.setBackground(new Color(-502703));
+        panel1.setMinimumSize(new Dimension(100, 100));
+        panel1.setPreferredSize(new Dimension(100, 30));
+        panel1.setRequestFocusEnabled(true);
+        mainpanel.add(panel1, BorderLayout.SOUTH);
+        panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), null));
+        button1 = new JButton();
+        button1.setActionCommand("toClip");
+        button1.setLabel("toClip");
+        button1.setPreferredSize(new Dimension(81, 20));
+        button1.setText("toClip");
+        panel1.add(button1);
+        wipeButton = new JButton();
+        wipeButton.setPreferredSize(new Dimension(81, 20));
+        wipeButton.setText("wipe");
+        panel1.add(wipeButton);
+        pixelcanvas.setAutoscrolls(false);
+        pixelcanvas.setMaximumSize(new Dimension(132767, 132767));
+        pixelcanvas.setMinimumSize(new Dimension(0, 0));
+        pixelcanvas.setPreferredSize(new Dimension(1024, 1024));
+        pixelcanvas.setRequestFocusEnabled(false);
+        pixelcanvas.setVerifyInputWhenFocusTarget(false);
+        mainpanel.add(pixelcanvas, BorderLayout.CENTER);
     }
 
     /**
@@ -106,6 +156,6 @@ public class PlotWindow extends MDIChild
      */
     public JComponent $$$getRootComponent$$$ ()
     {
-        return panel1;
+        return mainpanel;
     }
 }

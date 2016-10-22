@@ -59,6 +59,8 @@ public enum KeyWords
     PLOT ("plot", "plot point in graphics window"),
     PCLS("pcls", "clear plotter window"),
     PCOLOR ("pcolor","set plot color"),
+    PCIRCLE ("pcircle", "draw circle"),
+    PLINE ("pline","draw line"),
     PPRINT ("pprint","print into plot window"),
     RATE("rate", "set the speech rate"),   // Must be last statement
 

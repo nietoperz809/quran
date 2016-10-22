@@ -400,7 +400,34 @@ public class ParseStatement extends Statement
                     {
                         return s;
                     }
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
 
+                case PCIRCLE:
+                    s = new PCIRCLEStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
+                    {
+                        return s;
+                    }
+                    if (t.isSymbol(':'))
+                    {
+                        s.nxt = statement(lt);
+                        return s;
+                    }
+                    throw new BASICSyntaxError(extraError);
+
+                case PLINE:
+                    s = new PLINEStatement(lt);
+                    t = lt.nextToken();
+                    if ((t == null) || (t.typeNum() == KeyWords.EOL))
+                    {
+                        return s;
+                    }
                     if (t.isSymbol(':'))
                     {
                         s.nxt = statement(lt);
