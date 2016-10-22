@@ -50,9 +50,15 @@ public class PlotWindow extends MDIChild
         getPixelCanvas().setImage(off_Image);
     }
 
-    public void circle (int x, int y, int rad)
+    public void circle (int x, int y, int radius)
     {
-        g2.drawOval(x, y, rad, rad);
+        g2.drawOval(x, y, radius, radius);
+        getPixelCanvas().setImage(off_Image);
+    }
+
+    public void square (int x, int y, int width)
+    {
+        g2.drawRect(x, y, width, width);
         getPixelCanvas().setImage(off_Image);
     }
 
