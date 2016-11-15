@@ -47,6 +47,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItemIban;
     private javax.swing.JMenuItem jMenuItemYTD;
+    private javax.swing.JMenuItem jMenuItemCalculator;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -162,6 +163,7 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItemIban = new javax.swing.JMenuItem();
         jMenuItemYTD = new javax.swing.JMenuItem();
+        jMenuItemCalculator = new javax.swing.JMenuItem();
         savesMenu = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -411,6 +413,16 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
         fileMenu.add(jMenuItemYTD);
+
+        jMenuItemCalculator.setText("Calculator");
+        jMenuItemCalculator.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed (java.awt.event.ActionEvent evt)
+            {
+                jMenuItemCalculatorActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItemCalculator);
 
         menuBar.add(fileMenu);
 
@@ -666,6 +678,11 @@ public class MainWindow extends javax.swing.JFrame
     private void jMenuItemYTDActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem23ActionPerformed
         createMDIChild(applications.YTDownloaderForm.class);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void jMenuItemCalculatorActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem23ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem23ActionPerformed
+        createMDIChild(applications.CalculatorGUI.class);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
     private void jMenuItem24ActionPerformed (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem24ActionPerformed

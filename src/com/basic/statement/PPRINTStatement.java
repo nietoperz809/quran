@@ -32,7 +32,7 @@ public class PPRINTStatement extends Statement
 
     public String unparse ()
     {
-        return "PPRINT " + _x + "," + _y + "," + _text;
+        return keyword.name() + " " + _x + "," + _y + "," + _text;
     }
 
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError

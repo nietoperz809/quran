@@ -52,7 +52,7 @@ public class RESTOREStatement extends Statement
 
     public String unparse()
     {
-        return "RESTORE";
+        return keyword.name();
     }
 
 }

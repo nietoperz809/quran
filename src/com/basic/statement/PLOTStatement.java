@@ -49,7 +49,7 @@ public class PLOTStatement extends Statement
 
     public String unparse ()
     {
-        return "PLOT " + xval + "," + yval;
+        return keyword.name() + " " + xval + "," + yval;
     }
 
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError

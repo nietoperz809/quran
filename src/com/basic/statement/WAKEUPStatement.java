@@ -38,7 +38,7 @@ public class WAKEUPStatement extends Statement
 
     public String unparse ()
     {
-        return "WAKEUP " + lineTarget;
+        return keyword.name() +" " + lineTarget;
     }
 
     @Override

@@ -47,16 +47,10 @@ public class SPLAYStatement extends Statement
         {
             MidiSynthSystem.get().waitUntilEnd();
         }
-        catch (InterruptedException ex)
+        catch (Exception ex)
         {
             throw new BASICRuntimeError ("WaitUntilEnd failed");
         }
         return pgm.nextStatement(this);
-    }
-
-    @Override
-    public String unparse()
-    {
-        return "SPLAY";
     }
 }

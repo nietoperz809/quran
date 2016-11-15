@@ -24,6 +24,9 @@ public class PlotWindow extends MDIChild
     private Graphics2D g2;
     private Color col;
 
+    private final int imgWidth = 1024;
+    private final int imgHeight = 1024;
+
     public void setColor (Color c)
     {
         col = c;
@@ -37,16 +40,14 @@ public class PlotWindow extends MDIChild
 
     public void clear ()
     {
-        off_Image = new BufferedImage(1024, 1024,
-                BufferedImage.TYPE_INT_ARGB);
+        off_Image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = off_Image.createGraphics();
         getPixelCanvas().setImage(off_Image);
     }
 
     public void print (int x, int y, String txt)
     {
-        Chargen cg = new Chargen();
-        cg.printImg(off_Image, txt, x, y);
+        Chargen.getInstance().printImg(off_Image, txt, x, y);
         getPixelCanvas().setImage(off_Image);
     }
 
@@ -145,6 +146,7 @@ public class PlotWindow extends MDIChild
         wipeButton.setPreferredSize(new Dimension(81, 20));
         wipeButton.setText("wipe");
         panel1.add(wipeButton);
+        pixelcanvas.setToolTipText("Graphics Window");
         mainpanel.add(pixelcanvas, BorderLayout.CENTER);
     }
 

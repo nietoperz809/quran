@@ -35,7 +35,7 @@ public class PCOLORStatement extends Statement
 
     public String unparse ()
     {
-        return "PCOLOR " + _r + "," + _g + "," + _b;
+        return keyword.name() + " " + _r + "," + _g + "," + _b;
     }
 
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError

@@ -38,7 +38,7 @@ public class PLINEStatement extends Statement
 
     public String unparse ()
     {
-        return "PLINE " + _x1 + "," + _y1 + "," + _x2 + "," + _y2;
+        return keyword.name() + " " + _x1 + "," + _y1 + "," + _x2 + "," + _y2;
     }
 
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError

@@ -43,7 +43,7 @@ public class SSPEEDStatement extends Statement
     @Override
     public String unparse ()
     {
-        return "SSPEED " + speed;
+        return keyword.name() + " " + speed;
     }
 
     /**

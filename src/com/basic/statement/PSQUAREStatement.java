@@ -33,9 +33,10 @@ public class PSQUAREStatement extends Statement
         s._width = s.getNumericArg(lt);
     }
 
+    @Override
     public String unparse ()
     {
-        return "PSQUARE " + _x + "," + _y + "," + _width;
+        return keyword.name() + " " + _x + "," + _y + "," + _width;
     }
 
     public Statement doit (Program pgm, InputStream in, PrintStream out) throws BASICRuntimeError

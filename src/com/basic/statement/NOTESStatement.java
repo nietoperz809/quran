@@ -33,10 +33,4 @@ public class NOTESStatement extends Statement
         out.println (new Notes().toString());
         return pgm.nextStatement(this);
     }
-
-    @Override
-    public String unparse()
-    {
-        return "NOTES";
-    }
 }

@@ -61,7 +61,8 @@ public class TWEETStatement extends Statement
     public String unparse()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("PRINT ");
+        sb.append(keyword.name());
+        sb.append(" ");
         for (int i = 0; i < args.size(); i++)
         {
             PrintItem pi = (PrintItem) (args.elementAt(i));

@@ -26,10 +26,4 @@ public class PCLSStatement extends Statement
             pw.clear();
         return pgm.nextStatement(this);
     }
-
-    @Override
-    public String unparse ()
-    {
-        return keyword.name();
-    }
 }

@@ -127,7 +127,10 @@ public abstract class Statement implements Ser
      * reconstruct the statement from the parse tree, this is most useful for
      * diagnosing parsing problems.
      */
-    public abstract String unparse ();
+    public  String unparse ()
+    {
+        return keyword.name();
+    };
 
 
     /**
@@ -207,7 +210,8 @@ public abstract class Statement implements Ser
         {
             case CONSTANT:
             case VARIABLE:
-                lt.unGetToken();
+            case FUNCTION:
+            lt.unGetToken();
                 return ParseExpression.expression(lt);
             default:
                 throw new BASICSyntaxError("param must be constant or variable");

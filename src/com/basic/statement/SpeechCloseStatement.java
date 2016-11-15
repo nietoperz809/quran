@@ -26,10 +26,4 @@ public class SpeechCloseStatement extends Statement
         pgm.unsetVoiceFilename();
         return pgm.nextStatement(this);
     }
-
-    @Override
-    public String unparse ()
-    {
-        return keyword.name();
-    }
 }

@@ -42,8 +42,4 @@ public class ENDStatement extends Statement
         return null;
     }
 
-    public String unparse()
-    {
-        return keyword.toString();
-    }
 }

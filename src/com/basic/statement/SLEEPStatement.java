@@ -57,9 +57,10 @@ public class SLEEPStatement extends Statement
         return s;
     }
 
+    @Override
     public String unparse()
     {
-        return "SLEEP " + lineTarget;
+        return keyword.name() + " " + lineTarget;
     }
 
     /**

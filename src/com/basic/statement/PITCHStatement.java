@@ -50,7 +50,7 @@ public class PITCHStatement extends Statement
     {
         if (nExpn != null)
         {
-            return "PITCH " + nExpn.unparse();
+            return keyword.name() + " " + nExpn.unparse();
         }
         return null;
     }

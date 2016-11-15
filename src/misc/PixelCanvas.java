@@ -74,4 +74,10 @@ public class PixelCanvas extends JPanel implements Serializable
         }
         drawImg(g);
     }
+
+    @Override
+    public void update (Graphics g)
+    {
+
+    }
 }

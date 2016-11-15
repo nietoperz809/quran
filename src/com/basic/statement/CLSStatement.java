@@ -33,10 +33,4 @@ public class CLSStatement extends Statement
         pgm.area.setText("");
         return pgm.nextStatement(this);
     }
-
-    @Override
-    public String unparse ()
-    {
-        return keyword.name();
-    }
 }

@@ -39,7 +39,9 @@
       </grid>
       <component id="f5a21" class="misc.PixelCanvas" binding="pixelcanvas" custom-create="true">
         <constraints border-constraint="Center"/>
-        <properties/>
+        <properties>
+          <toolTipText value="Graphics Window"/>
+        </properties>
       </component>
     </children>
   </grid>

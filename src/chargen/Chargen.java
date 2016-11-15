@@ -23,21 +23,30 @@ public class Chargen
     private static int setbit = WHITE.getRGB();
     private static int clrbit = BLACK.getRGB();
 
-    /**
-     * Constructor that sets character as pixel
-     *
-     * @param pix
-     */
-    public Chargen(char pix)
+    private static Chargen instance = null;
+
+    public static Chargen getInstance()
     {
-        this();
-        pixel = pix;
+        if (instance == null)
+            instance = new Chargen();
+        return instance;
     }
+
+//    /**
+//     * Constructor that sets character as pixel
+//     *
+//     * @param pix
+//     */
+//    public Chargen(char pix)
+//    {
+//        this();
+//        pixel = pix;
+//    }
 
     /**
      * Constructor, fills the char map
      */
-    public Chargen()
+    private Chargen()
     {
         map.put('0', 0x980);
         map.put('1', 0x988);

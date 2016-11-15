@@ -24,8 +24,7 @@ import twitter.TwitTools;
 public class C64TextGUI extends MDIChild implements ActionListener
 {
     private transient TurtleWindow bitmapView = null;
-    private transient Chargen chargen = new Chargen();
-    
+
     /**
      * Initializer
      */
@@ -171,8 +170,6 @@ public class C64TextGUI extends MDIChild implements ActionListener
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        if (chargen == null)
-            chargen = new Chargen();
         String txt = inputText.getText();
         txt = TextTools.replaceUmlaut(txt);
         TextTools tt = new TextTools(txt);
@@ -187,7 +184,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
         createView (d.width, d.height);
         
         BufferedImage img = bitmapView.getTurtle().getImage();
-        chargen.printImg (img, txt, 5, 5);
+        Chargen.getInstance().printImg (img, txt, 5, 5);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**

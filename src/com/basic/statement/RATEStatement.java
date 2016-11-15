@@ -51,7 +51,7 @@ public class RATEStatement extends Statement
     {
         if (nExpn != null)
         {
-            return "PITCH " + nExpn.unparse();
+            return super.unparse() + nExpn.unparse();
         }
         return null;
     }
