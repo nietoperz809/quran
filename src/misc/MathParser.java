@@ -470,7 +470,7 @@ public class MathParser
         });
 
         ///////////////////////////////////////////////////
-        addOperator(new Operator("!", 40, true)
+        addOperator(new Operator("!", 50, true)
         {
             BigDecimal fac(BigDecimal n, BigDecimal acc)
             {
@@ -642,7 +642,17 @@ public class MathParser
                 return operators.get("!=").eval(v1, v2);
             }
         });
-
+        /////////////////// not ////////////////////////////////////
+        addOperator(new Operator("~", 8, false)
+        {
+            @Override
+            public BigDecimal eval (BigDecimal v1, BigDecimal v2)
+            {
+                boolean zero = v2.compareTo(BigDecimal.ZERO) == 0;
+                return zero ? BigDecimal.ONE : BigDecimal.ZERO;
+            }
+        });
+        ////////////////////////////////////////////////////////
         addFunction(new Function("NOT", 1)
         {
             @Override
@@ -951,7 +961,7 @@ public class MathParser
      *
      * @return The result of the expression.
      */
-    public BigDecimal eval ()
+    public BigDecimal eval () throws ExpressionException
     {
 
         Stack<LazyNumber> stack = new Stack<>();

@@ -459,4 +459,23 @@ public class Tools
             return null;
         }
     }
+
+    /**
+     * Calls str.replace repeatedly
+     * @param s input string
+     * @param a substring to search
+     * @param b replacement
+     * @return changed string
+     */
+    public static String realReplaceAll (String s, String a, String b)
+    {
+        for (;;)
+        {
+            String n = s.replace(a,b);
+            if (n.equals(s))
+                return n;
+            s = n;
+        }
+    }
+
 }

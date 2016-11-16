@@ -2,11 +2,10 @@ package applications;
 
 import misc.MDIChild;
 import misc.MathParser;
+import misc.Tools;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -18,6 +17,8 @@ public class CalculatorGUI extends MDIChild
     private JTextArea outputArea;
     private JPanel panel1;
     private JTextField inputField;
+    private JButton clearButton;
+    private JButton toClipButton;
     private DecimalFormat decimalFormat;
 
     public CalculatorGUI ()
@@ -27,6 +28,9 @@ public class CalculatorGUI extends MDIChild
         decimalFormat = new DecimalFormat("##########.############################");
 
         this.add(panel1);
+        outputArea.setBackground(Color.BLACK);
+        outputArea.setForeground(Color.GREEN);
+        outputArea.setFont(new Font("monospaced", Font.PLAIN, 16));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -34,19 +38,23 @@ public class CalculatorGUI extends MDIChild
         setTitle("Math Tool");
         setSize(500, 300);
         setVisible(true);
-        inputField.addActionListener(new ActionListener()
+        inputField.addActionListener(e ->
         {
-            @Override
-            public void actionPerformed (ActionEvent e)
+            String[] splits = inputField.getText().split(":");
+            inputField.setText("");
+            for (String s : splits)
             {
-                String s = inputField.getText();
                 String sraw = s;
-                s = s.replace("!", "!0");
-                MathParser mathParser = new MathParser();
-                mathParser.setFormula(s);
-                BigDecimal b = mathParser.eval();
-                String format = decimalFormat.format(b);
-                inputField.setText("");
+                s = s.replaceAll("\\s+", ""); // remove whitespace
+                s = s.replace("!", "!0");  // fake op for factorial
+                s = s.replace("~", "0~"); // fake op for negation
+                s = Tools.realReplaceAll(s, "(+(", "(0+(");
+                s = Tools.realReplaceAll(s, "(-(", "(0-(");
+                if (s.startsWith("-") || s.startsWith("+"))
+                {
+                    s = "0" + s;
+                }
+                MathParser mathParser = new MathParser(s);
                 if (outputArea.getText().length() == 0)
                 {
                     s = "";
@@ -55,11 +63,21 @@ public class CalculatorGUI extends MDIChild
                 {
                     s = "\n";
                 }
-                outputArea.append(s + sraw + " = " + format);
+                try
+                {
+                    BigDecimal b = mathParser.eval();
+                    String format = decimalFormat.format(b);
+                    outputArea.append(s + sraw + " = " + format);
+                }
+                catch (Exception ex)
+                {
+                    outputArea.append(s + ex.getMessage());
+                }
             }
         });
+        clearButton.addActionListener(e -> outputArea.setText(""));
+        toClipButton.addActionListener(e -> Tools.toClipBoard(outputArea.getText()));
     }
-
 
     @Override
     public void initAfterDeserialization ()
@@ -85,10 +103,23 @@ public class CalculatorGUI extends MDIChild
     {
         panel1 = new JPanel();
         panel1.setLayout(new BorderLayout(0, 0));
-        outputArea = new JTextArea();
-        panel1.add(outputArea, BorderLayout.CENTER);
         inputField = new JTextField();
-        panel1.add(inputField, BorderLayout.SOUTH);
+        inputField.setToolTipText("Use : to separate multiple calculations");
+        panel1.add(inputField, BorderLayout.NORTH);
+        final JScrollPane scrollPane1 = new JScrollPane();
+        panel1.add(scrollPane1, BorderLayout.CENTER);
+        outputArea = new JTextArea();
+        outputArea.setForeground(new Color(-16777216));
+        scrollPane1.setViewportView(outputArea);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new BorderLayout(0, 0));
+        panel1.add(panel2, BorderLayout.SOUTH);
+        clearButton = new JButton();
+        clearButton.setText("Clear");
+        panel2.add(clearButton, BorderLayout.CENTER);
+        toClipButton = new JButton();
+        toClipButton.setText("toClip");
+        panel2.add(toClipButton, BorderLayout.EAST);
     }
 
     /**
