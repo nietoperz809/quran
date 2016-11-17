@@ -3,6 +3,7 @@ package applications;
 import misc.MDIChild;
 import misc.MathParser;
 import misc.Tools;
+import org.mariuszgromada.math.mxparser.Expression;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ public class CalculatorGUI extends MDIChild
     private JTextField inputField;
     private JButton clearButton;
     private JButton toClipButton;
+    private JList parserList;
     private DecimalFormat decimalFormat;
 
     public CalculatorGUI ()
@@ -26,6 +28,7 @@ public class CalculatorGUI extends MDIChild
         super();
 
         decimalFormat = new DecimalFormat("##########.############################");
+        parserList.setSelectedIndex(0); // UdoParser
 
         this.add(panel1);
         outputArea.setBackground(Color.BLACK);
@@ -40,43 +43,68 @@ public class CalculatorGUI extends MDIChild
         setVisible(true);
         inputField.addActionListener(e ->
         {
-            String[] splits = inputField.getText().split(":");
-            inputField.setText("");
-            for (String s : splits)
+            switch (parserList.getSelectedIndex())
             {
-                String sraw = s;
-                s = s.replaceAll("\\s+", ""); // remove whitespace
-                s = s.replace("!", "!0");  // fake op for factorial
-                s = s.replace("~", "0~"); // fake op for negation
-                s = Tools.realReplaceAll(s, "(+(", "(0+(");
-                s = Tools.realReplaceAll(s, "(-(", "(0-(");
-                if (s.startsWith("-") || s.startsWith("+"))
-                {
-                    s = "0" + s;
-                }
-                MathParser mathParser = new MathParser(s);
-                if (outputArea.getText().length() == 0)
-                {
-                    s = "";
-                }
-                else
-                {
-                    s = "\n";
-                }
-                try
-                {
-                    BigDecimal b = mathParser.eval();
-                    String format = decimalFormat.format(b);
-                    outputArea.append(s + sraw + " = " + format);
-                }
-                catch (Exception ex)
-                {
-                    outputArea.append(s + ex.getMessage());
-                }
+                case 0:
+                    runUdoParser();
+                    break;
+                case 1:
+                    runMxParser();
+                    break;
             }
+            inputField.setText("");
         });
         clearButton.addActionListener(e -> outputArea.setText(""));
         toClipButton.addActionListener(e -> Tools.toClipBoard(outputArea.getText()));
+    }
+
+    private String lBegin ()
+    {
+        if (outputArea.getText().length() == 0)
+        {
+            return "";
+        }
+        else
+        {
+            return "\n";
+        }
+    }
+
+    private void runMxParser ()
+    {
+        String in = inputField.getText();
+        Expression e = new Expression(in);
+        double d = e.calculate();
+        outputArea.append(lBegin() + in + " = " + d);
+    }
+
+    private void runUdoParser ()
+    {
+        String[] splits = inputField.getText().split(":");
+        for (String s : splits)
+        {
+            String sraw = s;
+            s = s.replaceAll("\\s+", ""); // remove whitespace
+            s = s.replace("!", "!0");  // fake op for factorial
+            s = s.replace("~", "0~"); // fake op for negation
+            s = Tools.realReplaceAll(s, "(+(", "(0+(");  // fix unary + bug
+            s = Tools.realReplaceAll(s, "(-(", "(0-(");  // fix unary - bug
+            if (s.startsWith("-") || s.startsWith("+"))
+            {
+                s = "0" + s;
+            }
+            MathParser mathParser = new MathParser(s);
+            try
+            {
+                BigDecimal b = mathParser.eval();
+                String format = decimalFormat.format(b);
+                outputArea.append(lBegin() + sraw + " = " + format);
+            }
+            catch (Exception ex)
+            {
+                outputArea.append(lBegin() + ex.getMessage());
+            }
+        }
     }
 
     @Override
@@ -112,14 +140,25 @@ public class CalculatorGUI extends MDIChild
         outputArea.setForeground(new Color(-16777216));
         scrollPane1.setViewportView(outputArea);
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new BorderLayout(0, 0));
+        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel1.add(panel2, BorderLayout.SOUTH);
         clearButton = new JButton();
         clearButton.setText("Clear");
-        panel2.add(clearButton, BorderLayout.CENTER);
+        panel2.add(clearButton);
         toClipButton = new JButton();
         toClipButton.setText("toClip");
-        panel2.add(toClipButton, BorderLayout.EAST);
+        panel2.add(toClipButton);
+        parserList = new JList();
+        final DefaultListModel defaultListModel1 = new DefaultListModel();
+        defaultListModel1.addElement("UdoParser");
+        defaultListModel1.addElement("MxParser");
+        parserList.setModel(defaultListModel1);
+        parserList.setPreferredSize(new Dimension(100, 40));
+        parserList.setSelectedIndex(-1);
+        parserList.setSelectionBackground(new Color(-1700082));
+        parserList.setSelectionForeground(new Color(-1));
+        parserList.setToolTipText("Select Parser");
+        panel2.add(parserList);
     }
 
     /**

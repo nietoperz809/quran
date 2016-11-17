@@ -442,17 +442,6 @@ public class MathParser
         init();
     }
 
-    public MathParser()
-    {
-        init();
-    }
-
-    public void setFormula(String f)
-    {
-        this.expression = f;
-        this.originalExpression = f;
-    }
-
     private void init ()
     {
         variables.put("e", e);
@@ -687,8 +676,8 @@ public class MathParser
             @Override
             public BigDecimal eval (List<BigDecimal> parameters)
             {
-                double d = Math.sin(Math.toRadians(parameters.get(0)
-                        .doubleValue()));
+                double d = Math.sin(parameters.get(0)
+                        .doubleValue());
                 return new BigDecimal(d, mc);
             }
         });
@@ -697,8 +686,8 @@ public class MathParser
             @Override
             public BigDecimal eval (List<BigDecimal> parameters)
             {
-                double d = Math.cos(Math.toRadians(parameters.get(0)
-                        .doubleValue()));
+                double d = Math.cos(parameters.get(0)
+                        .doubleValue());
                 return new BigDecimal(d, mc);
             }
         });
@@ -707,8 +696,8 @@ public class MathParser
             @Override
             public BigDecimal eval (List<BigDecimal> parameters)
             {
-                double d = Math.tan(Math.toRadians(parameters.get(0)
-                        .doubleValue()));
+                double d = Math.tan(parameters.get(0)
+                        .doubleValue());
                 return new BigDecimal(d, mc);
             }
         });
@@ -717,8 +706,8 @@ public class MathParser
             @Override
             public BigDecimal eval (List<BigDecimal> parameters)
             {
-                double d = Math.toDegrees(Math.asin(parameters.get(0)
-                        .doubleValue()));
+                double d = Math.asin(parameters.get(0)
+                        .doubleValue());
                 return new BigDecimal(d, mc);
             }
         });
@@ -727,8 +716,8 @@ public class MathParser
             @Override
             public BigDecimal eval (List<BigDecimal> parameters)
             {
-                double d = Math.toDegrees(Math.acos(parameters.get(0)
-                        .doubleValue()));
+                double d = Math.acos(parameters.get(0)
+                        .doubleValue());
                 return new BigDecimal(d, mc);
             }
         });
@@ -737,8 +726,8 @@ public class MathParser
             @Override
             public BigDecimal eval (List<BigDecimal> parameters)
             {
-                double d = Math.toDegrees(Math.atan(parameters.get(0)
-                        .doubleValue()));
+                double d = Math.atan(parameters.get(0)
+                        .doubleValue());
                 return new BigDecimal(d, mc);
             }
         });

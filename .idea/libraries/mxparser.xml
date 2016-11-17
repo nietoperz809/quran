@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mxparser">
+    <CLASSES>
+      <root url="jar://C:/Libraries/Java/mathparser/mxparser-v.3.0.0-bin-only/mxparser-bin-java-jdk.1.8/mxparser.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

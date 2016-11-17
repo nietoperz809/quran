@@ -26,21 +26,35 @@
           </component>
         </children>
       </scrollpane>
-      <grid id="e30a9" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="e30a9" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints border-constraint="South"/>
         <properties/>
         <border type="none"/>
         <children>
           <component id="5dc48" class="javax.swing.JButton" binding="clearButton" default-binding="true">
-            <constraints border-constraint="Center"/>
+            <constraints/>
             <properties>
               <text value="Clear"/>
             </properties>
           </component>
           <component id="6d37b" class="javax.swing.JButton" binding="toClipButton" default-binding="true">
-            <constraints border-constraint="East"/>
+            <constraints/>
             <properties>
               <text value="toClip"/>
+            </properties>
+          </component>
+          <component id="90ddc" class="javax.swing.JList" binding="parserList">
+            <constraints/>
+            <properties>
+              <model>
+                <item value="UdoParser"/>
+                <item value="MxParser"/>
+              </model>
+              <preferredSize width="100" height="40"/>
+              <selectedIndex value="-1"/>
+              <selectionBackground color="-1700082"/>
+              <selectionForeground color="-1"/>
+              <toolTipText value="Select Parser"/>
             </properties>
           </component>
         </children>
