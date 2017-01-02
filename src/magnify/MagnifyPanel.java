@@ -7,7 +7,7 @@ package magnify;
 
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
+
 import applications.MagnifyGUI;
 import java.awt.AWTException;
 import java.awt.Graphics;
@@ -34,10 +34,10 @@ public class MagnifyPanel extends javax.swing.JPanel
     private static final long serialVersionUID = 1L;
     private Robot robot;
     private BufferedImage _image;
-    private Rectangle _rect = new Rectangle();
+    private final Rectangle _rect = new Rectangle();
     private Point _point;
     private Rectangle _saveRect;
-    private MagnifyGUI _gui;
+    private final MagnifyGUI _gui;
     
     /**
      * Creates new form magnifyPanel
@@ -90,7 +90,8 @@ public class MagnifyPanel extends javax.swing.JPanel
             new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                 "", javax.swing.border.TitledBorder.CENTER,
                 javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                java.awt.Color.red), getBorder())); addPropertyChangeListener(e ->
+        {if("border".equals(e.getPropertyName()))throw new RuntimeException();});
 
 
         GroupLayout layout = new GroupLayout(this);
@@ -189,11 +190,7 @@ public class MagnifyPanel extends javax.swing.JPanel
     
     public boolean save(boolean jpeg)
     {
-        if (_image == null)
-        {
-            return false;
-        }
-        return Tools.saveImage (_image, jpeg);
+        return _image != null && Tools.saveImage(_image, jpeg);
     }
     
     public boolean toClipboard()

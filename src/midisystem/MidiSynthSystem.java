@@ -181,7 +181,7 @@ public class MidiSynthSystem
                         waitObject.notify();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception ignored)
                 {
                 }
             }

@@ -51,12 +51,11 @@ public class TrackMaker
      * @param length Ticks between on/off events
      * @return Current position in Track
      */
-    public int addNote(int note, int length)
+    private void addNote (int note, int length)
     {
         track.add(emaker.on(note, timeoffset));
         timeoffset += length;
         track.add(emaker.off(note, timeoffset));
-        return timeoffset;
     }
 
     /**
@@ -65,11 +64,10 @@ public class TrackMaker
      * @param length Length (ticks) of Pause
      * @return Current position in Track
      */
-    public int addPause(int length)
+    private void addPause (int length)
     {
         track.add(emaker.insertPause(length));
         timeoffset += length;
-        return timeoffset;
     }
 
     /**
@@ -86,11 +84,10 @@ public class TrackMaker
      * @param instr Instrument to be used
      * @return Current position in Track
      */
-    public int setInstrument(Instrument instr)
+    private void setInstrument (Instrument instr)
     {
         track.add(emaker.changeInstrument(instr, timeoffset));
         timeoffset += 1;
-        return timeoffset;
     }
 
     /**

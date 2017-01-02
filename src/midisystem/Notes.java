@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class Notes
 {
-    static private String[] src = new String[]
+    static private final String[] src = new String[]
     {
         "C", "C#", "D", "D#", "E", "F",
         "F#", "G", "G#", "A", "A#", "B",
@@ -38,7 +38,7 @@ public class Notes
         throw new IllegalArgumentException("Not a note:" + s);
     }
 
-    static public String getNote(int n) throws IndexOutOfBoundsException
+    private static String getNote (int n) throws IndexOutOfBoundsException
     {
         if (n < 0 || n > 127)
         {
@@ -49,7 +49,7 @@ public class Notes
         return src[m] + offs;
     }
 
-    static public int getNumber(String note) throws Exception
+    static public int getNumber(String note)
     {
         try
         {

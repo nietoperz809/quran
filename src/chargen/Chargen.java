@@ -20,8 +20,8 @@ public class Chargen
 {
     private final HashMap<Character, Integer> map = new HashMap<>();
     private char pixel = 'O';
-    private static int setbit = WHITE.getRGB();
-    private static int clrbit = BLACK.getRGB();
+    private static final int setbit = WHITE.getRGB();
+    private static final int clrbit = BLACK.getRGB();
 
     private static Chargen instance = null;
 
@@ -198,14 +198,14 @@ public class Chargen
         }
     }
 
-    public void printImg(BufferedImage img, char c, int x, int y)
+    private void printImg (BufferedImage img, char c, int x, int y)
     {
         Image i = getImage(getIndex(c));
         Graphics g = img.getGraphics();
         g.drawImage(i, x, y, null);
     }
 
-    public Image getImage(int idx)
+    private Image getImage (int idx)
     {
         BufferedImage img = new BufferedImage(8, 8, TYPE_INT_ARGB);
         for (int rows = 0; rows < 8; rows++)

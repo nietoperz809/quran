@@ -6,7 +6,7 @@
 package applications;
 
 import chargen.Chargen;
-import chargen.TextTools;
+import misc.TextTools;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;

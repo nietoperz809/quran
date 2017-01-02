@@ -33,7 +33,7 @@ public class EventMaker
         {
             channels =  MidiSystem.getSynthesizer().getChannels();
         }
-        catch (MidiUnavailableException ex)
+        catch (MidiUnavailableException ignored)
         {
         }
     }
@@ -55,8 +55,7 @@ public class EventMaker
         {
             return null;
         }
-        MidiEvent noteOn = new MidiEvent(a, time); // Message, time at which message occurs
-        return noteOn;
+        return new MidiEvent(a, time);
     }
 
     /**
@@ -76,8 +75,7 @@ public class EventMaker
         {
             return null;
         }
-        MidiEvent noteOff = new MidiEvent(b, time);
-        return noteOff;
+        return new MidiEvent(b, time);
     }
 
     /**
@@ -96,8 +94,7 @@ public class EventMaker
         {
             return null;
         }
-        MidiEvent ev = new MidiEvent(a, pause); // Message, time at which message occurs
-        return ev;
+        return new MidiEvent(a, pause);
     }
 
     /**
@@ -116,8 +113,7 @@ public class EventMaker
         {
             return null;
         }
-        MidiEvent ev = new MidiEvent(a, pause); // Message, time at which message occurs
-        return ev;
+        return new MidiEvent(a, pause);
     }
     
     /**
@@ -139,8 +135,7 @@ public class EventMaker
         {
             return null;
         }
-        MidiEvent prg = new MidiEvent(in, time); // Message, time at which message occurs
-        return prg;
+        return new MidiEvent(in, time);
     }
 }
 

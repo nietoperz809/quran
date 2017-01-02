@@ -34,8 +34,6 @@ public class Clock extends JPanel implements Runnable
     private int m_lastmin = -1;
     private int m_lasthour = -1;
     private int m_lastday = -1;
-    // Bitmaps
-    private final Image m_img;
     private final Image m_imgdays;
     private Image m_imgthisday = null;
 
@@ -47,7 +45,7 @@ public class Clock extends JPanel implements Runnable
     private Clock (Image img, Image img2)
     {
         super();
-        m_img = img;
+        Image m_img = img;
         m_imgdays = img2;
         //this.setOpaque(true);
         //this.setDoubleBuffered(true);
