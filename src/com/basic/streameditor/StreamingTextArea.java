@@ -16,7 +16,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- *
  * @author Administrator
  */
 public class StreamingTextArea extends JTextArea implements Runnable
@@ -36,7 +35,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
     /**
      *
      */
-    public StreamingTextArea()
+    public StreamingTextArea ()
     {
         super();
         setCaret(new FancyCaret());
@@ -48,7 +47,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
         startThread();
     }
 
-    private void listenCaret()
+    private void listenCaret ()
     {
         // Add a caretListener to the editor. This is an anonymous class because it is inline and has no specific name.
         this.addCaretListener((CaretEvent e) ->
@@ -78,7 +77,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
         this.addKeyListener(new KeyListener()
         {
             @Override
-            public void keyTyped(KeyEvent e)
+            public void keyTyped (KeyEvent e)
             {
                 if (e.getKeyChar() == '\n')
                 {
@@ -104,54 +103,66 @@ public class StreamingTextArea extends JTextArea implements Runnable
             }
 
             @Override
-            public void keyPressed(KeyEvent e)
+            public void keyPressed (KeyEvent e)
             {
             }
 
             @Override
-            public void keyReleased(KeyEvent e)
+            public void keyReleased (KeyEvent e)
             {
             }
         });
     }
 
-    public final void startThread()
+    public final void startThread ()
     {
         //running = true;
-        thread = new Thread(this);
-        thread.start();
+        thread = null;
+        Tools.execute(this);
+
+        while (thread == null)
+        {
+            try
+            {
+                Thread.sleep(10);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
+//        thread = new Thread(this);
+//        thread.start();
     }
 
     /**
-     *
      * @return
      */
-    public InputStream getInputStream()
+    public InputStream getInputStream ()
     {
         return in;
     }
 
-    public PrintStream getPrintStream()
+    public PrintStream getPrintStream ()
     {
         return new PrintStream(out);
     }
 
-    public DataInputStream getDataInputStream()
+    public DataInputStream getDataInputStream ()
     {
         return new DataInputStream(in);
     }
 
     /**
-     *
      * @return
      */
-    public OutputStream getOutputStream()
+    public OutputStream getOutputStream ()
     {
         return out;
     }
 
     @Override
-    public void paste()
+    public void paste ()
     {
         super.paste();
         String s = Tools.getClipBoardString();
@@ -168,7 +179,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
         //DebugOut.get().out.println(s);
     }
 
-    public void fakeIn(String s)
+    public void fakeIn (String s)
     {
         for (int n = 0; n < s.length(); n++)
         {
@@ -185,7 +196,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
     /**
      *
      */
-    public synchronized void destroy()
+    public synchronized void destroy ()
     {
         thread.interrupt(); //running = false;
         inBuffer.notifyAll();
@@ -200,8 +211,9 @@ public class StreamingTextArea extends JTextArea implements Runnable
     }
 
     @Override
-    public void run()
+    public void run ()
     {
+        thread = Thread.currentThread();
         while (!thread.isInterrupted())
         {
             String txt;
@@ -233,8 +245,9 @@ public class StreamingTextArea extends JTextArea implements Runnable
     class FancyCaret extends DefaultCaret
     {
         private static final long serialVersionUID = 1L;
+
         @Override
-        protected synchronized void damage(Rectangle r)
+        protected synchronized void damage (Rectangle r)
         {
             if (r == null)
             {
@@ -258,7 +271,7 @@ public class StreamingTextArea extends JTextArea implements Runnable
         }
 
         @Override
-        public void paint(Graphics g)
+        public void paint (Graphics g)
         {
             JTextComponent comp = getComponent();
             if (comp == null)

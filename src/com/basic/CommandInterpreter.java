@@ -214,6 +214,7 @@ public class CommandInterpreter implements Serializable
                 if (t.typeNum() != KeyWords.STRING)
                 {
                     outStream.println("File name expected for LOAD command.");
+                    return pgm;
                 }
                 try
                 {

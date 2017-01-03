@@ -1,5 +1,7 @@
 package mixit;
 
+import misc.Tools;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Label;
@@ -47,9 +49,9 @@ class CaptureField extends Label implements Runnable
                 }
             }
             );
-            Thread t = new Thread (this);
-            t.setDaemon (true);
-            t.start ();
+            Tools.execute(this); //Thread t = new Thread (this);
+//            t.setDaemon (true);
+//            t.start ();
         }
         catch (Exception ex)
         {
