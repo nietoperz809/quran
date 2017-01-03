@@ -107,21 +107,21 @@ public class RingBuffer<T> implements Serializable
         notifyAll();
     }
 
-    /**
-     *
-     */
-    public synchronized void deleteLast()
-    {
-        if (unconsumedElements == 0) {
-            return;
-        }
-        unconsumedElements--;
-        
-        offset--;
-        if (offset == -1) {
-            offset = elements.length-1;
-        }
-    }
+//    /**
+//     *
+//     */
+//    public synchronized void deleteLast()
+//    {
+//        if (unconsumedElements == 0) {
+//            return;
+//        }
+//        unconsumedElements--;
+//
+//        offset--;
+//        if (offset == -1) {
+//            offset = elements.length-1;
+//        }
+//    }
     
     /**
      * Returns the maximum capacity of the ring buffer.
