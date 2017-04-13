@@ -6,16 +6,12 @@
 package inetserver;
 
 import applications.WebServerGUI;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Iterator;
-import java.util.TreeSet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
 /**
  *
@@ -24,59 +20,53 @@ import java.util.logging.Logger;
 public class Sockserver implements Runnable
 {
     private final int port;
-    private final int buffSize;
-    private ServerSocket server;
+    private HttpServer server;
     private final WebServerGUI _gui;
 
-    public Sockserver (int buffsz, int p, WebServerGUI gui)
+    public Sockserver (int p, WebServerGUI gui)
     {
         port = p;
-        buffSize = buffsz;
         _gui = gui;
-        WebServerClient.executor.execute(this);
-    }
-    
-    public boolean isRunning()
-    {
-        return server != null;
-    }
-    
-    public void halt()
-    {
-        try
-        {
-            server.close();
-            haltClients();
-            server = null;
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex);
-        }
+       new Thread(this).start();
     }
 
-    private static void haltClients() throws InterruptedException
+    public void halt()
     {
-        WebServerClient.executor.shutdown();
-        WebServerClient.executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
+        server.stop(5);
     }
-    
+
     @Override
     public void run()
     {
-        System.err.println("started: "+port);
+        server = null;
         try
         {
-            server = new ServerSocket(port, 100);
-
-            while (true)
-            {
-                new WebServerClient(buffSize, server.accept(), _gui);
-            }
+            server = HttpServer.create(new InetSocketAddress(port),1000);
         }
-        catch (IOException ex)
+        catch (IOException e)
         {
-            System.err.println("bye (socket closed)");
+            return;
         }
+
+        HttpHandler hnd = e ->
+        {
+            WebServerClient cl = new WebServerClient(_gui);
+            e.sendResponseHeaders(200, 0);
+            OutputStream os = e.getResponseBody();
+            try
+            {
+                cl.perform (e.getRequestURI().toString(), os);
+            }
+            catch (Exception e1)
+            {
+                System.out.println("oops");
+            }
+            os.close();
+        };
+
+        for (int s=0; s<1000; s++)
+            server.createContext("/", hnd);
+    
+        server.start();
     }
 }

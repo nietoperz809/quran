@@ -5,11 +5,11 @@
  */
 package applications;
 
-import javax.swing.JInternalFrame;
 import inetserver.Sockserver;
-import java.awt.Color;
-import javax.swing.SwingUtilities;
 import misc.Tools;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -200,7 +200,7 @@ public class WebServerGUI extends JInternalFrame
             // start server
             int port = Integer.parseInt(portTxt.getText());
             int buffSize = Integer.parseInt(buffSizeTxt.getText());
-            sockserver = new Sockserver (buffSize, port, this);
+            sockserver = new Sockserver (port, this);
             button.setText("stop");
             button.setBackground(Color.GREEN);
         }

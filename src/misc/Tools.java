@@ -41,7 +41,7 @@ import static java.awt.datatransfer.DataFlavor.stringFlavor;
 public class Tools
 {
     private static final String m_path = "../ser/";
-    private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(20);
+        private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(20);
 
     public static int getExecutorFreeSlots ()
     {

@@ -40,9 +40,8 @@ public class Transmitter
         _out = o;
     }
 
-    public Transmitter(byte[] ba, OutputStream o, int bl)
+    public Transmitter(byte[] ba, OutputStream o)
     {
-        _blocksize = bl;
         _in = new ByteArrayInputStream(ba);
         _out = o;
     }

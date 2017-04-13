@@ -1,15 +1,12 @@
 package inetserver;
 
 import applications.WebServerGUI;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.Socket;
+import misc.Tools;
+import misc.Transmitter;
+import transform.Transformation;
+import transform.UrlEncodeUTF8;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,20 +14,14 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import misc.Tools;
-import misc.Transmitter;
 //import org.jetbrains.annotations.NotNull;
-import transform.Transformation;
-import transform.UrlEncodeUTF8;
 
 /**
  *
  * @author Administrator
  */
-public class WebServerClient implements Runnable
+public class WebServerClient
 {
-    private final Socket m_sock;
-    private final int m_buffSize;
     private final WebServerGUI _gui;
     private final UrlEncodeUTF8 m_urltransform;
     //private volatile static int instances;
@@ -40,18 +31,12 @@ public class WebServerClient implements Runnable
     /**
      * Constructor
      *
-     * @param b send buffer size
-     * @param s communication socket
      * @param g GUI
      */
-    public WebServerClient(int b, Socket s, WebServerGUI g)
+    public WebServerClient (WebServerGUI g)
     {
-        m_buffSize = b;
-        m_sock = s;
         m_urltransform = new UrlEncodeUTF8();
         _gui = g;
-        executor.submit(this);
-        //instances++;
     }
 
     /**
@@ -71,10 +56,12 @@ public class WebServerClient implements Runnable
      * @param in file name
      * @return TRUE if file is jpeg
      */
-    private boolean isJpeg(String in)
+    private boolean isImage (String in)
     {
         in = in.toLowerCase();
-        return in.endsWith(".jpg") || in.endsWith(".jpeg");
+        return in.endsWith(".jpg") ||
+                in.endsWith(".jpeg") ||
+                in.endsWith(".bmp");
     }
 
     /**
@@ -104,30 +91,14 @@ public class WebServerClient implements Runnable
                 || in.endsWith(".hxx") || in.endsWith(".java");
     }
 
-    private String makeHTTPHeader (int len, String type)
+    private void appendLink (ArrayList<Path> list, StringBuilder sb)
     {
-        return ("HTTP/1.1 200 OK" + "\r\n") +
-                "Content-Length: " + len + "\r\n" +
-                "Content-Type: " + type + "; charset=utf-8" + "\r\n" +
-                "\r\n";
-    }
-
-    /**
-     * Send HTTP response header
-     *
-     * @param out socket as printwriter
-     * @param type Type parameter
-     */
-    private void sendHeader(PrintWriter out, int len, String type)
-    {
-        String s = makeHTTPHeader(len, type);
-        out.print(s);
-    }
-
-    private void sendHeader(OutputStream out, int len, String type) throws Exception
-    {
-        String s = makeHTTPHeader(len, type);
-        out.write(s.getBytes());
+        for (Path p : list)
+        {
+            String u8 = m_urltransform.transform(p.toString());
+            sb.append("<a href=\"").append(u8).append("\">");
+            sb.append(p.getFileName().toString()).append("</a>").append("<br>\r\n");
+        }
     }
 
     /**
@@ -145,11 +116,12 @@ public class WebServerClient implements Runnable
 
         if (fils == null)
         {
-            return "--- noone";
+            return null;
         }
 
         ArrayList<Path> dirs = new ArrayList<>();
         ArrayList<Path> txtfiles = new ArrayList<>();
+        ArrayList<Path> otherfiles = new ArrayList<>();
 
         Path pp = Paths.get(path).getParent();
         if (pp != null)
@@ -167,7 +139,7 @@ public class WebServerClient implements Runnable
             {
                 dirs.add(p);
             }
-            else if (isJpeg(name))
+            else if (isImage(name))
             {
                 sb.append("<a href=\"");
                 sb.append("*IMG*");
@@ -187,19 +159,12 @@ public class WebServerClient implements Runnable
             {
                 txtfiles.add(p);
             }
+            else
+                otherfiles.add(p);
         }
-        for (Path dir : dirs)
-        {
-            String u8 = m_urltransform.transform(dir.toString());
-            sb2.append("<a href=\"").append(u8).append("\">");
-            sb2.append(dir.getFileName().toString()).append("</a>").append("<br>\r\n");
-        }
-        for (Path fil : txtfiles)
-        {
-            String u8 = m_urltransform.transform(fil.toString());
-            sb2.append("<a href=\"").append(u8).append("\">");
-            sb2.append(fil.getFileName().toString()).append("</a>").append("<br>\r\n");
-        }
+        appendLink(dirs, sb2);
+        appendLink(txtfiles, sb2);
+        appendLink(otherfiles, sb2);
         sb2.append("<hr>");
         sb2.append(sb);
         //System.err.println(sb2.toString());
@@ -276,7 +241,7 @@ public class WebServerClient implements Runnable
         PrintWriter w = new PrintWriter(out);
         byte[] b = Tools.reduceImg(f, 0.2f);
         imgHead(w, b.length);
-        Transmitter t = new Transmitter(b, out, m_buffSize);
+        Transmitter t = new Transmitter(b, out);
         t.doTransmission(_gui);
         //System.gc ();
         //System.runFinalization ();
@@ -288,7 +253,7 @@ public class WebServerClient implements Runnable
         PrintWriter w = new PrintWriter(out);
         InputStream input = new FileInputStream(f);
         imgHead(w, (int) f.length());
-        Transmitter t = new Transmitter(input, out, m_buffSize);
+        Transmitter t = new Transmitter(input, out);
         t.doTransmission(_gui);
     }
 
@@ -305,7 +270,7 @@ public class WebServerClient implements Runnable
             w.println("File too small");
             w.close();
         }
-        Transmitter t = new Transmitter(input, out, m_buffSize);
+        Transmitter t = new Transmitter(input, out);
         t.doTransmission(_gui);
     }
 
@@ -315,7 +280,7 @@ public class WebServerClient implements Runnable
         PrintWriter w = new PrintWriter(out);
         InputStream input = new FileInputStream(f);
         mp4Head(w, f.length(), fname);
-        Transmitter t = new Transmitter(input, out, m_buffSize);
+        Transmitter t = new Transmitter(input, out);
         t.doTransmission(_gui);
     }
 
@@ -326,11 +291,17 @@ public class WebServerClient implements Runnable
      */
     private void imagePage(OutputStream out, String path) throws Exception
     {
+        String mp = buildMainPage(path);
+        if (mp == null)
+        {
+            PrintWriter p = new PrintWriter (out);
+            textFile(p, path);
+            p.close();
+        }
         String txt = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"/></head>\r\n"
-                + buildMainPage(path)
+                + mp
                 + "\r\n</html>";
         byte[] bt = txt.getBytes(Transformation.utf8);
-        sendHeader(out, bt.length, "text/html");
         out.write(bt);
         out.flush();
     }
@@ -344,65 +315,49 @@ public class WebServerClient implements Runnable
     private void textFile(PrintWriter out, String path) throws IOException
     {
         byte[] b = getTextFile(path);
-        String cnt = new String(b, "ISO-8859-1");
+        String cnt = new String(b, "UTF-8");
         String txt = "<html><pre>\r\n" + cnt + "</pre></html>";
-        sendHeader(out, txt.length(), "text/html");
         out.print(txt);
     }
 
-    private String[] getInput(BufferedReader in) throws Exception
+    private String[] getInput(String in) throws Exception
     {
 //        while (in.ready() == false)
 //        {
 //            System.out.println("Tick");
 //            Thread.sleep(1000);
 //        }
-        return in.readLine().split(" ");
+        return in.split(" ");
     }
     
-    public void closeSocket()
+    public void perform(String cmd, OutputStream os) throws Exception
     {
-        try
-        {
-            m_sock.shutdownOutput();
-            m_sock.close();
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.toString());
-        }
-    }
-
-    private void perform() throws Exception
-    {
-        BufferedReader in
-                = new BufferedReader(new InputStreamReader(m_sock.getInputStream()));
         PrintWriter out
-                = new PrintWriter(m_sock.getOutputStream(), true);
-        String[] si = getInput(in);
-        String path = si[1].substring(1);
+                = new PrintWriter(os, true);
+        String[] si = getInput(cmd);
+        String path = si[0].substring(1);
 
         path = m_urltransform.retransform(path);
 
         //String lowpath = path.toLowerCase();
-        if (isJpeg(path))
+        if (isImage(path))
         {
             if (path.startsWith("*IMG*"))
             {
-                sendJpegOriginal(m_sock.getOutputStream(), path.substring(5));
+                sendJpegOriginal(os, path.substring(5));
             }
             else
             {
-                sendJpegSmall(m_sock.getOutputStream(), path);
+                sendJpegSmall(os, path);
             }
         }
         else if (isZip(path))
         {
-            sendZip(m_sock.getOutputStream(), path);
+            sendZip(os, path);
         }
         else if (isMP4(path))
         {
-            sendMP4(m_sock.getOutputStream(), path);
+            sendMP4(os, path);
         }
         else if (isText(path))
         {
@@ -415,23 +370,9 @@ public class WebServerClient implements Runnable
             {
                 path = _gui.getBasePath();
             }
-            imagePage(m_sock.getOutputStream(), path);
+            imagePage(os, path);
         }
         out.flush();
         out.close();
-        m_sock.close();
-    }
-
-    @Override
-    public void run()
-    {
-        try
-        {
-            perform();
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
     }
 }
