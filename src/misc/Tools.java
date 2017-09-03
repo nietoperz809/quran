@@ -418,11 +418,6 @@ public class Tools
         return null;
     }
 
-    public static String getBuildNumber ()
-    {
-        return BuildNumber.date + " Build:" + BuildNumber.num;
-    }
-
     /**
      * Centers Component
      *

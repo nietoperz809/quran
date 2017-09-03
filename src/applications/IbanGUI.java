@@ -205,7 +205,11 @@ public class IbanGUI extends MDIChild
         topPanel.add(clipbrdButton, gbc);
         outputIban = new JLabel();
         outputIban.setBackground(new Color(-16777216));
-        outputIban.setFont(new Font("Arial", outputIban.getFont().getStyle(), 28));
+        Font outputIbanFont = this.$$$getFont$$$("Arial", -1, 28, outputIban.getFont());
+        if (outputIbanFont != null)
+        {
+            outputIban.setFont(outputIbanFont);
+        }
         outputIban.setForeground(new Color(-855544));
         outputIban.setHorizontalAlignment(0);
         outputIban.setOpaque(true);
@@ -214,13 +218,46 @@ public class IbanGUI extends MDIChild
         panel1.add(outputIban, BorderLayout.CENTER);
         outputBIC = new JLabel();
         outputBIC.setBackground(new Color(-15987184));
-        outputBIC.setFont(new Font("Arial", outputBIC.getFont().getStyle(), 24));
+        Font outputBICFont = this.$$$getFont$$$("Arial", -1, 24, outputBIC.getFont());
+        if (outputBICFont != null)
+        {
+            outputBIC.setFont(outputBICFont);
+        }
         outputBIC.setForeground(new Color(-1));
         outputBIC.setHorizontalAlignment(0);
         outputBIC.setOpaque(true);
         outputBIC.setPreferredSize(new Dimension(36, 60));
         outputBIC.setText("Label");
         panel1.add(outputBIC, BorderLayout.SOUTH);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$ (String fontName, int style, int size, Font currentFont)
+    {
+        if (currentFont == null)
+        {
+            return null;
+        }
+        String resultName;
+        if (fontName == null)
+        {
+            resultName = currentFont.getName();
+        }
+        else
+        {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1'))
+            {
+                resultName = fontName;
+            }
+            else
+            {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

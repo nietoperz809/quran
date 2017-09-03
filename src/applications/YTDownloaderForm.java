@@ -92,7 +92,11 @@ public class YTDownloaderForm extends MDIChild
         mainPanel.setLayout(new FormLayout("fill:d:grow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:d:grow,left:4dlu:noGrow,fill:d:grow", "center:d:noGrow,top:4dlu:noGrow,center:max(d;4px):noGrow"));
         mainPanel.setMinimumSize(new Dimension(100, 142));
         final JLabel label1 = new JLabel();
-        label1.setFont(new Font(label1.getFont().getName(), label1.getFont().getStyle(), 20));
+        Font label1Font = this.$$$getFont$$$(null, -1, 20, label1.getFont());
+        if (label1Font != null)
+        {
+            label1.setFont(label1Font);
+        }
         label1.setText("Url:");
         CellConstraints cc = new CellConstraints();
         mainPanel.add(label1, cc.xy(1, 1));
@@ -101,7 +105,11 @@ public class YTDownloaderForm extends MDIChild
         urlIn.setPreferredSize(new Dimension(400, 31));
         mainPanel.add(urlIn, cc.xy(3, 1));
         final JLabel label2 = new JLabel();
-        label2.setFont(new Font(label2.getFont().getName(), label2.getFont().getStyle(), 20));
+        Font label2Font = this.$$$getFont$$$(null, -1, 20, label2.getFont());
+        if (label2Font != null)
+        {
+            label2.setFont(label2Font);
+        }
         label2.setText("Path:");
         mainPanel.add(label2, cc.xy(5, 1));
         pathIn = new JTextField();
@@ -118,6 +126,35 @@ public class YTDownloaderForm extends MDIChild
         toggleButt.setOpaque(true);
         toggleButt.setPreferredSize(new Dimension(140, 40));
         mainPanel.add(toggleButt, cc.xy(3, 3));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$ (String fontName, int style, int size, Font currentFont)
+    {
+        if (currentFont == null)
+        {
+            return null;
+        }
+        String resultName;
+        if (fontName == null)
+        {
+            resultName = currentFont.getName();
+        }
+        else
+        {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1'))
+            {
+                resultName = fontName;
+            }
+            else
+            {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

@@ -11,8 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 //import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +24,7 @@ public class WebServerClient
     private final UrlEncodeUTF8 m_urltransform;
     //private volatile static int instances;
 
-    public static final ExecutorService executor = Executors.newFixedThreadPool(20); // .newCachedThreadPool();
+    //public static final ExecutorService executor = Executors.newFixedThreadPool(20); // .newCachedThreadPool();
 
     /**
      * Constructor
@@ -372,7 +370,7 @@ public class WebServerClient
             }
             imagePage(os, path);
         }
-        out.flush();
-        out.close();
+//        out.flush();
+//        out.close();
     }
 }

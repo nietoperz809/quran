@@ -12,6 +12,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -42,6 +43,8 @@ public class Sockserver implements Runnable
         try
         {
             server = HttpServer.create(new InetSocketAddress(port),1000);
+            server.setExecutor(Executors.newCachedThreadPool()); // multiple Threads
+
         }
         catch (IOException e)
         {
@@ -64,9 +67,9 @@ public class Sockserver implements Runnable
             os.close();
         };
 
-        for (int s=0; s<1000; s++)
+        for(int s=0; s<1000; s++)
             server.createContext("/", hnd);
-    
+
         server.start();
     }
 }

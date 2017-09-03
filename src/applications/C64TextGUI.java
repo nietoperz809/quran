@@ -6,16 +6,13 @@
 package applications;
 
 import chargen.Chargen;
-import misc.TextTools;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import misc.ClipboardImage;
-import misc.MainWindow;
-import misc.MDIChild;
-import misc.Tools;
+import misc.*;
 import turtle.TurtleWindow;
 import twitter.TwitTools;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -68,9 +65,9 @@ public class C64TextGUI extends MDIChild implements ActionListener
     private void initComponents()
     {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         inputText = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
@@ -109,11 +106,11 @@ public class C64TextGUI extends MDIChild implements ActionListener
         jButton7.setText("Save as -->");
         jButton7.addActionListener(this);
         jPanel1.add(jButton7);
-        jButton7.setBounds(390, 10, 120, 25);
+        jButton7.setBounds(361, -2, 120, 25);
 
         saveName.setText("C64Text");
         jPanel1.add(saveName);
-        saveName.setBounds(510, 10, 160, 22);
+        saveName.setBounds(361, 21, 160, 22);
 
         jButton2.setText("To Clip");
         jButton2.addActionListener(this);
@@ -240,8 +237,6 @@ public class C64TextGUI extends MDIChild implements ActionListener
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField messageTxt;
     private javax.swing.JTextField saveName;
     // End of variables declaration//GEN-END:variables

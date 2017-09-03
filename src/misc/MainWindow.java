@@ -5,7 +5,6 @@
  */
 package misc;
 
-import applications.PlotWindow;
 import net.propero.rdp.RdStarter;
 import net.propero.rdp.RdpParamDialog;
 import quran.QuranMetadata;
@@ -67,7 +66,7 @@ public class MainWindow extends javax.swing.JFrame
     {
         instance = this;
         initComponents();
-        this.setTitle(Tools.getBuildNumber());
+        this.setTitle(BuildNumber.getBuildNumber());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         initSavesMenu();
     }
