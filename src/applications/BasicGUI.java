@@ -7,14 +7,14 @@ package applications;
 
 import com.basic.CommandInterpreter;
 import com.basic.streameditor.StreamingTextArea;
+import misc.MDIChild;
+import misc.MainWindow;
+import misc.Tools;
 
+import javax.swing.event.InternalFrameListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.concurrent.*;
-import javax.swing.event.InternalFrameListener;
-import misc.MainWindow;
-import misc.MDIChild;
-import misc.Tools;
 
 /**
  *
@@ -215,13 +215,17 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
      */
     private int runBasicSystem ()
     {
-        if (commandInterpreter == null)
-        {
-            commandInterpreter = new CommandInterpreter (this);
-        }
+        System.err.println("run BASIC system ...");
         try
         {
+            if (commandInterpreter == null)
+            {
+                System.err.println("before CI creation");
+                commandInterpreter = new CommandInterpreter (this);
+            }
+            System.err.println("before ST creation");
             StreamingTextArea st = (StreamingTextArea) area;
+            System.err.println("before interpreter start");
             return commandInterpreter.start(st);
         }
         catch (Exception e)
@@ -235,7 +239,7 @@ public class BasicGUI extends MDIChild implements Runnable, ActionListener, Inte
     public void run()
     {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-        System.out.println("BasicThread start");
+        System.out.println("Basic Thread start");
         int ret = runBasicSystem();
         if (ret == 1)
         {

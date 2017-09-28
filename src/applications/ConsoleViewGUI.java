@@ -5,14 +5,15 @@
  */
 package applications;
 
-import java.awt.Color;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import misc.MDIChild;
+import misc.Tools;
+
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import misc.MDIChild;
-import misc.Tools;
+import java.awt.*;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  *
@@ -60,7 +61,7 @@ public class ConsoleViewGUI extends MDIChild
         System.setErr(interceptor2);
     }
 
-    public void strOut (String txt, Highlighter.HighlightPainter paint)
+    synchronized public void strOut (String txt, Highlighter.HighlightPainter paint)
     {
         int start = textBox.getCaretPosition();
         int end = start + txt.length();

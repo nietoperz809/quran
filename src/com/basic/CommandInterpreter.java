@@ -18,10 +18,9 @@
 package com.basic;
 
 import applications.BasicGUI;
-import applications.PlotWindow;
 import com.basic.streameditor.StreamingTextArea;
 import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
+import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
 import midisystem.MidiSynthSystem;
 import misc.Transmitter;
 
@@ -66,8 +65,11 @@ public class CommandInterpreter implements Serializable
      */
     public CommandInterpreter (BasicGUI bg)
     {
-        VoiceManager voiceManager = VoiceManager.getInstance();
-        voice = voiceManager.getVoice("kevin16");
+//        MyKevinVoiceDirectory mk = new MyKevinVoiceDirectory();
+//        voice = mk.getVoices()[0];
+//        voice.allocate();
+        KevinVoiceDirectory dir = new KevinVoiceDirectory();
+        voice = dir.getVoices()[0];
         voice.allocate();
         m_bg = bg;
     }
@@ -352,16 +354,19 @@ public class CommandInterpreter implements Serializable
      */
     public int start (StreamingTextArea area) throws Exception
     {
+        System.err.println("start BASIC system");
         streamingTextArea = area;
         inStream = new DataInputStream(area.getInputStream());
         outStream = new PrintStream(area.getOutputStream());
 
         if (tokenizer == null)
         {
+            System.out.println("create Tokenizer");
             tokenizer = new LexicalTokenizer(data);
         }
         if (basicProgram == null)
         {
+            System.out.println("create BASIC prog");
             basicProgram = new Program(area, voice, this);
         }
 

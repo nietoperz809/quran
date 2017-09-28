@@ -20,22 +20,16 @@ package com.basic;
 import com.basic.streameditor.StreamingTextArea;
 import com.basic.util.RedBlackTree;
 import com.sun.speech.freetts.Voice;
-
-import java.io.*;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Random;
-import java.util.Stack;
-import java.util.Vector;
-
 import com.sun.speech.freetts.VoiceManager;
 import com.sun.speech.freetts.audio.AudioPlayer;
 import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 import midisystem.MidiSynthSystem;
 
 import javax.sound.sampled.AudioFileFormat;
+import java.io.*;
+import java.util.*;
 
-import static com.basic.ParseStatement.*;
+import static com.basic.ParseStatement.statement;
 
 /**
  * This class instantiates a BASIC program. A valid program is one that is
@@ -747,7 +741,14 @@ public class Program implements Runnable, Serializable
      */
     public void unsetVoiceFilename ()
     {
-        audioPlayer.close();
+        try
+        {
+            audioPlayer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         VoiceManager voiceManager = VoiceManager.getInstance();
         voice = voiceManager.getVoice("kevin16");
         voice.allocate();
