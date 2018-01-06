@@ -6,10 +6,14 @@
 package applications;
 
 import chargen.Chargen;
-import misc.*;
+import misc.ClipboardImage;
+import misc.MDIChild;
+import misc.MainWindow;
+import misc.TextTools;
 import turtle.TurtleWindow;
 import twitter.TwitTools;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -36,7 +40,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
     {
     }
 
-    private void createView (int x, int y)
+    private void createView (int x, int y, Color bk, Color fg)
     {
         if (bitmapView == null)
         {
@@ -69,8 +73,8 @@ public class C64TextGUI extends MDIChild implements ActionListener
         inputText = new javax.swing.JTextArea();
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         renderButton = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        saveName = new javax.swing.JTextField();
+        bkColButton = new javax.swing.JButton();
+        fgColButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         messageTxt = new javax.swing.JTextField();
@@ -102,15 +106,17 @@ public class C64TextGUI extends MDIChild implements ActionListener
         jPanel1.add(renderButton);
         renderButton.setBounds(10, 0, 75, 20);
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 0));
-        jButton7.setText("Save as -->");
-        jButton7.addActionListener(this);
-        jPanel1.add(jButton7);
-        jButton7.setBounds(361, -2, 120, 25);
+        bkColButton.setBackground(Color.BLACK);
+        bkColButton.setToolTipText("Background");
+        bkColButton.addActionListener(this);
+        jPanel1.add(bkColButton);
+        bkColButton.setBounds(361, -2, 50, 25);
 
-        saveName.setText("C64Text");
-        jPanel1.add(saveName);
-        saveName.setBounds(361, 21, 160, 22);
+        fgColButton.setBackground(Color.white);
+        fgColButton.setToolTipText("Foreground");
+        fgColButton.addActionListener(this);
+        jPanel1.add(fgColButton);
+        fgColButton.setBounds(420, -2, 50, 25);
 
         jButton2.setText("To Clip");
         jButton2.addActionListener(this);
@@ -147,9 +153,17 @@ public class C64TextGUI extends MDIChild implements ActionListener
         {
             C64TextGUI.this.doRendering(evt);
         }
-        else if (evt.getSource() == jButton7)
+        else if (evt.getSource() == bkColButton)
         {
-            C64TextGUI.this.jButton7ActionPerformed(evt);
+            Color c = JColorChooser.showDialog(null,
+                    "Background", null);
+            bkColButton.setBackground(c);
+        }
+        else if (evt.getSource() == fgColButton)
+        {
+            Color c = JColorChooser.showDialog(null,
+                    "Foreground", null);
+            fgColButton.setBackground(c);
         }
         else if (evt.getSource() == jButton2)
         {
@@ -178,28 +192,20 @@ public class C64TextGUI extends MDIChild implements ActionListener
             txt = tt.getRightText();
                 
         removeView();
-        createView (d.width, d.height);
-        
+
+        Color bk = bkColButton.getBackground();
+        Color fg = fgColButton.getBackground();
+
+        createView (d.width, d.height, bk, fg);
+
         BufferedImage img = bitmapView.getTurtle().getImage();
-        Chargen.getInstance().printImg (img, txt, 5, 5);
+        Graphics2D ig2 = img.createGraphics();
+        ig2.setBackground(bk);
+        ig2.clearRect(0, 0, img.getWidth(), img.getHeight());
+
+        new Chargen(bk, fg).printImg (img, txt, 5, 5);
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    /**
-     * Save the window
-     * @param evt 
-     */
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
-    {//GEN-HEADEREND:event_jButton7ActionPerformed
-        try
-        {
-            Tools.serialize(saveName.getText(), this);
-            MainWindow.getInstance().initSavesMenu();
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex);
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
@@ -236,9 +242,9 @@ public class C64TextGUI extends MDIChild implements ActionListener
     private javax.swing.JButton renderButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton bkColButton;
+    private javax.swing.JButton fgColButton;
     private javax.swing.JTextField messageTxt;
-    private javax.swing.JTextField saveName;
     // End of variables declaration//GEN-END:variables
 
     @Override

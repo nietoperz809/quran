@@ -6,8 +6,6 @@ import misc.PixelCanvas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -47,7 +45,7 @@ public class PlotWindow extends MDIChild
 
     public void print (int x, int y, String txt)
     {
-        Chargen.getInstance().printImg(off_Image, txt, x, y);
+        new Chargen(Color.black, Color.white).printImg(off_Image, txt, x, y);
         getPixelCanvas().setImage(off_Image);
     }
 

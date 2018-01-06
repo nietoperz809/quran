@@ -8,46 +8,26 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import static java.awt.Color.BLACK;
-import static java.awt.Color.WHITE;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 /**
- *
  * @author Administrator
  */
 public class Chargen
 {
     private final HashMap<Character, Image> map = new HashMap<>();
-    private char pixel = 'O';
-    private static final int setbit = WHITE.getRGB();
-    private static final int clrbit = BLACK.getRGB();
 
-    private static Chargen instance = null;
-
-    public static Chargen getInstance()
-    {
-        if (instance == null)
-            instance = new Chargen();
-        return instance;
-    }
-
-//    /**
-//     * Constructor that sets character as pixel
-//     *
-//     * @param pix
-//     */
-//    public Chargen(char pix)
-//    {
-//        this();
-//        pixel = pix;
-//    }
+    private int setbit;
+    private int clrbit;
 
     /**
      * Constructor, fills the char map
      */
-    private Chargen()
+    public Chargen (Color bk, Color fg)
     {
+        setbit = fg.getRGB();
+        clrbit = bk.getRGB();
+
         map.put('0', getImage(0x980));
         map.put('1', getImage(0x988));
         map.put('2', getImage(0x990));
@@ -141,8 +121,9 @@ public class Chargen
         map.put('–', getImage(0x968));
         map.put(':', getImage(58 * 8));
         map.put(';', getImage(59 * 8));
+        map.put('=', getImage(61 * 8));
 
-        map.put((char)256, getImage(0x298)); // dummy heart
+        map.put((char) 256, getImage(0x298)); // dummy heart
     }
 
 //    private int getIndex(char c)
@@ -153,60 +134,6 @@ public class Chargen
 //        }
 //        return 0x298;  // dummy heart
 //    }
-
-
-    /**
-     * Prints string array to bitmap
-     *
-     * @param img
-     * @param arr
-     * @param x
-     * @param y
-     */
-    public void printImg(BufferedImage img, String[] arr, int x, int y)
-    {
-        for (String str : arr)
-        {
-            printImg(img, str, x, y);
-            y += 8;
-        }
-    }
-
-    /**
-     * Prints String into bitmap
-     *
-     * @param img Destination bitmap
-     * @param s String to print
-     * @param x start position x
-     * @param y start position y
-     */
-    public void printImg(BufferedImage img, CharSequence s, int x, int y)
-    {
-        int xstart = x;
-        for (int i = 0; i < s.length(); i++)
-        {
-            char c = s.charAt(i);
-            if (c == '\n')
-            {
-                y += 8;
-                x = xstart;
-            }
-            else
-            {
-                printImg(img, c, x, y);
-                x += 8;
-            }
-        }
-    }
-
-    private void printImg (BufferedImage img, char c, int x, int y)
-    {
-        Image i = map.get(c);
-        if (i == null)
-            i = map.get((char)256);
-        Graphics g = img.getGraphics();
-        g.drawImage(i, x, y, null);
-    }
 
     private Image getImage (int idx)
     {
@@ -229,5 +156,60 @@ public class Chargen
             }
         }
         return img;
+    }
+
+    /**
+     * Prints string array to bitmap
+     *
+     * @param img
+     * @param arr
+     * @param x
+     * @param y
+     */
+    public void printImg (BufferedImage img, String[] arr, int x, int y)
+    {
+        for (String str : arr)
+        {
+            printImg(img, str, x, y);
+            y += 8;
+        }
+    }
+
+    /**
+     * Prints String into bitmap
+     *
+     * @param img Destination bitmap
+     * @param s   String to print
+     * @param x   start position x
+     * @param y   start position y
+     */
+    public void printImg (BufferedImage img, CharSequence s, int x, int y)
+    {
+        int xstart = x;
+        for (int i = 0; i < s.length(); i++)
+        {
+            char c = s.charAt(i);
+            if (c == '\n')
+            {
+                y += 8;
+                x = xstart;
+            }
+            else
+            {
+                printImg(img, c, x, y);
+                x += 8;
+            }
+        }
+    }
+
+    private void printImg (BufferedImage img, char c, int x, int y)
+    {
+        Image i = map.get(c);
+        if (i == null)
+        {
+            i = map.get((char) 256);
+        }
+        Graphics g = img.getGraphics();
+        g.drawImage(i, x, y, null);
     }
 }
