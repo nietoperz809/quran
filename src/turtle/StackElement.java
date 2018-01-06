@@ -6,14 +6,14 @@
 
 package turtle;
 
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * Stack Element class
  * Contains angle and position to be stored on stack
  * @author Administrator
  */
-class StackElement
+public class StackElement
 {
     private final double angle;
     private final Point point;

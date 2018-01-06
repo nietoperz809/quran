@@ -1,30 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package turtle;
 
-import java.awt.Point;
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
+import java.awt.*;
 
-/**
- *
- * @author Administrator
- */
 public class DoublePoint
 {
-    private final Point Min;
-    private final Point Max;
+    final Point Min;
+    final Point Max;
 
-    public DoublePoint()
+    public DoublePoint ()
     {
-        Min = new Point(MAX_VALUE, MAX_VALUE);
-        Max = new Point(MIN_VALUE, MIN_VALUE);
+        Min = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        Max = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
     }
 
-    public DoublePoint(DoublePoint src)
+    public DoublePoint (DoublePoint src)
     {
         Min = new Point(src.Min);
         Max = new Point(src.Max);
@@ -55,5 +44,4 @@ public class DoublePoint
             Max.y = pt.y;
         }
     }
-    
 }

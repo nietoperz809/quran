@@ -68,7 +68,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         inputText = new javax.swing.JTextArea();
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        renderButton = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         saveName = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -97,10 +97,10 @@ public class C64TextGUI extends MDIChild implements ActionListener
         jPanel1.setPreferredSize(new java.awt.Dimension(491, 50));
         jPanel1.setLayout(null);
 
-        jButton1.setText("Render");
-        jButton1.addActionListener(this);
-        jPanel1.add(jButton1);
-        jButton1.setBounds(10, 0, 75, 20);
+        renderButton.setText("Render");
+        renderButton.addActionListener(this);
+        jPanel1.add(renderButton);
+        renderButton.setBounds(10, 0, 75, 20);
 
         jButton7.setBackground(new java.awt.Color(255, 255, 0));
         jButton7.setText("Save as -->");
@@ -143,9 +143,9 @@ public class C64TextGUI extends MDIChild implements ActionListener
 
     public void actionPerformed(java.awt.event.ActionEvent evt)
     {
-        if (evt.getSource() == jButton1)
+        if (evt.getSource() == renderButton)
         {
-            C64TextGUI.this.jButton1ActionPerformed(evt);
+            C64TextGUI.this.doRendering(evt);
         }
         else if (evt.getSource() == jButton7)
         {
@@ -165,7 +165,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
      * Render Button
      * @param evt 
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    private void doRendering (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         String txt = inputText.getText();
         txt = TextTools.replaceUmlaut(txt);
@@ -233,7 +233,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
     private javax.swing.JCheckBox checkCentered;
     private javax.swing.JCheckBox checkRight;
     private javax.swing.JTextArea inputText;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton renderButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;

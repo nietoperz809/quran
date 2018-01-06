@@ -12,7 +12,7 @@ package turtle;
  */
 public class Command
 {
-    static Command create (CMD c, Object ... arr)
+    static Command create (CMD c, Object... arr)
     {
         Command cmd = new Command();
         cmd.command = c;
@@ -28,7 +28,7 @@ public class Command
     /**
      * All commands as ENUM
      */
-    public enum CMD
+    enum CMD
     {
         F, f, R, r, plus, minus, draw, drawabs, move, moveabs, mult, color, reset, pensize, finalrule, push, pop, lindedraw, lindeaxiom, linderule, linderec, lindeangle, lindestep
     }

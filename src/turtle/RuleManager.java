@@ -5,15 +5,13 @@
  */
 package turtle;
 
-import static java.lang.Math.random;
-import static java.lang.System.out;
 import java.util.ArrayList;
 
 /**
  * Stores and applies Rules
  * @author Administrator
  */
-final class RuleManager
+public final class RuleManager
 {
     private String axiom = "";
     private final ArrayList<Rule> rules = new ArrayList<>();
@@ -44,7 +42,7 @@ final class RuleManager
      * Constructor that sets the Axiom
      * @param a the Axiom string
      */
-    private RuleManager (String a)
+    public RuleManager(String a)
     {
         setAxiom(a);
     }
@@ -76,7 +74,7 @@ final class RuleManager
     public void setRule(String r, double probability)
     {
         String[] two = r.split(SEPARATOR);
-        Rule rule = new Rule (two[0], two[1], probability);
+        Rule rule = new Rule(two[0], two[1], probability);
         rules.add(rule);
     }
     
@@ -88,7 +86,7 @@ final class RuleManager
     public void setFinalRule(String r, double probability)
     {
         String[] two = r.split(SEPARATOR);
-        Rule rule = new Rule (two[0], two[1], probability);
+        Rule rule = new Rule(two[0], two[1], probability);
         finalrules.add(rule);
     }
 
@@ -102,7 +100,7 @@ final class RuleManager
     }
 
     /**
-     * Apply all Rules in a List
+     * Apply all Rules in as List
      * @param list List containing the Rule
      * @param temp Target string
      * @return string with all rules applied
@@ -118,7 +116,7 @@ final class RuleManager
             String hash = ""+rule.hashCode();
             while (temp.contains(hash))
             {
-                if (random() < rule.getProbability())
+                if (Math.random() < rule.getProbability())
                     temp = temp.replaceFirst(hash, rule.getReplacement());
                 else
                     temp = temp.replaceFirst(hash, rule.getKey());
@@ -152,6 +150,6 @@ final class RuleManager
         m.setRule("B->BC", 1.0);
         m.setRule("C->CD", 1.0);
         m.setRecursions(8);
-        out.println(m.getResult());
+        System.out.println(m.getResult());
     }
 }

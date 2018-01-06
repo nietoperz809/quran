@@ -5,13 +5,8 @@
  */
 package turtle;
 
-import static java.awt.Color.WHITE;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import static java.awt.image.BufferedImage.TYPE_BYTE_BINARY;
 
 /**
  * Double buffered Turtle
@@ -19,7 +14,8 @@ import static java.awt.image.BufferedImage.TYPE_BYTE_BINARY;
  */
 public class DoubleBufferedTurtle extends Turtle
 {
-    private final GraphicsConfiguration gconf = getLocalGraphicsEnvironment()
+    private final GraphicsConfiguration gconf = GraphicsEnvironment
+            .getLocalGraphicsEnvironment()
             .getDefaultScreenDevice()
             .getDefaultConfiguration();
 
@@ -28,15 +24,9 @@ public class DoubleBufferedTurtle extends Turtle
      */
     private final BufferedImage offImg;
     
-    public BufferedImage getImage()
-    {
-        return offImg;
-    }
-    
     /**
      * Must be called at end of drawing/moving the turtle
-     * @param g
-     * @throws Exception 
+     * @throws Exception
      */
     @Override
     public void execute(Graphics g) throws Exception
@@ -53,11 +43,13 @@ public class DoubleBufferedTurtle extends Turtle
     public DoubleBufferedTurtle(int width, int height)
     {
         super(width, height);
-        //offImg = gconf.createCompatibleImage(width, height);
-        //offImg = TwitTools.thresholdImage(offImg, 128);
-        offImg = new BufferedImage (width, 
-                height, TYPE_BYTE_BINARY);
-        penColor = WHITE;
+        offImg = gconf.createCompatibleImage(width, height);
+        penColor = Color.WHITE;
+    }
+
+    public BufferedImage getImage ()
+    {
+        return offImg;
     }
 
     /**
@@ -67,8 +59,7 @@ public class DoubleBufferedTurtle extends Turtle
     @Override
     public void paint(Graphics g)
     {
-        Dimension d = this.getSize();
-        g.drawImage(offImg, 0, 0, d.width, d.height, this);
+        g.drawImage(offImg, 0, 0, this);
     }
     
     /**

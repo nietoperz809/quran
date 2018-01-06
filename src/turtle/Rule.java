@@ -10,7 +10,7 @@ package turtle;
  *
  * @author Administrator
  */
-class Rule
+public class Rule
 {
     private final String key;
     private final String replacement;

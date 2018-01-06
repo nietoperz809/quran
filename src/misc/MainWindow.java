@@ -501,7 +501,12 @@ public class MainWindow extends javax.swing.JFrame
     {
         desktopPane.add(c);
         Tools.centerComponent(c, desktopPane);
+//        c.setSize(100,100);
+//        c.invalidate();
+//        c.repaint();
         c.moveToFront();
+        System.out.println("New MDI Child");
+        System.out.println(c);
     }
 
     /**

@@ -6,13 +6,7 @@
 
 package turtle;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 
@@ -20,7 +14,7 @@ import java.text.AttributedCharacterIterator;
  *
  * @author Administrator
  */
-class FakeGraphics extends Graphics
+public class FakeGraphics extends Graphics
 {
 
     @Override
