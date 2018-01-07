@@ -6,6 +6,7 @@
 package turtle;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -27,9 +28,26 @@ public class TurtleWindow extends javax.swing.JInternalFrame
         add (turtle);
         add(turtle, BorderLayout.CENTER);
         this.setVisible(true);
-        this.pack();
+        sizeChanged();
     }
-    
+
+    public void setBkColor (Color bk)
+    {
+        BufferedImage img = turtle.getImage();
+        Graphics2D ig2 = img.createGraphics();
+        ig2.setBackground(bk);
+        ig2.clearRect(0, 0, img.getWidth(), img.getHeight());
+    }
+
+    public void sizeChanged()
+    {
+        BufferedImage bi = turtle.getResizedImage();
+        this.setSize(bi.getWidth()+10,
+                bi.getHeight()+30);
+        this.revalidate();
+        this.repaint();
+    }
+
     /**
      * Get embedded Turtle
      * @return 

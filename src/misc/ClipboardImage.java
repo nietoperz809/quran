@@ -1,26 +1,16 @@
 package misc;
 
-import java.awt.AWTException;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.awt.datatransfer.*;
 import java.io.IOException;
 
 public class ClipboardImage implements ClipboardOwner
 {
-    public ClipboardImage (BufferedImage i)
+    public ClipboardImage (Image i)
     {
         try
         {
-            Robot robot = new Robot();
+            //Robot robot = new Robot();
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             Rectangle screen = new Rectangle(screenSize);
             //BufferedImage i = robot.createScreenCapture(screen);
@@ -28,7 +18,7 @@ public class ClipboardImage implements ClipboardOwner
             Clipboard c = Toolkit.getDefaultToolkit().getSystemClipboard();
             c.setContents(trans, this);
         }
-        catch (AWTException x)
+        catch (Exception x)
         {
             x.printStackTrace();
             //System.exit(1);

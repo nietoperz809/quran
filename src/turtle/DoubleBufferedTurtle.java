@@ -5,6 +5,8 @@
  */
 package turtle;
 
+import misc.ImageTools;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -22,8 +24,9 @@ public class DoubleBufferedTurtle extends Turtle
     /**
      * Off-screen image used as canvas
      */
-    private final BufferedImage offImg;
-    
+    private final BufferedImage origImage;
+    private BufferedImage resizedImage;
+
     /**
      * Must be called at end of drawing/moving the turtle
      * @throws Exception
@@ -31,8 +34,15 @@ public class DoubleBufferedTurtle extends Turtle
     @Override
     public void execute(Graphics g) throws Exception
     {
-        super.drawTurtleSteps(offImg.getGraphics());
+        super.drawTurtleSteps(origImage.getGraphics());
         super.execute(g);
+    }
+
+    public void scale (float x)
+    {
+        int nx = (int) (origImage.getWidth()*x);
+        int ny = (int) (origImage.getHeight()*x);
+        resizedImage = ImageTools.resizeImage(origImage, nx, ny);
     }
     
     /**
@@ -43,13 +53,19 @@ public class DoubleBufferedTurtle extends Turtle
     public DoubleBufferedTurtle(int width, int height)
     {
         super(width, height);
-        offImg = gconf.createCompatibleImage(width, height);
+        origImage = gconf.createCompatibleImage(width, height);
         penColor = Color.WHITE;
     }
 
     public BufferedImage getImage ()
     {
-        return offImg;
+        return origImage;
+    }
+    public BufferedImage getResizedImage ()
+    {
+        if (resizedImage == null)
+            return origImage;
+        return resizedImage;
     }
 
     /**
@@ -59,7 +75,7 @@ public class DoubleBufferedTurtle extends Turtle
     @Override
     public void paint(Graphics g)
     {
-        g.drawImage(offImg, 0, 0, this);
+        g.drawImage(getResizedImage(), 0, 0, this);
     }
     
     /**

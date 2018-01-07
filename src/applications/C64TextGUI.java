@@ -6,16 +6,15 @@
 package applications;
 
 import chargen.Chargen;
-import misc.ClipboardImage;
-import misc.MDIChild;
-import misc.MainWindow;
-import misc.TextTools;
+import misc.*;
 import turtle.TurtleWindow;
 import twitter.TwitTools;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -40,7 +39,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
     {
     }
 
-    private void createView (int x, int y, Color bk, Color fg)
+    private void createView (int x, int y)
     {
         if (bitmapView == null)
         {
@@ -59,6 +58,21 @@ public class C64TextGUI extends MDIChild implements ActionListener
         }
     }
 
+    private void setBmpSize()
+    {
+        float f;
+        try
+        {
+            f = Float.parseFloat(scaleText.getText());
+        }
+        catch (Exception ex)
+        {
+            f = 1;
+        }
+        bitmapView.getTurtle().scale(f);
+        bitmapView.sizeChanged();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,16 +84,59 @@ public class C64TextGUI extends MDIChild implements ActionListener
     {
 
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+
         inputText = new javax.swing.JTextArea();
+        inputText.addKeyListener(new KeyListener()
+        {
+            @Override
+            public void keyTyped (KeyEvent e)
+            {
+
+            }
+
+            @Override
+            public void keyPressed (KeyEvent e)
+            {
+
+            }
+
+            @Override
+            public void keyReleased (KeyEvent e)
+            {
+                doRendering(null);
+            }
+        });
+
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         renderButton = new javax.swing.JButton();
+
         bkColButton = new javax.swing.JButton();
         fgColButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        messageTxt = new javax.swing.JTextField();
+        clipBoardButton = new javax.swing.JButton();
+        tweetButton = new javax.swing.JButton();
         checkCentered = new javax.swing.JCheckBox();
         checkRight = new javax.swing.JCheckBox();
+
+        scaleText = new javax.swing.JTextField();
+        scaleText.addKeyListener(new KeyListener()
+        {
+            @Override
+            public void keyTyped (KeyEvent e)
+            {
+            }
+
+            @Override
+            public void keyPressed (KeyEvent e)
+            {
+
+            }
+
+            @Override
+            public void keyReleased (KeyEvent e)
+            {
+                setBmpSize();
+            }
+        });
 
         setClosable(true);
         setIconifiable(true);
@@ -118,19 +175,20 @@ public class C64TextGUI extends MDIChild implements ActionListener
         jPanel1.add(fgColButton);
         fgColButton.setBounds(420, -2, 50, 25);
 
-        jButton2.setText("To Clip");
-        jButton2.addActionListener(this);
-        jPanel1.add(jButton2);
-        jButton2.setBounds(10, 30, 90, 20);
+        clipBoardButton.setText("To Clip");
+        clipBoardButton.addActionListener(this);
+        jPanel1.add(clipBoardButton);
+        clipBoardButton.setBounds(10, 30, 90, 20);
 
-        jButton4.setText("Tweet");
-        jButton4.addActionListener(this);
-        jPanel1.add(jButton4);
-        jButton4.setBounds(250, 0, 71, 25);
+        tweetButton.setText("Tweet");
+        tweetButton.addActionListener(this);
+        jPanel1.add(tweetButton);
+        tweetButton.setBounds(250, 0, 71, 25);
 
-        messageTxt.setText("C64_Font");
-        jPanel1.add(messageTxt);
-        messageTxt.setBounds(230, 30, 120, 22);
+        scaleText.setText("1");
+        jPanel1.add(scaleText);
+        scaleText.setBounds(230, 30, 40, 22);
+        scaleText.setToolTipText("Size Multiplier");
 
         checkCentered.setText("centered");
         jPanel1.add(checkCentered);
@@ -158,20 +216,22 @@ public class C64TextGUI extends MDIChild implements ActionListener
             Color c = JColorChooser.showDialog(null,
                     "Background", null);
             bkColButton.setBackground(c);
+            doRendering(null);
         }
         else if (evt.getSource() == fgColButton)
         {
             Color c = JColorChooser.showDialog(null,
                     "Foreground", null);
             fgColButton.setBackground(c);
+            doRendering(null);
         }
-        else if (evt.getSource() == jButton2)
+        else if (evt.getSource() == clipBoardButton)
         {
-            C64TextGUI.this.jButton2ActionPerformed(evt);
+            new ClipboardImage (bitmapView.getTurtle().getResizedImage());
         }
-        else if (evt.getSource() == jButton4)
+        else if (evt.getSource() == tweetButton)
         {
-            C64TextGUI.this.jButton4ActionPerformed(evt);
+            C64TextGUI.this.sendToTwitter(evt);
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,8 +239,8 @@ public class C64TextGUI extends MDIChild implements ActionListener
      * Render Button
      * @param evt 
      */
-    private void doRendering (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void doRendering (java.awt.event.ActionEvent evt)
+    {
         String txt = inputText.getText();
         txt = TextTools.replaceUmlaut(txt);
         TextTools tt = new TextTools(txt);
@@ -196,18 +256,16 @@ public class C64TextGUI extends MDIChild implements ActionListener
         Color bk = bkColButton.getBackground();
         Color fg = fgColButton.getBackground();
 
-        createView (d.width, d.height, bk, fg);
+        createView (d.width, d.height);
 
-        BufferedImage img = bitmapView.getTurtle().getImage();
-        Graphics2D ig2 = img.createGraphics();
-        ig2.setBackground(bk);
-        ig2.clearRect(0, 0, img.getWidth(), img.getHeight());
+        bitmapView.setBkColor(bk);
 
-        new Chargen(bk, fg).printImg (img, txt, 5, 5);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new Chargen(bk, fg).printImg (bitmapView.getTurtle().getImage(), txt, 5, 5);
+        setBmpSize();
+    }
     
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    private void sendToTwitter (java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
         if (bitmapView == null)
         {
@@ -217,7 +275,7 @@ public class C64TextGUI extends MDIChild implements ActionListener
         BufferedImage img = bitmapView.getTurtle().getImage();
         try
         {
-            TwitTools.get().send(img, messageTxt.getText());
+            TwitTools.get().send(img, "TwitTools");
         }
         catch (Exception ex)
         {
@@ -225,26 +283,16 @@ public class C64TextGUI extends MDIChild implements ActionListener
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /**
-     * To clipboard
-     * @param evt 
-     */
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
-        BufferedImage img = bitmapView.getTurtle().getImage();
-        new ClipboardImage (img);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkCentered;
     private javax.swing.JCheckBox checkRight;
     private javax.swing.JTextArea inputText;
     private javax.swing.JButton renderButton;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton clipBoardButton;
+    private javax.swing.JButton tweetButton;
     private javax.swing.JButton bkColButton;
     private javax.swing.JButton fgColButton;
-    private javax.swing.JTextField messageTxt;
+    private javax.swing.JTextField scaleText;
     // End of variables declaration//GEN-END:variables
 
     @Override

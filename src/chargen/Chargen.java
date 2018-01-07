@@ -122,6 +122,7 @@ public class Chargen
         map.put(':', getImage(58 * 8));
         map.put(';', getImage(59 * 8));
         map.put('=', getImage(61 * 8));
+        map.put('?', getImage(63 * 8));
 
         map.put((char) 256, getImage(0x298)); // dummy heart
     }

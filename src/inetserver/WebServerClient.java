@@ -1,7 +1,7 @@
 package inetserver;
 
 import applications.WebServerGUI;
-import misc.Tools;
+import misc.ImageTools;
 import misc.Transmitter;
 import transform.Transformation;
 import transform.UrlEncodeUTF8;
@@ -237,7 +237,7 @@ public class WebServerClient
     {
         File f = new File(path);
         PrintWriter w = new PrintWriter(out);
-        byte[] b = Tools.reduceImg(f, 0.2f);
+        byte[] b = ImageTools.reduceImg(f, 0.2f);
         imgHead(w, b.length);
         Transmitter t = new Transmitter(b, out);
         t.doTransmission(_gui);

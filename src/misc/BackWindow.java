@@ -25,7 +25,7 @@ public class BackWindow extends JDesktopPane // implements PathNames
 
     public BackWindow (String BackImagePath)
     {
-        image = Tools.loadImageFromRessource(BackImagePath);
+        image = ImageTools.loadImageFromRessource(BackImagePath);
     }
 
     public BackWindow (InputStream in)

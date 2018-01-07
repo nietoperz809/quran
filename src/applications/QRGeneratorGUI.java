@@ -13,9 +13,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+
+import misc.ImageTools;
 import misc.MDIChild;
 import misc.PixelCanvas;
-import misc.Tools;
 
 /**
  *
@@ -191,8 +192,8 @@ public class QRGeneratorGUI extends MDIChild implements ActionListener
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
     {//GEN-HEADEREND:event_jButton7ActionPerformed
         int newsize = Integer.parseInt(sizeField.getText());
-        BufferedImage img2 = Tools.resizeImage(_img, newsize, newsize);
-        Tools.saveImage(img2, false);
+        BufferedImage img2 = ImageTools.resizeImage(_img, newsize, newsize);
+        ImageTools.saveImage(img2, false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
 

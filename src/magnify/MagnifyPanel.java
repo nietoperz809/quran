@@ -18,10 +18,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import misc.ClipboardImage;
-import misc.MainWindow;
-import misc.TextInputDlg;
-import misc.Tools;
+
+import misc.*;
 //import org.jetbrains.annotations.Nullable;
 import twitter.TwitTools;
 
@@ -164,7 +162,7 @@ public class MagnifyPanel extends javax.swing.JPanel
     {
         if (_image == null)
             return null;
-        return Tools.resizeImage(_image, getWidth(), getHeight());
+        return ImageTools.resizeImage(_image, getWidth(), getHeight());
     }
     
     private int savCtr;
@@ -185,12 +183,12 @@ public class MagnifyPanel extends javax.swing.JPanel
             savCtr++;
             fname = path + "img" + savCtr + ".png";
         } while (new File(fname).exists());
-        Tools.saveImage(fname, _image, false);
+        ImageTools.saveImage(fname, _image, false);
     }
     
     public boolean save(boolean jpeg)
     {
-        return _image != null && Tools.saveImage(_image, jpeg);
+        return _image != null && ImageTools.saveImage(_image, jpeg);
     }
     
     public boolean toClipboard()

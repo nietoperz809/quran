@@ -7,7 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JPanel;
-import misc.Tools;
+
+import misc.ImageTools;
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////// C L O C K ///////////////////////////////////
@@ -59,8 +60,8 @@ public class Clock extends JPanel implements Runnable
 
     public Clock()
     {
-        this (Tools.loadImageFromRessource("JOKE.GIF"),
-              Tools.loadImageFromRessource("DAYS.GIF"));
+        this (ImageTools.loadImageFromRessource("JOKE.GIF"),
+              ImageTools.loadImageFromRessource("DAYS.GIF"));
     }
 
     public void shutdown()

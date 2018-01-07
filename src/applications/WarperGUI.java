@@ -6,7 +6,8 @@
 package applications;
 
 import java.awt.image.BufferedImage;
-import misc.Tools;
+
+import misc.ImageTools;
 import misc.WarpCanvas;
 import twitter.TwitTools;
 
@@ -130,14 +131,14 @@ public class WarperGUI extends javax.swing.JInternalFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-        BufferedImage img = Tools.loadImage();
+        BufferedImage img = ImageTools.loadImage();
         ((WarpCanvas)jPanel1).setImage(img);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
         BufferedImage img = ((WarpCanvas)jPanel1).getImage();
-        Tools.saveImage(null, img, false);
+        ImageTools.saveImage(null, img, false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed

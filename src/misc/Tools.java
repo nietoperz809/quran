@@ -5,17 +5,12 @@ package misc;
 
 import transform.Transformation;
 
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -41,23 +36,23 @@ import static java.awt.datatransfer.DataFlavor.stringFlavor;
 public class Tools
 {
     private static final String m_path = "../ser/";
-        private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(20);
+    private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(20);
 
-    public static int getExecutorFreeSlots ()
-    {
-        int tc = ((ThreadPoolExecutor)globalExecutor).getActiveCount();
-        int tm = ((ThreadPoolExecutor)globalExecutor).getCorePoolSize();
-        System.out.println(tc+"/"+tm);
-        return tm-tc;
-    }
-
-    public static void execute(Runnable r)
+    public static void execute (Runnable r)
     {
         if (getExecutorFreeSlots() <= 0)
         {
             System.out.println("Thread pool exhausted");
         }
         globalExecutor.execute(r);
+    }
+
+    private static int getExecutorFreeSlots ()
+    {
+        int tc = ((ThreadPoolExecutor) globalExecutor).getActiveCount();
+        int tm = ((ThreadPoolExecutor) globalExecutor).getCorePoolSize();
+        System.out.println(tc + "/" + tm);
+        return tm - tc;
     }
 
     public static Future submit (Runnable r)
@@ -85,125 +80,6 @@ public class Tools
     {
         DecimalFormat myFormatter = new DecimalFormat("000,000,000");
         return "  " + myFormatter.format(bytes);
-    }
-
-    /**
-     * Load a buffered image from disk
-     *
-     * @return
-     */
-    public static BufferedImage loadImage()
-    {
-        FileDialog fd = new FileDialog ((Frame)null, "Load", FileDialog.LOAD);
-        fd.setVisible(true);
-        if (fd.getFile() == null)
-        {
-            return null;
-        }
-        File f = new File(fd.getDirectory() + fd.getFile());
-        try
-        {
-            return ImageIO.read(f);
-        }
-        catch (IOException ex)
-        {
-            System.err.println("LoadImage fail");
-        }
-        return null;
-    }
-
-    public static boolean saveImage (BufferedImage img, boolean jpg)
-    {
-        if (img == null)
-        {
-            return false;
-        }
-        FileDialog fd = new FileDialog((Frame) null, "Save", FileDialog.SAVE);
-        fd.setVisible(true);
-        return fd.getFile() != null && saveImage(fd.getDirectory() + fd.getFile(), img, jpg);
-    }
-
-    public static boolean saveImage (String name, BufferedImage img, boolean jpg)
-    {
-        if (jpg)
-        {
-            if (!name.endsWith(".jpg"))
-            {
-                name = name + ".jpg";
-            }
-        }
-        else
-        {
-            if (!name.endsWith(".png"))
-            {
-                name = name + ".png";
-            }
-        }
-        File f = new File(name);
-        try
-        {
-            if (jpg)
-            {
-                ImageIO.write(img, "jpg", f);
-            }
-            else
-            {
-                ImageIO.write(img, "png", f);
-            }
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Reduces image quality
-     *
-     * @param path Path of jpeg file
-     * @param qual Quality 0.0 ... 1.0
-     * @return byte array of jpeg data
-     * @throws Exception
-     */
-    public static byte[] reduceImg (File path, float qual) throws Exception
-    {
-        BufferedImage image = ImageIO.read(path);
-        image = resizeImage(image, 100, 100);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
-
-        ImageWriteParam param = writer.getDefaultWriteParam();
-        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(qual); // Change this, float between 0.0 and 1.0
-
-        writer.setOutput(ImageIO.createImageOutputStream(os));
-        writer.write(null, new IIOImage(image, null, null), param);
-        writer.dispose();
-        return os.toByteArray();
-    }
-
-    /**
-     * Creates Image copy of new size
-     *
-     * @param originalImage Input image
-     * @param b             With
-     * @param h             Height
-     * @return new Image
-     */
-    public static BufferedImage resizeImage (BufferedImage originalImage, int b, int h)
-    {
-        if (originalImage == null)
-        {
-            return null;
-        }
-        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-        BufferedImage resizedImage = new BufferedImage(b, h, type);
-        Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, b, h, null);
-        g.dispose();
-        return resizedImage;
     }
 
     public static double readDouble (JTextField jf, double defaultvalue)
@@ -439,24 +315,10 @@ public class Tools
         }
         a.setLocation(pt);
     }
-    
-    public static Image loadImageFromRessource (String name)
-    {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream(name);
-        try
-        {
-            return ImageIO.read (is);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     /**
      * Calls str.replace repeatedly
+     *
      * @param s input string
      * @param a substring to search
      * @param b replacement
@@ -464,11 +326,13 @@ public class Tools
      */
     public static String realReplaceAll (String s, String a, String b)
     {
-        for (;;)
+        for (; ; )
         {
-            String n = s.replace(a,b);
+            String n = s.replace(a, b);
             if (n.equals(s))
+            {
                 return n;
+            }
             s = n;
         }
     }
