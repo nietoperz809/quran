@@ -119,6 +119,7 @@ public class Chargen
         map.put('”', getImage(34 * 8));
         map.put('“', getImage(34 * 8));
         map.put('–', getImage(0x968));
+        map.put('—', getImage(0x968));
         map.put(':', getImage(58 * 8));
         map.put(';', getImage(59 * 8));
         map.put('=', getImage(61 * 8));
