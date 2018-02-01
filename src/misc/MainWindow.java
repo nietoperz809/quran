@@ -66,7 +66,7 @@ public class MainWindow extends javax.swing.JFrame
     {
         instance = this;
         initComponents();
-        this.setTitle(BuildNumber.getBuildNumber());
+        this.setTitle(BuildNumber.getBuildNumber()+" -- "+Tools.getJavaInfo());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         initSavesMenu();
     }

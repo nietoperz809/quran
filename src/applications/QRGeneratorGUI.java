@@ -9,14 +9,13 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-
 import misc.ImageTools;
 import misc.MDIChild;
 import misc.PixelCanvas;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -104,6 +103,7 @@ public class QRGeneratorGUI extends MDIChild implements ActionListener
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
         canvas.setBackground(new java.awt.Color(255, 255, 102));
+        canvas.setPreferredSize(new Dimension(100,100));
         canvas.setLayout(null);
         getContentPane().add(canvas, java.awt.BorderLayout.CENTER);
 

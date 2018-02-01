@@ -17,8 +17,8 @@ public class Chargen
 {
     private final HashMap<Character, Image> map = new HashMap<>();
 
-    private int setbit;
-    private int clrbit;
+    private final int setbit;
+    private final int clrbit;
 
     /**
      * Constructor, fills the char map
@@ -128,15 +128,6 @@ public class Chargen
         map.put((char) 256, getImage(0x298)); // dummy heart
     }
 
-//    private int getIndex(char c)
-//    {
-//        if (map.containsKey(c))
-//        {
-//            return map.get(c);
-//        }
-//        return 0x298;  // dummy heart
-//    }
-
     private Image getImage (int idx)
     {
         BufferedImage img = new BufferedImage(8, 8, TYPE_INT_ARGB);
@@ -160,22 +151,24 @@ public class Chargen
         return img;
     }
 
-    /**
-     * Prints string array to bitmap
-     *
-     * @param img
-     * @param arr
-     * @param x
-     * @param y
-     */
-    public void printImg (BufferedImage img, String[] arr, int x, int y)
-    {
-        for (String str : arr)
-        {
-            printImg(img, str, x, y);
-            y += 8;
-        }
-    }
+// --Commented out by Inspection START (1/16/2018 7:40 AM):
+//    /**
+//     * Prints string array to bitmap
+//     *
+//     * @param img
+//     * @param arr
+//     * @param x
+//     * @param y
+//     */
+//    public void printImg (BufferedImage img, String[] arr, int x, int y)
+//    {
+//        for (String str : arr)
+//        {
+//            printImg(img, str, x, y);
+//            y += 8;
+//        }
+//    }
+// --Commented out by Inspection STOP (1/16/2018 7:40 AM)
 
     /**
      * Prints String into bitmap

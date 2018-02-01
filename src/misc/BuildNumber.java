@@ -4,8 +4,8 @@ package misc;
 
 public final class BuildNumber
 {
-    public static final String BUILD_NUMBER = "114";
-    public static final String BUILD_DATE = "01/07/2018 08:15:27 AM";
+    public static final String BUILD_NUMBER = "123";
+    public static final String BUILD_DATE = "01/31/2018 03:47:53 PM";
 
     public static String getBuildNumber ()
     {

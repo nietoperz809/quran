@@ -337,4 +337,9 @@ public class Tools
         }
     }
 
+    public static String getJavaInfo()
+    {
+        return System.getProperty("java.version");
+    }
+
 }
